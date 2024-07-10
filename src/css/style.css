@@ -62,7 +62,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 232px;
+    max-width: 232px;
     height: 1024px;
     padding: 0px 64px;
 }
@@ -72,14 +72,18 @@ body {
     height: 122px;
 }
 
-header {
+header{
+    width: 100vw;    
+    height: 96px;   
+    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 96px;
-    width: 1440px;
+    max-width: 1440px;
     padding: 20px 40px;
-    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .template {
