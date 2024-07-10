@@ -20,7 +20,7 @@ body{
 }
 
 .contact-list{
-    background-color: background-color #000000;
+    background-color:#FFFFFF;
     height: 932px;
     width: 456px;
     position: absolute;
@@ -54,12 +54,20 @@ body{
     height: 53px;
 }
 
+.btnbox{
+ height: 101px;
+ width: 456px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
 #addbtn{
     width: 352px;
     height: 56px;
     color: white;
     background-color: #2A3647;
-    border-radius: 10%;
+    border-radius: 10px;
     font-weight: 700;
     font-size: 21px;
     border: 1px;
