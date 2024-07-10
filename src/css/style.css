@@ -2,7 +2,33 @@
     font-family: 'Inter';
     src: url("/src/fonts/inter/inter-v13-latin-regular.woff2") format("woff2");
     font-weight: 600;
-  }
+}
+
+.d-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-flex-around {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.d-flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-d-col {
+    flex-direction: column;
+}
+
+.flex-d-row {
+    flex-direction: row;
+}
 
 .background-main{
     background-color: rgb(246, 247, 248);
@@ -142,30 +168,4 @@ header{
     border-radius: 50%;
     margin-left: 15px;
     cursor: pointer;
-}
-
-.d-flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.d-flex-around {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.d-flex-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.flex-d-col {
-    flex-direction: column;
-}
-
-.flex-d-row {
-    flex-direction: row;
 }
