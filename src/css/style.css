@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url("/src/fonts/Roboto-Regular.ttf") format("woff2");
+    font-weight: 600;
+  }
+
 .background-main{
     background-color: rgb(246, 247, 248);
 }
@@ -45,6 +51,7 @@
 }
 
 body {
+    font-family: 'Roboto';
     margin: 0;
     height: 100vh;
     width: 100vw;
@@ -72,7 +79,7 @@ header {
     height: 96px;
     width: 1440px;
     padding: 20px 40px;
-    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .template {
@@ -94,5 +101,5 @@ header {
     width: 56px !important;
     height: 56px;
     border-radius: 50%;
-    margin-left: 5px;
+    margin-left: 15px;
 }
