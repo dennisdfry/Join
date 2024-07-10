@@ -60,11 +60,37 @@ body {
 .nav {
     background-color: #2A3647;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    flex-direction: column;
     max-width: 232px;
     height: 1024px;
     padding: 0px 64px;
+}
+
+.nav-mid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.nav-mid a:hover {
+    color: #091931;
+}
+
+.nav-mid a {
+    text-decoration: none;
+    color: #CDCDCD;
+}
+
+.nav-down {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-down a {
+    text-decoration: none;
+    color: #A8A8A8;
 }
 
 .nav img {
@@ -99,6 +125,7 @@ header{
 
 .user-section img {
     width: 16px;
+    cursor: pointer;
 }
 
 .user-icon {
@@ -106,4 +133,5 @@ header{
     height: 56px;
     border-radius: 50%;
     margin-left: 15px;
+    cursor: pointer;
 }
