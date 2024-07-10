@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none !important;
 }
 .arrow-button:hover{
     border:2px solid rgb(87, 188, 231);
@@ -17,6 +18,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 .imprint a{
     position: relative;
