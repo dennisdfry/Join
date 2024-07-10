@@ -75,6 +75,13 @@ body {
 .nav-mid a {
     text-decoration: none;
     color: #CDCDCD;
+    font-size: 16px;
+}
+
+.nav-mid img {
+    width: 30px !important;
+    height: 30px !important;
+    margin-right: 5px;
 }
 
 .summary-field,
@@ -90,6 +97,10 @@ body {
 .board-field:hover,
 .contact-field:hover {    
     background-color: #091931;
+}
+
+.nav-down {    
+    gap: 15px;
 }
 
 .nav-down a {
@@ -111,6 +122,8 @@ header{
 .head {
     max-width: 1440px;
     padding: 20px 40px;
+    font-size: 20px;
+    line-height: 24px;
 }
 
 .template {
