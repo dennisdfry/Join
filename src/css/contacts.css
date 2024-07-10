@@ -1,16 +1,33 @@
+
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/inter/inter-v13-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/inter/inter-v13-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
 body{
     background-color: #F6F7F8;
+    font-family: inter;
 }
-@font-face {
-    font-family: 'inter';
-    src: url("src\fonts\inter\inter-v13-latin-700.woff2") format("woff2");
-    font-weight: 700;
-  }
+
 .contact-list{
     background-color: background-color #000000;
-    height: 100px;
-    width: 20px;
+    height: 932px;
+    width: 456px;
+    position: absolute;
+    top: 96px;
+    left: 232px;
 }
+
 .contact-overlay{
     width: 569px;
     height: 73px;
@@ -23,9 +40,35 @@ body{
     align-items: center;
 }
  .contact-overlay h1{
-    font-size: 63px;
+    font-size: 61px;
+    font-weight: 700;
 }
+.contact-overlay p{
+    font-size: 26px;
+    font-weight: 400;
+    color: #2A3647;
+}
+
 .seperator {
     border-left: 3px solid #29ABE2;
     height: 53px;
-  }
+}
+
+#addbtn{
+    width: 352px;
+    height: 56px;
+    color: white;
+    background-color: #2A3647;
+    border-radius: 10%;
+    font-weight: 700;
+    font-size: 21px;
+    border: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#addbtn img{
+    width: 32px;
+    height: 32px;
+    padding-left: 16px;
+}
