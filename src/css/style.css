@@ -1,0 +1,42 @@
+.background-main{
+    background-color: rgb(246, 247, 248);
+}
+.imprint{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.arrow-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.arrow-button:hover{
+    border:2px solid rgb(87, 188, 231);
+}
+.imprint-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.imprint a{
+    position: relative;
+    color: rgb(87, 188, 231);
+    text-decoration: none;
+    padding: 3px 0;
+}
+
+.imprint a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background-color: rgb(87, 188, 231);
+    transition: all 0.4s ease;
+}
+
+.imprint a:hover::after {
+    left: 0;
+    width: 100%;
+}
