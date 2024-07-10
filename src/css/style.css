@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Roboto';
-    src: url("/src/fonts/Roboto-Regular.ttf") format("woff2");
+    font-family: 'Inter';
+    src: url("/src/fonts/inter/inter-v13-latin-regular.woff2") format("woff2");
     font-weight: 600;
   }
 
@@ -56,7 +56,7 @@
 }
 
 body {
-    font-family: 'Roboto';
+    font-family: 'Inter';
     margin: 0;
     height: 100vh;
     width: 100vw;
