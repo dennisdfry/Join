@@ -65,22 +65,38 @@ body {
     flex-direction: column;
     max-width: 232px;
     height: 1024px;
-    padding: 0px 64px;
 }
 
 .nav-mid {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 15px;
-}
-
-.nav-mid a:hover {
-    color: #091931;
 }
 
 .nav-mid a {
     text-decoration: none;
     color: #CDCDCD;
+}
+
+.summary-field,
+.task-field,
+.board-field,
+.contact-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 232px;
+    padding: 8px 0px;
+}
+
+.summary-field:hover,
+.task-field:hover,
+.board-field:hover,
+.contact-field:hover {    
+    background-color: #091931;
 }
 
 .nav-down {
