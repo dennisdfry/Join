@@ -24,16 +24,18 @@ body{
     height: 932px;
     width: 456px;
     position: absolute;
+    margin-left: 28px;
     top: 96px;
     left: 232px;
+    box-shadow: 4px 0px 6px 0px #00000014;
+
 }
 
 .contact-overlay{
     width: 569px;
     height: 73px;
-    position: absolute;
-    top: 206px;
-    left: 743px;
+    margin-top: 206px;
+    margin-left: 743px;
     gap: 30px;
     display: flex;
     flex-direction: row;
@@ -79,4 +81,31 @@ body{
     width: 32px;
     height: 32px;
     padding-left: 16px;
+}
+
+.alphabetic{
+    display: flex;
+    justify-content: flex-start;
+    width: 352px;
+    height: 58px;
+    padding: 17px 36px 17px 36px;
+}
+
+.alphabetic p{
+    width: 14px;
+    height: 24px;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+#seperator2{
+    width: 352px;
+    border-bottom: 1px;
+    border: 1px solid #D1D1D1;
+    display: flex;
+    justify-content: center;
+    
 }
