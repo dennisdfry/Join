@@ -1,10 +1,10 @@
 # Join Kanban Board
 
-Willkommen bei **Join**, einer dynamischen und intuitiven Kanban-Board-Anwendung, inspiriert von Trello. Dieses Projekt ist ein gemeinschaftliches Portfolio-Stück, entwickelt von einem Team aus drei Studenten der Developer Akademie.
+Willkommen bei **Join**, einer dynamischen und intuitiven Kanban-Board-Anwendung, inspiriert von Trello. Dieses Projekt ist ein gemeinschaftliches Portfolio-Projekt, entwickelt von einem Team aus drei Studenten der Developer Akademie.
 
 ## Überblick
 
-Join ist darauf ausgelegt, dir bei der effizienten Verwaltung deiner Aufgaben und Projekte zu helfen. Mit einer benutzerfreundlichen Oberfläche und robusten Funktionalitäten ermöglicht dir Join das Erstellen, Organisieren und Nachverfolgen deiner Aufgaben nahtlos. Egal, ob du an einem persönlichen Projekt arbeitest oder im Team kollaborierst, Join bietet dir die Werkzeuge, die du brauchst, um organisiert und produktiv zu bleiben.
+Join ist darauf ausgelegt, dir bei der effizienten Verwaltung deiner Aufgaben und Projekte zu helfen. Mit einer benutzerfreundlichen Oberfläche und robusten Funktionalitäten ermöglicht dir Join das Erstellen, Organisieren und Nachverfolgen deiner Aufgaben. Egal, ob du an einem persönlichen Projekt arbeitest oder im Team kollaborierst, Join bietet dir die Werkzeuge, die du brauchst, um organisiert und produktiv zu bleiben.
 
 ## Funktionen
 
