@@ -34,13 +34,14 @@
 .flex-d-row {
     flex-direction: row;
 }
-
-.background-main{
-    background-color: rgb(246, 247, 248);
+.imprint-content{
     max-width: 1014px;
     padding-left:24px;
     padding-right:24px;
     font-family: 'Inter';
+}
+.background-main{
+    background-color: rgb(246, 247, 248);
 }
 .background-main h2,h3{
     font-family: 'Inter700';
