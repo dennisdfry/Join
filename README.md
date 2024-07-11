@@ -24,8 +24,8 @@ Join ist darauf ausgelegt, dir bei der effizienten Verwaltung deiner Aufgaben un
 
 Wenn du Fragen, Vorschläge oder Feedback hast, kannst du dich gerne an uns wenden:
 
-- [Developer 1](https://github.com/M1roel)
-- [Developer 2](https://github.com/dennisdfry)
-- [Developer 3](https://github.com/BennieB12)
+- [Peter](https://github.com/M1roel)
+- [Dennis](https://github.com/dennisdfry)
+- [Benjamin](https://github.com/BennieB12)
 
 Wir hoffen, dass du Join genauso gerne benutzt, wie wir es gebaut haben. Viel Spaß beim Aufgaben-Management!
