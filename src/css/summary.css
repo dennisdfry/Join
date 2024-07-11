@@ -1,0 +1,29 @@
+.summary-section {
+    padding-top: 206px;
+    padding-left: 328px;
+}
+
+.summary-headline {
+    display: flex;
+    align-items: center;
+}
+
+.summary-task-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.summary-tasks {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-tasks-up {
+    display: flex;
+    flex-direction: row;
+}
+
+.summary-tasks-down {
+    display: flex;
+    flex-direction: row;
+}
