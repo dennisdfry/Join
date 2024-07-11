@@ -17,6 +17,13 @@
 
 .d-flex-start {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.d-flex-end {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -163,6 +170,7 @@ body {
 .nav-down {    
     gap: 15px;
     height: 33vh;
+    padding-bottom: 64px;
 }
 
 .nav-down a {
