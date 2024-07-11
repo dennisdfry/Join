@@ -73,6 +73,7 @@ body{
     font-weight: 700;
     font-size: 21px;
     border: 1px;
+    padding: 12px, 16px, 12px, 16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,7 +84,7 @@ body{
     padding-left: 16px;
 }
 
-.alphabetic{
+.alphabetic-order{
     display: flex;
     justify-content: flex-start;
     width: 352px;
@@ -91,7 +92,7 @@ body{
     padding: 17px 36px 17px 36px;
 }
 
-.alphabetic p{
+.alphabetic-order p{
     width: 14px;
     height: 24px;
     font-family: Inter;
@@ -101,11 +102,39 @@ body{
     text-align: left;
 }
 
-#seperator2{
+.seperator2{
     width: 352px;
     border-bottom: 1px;
     border: 1px solid #D1D1D1;
     display: flex;
     justify-content: center;
-    
+}
+
+.contact-content{
+    width: Fixed 352px;
+    height: Hug 78px;
+    padding: 15px 24px 15px 24px;
+    gap: 35px;
+    border-radius: 10px 0px 0px 0px;
+    display: flex;
+}
+
+.contact-content img{
+    width: 42px;
+    height: 42px;
+    border-left: 2px;
+}
+.cont-name{
+    width: 121px;
+    height: 24px;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+.cont-mail{
+    color: #007CEE;
+    font-size: 16px;
+    line-height: 19.2px
 }
