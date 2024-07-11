@@ -15,6 +15,11 @@
     align-items: center;
 }
 
+.d-flex-start {
+    display: flex;
+    align-items: center;
+}
+
 .d-flex-around {
     display: flex;
     justify-content: space-around;
@@ -117,11 +122,14 @@ body {
     background-color: #2A3647;
     max-width: 232px;
     height: 100vh;
-    padding: 64px 0px;
 }
 
+.nav-up {
+    padding: 64px 0px;
+}
 .nav-mid {
     gap: 15px;
+    height: 33vh;
 }
 
 .nav-mid a {
@@ -140,8 +148,8 @@ body {
 .task-field,
 .board-field,
 .contact-field {
-    width: 232px;
-    padding: 8px 0px;
+    width: 150px;
+    padding-left: 64px;
 }
 
 .summary-field:hover,
@@ -153,6 +161,7 @@ body {
 
 .nav-down {    
     gap: 15px;
+    height: 33vh;
 }
 
 .nav-down a {
