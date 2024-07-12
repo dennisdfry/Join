@@ -35,3 +35,7 @@
 .flex-d-row {
     flex-direction: row;
 }
+
+.fs-64 {
+    font-size: 64px;
+}
