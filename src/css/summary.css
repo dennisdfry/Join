@@ -103,3 +103,8 @@ body {
 .summary-done-left img {
     width: 64px;
 }
+
+.summary-to-do-number,
+.summary-done-number {
+    font-size: 64px;
+}
