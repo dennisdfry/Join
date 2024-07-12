@@ -1,0 +1,38 @@
+
+@font-face {
+    font-family: 'Inter';
+    src: url("/src/fonts/inter/inter-v13-latin-regular.woff2") format("woff2");
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Inter700';
+    src: url("/src/fonts/inter/inter-v13-latin-700.woff2") format("woff2");
+    font-weight: 700;
+}
+.add-Task-Container{
+    width:1116px;
+    height:870px;
+    border-radius:30px;
+
+}
+.add-task-head{
+    margin-top: 64px;
+    height: 78px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter700';
+    font-size:61px;
+}
+.add-task-head h1{
+    margin-left: 74px;
+}
+.add-task-head img{
+    height: 32px;
+    width:32px;
+    border-radius: 56px;
+}
+.add-task-close-button{
+    display: flex;
+    align-items:last baseline;
+}
