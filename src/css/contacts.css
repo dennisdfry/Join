@@ -17,18 +17,25 @@
 body{
     background-color: #F6F7F8;
     font-family: inter;
+    margin: 0;
+    height: 100vh;
+}
+
+.content{
+    height: 928px;
+    float: right;
 }
 
 .contact-list{
     background-color:#FFFFFF;
-    height: 932px;
+    height: 900px;
+    overflow:auto;
     width: 456px;
     position: absolute;
     margin-left: 28px;
     top: 96px;
     left: 232px;
     box-shadow: 4px 0px 6px 0px #00000014;
-
 }
 
 .contact-overlay{
@@ -111,8 +118,8 @@ body{
 }
 
 .contact-content{
-    width: Fixed 352px;
-    height: Hug 78px;
+    width: 352px;
+    height: 78px;
     padding: 15px 24px 15px 24px;
     gap: 35px;
     border-radius: 10px 0px 0px 0px;
@@ -125,7 +132,6 @@ body{
     border-left: 2px;
 }
 .cont-name{
-    width: 121px;
     height: 24px;
     font-family: Inter;
     font-size: 20px;
