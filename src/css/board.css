@@ -71,3 +71,29 @@
 .add-task:hover{
     cursor:pointer;
 }
+.board-task-column{
+    width:244px;
+    height: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:13px
+}
+.board-task-column h4{
+    color:#42526E;
+    font-family: 'Inter700';
+    font-size: 20px;
+}
+.board-task-column img {
+    height:24px;
+    width:24px;  
+}
+.board-task-column img:hover{
+    cursor: pointer;
+}
+.board-task-column-right{
+    padding-right: 76px;
+}
+.board-task-column-left{
+    padding-left: 76px;
+}

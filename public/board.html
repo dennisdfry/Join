@@ -22,22 +22,28 @@
                 <img class="add-task" src="./img/Secondary-plus.png" alt="">
             </div>
         </section>
-        <section class="board-head-section-bottom">
-            <div>
+        <section class="board-head-section-bottom ">
+            <div class="board-task-column board-task-column-left">
                 <h4>To do</h4>
                 <img src="./img/plus button.png" alt="">
             </div>
-            <div>
+            <div class="board-task-column">
                 <h4>in progress</h4>
                 <img src="./img/plus button.png" alt="">
             </div>
-            <div>
+            <div class="board-task-column">
                 <h4>Await feedback</h4>
                 <img src="./img/plus button.png" alt="">
             </div>
-            <div>
+            <div class="board-task-column board-task-column-right">
                 <h4>Done</h4>
             </div>
+        </section>
+        <section class="board-render-section" id="renderSectionBoard">
+            <div id="todo${index}"></div>
+            <div id="inProgress${index}"></div>
+            <div id="awaitFeedback${index}"></div>
+            <div id="done${index}"></div>
         </section>
     </div>
 </body>
