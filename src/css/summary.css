@@ -49,20 +49,24 @@ body {
 .summary-to-do {
     width: 50%;
     background-color: white;
-    border-radius: 10%;
+    border-radius: 30px;
     margin-right: 20px;
+    padding: 38px 19px;
+    gap: 18px;
 }
 
 .summary-done {
     width: 50%;
     background-color: white;
-    border-radius: 10%;
+    border-radius: 30px;
+    padding: 38px 19px;
+    gap: 18px;
 }
 
 .summary-tasks-mid {
     height: 168px;
     background-color: white;
-    border-radius: 10%;
+    border-radius: 30px;
     margin-top: 20px;
 }
 
@@ -77,17 +81,25 @@ body {
 .summary-task-in-progress {
     width: 33%;
     margin-right: 20px;
-    border-radius: 10px;    
+    border-radius: 30px;    
     background-color: white;
 }
 
 .summary-task-feedback {
     width: 33%;
-    border-radius: 10px;
+    border-radius: 30px;
     background-color: white;
 }
 
 .summary-user-greeting {
     font-size: 47px;
     font-family: 'Inter';
+}
+
+.summary-to-do-left img {
+    width: 64px;
+}
+
+.summary-done-left img {
+    width: 64px;
 }

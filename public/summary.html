@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/css/style.css">
-    <link rel="stylesheet" href="/src/css/summary.css">
-    <link rel="stylesheet" href="/src/css/flexbox-style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/css/style.css" />
+    <link rel="stylesheet" href="/src/css/summary.css" />
+    <link rel="stylesheet" href="/src/css/flexbox-style.css" />
     <title>JOIN - Summary</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="summary-section">
-        <section class="summary-headline">
-            <span class="summary-headline-left">JOIN 274</span>
-            <span class="summary-headline-right">Key Metrics at a Glance</span>
-        </section>
-        <section class="summary-task-row">
-            <div class="summary-tasks">
-                <div class="summary-tasks-up">
-                    <div class="summary-to-do">
-                        TO DO
-                    </div>
-                    <div class="summary-done">
-                        DONE
-                    </div>
-                </div>
-                <div class="summary-tasks-mid">
-                    <div class="summary-urgent">
-                        URGENT
-                    </div>
-                </div>
-                <div class="summary-tasks-down">
-                    <div class="summary-task-in-borad">
-                        TASK BOARD
-                    </div>
-                    <div class="summary-task-in-progress">
-                        TASK PROGRESS
-                    </div>
-                    <div class="summary-task-feedback">
-                        TASK FEEDBACK
-                    </div>
-                </div>
+      <section class="summary-headline">
+        <span class="summary-headline-left">JOIN 274</span>
+        <span class="summary-headline-right">Key Metrics at a Glance</span>
+      </section>
+      <section class="summary-task-row">
+        <div class="summary-tasks">
+          <div class="summary-tasks-up">
+            <div class="summary-to-do d-flex-center">
+              <div class="summary-to-do-left">
+                <img src="/public/img/pencil.png" alt="pencil logo" />
+              </div>
+              <div class="summary-to-do-right d-flex-center flex-d-col">
+                <span>1</span>
+                <span>To-do</span>
+              </div>
             </div>
-            <div class="summary-user-greeting">
-                <span>Good morning,</span>
-            </div>
-        </section>
+            <div class="summary-done d-flex-center">
+                <div class="summary-done-left">
+                <img src="/public/img/check.png" alt="check logo" />
+              </div>
+              <div class="summary-done-right d-flex-center flex-d-col">
+                <span>1</span>
+                <span>Done</span>
+              </div></div>
+          </div>
+          <div class="summary-tasks-mid">
+            <div class="summary-urgent">URGENT</div>
+          </div>
+          <div class="summary-tasks-down">
+            <div class="summary-task-in-borad">TASK BOARD</div>
+            <div class="summary-task-in-progress">TASK PROGRESS</div>
+            <div class="summary-task-feedback">TASK FEEDBACK</div>
+          </div>
+        </div>
+        <div class="summary-user-greeting">
+          <span>Good morning,</span>
+        </div>
+      </section>
     </div>
 
     <script src="/src/js/summary.js"></script>
-</body>
+  </body>
 </html>
