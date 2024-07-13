@@ -36,12 +36,20 @@
   flex-direction: row;
 }
 
+.txt-center {
+  text-align: center;
+}
+
 .fs-64 {
   font-size: 64px;
 }
 
 .fs-20 {
   font-size: 20px;
+}
+
+.plr-20 {
+  padding: 0px 20px;
 }
 
 .color-dg {
