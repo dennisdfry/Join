@@ -107,3 +107,8 @@ body {
 .summary-urgent-left img {
   width: 60px;
 }
+
+.summary-tasks-mid-right,
+.summary-tasks-mid-left {
+  gap: 13px;
+}

@@ -40,12 +40,21 @@
   text-align: center;
 }
 
+.txt-left {
+  align-items: flex-start !important;
+  text-align: left;
+}
+
 .fs-64 {
   font-size: 64px;
 }
 
 .fs-20 {
   font-size: 20px;
+}
+
+.fs-21 {
+  font-size: 21px;
 }
 
 .plr-20 {
@@ -58,4 +67,8 @@
 
 .fw-600 {
   font-family: 'Inter600';
+}
+
+.fw-700 {
+  font-family: 'Inter700';
 }
