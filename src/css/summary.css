@@ -112,3 +112,17 @@ body {
 .summary-tasks-mid-left {
   gap: 13px;
 }
+
+.summary-headline-divider {
+  height: 59px;
+  width: 0;
+  border-left: 3px solid #29ABE2;
+  margin: 0 10px;
+}
+
+.summary-tasks-mid-divider {
+  height: 102px;
+  width: 0;
+  border-left: 2px solid #D1D1D1;
+  margin: 0 10px;
+}
