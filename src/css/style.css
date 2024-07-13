@@ -9,6 +9,12 @@
     font-weight: 700;
 }
 
+@font-face {
+    font-family: 'Inter600';
+    src: url("/src/fonts/inter/Inter-SemiBold.ttf") format("woff2");
+    font-weight: 600;
+ }
+
 .imprint-content{
     max-width: 1014px;
     padding-left:24px;
