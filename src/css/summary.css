@@ -103,3 +103,7 @@ body {
 .summary-done-left img {
   width: 64px;
 }
+
+.summary-urgent-left img {
+  width: 60px;
+}
