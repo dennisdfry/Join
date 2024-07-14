@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/contacts.css">
+    <link rel="stylesheet" href="../src/css/utils.css">
+    <script src="contacts.js"></script>
     <title>contacts overlay</title>
 </head>
 <body>
-    <div class="content">
-        <div class="contact-list">
-            <div class="btnbox">
-                <button id="addbtn" onclick="addContact()">
+    <div id="main">
+        <div  class="contactlist contactlist-scrollbar">
+            <div class="btn-box">
+                <button id="add-btn" onclick="addContact()">
                     Add new contact
                     <img src="./img/person_add.png">
                 </button>
@@ -18,75 +20,122 @@
 
             <div class="alphabetic-order">
                 <p>A</p>
-            </div>
-            <div class="seperator2"></div>
-
-            <div class="contact-content">
-                <img src="./img/Profile badge.png">
-                <div class="contact-data">
-                    <div class="cont-name">Anton Mayer</div>
-                    <a class="cont-mail">antom@gmail.com</a>
-                </div>
-            </div>
-            <div class="contact-content">
-                <img src="./img/Property 1=Anja.png">
-                <div class="contact-data">
-                    <div class="cont-name">Anja Schulz</div>
-                    <a class="cont-mail">Schulz@hotmail.com</a>
-                </div>
-            </div>
-            <div class="alphabetic-order">
-                <p>B</p>
+                <div class="seperator"></div>
             </div>
             
-            <div class="seperator2"></div>
 
-            <div class="contact-content">
+            <div class="contactlist-content">
+                <img src="./img/Profile badge.png">
+                <div class="contactlist-data">
+                    <div class="contactlist-name">Anton Mayer</div>
+                    <a class="contactlist-mail">antom@gmail.com</a>
+                </div>
+            </div>
+            <div class="contactlist-content">
+                <img src="./img/Property 1=Anja.png">
+                <div class="contactlist-data">
+                    <div class="contactlist-name">Anja Schulz</div>
+                    <a class="contactlist-mail">Schulz@hotmail.com</a>
+                </div>
+            </div>
+
+            <div class="alphabetic-order">
+                <p>B</p>
+                <div class="seperator"></div>
+            </div>
+            
+
+            <div class="contactlist-content">
                 <img src="./img/Property 1=Benedikt.png">
-                <div class="contact-data">
-                    <div class="cont-name">Benedikt Ziegler</div>
-                    <a class="cont-mail">benedikt@gmail.com</a>
+                <div class="contactlist-data">
+                    <div class="contactlist-name">Benedikt Ziegler</div>
+                    <a class="contactlist-mail">benedikt@gmail.com</a>
                 </div>
             </div>
 
             <div class="alphabetic-order">
                 <p>D</p>
+                <div class="seperator"></div>
             </div>
 
-            <div class="seperator2"></div>
+            
 
-            <div class="contact-content">
+            <div class="contactlist-content">
                 <img src="./img/Property 1=David.png">
-                <div class="contact-data">
-                    <div class="cont-name">David Eisenberg</div>
-                    <a class="cont-mail">davidberg@gmail.com</a>
+                <div class="contactlist-data">
+                    <div class="contactlist-name">David Eisenberg</div>
+                    <a class="contactlist-mail">davidberg@gmail.com</a>
                 </div>
             </div>
 
             <div class="alphabetic-order">
-            <p>E</p>
+                <p>E</p>
+                <div class="seperator"></div>
+            </div>
+            
+
+            <div class="contactlist-content">
+                <img src="./img/Property 1=Eva.png">
+                <div class="contactlist-data">
+                    <div class="contactlist-name">Eva Fischer</div>
+                    <a class="contactlist-mail">eva@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="contactlist-content">
+                <img src="./img/Property 1=Emmanuel.png">
+                <div class="contactlist-data">
+                    <div class="contactlist-name">Emanuel Mauer</div>
+                    <a class="contactlist-mail">emanuelma@gmail.com</a>
+                </div>
+            </div>
+        
+            <div class="alphabetic-order">
+                <p>M</p>
+                <div class="seperator"></div>
+            </div>
+            
+
+
+
+            <div class="contactlist-content">
+                <img src="./img/Property 1=Marcel.png">
+                <div class="contactlist-data">
+                    <div class="contactlist-name">Marcel Bauer</div>
+                    <a class="contactlist-mail">bauer@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="alphabetic-order">
+                <p>T</p>
+                <div class="seperator"></div>
+            </div>
+            
+
+
+
+            <div class="contactlist-content">
+                <img src="./img/Property 1=Tatjana.png">
+                <div class="contactlist-data">
+                    <div class="contactlist-name">Tatjana Wolf</div>
+                    <a class="contactlist-mail">wolf@gmail.com</a>
+                </div>
+            </div>
+
+
         </div>
 
-    
-        <div class="seperator2"></div>
 
-        <div class="contact-content">
-            <img src="./img/Property 1=Eva.png">
-            <div class="contact-data">
-                <div class="cont-name">Eva Fischer</div>
-                <a class="cont-mail">eva@gmail.com</a>
+        <div class="contact-overlay-section">
+            <div class="contact-overlay-header">
+                <h1>Contacts</h1>
+                <div class="seperator2"></div>
+                <p> better with a team</p>
             </div>
+            <div class="contact-overlay-detailed"></div>
         </div>
         
     </div>
-
-
-        <div class="contact-overlay">
-            <h1>Contacts</h1>
-            <div class="seperator"></div>
-            <p> better with a team</p>
-        </div>
-    
     
 </body>
 </html>
