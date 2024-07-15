@@ -24,14 +24,20 @@ body {
   width: 1440px;
 }
 
+#content{
+  height: 1188px;
+  width: 400px;
+  padding: 32px 24px 32px 24px;
+  position: absolute;
+  top: 96px;
+  left: 232px;
+}
+
 .contactlist {
   height: 928px;
   width: 456px;
-  margin-left: 28px;
-  position: absolute;
+  padding-left: 24px;
   float: right;
-  top: 96px;
-  left: 232px;
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
 }
@@ -40,9 +46,14 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #a8a8a8 #ffffff;
   height: 928px;
-  overflow: auto;
-  overflow-x: hidden;
   border: 8px none #ffffff;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+.contactlist::-webkit-scrollbar { 
+  display: none; /* for google Safari*/
 }
 
 .contactlist-content {
@@ -58,16 +69,17 @@ body {
 .contactlist-content img {
   width: 42px;
   height: 42px;
+  padding-left: 24px;
   border-left: 2px;
   gap: 10px;
 }
 .contactlist-content:hover{
-    background-color:#fff8f8;
+  background-color:#eeecec;
 }
 
 .contactlist-data{
-    height: 48px;
-    gap: 5px;
+  height: 48px;
+  gap: 5px;
 }
 
 .contactlist-name {
@@ -84,15 +96,18 @@ body {
   font-size: 16px;
 }
 
-.btn-box {
+.contact-btn-box {
   height: 101px;
   width: 456px;
+  position: sticky;
+  Top: 22.5px;
+  Left:52px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#add-btn {
+#add-contact-btn {
   width: 352px;
   height: 56px;
   color: white;
@@ -106,12 +121,12 @@ body {
   align-items: center;
   justify-content: center;
 }
-#add-btn img {
+#add-contact-btn img {
   width: 32px;
   height: 32px;
   padding-left: 16px;
 }
-#add-btn:hover{
+#add-contact-btn:hover{
     background-color: #29abe2;
 }
 
@@ -127,6 +142,7 @@ body {
 .alphabetic-order p {
   width: 14px;
   height: 24px;
+  padding-left: 24px;
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
@@ -165,7 +181,7 @@ body {
   color: #2a3647;
 }
 
-.contact-overlay-detailed{
+#contact-overlay-detailed{
     width: 461px;
     height: 364px;
     gap: 21px;
