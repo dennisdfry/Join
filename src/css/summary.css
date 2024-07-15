@@ -56,19 +56,12 @@ body {
   margin-right: 20px;
 }
 
-.summary-to-do:hover,
-.summary-done:hover,
-.summary-tasks-mid:hover,
-.summary-task-in-board:hover,
-.summary-task-in-progress:hover,
-.summary-task-feedback:hover {
+.smry-btn:hover {
   color: white;
   background-color: #2a3647;
 }
 
-.summary-task-in-board:hover .color-dg,
-.summary-task-in-progress:hover .color-dg,
-.summary-task-feedback:hover .color-dg {
+.smry-btn:hover .color-dg {
   color: white;
 }
 
@@ -76,15 +69,11 @@ body {
   display: none;
 }
 
-.summary-to-do:hover .default-img,
-.summary-done:hover .default-img,
-.summary-tasks-mid:hover .default-img {
+.smry-btn:hover .default-img {
   display: none;
 }
 
-.summary-to-do:hover .hover-img,
-.summary-done:hover .hover-img,
-.summary-tasks-mid:hover .hover-img {
+.smry-btn:hover .hover-img {
   display: inline;
 }
 
