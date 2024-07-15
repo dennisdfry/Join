@@ -17,29 +17,28 @@
         <img src="/public/img/join_logo.svg" alt="join logo" />
       </section>
       <section class="nav-mid">
-        <a href="#" class="summary-field d-flex-start">
+        <a href="#" class="summary-field d-flex-start" onclick="changeSite('summary.html')">
           <img src="/public/img/summary.svg" alt="summary icon" />
           <p>Summary</p>
         </a>
-        <a href="#" class="task-field d-flex-start">
+        <a href="#" class="task-field d-flex-start" onclick="changeSite('addTask.html')">
           <img src="/public/img/add-task.svg" alt="add task icon" />
           <p>Add Task</p>
         </a>
-        <a href="#" class="board-field d-flex-start">
+        <a href="#" class="board-field d-flex-start" onclick="changeSite('board.html')">
           <img src="/public/img/board.svg" alt="board icon" />
           <p>Board</p>
         </a>
-        <a href="#" class="contact-field d-flex-start">
+        <a href="#" class="contact-field d-flex-start" onclick="changeSite('contacts.html')">
           <img src="/public/img/contacts.svg" alt="contacts icon" />
           <p>Contacts</p>
         </a>
       </section>
       <section class="nav-down d-flex-end flex-d-col">
-        <a onclick="changeSite('datenschutz.html')" href="">Privacy Policy</a>
-        <a onclick="changeSite('impressum.html')">Legal notice</a>
+        <a href="#" onclick="changeSite('datenschutz.html')">Privacy Policy</a>
+        <a href="#" onclick="changeSite('impressum.html')">Legal notice</a>
       </section>
     </navbar>
-    <!-- <section class="main-section-right">  dient zur weiteren einteilung des content's-->
     <section class="main-section-right">
       <header>
         <section class="head d-flex-between">
@@ -52,15 +51,11 @@
           </div>
         </section>
       </header>
-      <div class="main-content">
-        <iframe id="content" src="impressum.html" frameborder="0"></iframe>
+      <div class="main-content" w3-include-html="impressum.html">
+        <!-- Initial content will be loaded here -->
       </div>
     </section>
-    <!-- ende -->
-   
   </section>
-  </section>
-
 </body>
 
 </html>

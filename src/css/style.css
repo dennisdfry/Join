@@ -115,6 +115,7 @@ body {
     background-color: #2A3647;
     max-width: 232px;
     height: 100vh;
+    font-family: 'Inter';
 }
 
 .nav-up {
@@ -180,6 +181,7 @@ header{
     padding: 20px 40px;
     font-size: 20px;
     line-height: 24px;
+    font-family: 'Inter';
 }
 
 .template {
