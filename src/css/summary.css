@@ -46,21 +46,46 @@ body {
   flex-direction: row;
   height: 168px;
 }
-.summary-to-do {
+
+.summary-to-do, .summary-done {
   width: 50%;
   background-color: white;
   border-radius: 30px;
-  margin-right: 20px;
   padding: 38px 19px;
   gap: 18px;
+  margin-right: 20px;
 }
 
-.summary-done {
-  width: 50%;
-  background-color: white;
-  border-radius: 30px;
-  padding: 38px 19px;
-  gap: 18px;
+.summary-to-do:hover,
+.summary-done:hover,
+.summary-tasks-mid:hover,
+.summary-task-in-board:hover,
+.summary-task-in-progress:hover,
+.summary-task-feedback:hover {
+  color: white;
+  background-color: #2a3647;
+}
+
+.summary-task-in-board:hover .color-dg,
+.summary-task-in-progress:hover .color-dg,
+.summary-task-feedback:hover .color-dg {
+  color: white;
+}
+
+.hover-img {
+  display: none;
+}
+
+.summary-to-do:hover .default-img,
+.summary-done:hover .default-img,
+.summary-tasks-mid:hover .default-img {
+  display: none;
+}
+
+.summary-to-do:hover .hover-img,
+.summary-done:hover .hover-img,
+.summary-tasks-mid:hover .hover-img {
+  display: inline;
 }
 
 .summary-tasks-mid {
@@ -77,7 +102,7 @@ body {
   margin-top: 20px;
 }
 
-.summary-task-in-borad,
+.summary-task-in-board,
 .summary-task-in-progress {
   width: 33%;
   margin-right: 20px;
@@ -116,13 +141,13 @@ body {
 .summary-headline-divider {
   height: 59px;
   width: 0;
-  border-left: 3px solid #29ABE2;
+  border-left: 3px solid #29abe2;
   margin: 0 10px;
 }
 
 .summary-tasks-mid-divider {
   height: 102px;
   width: 0;
-  border-left: 2px solid #D1D1D1;
+  border-left: 2px solid #d1d1d1;
   margin: 0 10px;
 }

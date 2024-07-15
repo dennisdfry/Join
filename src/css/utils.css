@@ -76,3 +76,7 @@
 .fw-700 {
   font-family: 'Inter700';
 }
+
+.pointer {
+  cursor: pointer;
+}
