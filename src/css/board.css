@@ -14,10 +14,10 @@
 }
 .board-head-section{
     max-width: 1208px;
-    max-height:232px;
-    padding-left: 76px;
+    max-height: 232px;
+    padding-left: 272px;
     padding-right: 76px;
-    padding-top: 79px;
+    padding-top: 40px;
 }
 .board-head-section-top{
     display: flex;
