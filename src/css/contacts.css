@@ -36,7 +36,6 @@ body {
 .contactlist {
   height: 928px;
   width: 456px;
-  padding-left: 24px;
   float: right;
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
@@ -69,7 +68,6 @@ body {
 .contactlist-content img {
   width: 42px;
   height: 42px;
-  padding-left: 24px;
   border-left: 2px;
   gap: 10px;
 }
