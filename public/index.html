@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/css/style.css" />
-    <link rel="stylesheet" href="/src/css/utils.css" />
-    <title>JOIN</title>
-  </head>
-  <body class="background-main">
-    <section class="template">
-      <navbar class="nav d-flex-between flex-d-col">
-        <section class="nav-up">
-          <img src="/public/img/join_logo.svg" alt="join logo" />
-        </section>
-        <section class="nav-mid">
-          <a href="#" class="summary-field d-flex-start">
-            <img src="/public/img/summary.svg" alt="summary icon" />
-            <p>Summary</p>
-          </a>
-          <a href="#" class="task-field d-flex-start">
-            <img src="/public/img/add-task.svg" alt="add task icon" />
-            <p>Add Task</p>
-          </a>
-          <a href="#" class="board-field d-flex-start">
-            <img src="/public/img/board.svg" alt="board icon" />
-            <p>Board</p>
-          </a>
-          <a href="#" class="contact-field d-flex-start">
-            <img src="/public/img/contacts.svg" alt="contacts icon" />
-            <p>Contacts</p>
-          </a>
-        </section>
-        <section class="nav-down d-flex-end flex-d-col">
-          <a href="">Privacy Policy</a>
-          <a href="">Legal notice</a>
-        </section>
-      </navbar>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/src/css/style.css" />
+  <link rel="stylesheet" href="/src/css/utils.css" />
+  <script src="/src/js/script.js"></script>
+  <title>JOIN</title>
+</head>
+
+<body class="background-main">
+  <section class="template">
+    <navbar class="nav d-flex-between flex-d-col">
+      <section class="nav-up">
+        <img src="/public/img/join_logo.svg" alt="join logo" />
+      </section>
+      <section class="nav-mid">
+        <a href="#" class="summary-field d-flex-start">
+          <img src="/public/img/summary.svg" alt="summary icon" />
+          <p>Summary</p>
+        </a>
+        <a href="#" class="task-field d-flex-start">
+          <img src="/public/img/add-task.svg" alt="add task icon" />
+          <p>Add Task</p>
+        </a>
+        <a href="#" class="board-field d-flex-start">
+          <img src="/public/img/board.svg" alt="board icon" />
+          <p>Board</p>
+        </a>
+        <a href="#" class="contact-field d-flex-start">
+          <img src="/public/img/contacts.svg" alt="contacts icon" />
+          <p>Contacts</p>
+        </a>
+      </section>
+      <section class="nav-down d-flex-end flex-d-col">
+        <a onclick="changeSite('datenschutz.html')" href="">Privacy Policy</a>
+        <a onclick="changeSite('impressum.html')">Legal notice</a>
+      </section>
+    </navbar>
+    <section class="main-section-right">
       <header>
         <section class="head d-flex-between">
           <div class="headline">
@@ -43,16 +47,16 @@
           </div>
           <div class="user-section d-flex-center">
             <img src="/public/img/help.png" alt="help icon" />
-            <img
-              class="user-icon"
-              src="/public/img/user_logo.png"
-              alt="user icon"
-            />
+            <img class="user-icon" src="/public/img/user_logo.png" alt="user icon" />
           </div>
         </section>
       </header>
+      <div class="main-content" >
+        <iframe id="content" src="impressum.html" frameborder="0"></iframe>
+      </div>
     </section>
+  </section>
+  
+</body>
 
-    <script src="/src/js/script.js"></script>
-  </body>
 </html>
