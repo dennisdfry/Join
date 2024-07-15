@@ -14,33 +14,18 @@
     src: url("/src/fonts/inter/Inter-SemiBold.ttf") format("woff2");
     font-weight: 600;
  }
-/* neues css */
-.main-section-right{
-    height: 100vh;
-    max-width: 1208px;
- }
-.main-content{
-    max-width: 1440px;
-    padding: 20px 40px;
-    height: 100%;
-    display: flex; 
-}
-iframe{
-    width: 100%;
-    height:80%;
-    position: sticky;
-    overflow-y: auto;
-}
-/* ende */
+
 .imprint-content{
     max-width: 1016px;
     padding-left:24px;
     padding-right:24px;
     font-family: 'Inter';
 }
+
 .background-main{
     background-color: rgb(246, 247, 248);
 }
+
 .background-main h2,h3{
     font-family: 'Inter700';
 }
@@ -105,13 +90,16 @@ iframe{
 .table-helpdesk p{
     margin-block-start: 0px;
 }
+
 body {
-    /* font-family: 'Inter'; Zuordnung über body allgemein würde ich gern noch mal gemeinsam durchgehen.   */
     margin: 0;
     height: 100vh;
 }
 
 .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
     background-color: #2A3647;
     max-width: 232px;
     height: 100vh;
@@ -182,6 +170,7 @@ header{
     font-size: 20px;
     line-height: 24px;
     font-family: 'Inter';
+    margin-left: 232px;
 }
 
 .template {
@@ -201,3 +190,10 @@ header{
     margin-left: 15px;
     cursor: pointer;
 }
+
+.main-content-wrapper {
+    margin-left: 60px;
+    padding-left: 232px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  }
