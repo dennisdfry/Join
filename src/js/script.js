@@ -1,6 +1,7 @@
 
 let positionOfContent = document.getElementById('content');
-function changesite(page){
+
+function changeSite(page){
     positionOfContent.src = page;
     
 }
