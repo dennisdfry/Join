@@ -48,7 +48,6 @@ function createTask(){
     let assignedTo = document.getElementById('assignedTo');
     let dueDate = document.getElementById('dueDate');
     let taskCategory = document.getElementById('taskCategory');
-    
     console.log(taskCategory.value);
     console.log(dueDate.value);
     console.log(assignedTo.value);
@@ -56,7 +55,6 @@ function createTask(){
     console.log(description.value);
  
 }
-
 
 function addSubtasks(){
     let input = document.getElementById('subtasks');
@@ -71,6 +69,5 @@ function addSubtasks(){
             </ul>`;
         }
         input.value = ''; 
-    // console.log(input.value);
     console.log(subtasksArray);
 }
