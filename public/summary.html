@@ -11,14 +11,14 @@
   <body>
     <div class="summary-section">
       <section class="summary-headline">
-        <span class="summary-headline-left">JOIN 274</span>
+        <span class="summary-headline-left">Join 274</span>
         <div class="summary-headline-divider"></div>
         <span class="summary-headline-right color-bg">Key Metrics at a Glance</span>
       </section>
       <section class="summary-task-row">
         <div class="summary-tasks">
           <div class="summary-tasks-up">
-            <div class="summary-to-do d-flex-center pointer smry-btn">
+            <div class="summary-to-do d-flex-center pointer smry-btn" onclick="changeSite('board.html')">
               <div class="summary-to-do-left">
                 <img src="/public/img/pencil.png" alt="pencil logo" class="default-img" />
                 <img src="/public/img/pencil_hover.png" alt="pencil hover logo" class="hover-img" />
@@ -28,7 +28,7 @@
                 <span class="fs-20 color-bg">To-do</span>
               </div>
             </div>
-            <div class="summary-done d-flex-center pointer smry-btn">
+            <div class="summary-done d-flex-center pointer smry-btn" onclick="changeSite('board.html')">
               <div class="summary-done-left">
                 <img src="/public/img/check.png" alt="check logo" class="default-img" />
                 <img src="/public/img/check_hover.png" alt="check logo hover" class="hover-img"/>
@@ -39,7 +39,7 @@
               </div>
             </div>
           </div>
-          <div class="summary-tasks-mid d-flex-around pointer smry-btn">
+          <div class="summary-tasks-mid d-flex-around pointer smry-btn" onclick="changeSite('board.html')">
             <div class="summary-tasks-mid-left d-flex-center">
               <div class="summary-urgent-left">
                 <img src="/public/img/urgent.png" alt="urgent logo" class="default-img" />                
@@ -57,19 +57,19 @@
             </div>
           </div>
           <div class="summary-tasks-down">
-            <div class="summary-task-in-board d-flex-center flex-d-col pointer smry-btn">
+            <div class="summary-task-in-board d-flex-center flex-d-col pointer smry-btn" onclick="changeSite('board.html')">
               <span class="fs-64 fw-600">5</span>
               <span class="fs-20 color-dg txt-center plr-20"
                 >Tasks in Board</span
               >
             </div>
-            <div class="summary-task-in-progress d-flex-center flex-d-col pointer smry-btn">
+            <div class="summary-task-in-progress d-flex-center flex-d-col pointer smry-btn" onclick="changeSite('board.html')">
               <span class="fs-64 fw-600">2</span>
               <span class="fs-20 color-dg txt-center plr-20"
                 >Tasks in Progress</span
               >
             </div>
-            <div class="summary-task-feedback d-flex-center flex-d-col pointer smry-btn">
+            <div class="summary-task-feedback d-flex-center flex-d-col pointer smry-btn" onclick="changeSite('board.html')">
               <span class="fs-64 fw-600">2</span>
               <span class="fs-20 color-dg txt-center plr-20"
                 >Awating Feedback</span
@@ -83,6 +83,8 @@
       </section>
     </div>
 
+    
+    <script src="/src/js/script.js"></script>
     <script src="/src/js/summary.js"></script>
   </body>
 </html>
