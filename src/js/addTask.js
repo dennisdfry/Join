@@ -70,7 +70,7 @@ function addSubtasks(){
             <li>${element}</li>
             </ul>`;
         }
-        input.value = '';
+        input.value = ''; 
     // console.log(input.value);
     console.log(subtasksArray);
 }
