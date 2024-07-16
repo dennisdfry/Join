@@ -27,6 +27,4 @@ async function getData(path = "") {
     allContacts.phones.push(contact.phone);
     allContacts.images.push(contact.img);
   }
-
-  console.log(allContacts);
 }
