@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../src/css/contacts.css" />
     <link rel="stylesheet" href="../src/css/utils.css" />
-    <script src="contacts.js"></script>
+    <script type="javascript" src="contacts.js"></script>
     <title>contacts overlay</title>
   </head>
-  <body>
+  <body onload="init()">
     <div id="main">
       <div id="content">
-        <div class="contactlist contactlist-scrollbar pll-24">
-          <div class="contact-btn-box">
-            <button id="add-contact-btn" onclick="addContact()">
-              Add new contact
-              <img src="./img/person_add.png" />
-            </button>
-          </div>
+        <div class="contact-btn-box">
+          <button id="add-contact-btn" onclick="addContact()">
+            Add new contact
+            <img src="./img/person_add.png" />
+          </button>
+        </div>
+        <div class="contactlist contactlist-scrollbar">
 
           <div class="alphabetic-order">
             <p>A</p>
