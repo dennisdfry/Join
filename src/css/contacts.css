@@ -26,7 +26,7 @@ body {
 #content{
   position: absolute;
   top: 96px;
-  left: 232px;
+  left: 215px;
 }
 
 .contactlist {
@@ -41,7 +41,6 @@ body {
   scrollbar-color: #a8a8a8 #ffffff;
   height: 928px;
   border: 8px none #ffffff;
-  -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
   overflow-y: scroll;
 }
@@ -91,7 +90,7 @@ body {
 
 .contact-btn-box {
   background-color: #ffffff;
-  box-shadow: 4px 0px 6px 0px #00000014;
+  box-shadow: 4px 0px 0px 0px #00000014;
   height: 101px;
   width: 400px;
   position: sticky;
