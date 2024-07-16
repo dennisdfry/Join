@@ -16,18 +16,14 @@
 body {
   font-family: inter;
   background: #f6f7f8;
-  margin: 0em;
+  margin: 0;
 }
 
 #main {
-  height: 100vh;
-  width: 1440px;
+  height: 100vh; 
 }
 
 #content{
-  height: 1188px;
-  width: 400px;
-  padding: 32px 24px 32px 24px;
   position: absolute;
   top: 96px;
   left: 232px;
@@ -35,7 +31,6 @@ body {
 
 .contactlist {
   height: 928px;
-  width: 456px;
   float: right;
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
@@ -95,8 +90,10 @@ body {
 }
 
 .contact-btn-box {
+  background-color: #ffffff;
+  box-shadow: 4px 0px 6px 0px #00000014;
   height: 101px;
-  width: 456px;
+  width: 400px;
   position: sticky;
   Top: 22.5px;
   Left:52px;
@@ -133,7 +130,7 @@ body {
   justify-content: flex-start;
   width: 352px;
   height: 58px;
-  padding: 17px 36px 17px 36px;
+  padding-left: 36px;
   gap: 8px;
 }
 
