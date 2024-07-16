@@ -171,11 +171,13 @@
     background-color: #FFFFFF;
     font-family: 'Inter700';
     font-size: 21px;
+    transition: transform 0.2s;
 }
 .add-task-prio-button:hover{
     cursor: pointer;
     background-color:rgb(255, 168, 0);
     color:#FFFFFF;
+    transform: scale(1.1);
 }
 .add-task-prio-button-container{
     display: flex;
@@ -191,8 +193,8 @@
 
 }
 .add-task-create-button{
-    background-color:#FFFFFF ;
-    color: rgb(42, 54, 71);
+    background-color:rgb(42, 54, 71);
+    color:  #FFFFFF;
     height: 56px;
     width:183px;
     border-radius: 10px;
@@ -201,16 +203,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    transition: transform 0.2s;
 }
 .add-task-create-button:hover{
     cursor: pointer;
-    background-color:rgb(42, 54, 71);;
+    background-color:#007cee;
     color: #FFFFFF;
+    transform: scale(1.1);
 }
 .add-task-cancel-button{
     background-color:#FFFFFF ;
     height: 56px;
     width:126px;
+    border: 1px solid rgb(42, 54, 71) ;
     border-radius: 10px;
     color: rgb(42, 54, 71);
     font-family: 'Inter';
@@ -219,9 +225,16 @@
     justify-content: center;
     align-items: center;
     margin-right:25px;
+    transition: transform 0.2s;
 }
 .add-task-cancel-button:hover{
     cursor: pointer;
-    background-color:rgb(42, 54, 71);;
-    color: #FFFFFF;
+    border: 1px solid #007cee;
+    color: #007cee;
+    transform: scale(1.1);
+}
+.subtasksList{
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 20px;
 }

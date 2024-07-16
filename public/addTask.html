@@ -6,60 +6,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/addTask.css">
     <link rel="icon" href="./img/user_logo.png" type="image/png">
+    <script src="/src/js/addTask.js"></script>
     <title>Add Task</title>
 </head>
 
-<body class="background-main">
-    <div class="add-Task-Container">
+<body onload="init()" class="background-main">
+    <form class="add-Task-Container">
         <section class="add-task-head">
             <h1>Add Task</h1>
             <div class="add-task-close-button">
                 <img src="./img/Close.png" alt="Close Button">
             </div>
         </section>
-        <section class="add-task-middle-section" >
-            <form class="add-task-form-left-section" action="">
-                <label for="">Title <span class="red-star">*</span></label>
-                <input class="add-task-title-inputfield" type="text" placeholder="Enter a title">
-                <label for="">Desciption</label>
-                <textarea class="add-task-textarea" placeholder="Enter a desciption" name="" id=""></textarea>
-                <label for="">Assigned to</label>
-                <select class="add-task-select" name="" id="">
-                    <option value="" selected hidden>Select contacts to assign</option>
-                </select>
-            </form>
-            <div class="add-task-seperator"></div>
-            <form class="add-task-form-right-section" action="">
-                <label for="">Due date <span class="red-star">*</span></label>
-                <input class="add-task-select" type="date" id="date" name="date">
-                
-                <label for="">Prio</label>
-                <div class="add-task-prio-button-container">
-                    <button class="add-task-prio-button">
-                        <span>Urgent</span>
-                        <img src="../public/img/Prio alta.png" alt="">
-                    </button>
-                    <button class="add-task-prio-button">
-                        <span>Medium =</span>
-                    </button>
-                    <button class="add-task-prio-button">
-                        <span>Low</span>
-                        <img src="../public/img/Prio baja.png" alt="">
-                    </button>
+        <section>
+            <div class="add-task-middle-section" action="">
+                <!-- Linke Sektion -->
+                <div class="add-task-form-left-section">
+                    <label for="title">Title <span class="red-star">*</span></label>
+                    <input required minlength="2" class="add-task-title-inputfield" type="text"
+                        placeholder="Enter a title" name="title" id="title">
+
+                    <label for="description">Description</label>
+                    <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description"
+                        name="description" id="description"></textarea>
+
+                    <label for="assignedTo">Assigned to</label>
+                    <select required class="add-task-select" name="assignedTo" id="assignedTo">
+                        <option value="" selected hidden>Select contacts to assign</option>
+
+                        <div id="contactImage"></div>
+                        Add your options here
+                    </select>
                 </div>
-                <label for="">Category <span class="red-star">*</span></label>
-                <select class="add-task-select" name="taskCategory" id="">
-                    <option value="" selected hidden>Select task category</option>
-                    <option value="toDo">To do</option>
-                    <option value="inProgress">In progress</option>
-                    <option value="awaitFeedback">Await feedback</option>
-                </select>
-                <label for="">Subtasks</label>
-                <div class="input-with-button">
-                    <input type="text" class="add-task-input" placeholder="Add item">
-                    <button type="button" class="add-task-button">+</button>
+
+                <div class="add-task-seperator"></div>
+
+                <!-- Rechte Sektion -->
+                <div class="add-task-form-right-section">
+                    <label for="dueDate">Due date <span class="red-star">*</span></label>
+                    <input required class="add-task-select" type="date" id="dueDate" name="dueDate">
+
+                    <label for="">Prio</label>
+                    <div class="add-task-prio-button-container">
+                        <button data-prio="urgent" type="button" class="add-task-prio-button">
+                            <span>Urgent</span>
+                            <img src="../public/img/Prio alta.png" alt="">
+                        </button>
+                        <button data-prio="medium" type="button" class="add-task-prio-button">
+                            <span>Medium</span>
+                        </button>
+                        <button data-prio="low" type="button" class="add-task-prio-button">
+                            <span>Low</span>
+                            <img src="../public/img/Prio baja.png" alt="">
+                        </button>
+                    </div>
+
+                    <label for="taskCategory">Category <span class="red-star">*</span></label>
+                    <select required class="add-task-select" name="taskCategory" id="taskCategory">
+                        <option value="" selected hidden>Select task category</option>
+                        <option value="toDo">To do</option>
+                        <option value="inProgress">In progress</option>
+                        <option value="awaitFeedback">Await feedback</option>
+                    </select>
+
+                    <label for="subtasks">Subtasks</label>
+                    <div class="input-with-button">
+                        <input required type="text" class="add-task-input" placeholder="Add item" id="subtasks" name="subtasks">
+                        <button onclick="addSubtasks()" type="button" class="add-task-button">+</button>
+                    </div>
+                    <div class="subtasksList" id="subtasksPosition"></div>
                 </div>
-            </form>  
+            </div>
         </section>
         <section class="add-task-finish-section">
             <p><span class="red-star">*</span>This field is required</p>
@@ -67,13 +84,13 @@
                 <button class="add-task-cancel-button">
                     <span>Cancel <span>x</span></span>
                 </button>
-                <button class="add-task-create-button">
+                <button onclick="createTask()" class="add-task-create-button">
                     <span>Create Task</span>
                     <img src="../public/img/check.svg" alt="">
                 </button>
             </div>
         </section>
-    </div>
+    </form>
 </body>
 
 </html>

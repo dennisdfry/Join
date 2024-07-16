@@ -32,6 +32,25 @@
     display: flex;
     height: 48px;
 }
+.add-task-button{
+    background-color:rgb(42, 54, 71);
+    color:  #FFFFFF;
+    width:183px;
+    border-radius: 10px;
+    font-family: 'Inter700';
+    font-size: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    transition: transform 0.2s;
+}
+.add-task-button:hover{
+    cursor: pointer;
+    background-color:#007cee;
+    color: #FFFFFF;
+    transform: scale(1.1);
+}
 .search-task-section{
     display: flex;
     border-radius: 10px;

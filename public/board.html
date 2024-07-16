@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/board.css">
+    <script src="/src/js/board.js"></script>
     <link rel="icon" href="./img/user_logo.png" type="image/png">
     <title>Board</title>
 </head>
 
-<body class="background-main">
+<body onload="init()" class="background-main">
     <div class="board-head-section">
         <section class="board-head-section-top">
             <h1 class="board-headline">Board</h1>
@@ -19,7 +20,10 @@
                     <div class="search-task-seperator"></div>
                     <img src="./img/search.png" alt="">
                 </form>
-                <img class="add-task" src="./img/Secondary-plus.png" alt="">
+                <button class="add-task-button">
+                    <span>Create Task</span>
+                    <img src="../public/img/check.svg" alt="">
+                </button>
             </div>
         </section>
         <section class="board-head-section-bottom ">
