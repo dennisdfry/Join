@@ -14,6 +14,7 @@ async function init() {
     console.log("error");
   }
 }
+
 async function getData(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
@@ -21,12 +22,11 @@ async function getData(path = "") {
 
   for (let i = 0; i < keys.length; i++) {
     let contact = responseToJson[keys[i]];
-      allContacts.names.push(contact.name);
-      allContacts.mails.push(contact.mail);
-      allContacts.phones.push(contact.phone);
-      allContacts.images.push(contact.img);  
-    }
+    allContacts.names.push(contact.name);
+    allContacts.mails.push(contact.mail);
+    allContacts.phones.push(contact.phone);
+    allContacts.images.push(contact.img);
+  }
 
   console.log(allContacts);
 }
-
