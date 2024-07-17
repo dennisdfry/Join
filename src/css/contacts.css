@@ -185,6 +185,15 @@ body {
   top: 311px;
   left: 750px;
   gap: 21px;
+animation: moveIn 1s ease-in-out 0.001s forwards;
+}
+@keyframes moveIn {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .contact-information {
@@ -242,11 +251,6 @@ body {
   text-decoration: none;
   color: #29abe2;
 }
-
-
-
-
-
 
 #contactForm {
   width: 1212px;
