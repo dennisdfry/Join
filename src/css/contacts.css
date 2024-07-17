@@ -41,12 +41,12 @@ body {
   scrollbar-color: #a8a8a8 #ffffff;
   height: 928px;
   border: 8px none #ffffff;
-  scrollbar-width: none; /* for Firefox */
+  scrollbar-width: none; 
   overflow-y: scroll;
 }
 
 .contactlist::-webkit-scrollbar {
-  display: none; /* for google Safari*/
+  display: none;
 }
 
 .contactlist-content {
@@ -174,12 +174,12 @@ body {
 }
 
 .contact-overlay-section {
-width: 1212px;
-height: 592px;
-border-radius: 30px 0px 0px 0px;
+  width: 1212px;
+  height: 592px;
+  border-radius: 30px 0px 0px 0px;
 }
 
-#contact-overlay-detailed{
+#contact-overlay-detailed {
   width: 461px;
   height: 364px;
   position: absolute;
@@ -187,6 +187,33 @@ border-radius: 30px 0px 0px 0px;
   left: 750px;
   gap: 21px;
 }
+
+#cod-information {
+  width: 461px;
+  height: 120px;
+  gap: 54px;
+  display: flex;
+  flex-direction: row;
+}
+#cod-information img {
+  width: 120px;
+  height: 120px;
+  gap: 10px;
+  border-radius: 70px 0px 0px 0px;
+  border: 3px 0px 0px 0px;
+}
+#cod-information p{
+  font-size: 47px;
+  font-weight: semi-bold;
+  line-height: 56.4px;
+  text-align: left;
+}
+
+.cod-btn{
+  display: flex;
+  justify-content: flex-end;
+}
+
 #contactForm {
   width: 1212px;
   height: 592px;
