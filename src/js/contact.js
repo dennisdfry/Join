@@ -33,7 +33,9 @@ function updateContacts(responseToJson) {
       allContacts.phones.push(contact.phone);
       allContacts.images.push(contact.img);
     } else {
-      console.log(`${contact.name}, mit der Nummer:${contact.phone}, ist bereits vorhanden.`);
+      console.log(
+        `${contact.name}, mit der Nummer:${contact.phone}, ist bereits vorhanden.`
+      );
     }
   }
   console.log(allContacts);
@@ -49,7 +51,6 @@ function isContactExisting(contact) {
 }
 
 async function postData(contact) {
-
   try {
     let response = await fetch(BASE_URL + ".json", {
       method: "POST",
@@ -73,10 +74,17 @@ async function postData(contact) {
   }
 }
 
-function addContact(){
-  let btn = document.getElementById('add-contact-section');
-  btn.classList.remove('d-none');
-}
+
+  function addContact() {
+    let overlay = document.getElementById("overlay");
+    let contactForm = document.getElementById("contactForm");
+    let btn = document.getElementById("add-contact-section");
+    
+    overlay.classList.remove("d-none");
+    contactForm.classList.remove("d-none");
+    btn.classList.remove("d-none");
+  }
+
 
 function handleFormSubmit(event) {
   event.preventDefault();
@@ -89,6 +97,7 @@ function handleFormSubmit(event) {
   };
 
   postData(newContact);
+  
 }
 
 function setupForm() {
@@ -98,15 +107,13 @@ function setupForm() {
 
 function setupOverlay() {
   const overlay = document.getElementById("overlay");
-  overlay.addEventListener("click", function(event) {
-    if (event.target === overlay) { 
+  overlay.addEventListener("click", function (event) {
+    if (event.target === overlay) {
       document.getElementById("contactForm").classList.add("d-none");
       document.getElementById("add-contact-section").classList.add("d-none");
       overlay.classList.add("d-none");
     }
-    document.getElementById("contactForm").reset();
   });
-  document.getElementById("contactForm").reset();
 }
 
 document.addEventListener("DOMContentLoaded", init);
