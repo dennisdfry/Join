@@ -84,3 +84,11 @@
 .pointer {
   cursor: pointer;
 }
+
+.bradius10{
+border-radius: 10px 0px 0px 0px;
+}
+
+.bg-color-dg {
+  background-color: #2a3647;
+}

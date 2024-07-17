@@ -115,15 +115,27 @@
         </div>
       </div>
 
-      <div class="contact-overlay-section">
+    	<div class="contact-overlay-section">
         <div class="contact-overlay-header">
           <h1>Contacts</h1>
           <div class="seperator2"></div>
           <p>better with a team</p>
         </div>
+        <div id="contact-overlay-detailed">
+         <div id="cod-information">
+          <img src="./img/Profile badge.png">
+          <p>Anton Mayer</p>
+          <div id="cod-btn" >
+            <button>edit</button>
+            <button>delete</button>
+          </div>
+         </div> 
 
-        <div id="add-contact-section">
-          <form id="contactForm" class="d-none">
+        </div>
+        <div id="add-contact-section" class="d-none">
+          <div class="logo-side bg-color-dg">
+          </div>
+          <form id="contactForm">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
             
@@ -136,7 +148,10 @@
             <label for="img">Bild-URL:</label>
             <input type="text" id="img" name="img" placeholder="https://example.com/image.jpg">
             
-            <input type="submit" value="Kontakt hinzufügen">
+            <div>
+              <input class="create-btn bg-color-dg bradius10  txt-center" type="submit" value="cancel">
+              <input class="create-btn bg-color-dg bradius10  txt-center" type="submit" value="Create">
+            </div>
           </form>
         </div>
       </div>

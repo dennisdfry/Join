@@ -73,7 +73,7 @@ async function postData(contact) {
 }
 
 function addContact(){
-  let btn = document.getElementById('contactForm');
+  let btn = document.getElementById('add-contact-section');
   btn.classList.remove('d-none');
 }
 
