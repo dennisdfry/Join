@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/css/utils.css" />
     <link rel="stylesheet" href="/src/css/login.css" />
+    <link rel="stylesheet" href="/src/css/style.css" />
     <title>Join Login</title>
-</head>
-<body>
-    <section class="main-login">
-        
+  </head>
+  <body>
+    <section class="main-login d-flex-center flex-d-col">
+      <div class="login-logo" id="login-logo">
+        <img src="/public/img/user_logo.png" alt="join logo" />
+      </div>
+      <div class="login-field">
+        <span class="d-flex-center fs-61 fw-700">Login</span>
+        <form onsubmit="login()">
+          <div class="login-input d-flex-center flex-d-col gap-20">
+            <input type="mail" required placeholder="Email" id="mail" />
+            <input type="text" required placeholder="Password" id="password" />
+          </div>
+          <input type="checkbox" />
+          <label for="checkbox">Remember me</label>
+          <div class="login-btn d-flex-center">
+            <button>Log in</button>
+            <button>Guest Log in</button>
+          </div>
+        </form>
+      </div>
     </section>
 
     <script src="/src/js/login.js"></script>
-</body>
+  </body>
 </html>
