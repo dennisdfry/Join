@@ -32,7 +32,7 @@ function updateContacts(responseToJson) {
       allContacts.phones.push(contact.phone);
       allContacts.images.push(contact.img);
     } else {
-      console.log(`Kontakt ${contact.name} ist bereits vorhanden.`);
+      console.log(`${contact.name}, mit der Nummer:${contact.phone}, ist bereits vorhanden.`);
     }
   }
   console.log(allContacts);
@@ -72,7 +72,6 @@ async function postData(contact) {
   }
 }
 
-
 function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -84,7 +83,7 @@ function handleFormSubmit(event) {
   };
 
   postData(newContact);
-  document.getElementById("contactForm").innerHTML = "";
+  document.getElementById("contactForm").reset();
 }
 
 function setupFormListener() {
