@@ -12,6 +12,13 @@
   font-weight: 700;
   src: url("../fonts/inter/inter-v13-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/inter/inter-v13-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
 
 body {
   font-family: inter;
@@ -185,7 +192,7 @@ body {
   top: 311px;
   left: 750px;
   gap: 21px;
-animation: moveIn 1s ease-in-out 0.001s forwards;
+animation: moveIn 1s ease-in-out 0.2s forwards;
 }
 @keyframes moveIn {
   0% {
@@ -215,17 +222,13 @@ animation: moveIn 1s ease-in-out 0.001s forwards;
 
 .contact-information p {
   font-size: 47px;
-  font-weight: semi-bold;
-  line-height: 56.4px;
+  font-weight: 500;
   text-align: left;
 }
 
-.contact.change-btn {
+.contact.change-btn button {
   width: 159px;
   height: 24px;
-  gap: 16px;
-  display: flex;
-  justify-content: flex-end;
 }
 
 #contact-information-details{
