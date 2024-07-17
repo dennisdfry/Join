@@ -77,8 +77,6 @@ function addContact(){
   btn.classList.remove('d-none');
 }
 
-
-
 function handleFormSubmit(event) {
   event.preventDefault();
 

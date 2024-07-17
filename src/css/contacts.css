@@ -23,7 +23,7 @@ body {
   height: 100vh;
 }
 
-#content {
+#contactlist-section {
   position: absolute;
   top: 96px;
   left: 215px;
@@ -41,7 +41,7 @@ body {
   scrollbar-color: #a8a8a8 #ffffff;
   height: 928px;
   border: 8px none #ffffff;
-  scrollbar-width: none; 
+  scrollbar-width: none;
   overflow-y: scroll;
 }
 
@@ -150,7 +150,13 @@ body {
   justify-content: center;
 }
 
-.contact-overlay-header {
+.contact-section {
+  width: 1212px;
+  height: 592px;
+  border-radius: 30px 0px 0px 0px;
+}
+
+.contact-section-header {
   position: absolute;
   top: 206px;
   left: 743px;
@@ -162,24 +168,18 @@ body {
   align-items: center;
 }
 
-.contact-overlay-header h1 {
+.contact-section-header h1 {
   font-size: 61px;
   font-weight: 700;
 }
 
-.contact-overlay-header p {
+.contact-section-header p {
   font-size: 26px;
   font-weight: 400;
   color: #2a3647;
 }
 
-.contact-overlay-section {
-  width: 1212px;
-  height: 592px;
-  border-radius: 30px 0px 0px 0px;
-}
-
-#contact-overlay-detailed {
+#contact-detailed {
   width: 461px;
   height: 364px;
   position: absolute;
@@ -194,6 +194,7 @@ body {
   gap: 54px;
   display: flex;
   flex-direction: row;
+  align-items: self-end;
 }
 #cod-information img {
   width: 120px;
@@ -202,16 +203,35 @@ body {
   border-radius: 70px 0px 0px 0px;
   border: 3px 0px 0px 0px;
 }
-#cod-information p{
+#cod-information p {
   font-size: 47px;
   font-weight: semi-bold;
   line-height: 56.4px;
   text-align: left;
 }
 
-.cod-btn{
+.cod-btn {
+  width: 159px;
+  height: 24px;
+  gap: 16px;
   display: flex;
   justify-content: flex-end;
+}
+
+.detailed-info {
+  width: 207px;
+  height: 74px;
+  gap: 59px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.details {
+  width: 140px;
+  height: 128px;
+  gap: 22px;
 }
 
 #contactForm {
