@@ -10,7 +10,8 @@ let allContacts = {
 async function init() {
   try {
     await getData("/");
-    setupFormListener();
+    setupOverlay();
+    setupForm();
   } catch (error) {
     console.log("Error:", error);
   }
@@ -88,13 +89,24 @@ function handleFormSubmit(event) {
   };
 
   postData(newContact);
-  document.getElementById("contactForm").reset();
 }
 
-function setupFormListener() {
+function setupForm() {
   const form = document.getElementById("contactForm");
   form.addEventListener("submit", handleFormSubmit);
 }
 
+function setupOverlay() {
+  const overlay = document.getElementById("overlay");
+  overlay.addEventListener("click", function(event) {
+    if (event.target === overlay) { 
+      document.getElementById("contactForm").classList.add("d-none");
+      document.getElementById("add-contact-section").classList.add("d-none");
+      overlay.classList.add("d-none");
+    }
+    document.getElementById("contactForm").reset();
+  });
+  document.getElementById("contactForm").reset();
+}
 
 document.addEventListener("DOMContentLoaded", init);
