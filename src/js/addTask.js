@@ -1,6 +1,6 @@
 let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com";
 let subtasksArray = [];
-
+let prioArray = [];
 async function init(){
     try {
        let fireBaseData = await onloadData("/"); 
@@ -48,12 +48,25 @@ function createTask(){
     let assignedTo = document.getElementById('assignedTo');
     let dueDate = document.getElementById('dueDate');
     let taskCategory = document.getElementById('taskCategory');
+    let lastString = prioArray.pop(); 
+    console.log(lastString)
     console.log(taskCategory.value);
     console.log(dueDate.value);
     console.log(assignedTo.value);
     console.log(title.value);
     console.log(description.value);
  
+}
+function prio(id){
+    if(id == 1){
+        prioArray.push('Urgent')
+    } else{
+        if( id == 2){
+            prioArray.push('Medium')
+        }else{
+            if(id = 3){
+                prioArray.push('Low')
+            }}}
 }
 
 function addSubtasks(){

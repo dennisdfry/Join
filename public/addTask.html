@@ -49,14 +49,14 @@
                     <label for="">Prio</label>
                  
                     <div class="add-task-prio-button-container">
-                        <button id="prioButton1" value="1" data-prio="urgent" type="button" class="add-task-prio-button">
+                        <button onclick="prio(1)" id="prioButton1" value="1" data-prio="urgent" type="button" class="add-task-prio-button">
                             <span>Urgent</span>
                             <img src="../public/img/Prio alta.png" alt="">
                         </button>
-                        <button id="prioButton2" value="2" data-prio="medium" type="button" class="add-task-prio-button">
+                        <button onclick="prio(2)" id="prioButton2" value="2" data-prio="medium" type="button" class="add-task-prio-button">
                             <span>Medium</span>
                         </button>
-                        <button id="prioButton3" value="3" data-prio="low" type="button" class="add-task-prio-button">
+                        <button onclick="prio(3)" id="prioButton3" value="3" data-prio="low" type="button" class="add-task-prio-button">
                             <span>Low</span>
                             <img src="../public/img/Prio baja.png" alt="">
                         </button>
@@ -72,7 +72,7 @@
 
                     <label for="subtasks">Subtasks</label>
                     <div class="input-with-button">
-                        <input required type="text" class="add-task-input" placeholder="Add item" id="subtasks" name="subtasks">
+                        <input required type="text" minlength="2" class="add-task-input" placeholder="Add item" id="subtasks" name="subtasks">
                         <button onclick="addSubtasks()" type="button" class="add-task-button">+</button>
                     </div>
                     <div class="subtasksList" id="subtasksPosition"></div>
