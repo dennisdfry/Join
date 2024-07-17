@@ -45,6 +45,10 @@
   text-align: left;
 }
 
+.d-none{
+  display: none;
+}
+
 .fs-64 {
   font-size: 64px;
 }

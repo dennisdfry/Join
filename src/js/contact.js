@@ -72,6 +72,10 @@ async function postData(contact) {
   }
 }
 
+
+
+
+
 function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -90,3 +94,5 @@ function setupFormListener() {
   const form = document.getElementById("contactForm");
   form.addEventListener("submit", handleFormSubmit);
 }
+
+document.addEventListener("DOMContentLoaded", init);
