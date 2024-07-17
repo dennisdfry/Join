@@ -12,9 +12,9 @@
 
   <body onload="init()">
     <div id="main">
-      
+
       <div id="contactlist-section">
-        <div class="contact-btn-box">
+        <div class="contactlist-btn-box">
           <button id="add-contact-btn" onclick="addContact()">
             Add new contact
             <img src="./img/person_add.png" />
@@ -116,39 +116,35 @@
         </div>
       </div>
 
-      <div class="contact-section">
-
-        <div class="contact-section-header">
+      <div class="contact-section-header">
           <h1>Contacts</h1>
           <div class="seperator2"></div>
           <p>better with a team</p>
+      </div>
+
+      <div id="contact-section">
+        <div class="contact-information">
+          <img src="./img/Profile badge.png" />
+          <p>Anton Mayer</p>
         </div>
-
-        <div id="contact-detailed">
-          <div id="cod-information">
-            <img src="./img/Profile badge.png" />
-            <p>Anton Mayer</p>
+        <div class="contact-change-btn">
+          <button id="edit-btn">edit</button>
+          <button id="del-btn">delete</button>
+        </div>
+        <div id="contact-information-details">
+          <div class="inormation-header">
+            <p>Contact Information</p>
           </div>
-          <div class="cod-btn">
-            <button>edit</button>
-            <button id="del-btn">delete</button>
-          </div>
-        
-
-          <div class="cod-detailed-inormation">
-            <p class="detailed-info">Contact Information</p>
-            <span class="details">
+            <span class="information-details">
               <p><b>Email</b></p>
               <a>dfsfdfasd@gmail.com</a>
-            </span>
-
-            <span>
               <p><b>Phone</b></p>
               <p>+49 111 111 111</p>
             </span> 
           </div>
         </div>
       </div>
+    </div>
 
       <div id="add-contact-section" class="d-none">
         <div class="logo-side bg-color-dg"></div>

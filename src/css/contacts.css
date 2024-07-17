@@ -59,12 +59,14 @@ body {
   flex-direction: row;
   justify-content: flex-start;
 }
+
 .contactlist-content img {
   width: 42px;
   height: 42px;
   border-left: 2px;
   gap: 10px;
 }
+
 .contactlist-content:hover {
   background-color: #eeecec;
 }
@@ -88,7 +90,7 @@ body {
   font-size: 16px;
 }
 
-.contact-btn-box {
+.contactlist-btn-box {
   background-color: #ffffff;
   box-shadow: 4px 0px 0px 0px #00000014;
   height: 101px;
@@ -115,14 +117,17 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 #add-contact-btn img {
   width: 32px;
   height: 32px;
   padding-left: 16px;
 }
+
 #add-contact-btn:hover {
   background-color: #29abe2;
 }
+
 
 .alphabetic-order {
   display: flex;
@@ -150,12 +155,6 @@ body {
   justify-content: center;
 }
 
-.contact-section {
-  width: 1212px;
-  height: 592px;
-  border-radius: 30px 0px 0px 0px;
-}
-
 .contact-section-header {
   position: absolute;
   top: 206px;
@@ -179,7 +178,7 @@ body {
   color: #2a3647;
 }
 
-#contact-detailed {
+#contact-section {
   width: 461px;
   height: 364px;
   position: absolute;
@@ -188,7 +187,7 @@ body {
   gap: 21px;
 }
 
-#cod-information {
+.contact-information {
   width: 461px;
   height: 120px;
   gap: 54px;
@@ -196,21 +195,23 @@ body {
   flex-direction: row;
   align-items: self-end;
 }
-#cod-information img {
+
+.contact-information img {
   width: 120px;
   height: 120px;
   gap: 10px;
   border-radius: 70px 0px 0px 0px;
   border: 3px 0px 0px 0px;
 }
-#cod-information p {
+
+.contact-information p {
   font-size: 47px;
   font-weight: semi-bold;
   line-height: 56.4px;
   text-align: left;
 }
 
-.cod-btn {
+.contact.change-btn {
   width: 159px;
   height: 24px;
   gap: 16px;
@@ -218,21 +219,34 @@ body {
   justify-content: flex-end;
 }
 
-.detailed-info {
+#contact-information-details{
   width: 207px;
   height: 74px;
   gap: 59px;
+}
+
+.information-header{
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
 }
 
-.details {
+.information-details {
   width: 140px;
   height: 128px;
   gap: 22px;
 }
+
+.information-details a{
+  text-decoration: none;
+  color: #29abe2;
+}
+
+
+
+
+
 
 #contactForm {
   width: 1212px;
