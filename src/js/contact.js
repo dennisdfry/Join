@@ -96,4 +96,5 @@ function setupFormListener() {
   form.addEventListener("submit", handleFormSubmit);
 }
 
+
 document.addEventListener("DOMContentLoaded", init);

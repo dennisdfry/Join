@@ -125,12 +125,16 @@
       <div id="contact-section">
         <div class="contact-information">
           <img src="./img/Profile badge.png" />
-          <p>Anton Mayer</p>
+          <div class="contact-namebtn">
+            <p>Anton Mayer</p>
+            <div class="contact-change-btn">
+              <button onclick="editContact()" id="edit-btn">Edit<img src="./img/edit.png"></button>
+              <button onclick="deleteContact()" id="del-btn">Delete<img src="./img/delete.png"></button>
+            </div>
+          </div>
         </div>
-        <div class="contact-change-btn">
-          <button id="edit-btn">edit<img src="./img/edit.png"></button>
-          <button id="del-btn">delete<img src="./img/delete.png"></button>
-        </div>
+
+
         <div id="contact-information-details">
           <div class="inormation-header">
             <p>Contact Information</p>
