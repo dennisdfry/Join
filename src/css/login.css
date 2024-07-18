@@ -20,6 +20,10 @@ body {
     height: 497px;
 }
 
+.login-input {    
+    padding: 12px 21px;
+}
+
 .login-input input{
     border-style: none;
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
@@ -27,7 +31,6 @@ body {
     height: 48px;
     width: 422px;
     gap: 8px;
-    padding: 12px 21px;
 }
 
 .login-btn {
