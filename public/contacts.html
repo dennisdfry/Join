@@ -151,8 +151,14 @@
           <div id="add-contact-content">
             <div id="add-contact-content-left" class="bg-color-dg">
               <img src="./img/join_logo.svg">
-              <span id="add-contact-left-text"></span>
+              <span id="add-contact-left-text">
+                <h1>Add Contact</h1>
+                <p>Tasks are better with a Team!</p>
+                <div class="add-contact-seperator"></div>
+              </span>
             </div>
+            <div id="exitBtn" onclick="closeOverlay()"><img src="./img/Close.png"></div>
+            <div id="img"><img src="./img/Group 13.png"></div>
             <form id="contact-form">
               <input
                 type="text"
@@ -178,24 +184,18 @@
                 required
               />
 
-              <label for="img">Bild-URL:</label>
               <input
-                type="text"
-                id="img"
-                name="img"
-                placeholder="https://example.com/image.jpg"
+                id="-formfield-cancel-btn"
+                onclick="closeOverlay()"
+                class="create-btn bg-color-dg bradius10 txt-center"
+                type="submit"
+                value="cancel"
               />
-              <div>
-                <input
-                  class="create-btn bg-color-dg bradius10 txt-center"
-                  type="submit"
-                  value="cancel"
-                />
-                <input
-                  class="create-btn bg-color-dg bradius10 txt-center"
-                  type="submit"
-                  value="Create"
-                />
+              <input
+                class="create-btn bg-color-dg bradius10 txt-center"
+                type="submit"
+                value="Create"
+              />
               </div>
             </form>
           </div>

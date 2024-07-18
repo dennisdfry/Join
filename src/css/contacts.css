@@ -172,8 +172,6 @@ body {
   color: #2a3647;
 }
 
-
-
 #contact-section {
   width: 461px;
   height: 364px;
@@ -203,7 +201,6 @@ body {
   flex-direction: row;
   align-items: center;
 }
-
 
 .contact-section-content {
   width: 461px;
@@ -302,8 +299,6 @@ body {
   color: #29abe2;
 }
 
-
-
 #add-contact-content {
   width: 1212px;
   height: 592px;
@@ -313,7 +308,6 @@ body {
   border-radius: 30px;
 
   animation: moveIn 1s ease-in-out 0.001s forwards;
-
 }
 @keyframes moveIn {
   0% {
@@ -323,18 +317,52 @@ body {
     transform: translateX(0);
   }
 }
-
+#exitBtn {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 48px;
+  left: 1132px;
+  padding: 4px 0px 0px 0px;
+  gap: 0;
+  border-radius: 56px 0px 0px 0px;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
 
 #add-contact-content-left {
   width: 467px;
   height: 594px;
   gap: 12px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
 }
 
 #add-contact-left-text {
   width: 371px;
   height: 129px;
   gap: 16px;
+}
+
+#add-contact-content-left h1 {
+  color: #ffffff;
+  font-size: 61px;
+  font-weight: 700;
+  line-height: 73.2px;
+  text-align: left;
+}
+#add-contact-content-left img {
+  width: 55.6px;
+  height: 66.48px;
+}
+
+#add-contact-content-left p {
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 32.4px;
+  text-align: left;
+  color: #ffffff;
 }
 
 #add-contact-overlay {
@@ -350,24 +378,32 @@ body {
   z-index: 999;
 }
 
-
 #contact-form {
   width: 422px;
   height: 215px;
+  position: absolute;
+  top: 137px;
+  left: 742px;
   gap: 32px;
+  padding: 13px, 21px, 13px, 21px;
   display: flex;
   flex-direction: column;
-
-
 }
 
 #contact-form input {
   width: 422px;
   height: 50px;
   gap: 8px;
-  padding: 13px, 21px, 13px, 21px;
   border-radius: 10px;
   border: 1px solid lightgray;
+}
+#img {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 204px;
+  left: 550px;
+  border-radius: 70px 0px 0px 0px;
 }
 
 .create-btn {
