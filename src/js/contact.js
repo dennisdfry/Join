@@ -76,8 +76,8 @@ async function postData(contact) {
 
 
   function addContact() {
-    let overlay = document.getElementById("overlay");
-    let contactForm = document.getElementById("contactForm");
+    let overlay = document.getElementById("add-contact-overlay");
+    let contactForm = document.getElementById("contact-form");
     let btn = document.getElementById("add-contact-section");
     
     overlay.classList.remove("d-none");
@@ -101,15 +101,15 @@ function handleFormSubmit(event) {
 }
 
 function setupForm() {
-  const form = document.getElementById("contactForm");
+  const form = document.getElementById("contact-form");
   form.addEventListener("submit", handleFormSubmit);
 }
 
 function setupOverlay() {
-  const overlay = document.getElementById("overlay");
+  const overlay = document.getElementById("add-contact-overlay");
   overlay.addEventListener("click", function (event) {
     if (event.target === overlay) {
-      document.getElementById("contactForm").classList.add("d-none");
+      document.getElementById("contact-form").classList.add("d-none");
       document.getElementById("add-contact-section").classList.add("d-none");
       overlay.classList.add("d-none");
     }

@@ -119,16 +119,16 @@
 
       <div class="contact-section-header">
           <h1>Contacts</h1>
-          <div class="seperator2"></div>
+          <div class="contact-section-seperator"></div>
           <p>better with a team</p>
       </div>
 
       <div id="contact-section">
-        <div class="contact-information">
+        <div class="contact-section-information">
           <img src="./img/Profile badge.png" />
-          <div class="contact-namebtn">
+          <div class="contact-section-change">
             <p>Anton Mayer</p>
-            <div class="contact-change-btn">
+            <div class="contact-section-btn-box">
               <button onclick="editContact()" id="edit-btn">Edit<img src="./img/edit.png"></button>
               <button onclick="deleteContact()" id="del-btn">Delete<img src="./img/delete.png"></button>
             </div>
@@ -137,7 +137,7 @@
 
 
         <div id="contact-information-details">
-            <p class="headline">Contact Information</p>
+            <p class="information-details-headline">Contact Information</p>
               <p class="information-details"><b>Email</b></p>
               <a class="information-details-link">dfsfdfasd@gmail.com</a>
               <p class="information-details"><b>Phone</b></p>
@@ -149,10 +149,13 @@
     
 
       <div id="add-contact-section" class="d-none">
-        <div id="overlay">
-          <div class="logo-side bg-color-dg"></div>
-          
-            <form id="contactForm">
+        <div id="add-contact-overlay">
+          <div id="add-contact-form-overlay">
+            <div id="add-contact-left" class="bg-color-dg">
+              <img src="./img/join_logo.svg">
+              <span id="add-contact-left-text"></span>
+            </div>
+            <form id="contact-form">
               <label for="name">Name:</label>
               <input
                 type="text"
@@ -200,7 +203,8 @@
                   value="Create"
                 />
               </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
 

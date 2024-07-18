@@ -202,7 +202,7 @@ body {
   }
 }
 
-.contact-information {
+.contact-section-information {
   width: 461px;
   height: 120px;
   gap: 54px;
@@ -210,7 +210,7 @@ body {
   align-items: center;
 }
 
-.contact-information img {
+.contact-section-information img {
   width: 120px;
   height: 120px;
   gap: 10px;
@@ -218,20 +218,20 @@ body {
   border: 3px 0px 0px 0px;
 }
 
-.contact-information p {
+.contact-section-information p {
   font-size: 47px;
   font-weight: 500;
   margin: 0;
   text-align: left;
 }
 
-.contact-namebtn {
+.contact-section-change {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.contact-change-btn {
+.contact-section-btn-box {
   width: 159px;
   height: 24px;
   display: flex;
@@ -271,16 +271,14 @@ body {
   width: 24px;
 }
 
-
 #contact-information-details {
   width: 207px;
   height: 74px;
   display: flex;
   flex-direction: column;
-
 }
 
-.headline {
+.information-details-headline {
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
@@ -300,29 +298,43 @@ body {
   color: #29abe2;
 }
 
-#overlay {
+
+
+
+
+#add-contact-left {
+  width: 467px;
+  height: 594px;
+  gap: 12px;
+}
+#add-contact-left-text {
+  width: 371px;
+  height: 129px;
+  gap: 16px;
+}
+
+#add-contact-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.1); 
+  background: rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999; 
+  z-index: 999;
 }
 
-
-#contactForm {
+#add-contact-form-overlay {
   width: 1212px;
   height: 592px;
-  background: white; 
-  border-radius: 30px 0px 0px 0px;
+  background: white;
+  border-radius: 30px;
   animation: moveIn 1s ease-in-out 0.001s forwards;
+  display: flex;
+  flex-direction: row;
 }
-
-
 @keyframes moveIn {
   0% {
     transform: translateX(100vw);
@@ -332,7 +344,7 @@ body {
   }
 }
 
-#contactForm input {
+#contact-form input {
   width: 422px;
   height: 50px;
   gap: 8px;
@@ -346,7 +358,7 @@ body {
   gap: 4px;
 }
 
-.seperator2 {
+.contact-section-seperator {
   border-left: 3px solid #29abe2;
   height: 53px;
 }
