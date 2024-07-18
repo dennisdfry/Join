@@ -275,9 +275,6 @@ body {
   width: 24px;
 }
 
-
-
-
 #contact-section-information {
   width: 207px;
   height: 74px;
@@ -307,20 +304,16 @@ body {
 
 
 
-
-
-
-/*#add-contact-section{}*/
-
-
 #add-contact-content {
   width: 1212px;
   height: 592px;
   background: white;
-  border-radius: 30px;
-  animation: moveIn 1s ease-in-out 0.001s forwards;
   display: flex;
   flex-direction: row;
+  border-radius: 30px;
+
+  animation: moveIn 1s ease-in-out 0.001s forwards;
+
 }
 @keyframes moveIn {
   0% {
@@ -362,15 +355,19 @@ body {
   width: 422px;
   height: 215px;
   gap: 32px;
-  position: absolute;
-  top: 137px;
-  left: 742px;
+  display: flex;
+  flex-direction: column;
+
+
 }
 
 #contact-form input {
   width: 422px;
   height: 50px;
   gap: 8px;
+  padding: 13px, 21px, 13px, 21px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
 }
 
 .create-btn {
