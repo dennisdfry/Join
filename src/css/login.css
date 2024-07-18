@@ -24,6 +24,12 @@ body {
     padding: 12px 21px;
 }
 
+.input-mail, .input-password {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .login-input input{
     border-style: none;
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
@@ -33,12 +39,22 @@ body {
     gap: 8px;
     font-size: 20px;
     font-family: 'Inter';
+    padding-left: 20px;
 }
 
 .login-input input:placeholder-shown {
     font-size: 20px;
     font-family: 'Inter';
+}
+
+::placeholder {    
     color: #D1D1D1;
+}
+
+.login-input img {
+    position: absolute;
+    right: 10px;
+    width: 24px;
 }
 
 .login-btn {
