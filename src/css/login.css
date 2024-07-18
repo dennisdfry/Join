@@ -1,12 +1,13 @@
 body {
     margin: 0;
     height: 100vh;
-    width: 100vw;
+    width: 98vw;
     background-color: rgb(246, 247, 248);
 }
 
 .login-signup {
     width: 100%;
+    height: 49px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -22,6 +23,7 @@ body {
 .login-not-user-btn {
     font-family: 'Inter';
     font-size: 20px;
+    margin-right: 20px;
 }
 
 .login-signup-btn {
@@ -37,16 +39,16 @@ body {
 .login-logo img {
     height: 122px;
     margin-left: 77px;
-    margin-bottom: 80px;
+    margin-bottom: 8px;
 }
 
 .login-field {
     background-color: white;
     border-radius: 30px;
-    padding: 30px 30px;
+    padding: 0px 30px;
     gap: 32px;
     width: 652px;
-    height: 497px;
+    height: 492px;
 }
 
 .login-input {    
@@ -142,3 +144,12 @@ body {
     border-bottom: 3px solid #29abe2;
     margin: 10px 0;
   }
+
+.login-info button {
+    border: none;
+    background-color: rgb(246, 247, 248);
+    font-family: 'Inter';
+    margin: 50px 0px;
+    color: #A8A8A8;
+    font-size: 16px;
+}
