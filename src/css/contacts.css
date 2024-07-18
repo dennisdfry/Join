@@ -56,7 +56,7 @@ body {
   display: none;
 }
 
-.contactlist-content {
+.contactlist-overlay {
   width: 352px;
   height: 78px;
   padding: 15px 24px 15px 24px;
@@ -68,23 +68,23 @@ body {
   align-items: flex-end;
 }
 
-.contactlist-content img {
+.contactlist-overlay img {
   width: 42px;
   height: 42px;
   border-left: 2px;
   gap: 10px;
 }
 
-.contactlist-content:hover {
+.contactlist-overlay:hover {
   background-color: #eeecec;
 }
 
-.contactlist-data {
+.contactlist-data-box {
   height: 48px;
   gap: 5px;
 }
 
-.contactlist-name {
+.contactlist-data-name {
   height: 24px;
   line-height: 24px;
   font-family: Inter;
@@ -92,7 +92,7 @@ body {
   font-weight: 400;
 }
 
-.contactlist-mail {
+.contactlist-data-mail {
   line-height: 19.2px;
   color: #007cee;
   font-size: 16px;
@@ -135,14 +135,14 @@ body {
   background-color: #29abe2;
 }
 
-.contactlist-alphabetic-order {
+.contactlist-order-letter {
   width: 352px;
   height: 58px;
   padding: 17px 36px 17px 36px;
   gap: 8px;
 }
 
-.contactlist-alphabetic-order p {
+.contactlist-order-letter p {
   width: 14px;
   height: 24px;
   padding-left: 24px;
@@ -266,6 +266,7 @@ body {
   height: 24px;
   width: 24px;
 }
+
 #edit-btn img {
   height: 24px;
   width: 24px;
@@ -302,11 +303,13 @@ body {
 
 
 
+
 #add-contact-left {
   width: 467px;
   height: 594px;
   gap: 12px;
 }
+
 #add-contact-left-text {
   width: 371px;
   height: 129px;
@@ -342,6 +345,14 @@ body {
   100% {
     transform: translateX(0);
   }
+}
+#contact-form {
+  width: 422px;
+  height: 215px;
+  gap: 32px;
+  position: absolute;
+  top: 137px;
+  left: 742px;
 }
 
 #contact-form input {
