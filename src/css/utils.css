@@ -53,6 +53,10 @@
   font-size: 64px;
 }
 
+.fs-61 {
+  font-size: 61px;
+}
+
 .fs-20 {
   font-size: 20px;
 }
@@ -83,4 +87,16 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.bradius10{
+border-radius: 10px 0px 0px 0px;
+}
+
+.bg-color-dg {
+  background-color: #2a3647;
+}
+
+.gap-20 {
+  gap: 20px;
 }

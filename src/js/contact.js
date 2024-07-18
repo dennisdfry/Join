@@ -10,7 +10,8 @@ let allContacts = {
 async function init() {
   try {
     await getData("/");
-    setupFormListener();
+    setupOverlay();
+    setupForm();
   } catch (error) {
     console.log("Error:", error);
   }
@@ -32,7 +33,9 @@ function updateContacts(responseToJson) {
       allContacts.phones.push(contact.phone);
       allContacts.images.push(contact.img);
     } else {
-      console.log(`${contact.name}, mit der Nummer:${contact.phone}, ist bereits vorhanden.`);
+      console.log(
+        `${contact.name}, mit der Nummer:${contact.phone}, ist bereits vorhanden.`
+      );
     }
   }
   console.log(allContacts);
@@ -48,7 +51,6 @@ function isContactExisting(contact) {
 }
 
 async function postData(contact) {
-
   try {
     let response = await fetch(BASE_URL + ".json", {
       method: "POST",
@@ -72,11 +74,16 @@ async function postData(contact) {
   }
 }
 
-function addContact(){
-  let btn = document.getElementById('contactForm');
-  btn.classList.remove('d-none');
-}
 
+  function addContact() {
+    let overlay = document.getElementById("add-contact-overlay");
+    let contactForm = document.getElementById("contact-form");
+    let btn = document.getElementById("add-contact-section");
+    
+    overlay.classList.remove("d-none");
+    contactForm.classList.remove("d-none");
+    btn.classList.remove("d-none");
+  }
 
 
 function handleFormSubmit(event) {
@@ -90,12 +97,23 @@ function handleFormSubmit(event) {
   };
 
   postData(newContact);
-  document.getElementById("contactForm").reset();
+  
 }
 
-function setupFormListener() {
-  const form = document.getElementById("contactForm");
+function setupForm() {
+  const form = document.getElementById("contact-form");
   form.addEventListener("submit", handleFormSubmit);
+}
+
+function setupOverlay() {
+  const overlay = document.getElementById("add-contact-overlay");
+  overlay.addEventListener("click", function (event) {
+    if (event.target === overlay) {
+      document.getElementById("contact-form").classList.add("d-none");
+      document.getElementById("add-contact-section").classList.add("d-none");
+      overlay.classList.add("d-none");
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", init);

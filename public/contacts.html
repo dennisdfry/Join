@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./img/user_logo.png" type="image/png">
+    <link rel="icon" href="./img/user_logo.png" type="image/png" />
     <link rel="stylesheet" href="../src/css/contacts.css" />
     <link rel="stylesheet" href="../src/css/utils.css" />
     <script src="/src/js/contact.js"></script>
@@ -12,134 +12,197 @@
 
   <body onload="init()">
     <div id="main">
-      <div id="content">
-        <div class="contact-btn-box">
+
+      <div id="contactlist-section">
+        <div class="contactlist-btn-box">
           <button id="add-contact-btn" onclick="addContact()">
             Add new contact
             <img src="./img/person_add.png" />
           </button>
         </div>
-        <div class="contactlist contactlist-scrollbar">
-          <div class="alphabetic-order">
+
+        <div class="contactlist-content contactlist-scrollbar">
+
+          <div class="contactlist-order-letter">
             <p>A</p>
+            <div class="contactlist-seperator"></div>
           </div>
-          <div class="seperator"></div>
 
-          <div class="contactlist-content">
+          <div class="contactlist-overlay">
             <img class="pll-24" src="./img/Profile badge.png" />
-            <div class="contactlist-data">
-              <div class="contactlist-name">Anton Mayer</div>
-              <a class="contactlist-mail">antom@gmail.com</a>
+            <div class="contactlist-data-box">
+              <div class="contactlist-data-name">Anton Mayer</div>
+              <a class="contactlist-data-mail">antom@gmail.com</a>
             </div>
           </div>
-          <div class="contactlist-content">
+          <div class="contactlist-overlay">
             <img class="pll-24" src="./img/Property 1=Anja.png" />
-            <div class="contactlist-data">
-              <div class="contactlist-name">Anja Schulz</div>
-              <a class="contactlist-mail">Schulz@hotmail.com</a>
+            <div class="contactlist-data-box">
+              <div class="contactlist-data-name">Anja Schulz</div>
+              <a class="contactlist-data-mail">Schulz@hotmail.com</a>
             </div>
           </div>
 
-          <div class="alphabetic-order">
+          <div class="contactlist-order-letter">
             <p>B</p>
-            <div class="seperator"></div>
+            <div class="contactlist-seperator"></div>
           </div>
 
-          <div class="contactlist-content">
+          <div class="contactlist-overlay">
             <img class="pll-24" src="./img/Property 1=Benedikt.png" />
-            <div class="contactlist-data">
-              <div class="contactlist-name">Benedikt Ziegler</div>
-              <a class="contactlist-mail">benedikt@gmail.com</a>
+            <div class="contactlist-data-box">
+              <div class="contactlist-data-name">Benedikt Ziegler</div>
+              <a class="contactlist-data-mail">benedikt@gmail.com</a>
             </div>
           </div>
 
-          <div class="alphabetic-order">
+          <div class="contactlist-order-letter">
             <p>D</p>
-            <div class="seperator"></div>
+            <div class="contactlist-seperator"></div>
           </div>
 
-          <div class="contactlist-content">
+          <div class="contactlist-overlay">
             <img class="pll-24" src="./img/Property 1=David.png" />
-            <div class="contactlist-data">
-              <div class="contactlist-name">David Eisenberg</div>
-              <a class="contactlist-mail">davidberg@gmail.com</a>
+            <div class="contactlist-data-box">
+              <div class="contactlist-data-name">David Eisenberg</div>
+              <a class="contactlist-data-mail">davidberg@gmail.com</a>
             </div>
           </div>
 
-          <div class="alphabetic-order">
+          <div class="contactlist-order-letter">
             <p>E</p>
-            <div class="seperator"></div>
+            <div class="contactlist-seperator"></div>
           </div>
 
-          <div class="contactlist-content">
+          <div class="contactlist-overlay">
             <img class="pll-24" src="./img/Property 1=Eva.png" />
-            <div class="contactlist-data">
-              <div class="contactlist-name">Eva Fischer</div>
-              <a class="contactlist-mail">eva@gmail.com</a>
+            <div class="contactlist-data-box">
+              <div class="contactlist-data-name">Eva Fischer</div>
+              <a class="contactlist-data-mail">eva@gmail.com</a>
             </div>
           </div>
 
-          <div class="contactlist-content">
+          <div class="contactlist-overlay">
             <img class="pll-24" src="./img/Property 1=Emmanuel.png" />
-            <div class="contactlist-data">
-              <div class="contactlist-name">Emanuel Mauer</div>
-              <a class="contactlist-mail">emanuelma@gmail.com</a>
+            <div class="contactlist-data-box">
+              <div class="contactlist-data-name">Emanuel Mauer</div>
+              <a class="contactlist-data-mail">emanuelma@gmail.com</a>
             </div>
           </div>
 
-          <div class="alphabetic-order">
+          <div class="contactlist-order-letter">
             <p>M</p>
-            <div class="seperator"></div>
+            <div class="contactlist-seperator"></div>
           </div>
 
-          <div class="contactlist-content">
+          <div class="contactlist-overlay">
             <img class="pll-24" src="./img/Property 1=Marcel.png" />
-            <div class="contactlist-data">
-              <div class="contactlist-name">Marcel Bauer</div>
-              <a class="contactlist-mail">bauer@gmail.com</a>
+            <div class="contactlist-data-box">
+              <div class="contactlist-data-name">Marcel Bauer</div>
+              <a class="contactlist-data-mail">bauer@gmail.com</a>
             </div>
           </div>
 
-          <div class="alphabetic-order">
+          <div class="contactlist-order-letter">
             <p>T</p>
-            <div class="seperator"></div>
+            <div class="contactlist-seperator"></div>
           </div>
 
-          <div class="contactlist-content">
+          <div class="contactlist-overlay">
             <img class="pll-24" src="./img/Property 1=Tatjana.png" />
-            <div class="contactlist-data">
-              <div class="contactlist-name">Tatjana Wolf</div>
-              <a class="contactlist-mail">wolf@gmail.com</a>
+            <div class="contactlist-data-box">
+              <div class="contactlist-data-name">Tatjana Wolf</div>
+              <a class="contactlist-data-mail">wolf@gmail.com</a>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="contact-overlay-section">
-        <div class="contact-overlay-header">
-          <h1>Contacts</h1>
-          <div class="seperator2"></div>
-          <p>better with a team</p>
+      <div class="contact-section-header">
+        <h1>Contacts</h1>
+        <div class="contact-section-seperator"></div>
+        <p>better with a team</p>
+      </div>
+
+      <div id="contact-section">
+ 
+        <div class="contact-section-content">
+          <img src="./img/Profile badge.png" />
+          <div class="contact-section-overlay">
+            <p>Anton Mayer</p>
+            <div class="contact-section-btn-box">
+              <button onclick="editContact()" id="edit-btn">Edit<img src="./img/edit.png"></button>
+              <button onclick="deleteContact()" id="del-btn">Delete<img src="./img/delete.png"></button>
+            </div>
+          </div>
         </div>
 
-        <div id="add-contact-section">
-          <form id="contactForm" class="d-none">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
-            
-            <label for="mail">E-Mail:</label>
-            <input type="email" id="mail" name="mail" placeholder="max@example.com" required>
-            
-            <label for="phone">Telefon:</label>
-            <input type="text" id="phone" name="phone" placeholder="0123456789" pattern="^[0-9]{10,15}$" required>
-            
-            <label for="img">Bild-URL:</label>
-            <input type="text" id="img" name="img" placeholder="https://example.com/image.jpg">
-            
-            <input type="submit" value="Kontakt hinzufügen">
-          </form>
+        <div id="contact-section-information">
+        <p class="information-details-headline">Contact Information</p>
+        <p class="contact-section-details"><b>Email</b></p>
+        <a class="contact-section-link">dfsfdfasd@gmail.com</a>
+        <p class="contact-section-details"><b>Phone</b></p>
+        <p class="contact-section-details">+49 111 111 111</p>
         </div>
       </div>
+    
+      <div id="add-contact-section" class="d-none">
+        <div id="add-contact-overlay">
+          <div id="add-contact-content">
+            <div id="add-contact-content-left" class="bg-color-dg">
+              <img src="./img/join_logo.svg">
+              <span id="add-contact-left-text"></span>
+            </div>
+            <form id="contact-form">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Name"
+                required
+              />
+              <input
+                type="email"
+                id="mail"
+                name="mail"
+                placeholder="Email"
+                required
+              />
+
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                placeholder="Phone"
+                pattern="^[0-9]{10,15}$"
+                required
+              />
+
+              <label for="img">Bild-URL:</label>
+              <input
+                type="text"
+                id="img"
+                name="img"
+                placeholder="https://example.com/image.jpg"
+              />
+              <div>
+                <input
+                  class="create-btn bg-color-dg bradius10 txt-center"
+                  type="submit"
+                  value="cancel"
+                />
+                <input
+                  class="create-btn bg-color-dg bradius10 txt-center"
+                  type="submit"
+                  value="Create"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
+    
   </body>
 </html>
