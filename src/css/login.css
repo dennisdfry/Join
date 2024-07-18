@@ -7,17 +7,18 @@ body {
 
 .login-signup {
     width: 100%;
-    height: 49px;
+    position: absolute;
+    top: 5%;
+    right: 5%;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    margin: 47px 279px 0px 0px;
+    z-index: 10;
 }
 
 .login-signup button {
     border: none;
     padding: 15px 16px;
-    gap: 35px;
 }
 
 .login-not-user-btn {
@@ -34,6 +35,9 @@ body {
 
 .login-logo {
     width: 100%;
+    position: absolute;
+    top: 5%;
+    z-index: 9;
 }
 
 .login-logo img {
@@ -44,11 +48,12 @@ body {
 
 .login-field {
     background-color: white;
+    position: absolute;
+    top: 25%;
     border-radius: 30px;
-    padding: 0px 30px;
+    padding: 48px 115px;
     gap: 32px;
-    width: 652px;
-    height: 492px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .login-input {    
@@ -144,6 +149,11 @@ body {
     border-bottom: 3px solid #29abe2;
     margin: 10px 0;
   }
+
+.login-info {
+    position: absolute;
+    top: 85%;
+}
 
 .login-info button {
     border: none;
