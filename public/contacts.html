@@ -20,7 +20,8 @@
             <img src="./img/person_add.png" />
           </button>
         </div>
-        <div class="contactlist contactlist-scrollbar">
+
+        <div class="contactlist-content contactlist-scrollbar">
 
           <div class="contactlist-order-letter">
             <p>A</p>
@@ -118,15 +119,16 @@
       </div>
 
       <div class="contact-section-header">
-          <h1>Contacts</h1>
-          <div class="contact-section-seperator"></div>
-          <p>better with a team</p>
+        <h1>Contacts</h1>
+        <div class="contact-section-seperator"></div>
+        <p>better with a team</p>
       </div>
 
       <div id="contact-section">
-        <div class="contact-section-information">
+ 
+        <div class="contact-section-content">
           <img src="./img/Profile badge.png" />
-          <div class="contact-section-change">
+          <div class="contact-section-overlay">
             <p>Anton Mayer</p>
             <div class="contact-section-btn-box">
               <button onclick="editContact()" id="edit-btn">Edit<img src="./img/edit.png"></button>
@@ -135,23 +137,20 @@
           </div>
         </div>
 
-
-        <div id="contact-information-details">
-            <p class="information-details-headline">Contact Information</p>
-              <p class="information-details"><b>Email</b></p>
-              <a class="information-details-link">dfsfdfasd@gmail.com</a>
-              <p class="information-details"><b>Phone</b></p>
-              <p class="information-details">+49 111 111 111</p>
-            </div> 
-          </div>
+        <div id="contact-section-information">
+        <p class="information-details-headline">Contact Information</p>
+        <p class="contact-section-details"><b>Email</b></p>
+        <a class="contact-section-link">dfsfdfasd@gmail.com</a>
+        <p class="contact-section-details"><b>Phone</b></p>
+        <p class="contact-section-details">+49 111 111 111</p>
         </div>
       </div>
     
 
       <div id="add-contact-section" class="d-none">
         <div id="add-contact-overlay">
-          <div id="add-contact-form-overlay">
-            <div id="add-contact-left" class="bg-color-dg">
+          <div id="add-contact-content">
+            <div id="add-contact-content-left" class="bg-color-dg">
               <img src="./img/join_logo.svg">
               <span id="add-contact-left-text"></span>
             </div>
@@ -208,7 +207,8 @@
         </div>
       </div>
 
+    
     </div>
-  
+    
   </body>
 </html>
