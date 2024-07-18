@@ -4,7 +4,7 @@ let prioArray = [];
 let addTaskArray = [];
 let expanded = false;
 
-async function init() {
+async function onload() {
     try {
         let fireBaseData = await onloadData("/");
         let contacts = await fetchContacts(fireBaseData)
@@ -26,16 +26,19 @@ async function fetchContacts(responseToJson) {
     let contacts = responseToJson.contacts;
     return contacts
 }
-function showCheckboxes() {
+async function showCheckboxes() {
+    let fireBaseData = await onloadData("/");
+    let contacts = await fetchContacts(fireBaseData)
+    assignedTo(contacts);
     let checkboxes = document.getElementById("checkboxes");
     if (!expanded) {
-      checkboxes.style.display = "block";
-      expanded = true;
+        checkboxes.style.display = "block";
+        expanded = true;
     } else {
-      checkboxes.style.display = "none";
-      expanded = false;
+        checkboxes.style.display = "none";
+        expanded = false;
     }
-  }
+}
 async function assignedTo(contacts) {
     const extractNames = (contacts) => {
         return Object.values(contacts).map(entry => entry.name);
@@ -45,8 +48,11 @@ async function assignedTo(contacts) {
     let position = document.getElementById('checkboxes');
     for (let index = 0; index < names.length; index++) {
         const element = names[index];
-        position.innerHTML += `<label for="one">
-                              <input type="checkbox" id="${index}" />${element}</label>`
+        let list = `<label for="${index}">
+                              <input type="checkbox" id="${index}" />${element}</label>`;
+        console.log(list);
+        position.innerHTML += list;
+
     }
 }
 
@@ -106,8 +112,8 @@ function addSubtasks() {
     console.log(subtasksArray);
 }
 
-function cancelTask(){
-
+function cancelTask() {
+    window.location.href = 'index.html';
 }
 
 

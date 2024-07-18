@@ -13,12 +13,9 @@
     background-color: rgb(246, 247, 248);
 }
 .add-Task-Container{
-    width:1116px;
-    height:870px;
-    padding-top:64px;
+   padding-right: 64px;
     padding-bottom:64px;
     padding-left: 272px;
-    padding-right: 74px;
     background-color: #f6f7f8;
 
 }
@@ -187,6 +184,8 @@
 .add-task-finish-section{
     display: flex;
     justify-content: space-between;
+    padding-right:64px;
+    padding-left: 272px;
 }
 .add-task-finish-button-container{
     display: flex;

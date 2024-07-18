@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../src/css/addTask.css">
+    <link rel="stylesheet" href="/src/css/addTask.css">
     <link rel="icon" href="./img/user_logo.png" type="image/png">
     <script src="/src/js/addTask.js"></script>
+    
     <title>Add Task</title>
 </head>
 
-<body onload="init()" class="background-main">
+<body onload="onload()" class="background-main">
     <form class="add-Task-Container">
         <section class="add-task-head">
             <h1>Add Task</h1>
@@ -39,21 +40,12 @@
                             </select>
                             <div class="overSelect"></div>
                           </div>
-                          <div id="checkboxes">
-                            
+                          <div id="checkboxes"> 
                           </div>
                         </div>
                       </form>
-                    <!-- <select required class="add-task-select" name="assignedTo" id="assignedTo">
-                        <option value="" selected hidden>Select contacts to assign</option>
-
-                        <div id="contactImage"></div>
-                        Add your options here
-                    </select> -->
                 </div>
-
                 <div class="add-task-seperator"></div>
-
                 <!-- Rechte Sektion -->
                 <div class="add-task-form-right-section">
                     <label for="dueDate">Due date <span class="red-star">*</span></label>
