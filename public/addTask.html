@@ -31,12 +31,25 @@
                         name="description" id="description"></textarea>
 
                     <label for="assignedTo">Assigned to</label>
-                    <select required class="add-task-select" name="assignedTo" id="assignedTo">
+                    <form>
+                        <div class="multiselect">
+                          <div class="selectBox" onclick="showCheckboxes()">
+                            <select class="add-task-select">
+                              <option>Select an option</option>
+                            </select>
+                            <div class="overSelect"></div>
+                          </div>
+                          <div id="checkboxes">
+                            
+                          </div>
+                        </div>
+                      </form>
+                    <!-- <select required class="add-task-select" name="assignedTo" id="assignedTo">
                         <option value="" selected hidden>Select contacts to assign</option>
 
                         <div id="contactImage"></div>
                         Add your options here
-                    </select>
+                    </select> -->
                 </div>
 
                 <div class="add-task-seperator"></div>
@@ -49,14 +62,14 @@
                     <label for="">Prio</label>
                  
                     <div class="add-task-prio-button-container">
-                        <button id="prioButton1" value="1" data-prio="urgent" type="button" class="add-task-prio-button">
+                        <button onclick="prio(1)" id="prioButton1" value="1" data-prio="urgent" type="button" class="add-task-prio-button">
                             <span>Urgent</span>
                             <img src="../public/img/Prio alta.png" alt="">
                         </button>
-                        <button id="prioButton2" value="2" data-prio="medium" type="button" class="add-task-prio-button">
+                        <button onclick="prio(2)" id="prioButton2" value="2" data-prio="medium" type="button" class="add-task-prio-button">
                             <span>Medium</span>
                         </button>
-                        <button id="prioButton3" value="3" data-prio="low" type="button" class="add-task-prio-button">
+                        <button onclick="prio(3)" id="prioButton3" value="3" data-prio="low" type="button" class="add-task-prio-button">
                             <span>Low</span>
                             <img src="../public/img/Prio baja.png" alt="">
                         </button>
@@ -72,8 +85,14 @@
 
                     <label for="subtasks">Subtasks</label>
                     <div class="input-with-button">
-                        <input required type="text" class="add-task-input" placeholder="Add item" id="subtasks" name="subtasks">
-                        <button onclick="addSubtasks()" type="button" class="add-task-button">+</button>
+                        <input required type="text" minlength="2" class="add-task-input" placeholder="Add item" id="subtasks" name="subtasks">
+                        <button onclick="addSubtasks()" type="button" class="add-task-button">
+                            <div id="subtasksControl" class="d-none subtasks-control">
+                                <div>X</div>
+                                <img src="../public/img/check.svg" alt="">
+                            </div>
+                            <span id="subtasksPlus">+</span>
+                        </button>
                     </div>
                     <div class="subtasksList" id="subtasksPosition"></div>
                 </div>
@@ -82,7 +101,7 @@
         <section class="add-task-finish-section">
             <p><span class="red-star">*</span>This field is required</p>
             <div class="add-task-finish-button-container">
-                <button class="add-task-cancel-button">
+                <button onclick="cancelTask()" class="add-task-cancel-button">
                     <span>Cancel <span>x</span></span>
                 </button>
                 <button onclick="createTask()" class="add-task-create-button">
