@@ -5,16 +5,45 @@ body {
     background-color: rgb(246, 247, 248);
 }
 
+.login-signup {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 47px 279px 0px 0px;
+}
+
+.login-signup button {
+    border: none;
+    padding: 15px 16px;
+    gap: 35px;
+}
+
+.login-not-user-btn {
+    font-family: 'Inter';
+    font-size: 20px;
+}
+
+.login-signup-btn {
+    font-size: 16px;
+    color: white;
+    border-radius: 8px;
+}
+
+.login-logo {
+    width: 100%;
+}
+
 .login-logo img {
     height: 122px;
-    margin-top: 80px;
     margin-left: 77px;
+    margin-bottom: 80px;
 }
 
 .login-field {
     background-color: white;
     border-radius: 30px;
-    padding: 48px 115px;
+    padding: 30px 30px;
     gap: 32px;
     width: 652px;
     height: 497px;
@@ -24,6 +53,12 @@ body {
     padding: 12px 21px;
 }
 
+.input-mail, .input-password {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .login-input input{
     border-style: none;
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
@@ -31,6 +66,30 @@ body {
     height: 48px;
     width: 422px;
     gap: 8px;
+    font-size: 20px;
+    font-family: 'Inter';
+    padding-left: 20px;
+}
+
+.login-input input:placeholder-shown {
+    font-size: 20px;
+    font-family: 'Inter';
+}
+
+::placeholder {    
+    color: #D1D1D1;
+}
+
+.login-input img {
+    position: absolute;
+    right: 10px;
+    width: 24px;
+}
+
+.login-checkbox {
+    font-family: 'Inter';
+    font-size: 16px;
+    padding: 20px 80px;
 }
 
 .login-btn {

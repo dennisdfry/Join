@@ -97,6 +97,10 @@ border-radius: 10px 0px 0px 0px;
   background-color: #2a3647;
 }
 
+.bg-color-lg {
+  background-color: rgb(246, 247, 248)
+}
+
 .gap-20 {
   gap: 20px;
 }
