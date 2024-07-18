@@ -5,16 +5,45 @@ body {
     background-color: rgb(246, 247, 248);
 }
 
+.login-signup {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 47px 279px 0px 0px;
+}
+
+.login-signup button {
+    border: none;
+    padding: 15px 16px;
+    gap: 35px;
+}
+
+.login-not-user-btn {
+    font-family: 'Inter';
+    font-size: 20px;
+}
+
+.login-signup-btn {
+    font-size: 16px;
+    color: white;
+    border-radius: 8px;
+}
+
+.login-logo {
+    width: 100%;
+}
+
 .login-logo img {
     height: 122px;
-    margin-top: 80px;
     margin-left: 77px;
+    margin-bottom: 80px;
 }
 
 .login-field {
     background-color: white;
     border-radius: 30px;
-    padding: 48px 115px;
+    padding: 30px 30px;
     gap: 32px;
     width: 652px;
     height: 497px;
@@ -55,6 +84,12 @@ body {
     position: absolute;
     right: 10px;
     width: 24px;
+}
+
+.login-checkbox {
+    font-family: 'Inter';
+    font-size: 16px;
+    padding: 20px 80px;
 }
 
 .login-btn {

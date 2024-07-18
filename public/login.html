@@ -10,6 +10,10 @@
   </head>
   <body>
     <section class="main-login d-flex-center flex-d-col">
+      <div class="login-signup">
+        <button class="login-not-user-btn bg-color-lg">Not a Join user?</button>
+        <button class="login-signup-btn fw-700 bg-color-dg">Sign up</button>
+      </div>
       <div class="login-logo" id="login-logo">
         <img src="/public/img/user_logo.png" alt="join logo" />
       </div>
@@ -20,15 +24,22 @@
           <div class="login-input d-flex-center flex-d-col gap-20 fw-700">
             <div class="input-mail">
               <input type="mail" required placeholder="Email" id="mail" />
-              <img src="/public/img/envelope.png" alt="briefumschlag logo">
+              <img src="/public/img/envelope.png" alt="briefumschlag logo" />
             </div>
             <div class="input-password">
-              <input type="text" required placeholder="Password" id="password" />
-              <img src="/public/img/lock.png" alt="schloss logo">
+              <input
+                type="text"
+                required
+                placeholder="Password"
+                id="password"
+              />
+              <img src="/public/img/lock.png" alt="schloss logo" />
             </div>
           </div>
-          <input type="checkbox" />
-          <label for="checkbox">Remember me</label>
+          <div class="login-checkbox">
+            <input type="checkbox" />
+            <label for="checkbox">Remember me</label>
+          </div>
           <div class="login-btn d-flex-center">
             <button class="submit-login-btn fw-700 fs-21 d-flex-center pointer">
               Log in
