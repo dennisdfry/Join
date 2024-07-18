@@ -21,6 +21,7 @@ async function getData(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
   updateContacts(responseToJson);
+  console.log(responseToJson);
 }
 
 function updateContacts(responseToJson) {
@@ -74,17 +75,15 @@ async function postData(contact) {
   }
 }
 
+function addContact() {
+  let overlay = document.getElementById("add-contact-overlay");
+  let contactForm = document.getElementById("contact-form");
+  let btn = document.getElementById("add-contact-section");
 
-  function addContact() {
-    let overlay = document.getElementById("add-contact-overlay");
-    let contactForm = document.getElementById("contact-form");
-    let btn = document.getElementById("add-contact-section");
-    
-    overlay.classList.remove("d-none");
-    contactForm.classList.remove("d-none");
-    btn.classList.remove("d-none");
-  }
-
+  overlay.classList.remove("d-none");
+  contactForm.classList.remove("d-none");
+  btn.classList.remove("d-none");
+}
 
 function handleFormSubmit(event) {
   event.preventDefault();
@@ -97,7 +96,6 @@ function handleFormSubmit(event) {
   };
 
   postData(newContact);
-  
 }
 
 function setupForm() {
@@ -114,6 +112,14 @@ function setupOverlay() {
       overlay.classList.add("d-none");
     }
   });
+}
+
+function closeOverlay() {
+  document.getElementById('id="exitBtn');
+  document.getElementById("formfield-cancel-btn");
+  document.getElementById("contact-form").classList.add("d-none");
+  document.getElementById("add-contact-section").classList.add("d-none");
+  overlay.classList.add("d-none");
 }
 
 document.addEventListener("DOMContentLoaded", init);
