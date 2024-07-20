@@ -3,24 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/style.css" />
     <link rel="stylesheet" href="/src/css/utils.css" />
     <link rel="stylesheet" href="/src/css/signup.css" />
     <title>Join Sign Up</title>
   </head>
   <body>
     <section class="main-signup d-flex-center flex-d-col">
-        <div class="signup-logo" id="signup-logo">
-            <img src="/public/img/user_logo.png" alt="join logo" />
-        </div>
+      <div class="signup-logo" id="signup-logo">
+        <img src="/public/img/user_logo.png" alt="join logo" />
+      </div>
       <div class="signup-field d-flex-center flex-d-col">
         <span class="fs-61 fw-700">Sign up</span>
         <div class="signup-headline-divider"></div>
         <form onsubmit="signUp()">
           <div class="signup-input d-flex-center flex-d-col gap-20 fw-700">
             <div class="input-name">
-                <input type="text" required placeholder="Name" id="name">
-                <img src="/public/img/people.png" alt="user logo" />
+              <input type="text" required placeholder="Name" id="name" />
+              <img src="/public/img/people.png" alt="user logo" />
             </div>
             <div class="input-mail">
               <input type="mail" required placeholder="Email" id="mail" />
@@ -36,25 +36,28 @@
               <img src="/public/img/lock.png" alt="schloss logo" />
             </div>
             <div class="input-confirm-password">
-                <input
-                  type="text"
-                  required
-                  placeholder="Confirm Password"
-                  id="password"
-                />
-                <img src="/public/img/lock.png" alt="schloss logo" />
-              </div>
+              <input
+                type="text"
+                required
+                placeholder="Confirm Password"
+                id="password"
+              />
+              <img src="/public/img/lock.png" alt="schloss logo" />
+            </div>
           </div>
-          <div class="signup-checkbox d-flex-center ">
+          <div class="signup-checkbox d-flex-center">
             <input type="checkbox" />
-            <label for="checkbox">I accept the&nbsp;</label><a class="privacy-link" href="/public/datenschutz.html">Privacy Policy</a>
-          </div>
-          <div class="signup-btn d-flex-center">
-            <button class="submit-signup-btn fw-700 fs-21 d-flex-center pointer">
-              Sign up
-            </button>
+            <label for="checkbox">I accept the&nbsp;</label
+            ><a class="privacy-link" href="/public/datenschutz.html"
+              >Privacy Policy</a
+            >
           </div>
         </form>
+        <div class="signup-btn d-flex-center">
+          <button class="submit-signup-btn fw-700 fs-21 d-flex-center pointer">
+            Sign up
+          </button>
+        </div>
       </div>
       <div class="signup-info">
         <button class="pointer">Privacy Policy</button>

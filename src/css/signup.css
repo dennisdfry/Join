@@ -104,7 +104,6 @@ body {
   height: 48px;
   border-radius: 8px;
   gap: 10px;
-  margin-left: 60px;
   transition: transform 0.125s ease-in-out;
 }
 
