@@ -48,7 +48,7 @@ body {
   padding: 12px 21px;
 }
 
-.input-mail, .input-password {
+.input-name, .input-mail, .input-password, .input-confirm-password {
   position: relative;
   display: flex;
   align-items: center;

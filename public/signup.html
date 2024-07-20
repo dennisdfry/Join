@@ -18,6 +18,9 @@
         <div class="signup-headline-divider"></div>
         <form onsubmit="signUp()">
           <div class="signup-input d-flex-center flex-d-col gap-20 fw-700">
+            <div class="input-name">
+                <input type="text" required placeholder="Name" id="name">
+            </div>
             <div class="input-mail">
               <input type="mail" required placeholder="Email" id="mail" />
               <img src="/public/img/envelope.png" alt="briefumschlag logo" />
@@ -31,6 +34,15 @@
               />
               <img src="/public/img/lock.png" alt="schloss logo" />
             </div>
+            <div class="input-confirm-password">
+                <input
+                  type="text"
+                  required
+                  placeholder="Confirm Password"
+                  id="password"
+                />
+                <img src="/public/img/lock.png" alt="schloss logo" />
+              </div>
           </div>
           <div class="signup-checkbox">
             <input type="checkbox" />
