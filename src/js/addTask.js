@@ -1,23 +1,20 @@
 let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com";
-
 let subtasksArray = [];
 let prioArray = [];
 let addTaskArray = [];
-let assignedToUserArray = [];
-
 let expanded = false;
 let isValid = true;
-
+onload();
 async function onload() {
     try {
         let fireBaseData = await onloadData("/");
         let contacts = await fetchContacts(fireBaseData);
-        console.log(contacts)
-        let images = await fetchImages(contacts);
-        console.log(images)
-        await assignedTo(contacts, images);
+        console.log(contacts);
+        await assignedTo(contacts);
+        let contactImage = contacts.one.img;
+        initializeMultiselect();
     } catch (error) {
-        console.log("error")
+        console.log("error");
     }
 }
 
@@ -29,20 +26,10 @@ async function onloadData(path = "") {
 
 async function fetchContacts(responseToJson) {
     let contacts = responseToJson.contacts;
-    return contacts
-}
-async function fetchImages() {
-    try {
-        let fireBaseData = await onloadData("/");
-        let contacts = fireBaseData.contacts;
-        let imageUrls = Object.values(contacts).map(contact => contact.img);
-        return imageUrls;
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Bilder", error);
-    }
+    return contacts;
 }
 
-async function showCheckboxes() {
+function showCheckboxes() {
     let checkboxes = document.getElementById("checkboxes");
     if (!expanded) {
         checkboxes.style.display = "block";
@@ -53,66 +40,52 @@ async function showCheckboxes() {
     }
 }
 
-async function assignedTo(contacts, image) {
+async function assignedTo(contacts) {
     const extractNames = (contacts) => {
-        return Object.values(contacts).map(entry => ({ name: entry.name }));
+        return Object.values(contacts).map(entry => entry.name);
     };
     const names = extractNames(contacts);
+    console.log(names);
     let position = document.getElementById('checkboxes');
-    position.innerHTML = '';
-
     for (let index = 0; index < names.length; index++) {
         const element = names[index];
-        const images = image[index];
-        let list = `<label class="checkBoxFlex" for="checkbox-${index}">
-                        <div>
-                            <img src="${images}" alt="${element.name}" >
-                            ${element.name}
-                        </div>
-                        <input type="checkbox" id="checkbox-${index}" value="${element.name}" onclick="assignedToUser('${element.name}')">
-                    </label>`;
-        position.innerHTML += list;
+        position.innerHTML += `<label for="one">
+                              <input type="checkbox" id="${index}" />${element}</label>`;
     }
-}
-
-function assignedToUser(element) {
-    assignedToUserArray.push(element);
-    console.log(assignedToUserArray);
 }
 
 function createTask() {
-        let lastString = prioArray.pop();
-        let taskTitle = document.getElementById('title');
-        let taskDescription = document.getElementById('description');
-        let dueDateTask = document.getElementById('dueDate');
-        let taskCategory = document.getElementById('taskCategory');
-        addTaskArray.push(
-            {
-                title: taskTitle.value,
-                description: taskDescription.value,
-                assignedTo: assignedToUserArray,
-                dueDate: dueDateTask.value,
-                prio: lastString,
-                category: taskCategory.value,
-                subtasks: subtasksArray
-            }
-        );
-        console.log(addTaskArray);
-    }
+    let taskTitle = document.getElementById('title');
+    let taskDescription = document.getElementById('description');
+    let assignedToTask = document.getElementById('assignedTo');
+    let dueDateTask = document.getElementById('dueDate');
+    let taskCategory = document.getElementById('taskCategory');
+    let lastString = prioArray.pop();
+
+    addTaskArray.push(
+        {
+            title: taskTitle.value,
+            description: taskDescription.value,
+            assignedTo: assignedToTask.value,
+            dueDate: dueDateTask.value,
+            prio: lastString,
+            category: taskCategory.value,
+            subtasks: subtasksArray
+        }
+    );
+    console.log(addTaskArray);
+}
 
 function prio(id) {
     backgroundColorFunction(id);
     if (id == 1) {
         prioArray.push('Urgent')
-        document.getElementById('prioButton1').classList.add('add-task-prio-button-click')
     } else {
         if (id == 2) {
-            prioArray.push('Medium');
-            document.getElementById('prioButton2').classList.add('add-task-prio-button-click')
+            prioArray.push('Medium')
         } else {
             if (id = 3) {
-                prioArray.push('Low');
-                document.getElementById('prioButton3').classList.add('add-task-prio-button-click')
+                prioArray.push('Low')
             }
         }
     }
@@ -121,39 +94,40 @@ function backgroundColorFunction(id){
     if(id ==)
 }
 function addSubtasks() {
+    let positionOfSubtasksControl = document.getElementById('subtasksControl');
+    positionOfSubtasksControl.classList.remove('d-none');
+    let positionOfSubtasksPlus = document.getElementById('subtasksPlus');
+    positionOfSubtasksPlus.classList.add('d-none');
     let input = document.getElementById('subtasks');
-    if (!input.value) {
-        isValid = false;
-        alert('Due date is required.');
-    } else {
-        subtasksArray.push(input.value);
-        let subtasksPosition = document.getElementById('subtasksPosition');
-        subtasksPosition.innerHTML = '';
-        for (let index = 0; index < subtasksArray.length; index++) {
-            const element = subtasksArray[index];
-            subtasksPosition.innerHTML += `
+    subtasksArray.push(input.value);
+    let subtasksPosition = document.getElementById('subtasksPosition');
+    subtasksPosition.innerHTML = '';
+    for (let index = 0; index < subtasksArray.length; index++) {
+        const element = subtasksArray[index];
+        subtasksPosition.innerHTML += `
             <ul>
             <li>${element}</li>
             </ul>`;
-        }
-        input.value = '';
     }
+    input.value = '';
+    console.log(subtasksArray);
 }
 
-function closeSubtasksCheck() {
+function cancelTask() {
     
 }
-function openCheckSubtasks() {
-    let positionOfSubtasksControl = document.getElementById('subtasksControl');
-    let positionOfSubtasksPlus = document.getElementById('subtasksPlus');
-    positionOfSubtasksControl.classList.remove('d-none');
-    positionOfSubtasksControl.classList.add('subtasks-control');
-    positionOfSubtasksPlus.classList.add('d-none');
+
+function initializeMultiselect() {
+    let expanded = false;
+
+    window.showCheckboxes = function() {
+        let checkboxes = document.getElementById("checkboxes");
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+        } else {
+            checkboxes.style.display = "none";
+            expanded = false;
+        }
+    }
 }
-function cancelTask() {
-    window.location.href = 'index.html';
-}
-
-
-
-

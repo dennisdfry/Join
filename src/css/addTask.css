@@ -310,6 +310,7 @@
     z-index: 1; /* Ensure checkboxes are on top */
 }
 #checkboxes label {
+    display: block;
     padding: 5px; 
 }
 #checkboxes label img {
