@@ -29,7 +29,6 @@ async function fetchContacts(responseToJson) {
 }
 
 function showCheckboxes() {
-    let expanded = false;
     window.showCheckboxes = function() {
         let checkboxes = document.getElementById("checkboxes");
         if (!expanded) {
