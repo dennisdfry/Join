@@ -7,7 +7,7 @@ let assignedToUserArray = [];
 
 let expanded = false;
 let isValid = true;
-onload();
+
 async function onload() {
     try {
         let fireBaseData = await onloadData("/");
@@ -101,19 +101,25 @@ function createTask() {
     }
 
 function prio(id) {
+    backgroundColorFunction(id);
     if (id == 1) {
         prioArray.push('Urgent')
+        document.getElementById('prioButton1').classList.add('add-task-prio-button-click')
     } else {
         if (id == 2) {
-            prioArray.push('Medium')
+            prioArray.push('Medium');
+            document.getElementById('prioButton2').classList.add('add-task-prio-button-click')
         } else {
             if (id = 3) {
-                prioArray.push('Low')
+                prioArray.push('Low');
+                document.getElementById('prioButton3').classList.add('add-task-prio-button-click')
             }
         }
     }
 }
-
+function backgroundColorFunction(id){
+    if(id ==)
+}
 function addSubtasks() {
     let input = document.getElementById('subtasks');
     if (!input.value) {
