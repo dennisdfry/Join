@@ -10,7 +10,7 @@
     <title>Add Task</title>
 </head>
 
-<body onload="init()" class="background-main">
+<body class="background-main">
     <form class="add-Task-Container">
         <section class="add-task-head">
             <h1>Add Task</h1>
@@ -31,7 +31,6 @@
                         name="description" id="description"></textarea>
 
                     <label for="assignedTo">Assigned to</label>
-                    <form>
                         <div class="multiselect">
                           <div class="selectBox" onclick="showCheckboxes()">
                             <select class="add-task-select">
@@ -39,11 +38,9 @@
                             </select>
                             <div class="overSelect"></div>
                           </div>
-                          <div id="checkboxes">
-                            
+                          <div id="checkboxes">                            
                           </div>
                         </div>
-                      </form>
                     <!-- <select required class="add-task-select" name="assignedTo" id="assignedTo">
                         <option value="" selected hidden>Select contacts to assign</option>
 
