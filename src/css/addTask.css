@@ -13,13 +13,11 @@
     background-color: rgb(246, 247, 248);
 }
 .add-Task-Container{
-    width:1116px;
-    height:870px;
-    padding-top:64px;
+   padding-right: 64px;
     padding-bottom:64px;
     padding-left: 272px;
-    padding-right: 74px;
     background-color: #f6f7f8;
+    max-width: 1440px;
 
 }
 .add-task-head{
@@ -187,6 +185,8 @@
 .add-task-finish-section{
     display: flex;
     justify-content: space-between;
+    padding-right:64px;
+    padding-left: 272px;
 }
 .add-task-finish-button-container{
     display: flex;
@@ -243,40 +243,72 @@
 }
 .subtasks-control{
     display: flex;
+    align-items: center;
 }
-
-/* checkbox */
+.subtasks-control img{
+    height:16px;
+    width:16px;
+    padding:4px;
+}
+.subtasks-control img:hover{
+    border-radius: 100%;
+    background-color:#A8A8A8 ;
+    padding:4px;
+}
+.seperator-subtasks{
+    height:14px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border:1px solid #D1D1D1 ;
+}
+/* select section */
+.checkBoxFlex{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+.checkBoxFlex:hover{
+    background-color: #A8A8A8;
+    cursor: pointer;
+}
+.flexBoxContainer{
+    width:100%;
+}
 .multiselect {
-    width: 100%;
-  }
-  
-  .selectBox {
     position: relative;
-  }
-  
-  .selectBox select {
+}
+.selectBox {
+    position: relative;
+}
+.selectBox select {
+    overflow: hidden; /* Hide scrollbar */
+    -webkit-appearance: none; /* Remove default arrow in Webkit browsers */
+    -moz-appearance: none; /* Remove default arrow in Firefox */
+    appearance: none; /* Remove default arrow */
     width: 100%;
-    font-family: 'inter';
-  }
-  
-  .overSelect {
+    padding: 5px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Ensure padding is included in the element's width */
+}
+.selectBox option{
+    display: flex;
+    align-items: center;
+}
+.overSelect {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-  
-  #checkboxes {
+    left: 0; right: 0; top: 0; bottom: 0;
+}
+#checkboxes {
     display: none;
     border: 1px #dadada solid;
-  }
-  
-  #checkboxes label {
-    display: block;
-  }
-  
-  #checkboxes label:hover {
-    background-color: #1e90ff;
-  }
+    position: absolute;
+    background-color: white;
+    z-index: 1; /* Ensure checkboxes are on top */
+}
+#checkboxes label {
+    padding: 5px; 
+}
+#checkboxes label img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
   /* checkbox ende */
