@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="/src/css/addTask.css">
     <link rel="icon" href="./img/user_logo.png" type="image/png">
     <script src="/src/js/addTask.js"></script>
-    
+    <script src="/src/js/script.js"></script>
+
     <title>Add Task</title>
 </head>
 
 <body onload="onload()" class="background-main">
-    <form class="add-Task-Container">
+    <form  onsubmit="createTask()" class="add-Task-Container">
         <section class="add-task-head">
             <h1>Add Task</h1>
             <div class="add-task-close-button">
@@ -30,20 +31,17 @@
                     <label for="description">Description</label>
                     <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description"
                         name="description" id="description"></textarea>
-
                     <label for="assignedTo">Assigned to</label>
-                    <form>
-                        <div class="multiselect">
-                          <div class="selectBox" onclick="showCheckboxes()">
-                            <select class="add-task-select">
-                              <option>Select an option</option>
+                    <div class="multiselect">
+                        <div class="selectBox" onclick="showCheckboxes()">
+                            <select id="selectList" multiple class="add-task-select">
+                                <option >Select an option</option>
                             </select>
                             <div class="overSelect"></div>
-                          </div>
-                          <div id="checkboxes"> 
-                          </div>
                         </div>
-                      </form>
+                        <div class="flexBoxContainer" id="checkboxes">
+                        </div>
+                    </div>
                 </div>
                 <div class="add-task-seperator"></div>
                 <!-- Rechte Sektion -->
@@ -52,16 +50,20 @@
                     <input required class="add-task-select" type="date" id="dueDate" name="dueDate">
 
                     <label for="">Prio</label>
-                 
+
                     <div class="add-task-prio-button-container">
-                        <button onclick="prio(1)" id="prioButton1" value="1" data-prio="urgent" type="button" class="add-task-prio-button">
+                        <button onclick="prio(1)" id="prioButton1" value="1" data-prio="urgent" type="button"
+                            class="add-task-prio-button">
                             <span>Urgent</span>
                             <img src="../public/img/Prio alta.png" alt="">
                         </button>
-                        <button onclick="prio(2)" id="prioButton2" value="2" data-prio="medium" type="button" class="add-task-prio-button">
-                            <span>Medium</span>
+                        <button onclick="prio(2)" id="prioButton2" value="2" data-prio="medium" type="button"
+                            class="add-task-prio-button">
+                            <span>Medium =</span>
+                            
                         </button>
-                        <button onclick="prio(3)" id="prioButton3" value="3" data-prio="low" type="button" class="add-task-prio-button">
+                        <button onclick="prio(3)" id="prioButton3" value="3" data-prio="low" type="button"
+                            class="add-task-prio-button">
                             <span>Low</span>
                             <img src="../public/img/Prio baja.png" alt="">
                         </button>
@@ -74,14 +76,14 @@
                         <option value="inProgress">In progress</option>
                         <option value="awaitFeedback">Await feedback</option>
                     </select>
-
                     <label for="subtasks">Subtasks</label>
                     <div class="input-with-button">
-                        <input required type="text" minlength="2" class="add-task-input" placeholder="Add item" id="subtasks" name="subtasks">
-                        <button onclick="addSubtasks()" type="button" class="add-task-button">
-                            <div id="subtasksControl" class="d-none subtasks-control">
-                                <div>X</div>
-                                <img src="../public/img/check.svg" alt="">
+                        <input type="text" minlength="2" class="add-task-input" placeholder="Add new subtasks" id="subtasks" name="subtasks">
+                        <button onclick="openCheckSubtasks()" type="button" class="add-task-button">
+                            <div id="subtasksControl" class="d-none">
+                                <img onclick="closeSubtasksCheck()" class="close-subtasks" src="../public/img/closeAddTask.png" alt="">
+                                <div class="seperator-subtasks"></div>
+                                <img onclick="addSubtasks()" src="../public\img/checkAddTask.png"  alt="">
                             </div>
                             <span id="subtasksPlus">+</span>
                         </button>
@@ -96,7 +98,7 @@
                 <button onclick="cancelTask()" class="add-task-cancel-button">
                     <span>Cancel <span>x</span></span>
                 </button>
-                <button onclick="createTask()" class="add-task-create-button">
+                <button  class="add-task-create-button">
                     <span>Create Task</span>
                     <img src="../public/img/check.svg" alt="">
                 </button>
