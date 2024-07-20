@@ -11,7 +11,7 @@ async function init() {
         console.log(contacts);
         await assignedTo(contacts);
         let contactImage = contacts.one.img;
-        initializeMultiselect();
+        showCheckboxes();
     } catch (error) {
         console.log("error");
     }
@@ -29,14 +29,17 @@ async function fetchContacts(responseToJson) {
 }
 
 function showCheckboxes() {
-    let checkboxes = document.getElementById("checkboxes");
-    if (!expanded) {
-        checkboxes.style.display = "block";
-        expanded = true;
-    } else {
-        checkboxes.style.display = "none";
-        expanded = false;
-    }
+    let expanded = false;
+    window.showCheckboxes = function() {
+        let checkboxes = document.getElementById("checkboxes");
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+        } else {
+            checkboxes.style.display = "none";
+            expanded = false;
+        }
+    };
 }
 
 async function assignedTo(contacts) {
@@ -106,20 +109,5 @@ function addSubtasks() {
 }
 
 function cancelTask() {
-    
-}
 
-function initializeMultiselect() {
-    let expanded = false;
-
-    window.showCheckboxes = function() {
-        let checkboxes = document.getElementById("checkboxes");
-        if (!expanded) {
-            checkboxes.style.display = "block";
-            expanded = true;
-        } else {
-            checkboxes.style.display = "none";
-            expanded = false;
-        }
-    }
 }
