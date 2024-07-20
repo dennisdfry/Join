@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  height: 100vh;
+  width: 98vw;
+  background-color: rgb(246, 247, 248);
+}
+
+.signup-signup {
+  width: 100%;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 10;
+}
+
+.signup-signup button {
+  border: none;
+  padding: 15px 16px;
+}
+
+.signup-logo {
+  width: 100%;
+  position: absolute;
+  top: 5%;
+  z-index: 9;
+}
+
+.signup-logo img {
+  height: 122px;
+  margin-left: 77px;
+  margin-bottom: 8px;
+}
+
+.signup-field {
+  background-color: white;
+  position: absolute;
+  top: 25%;
+  border-radius: 30px;
+  padding: 48px 115px;
+  gap: 32px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-input {    
+  padding: 12px 21px;
+}
+
+.input-mail, .input-password {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.signup-input input{
+  border-style: none;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  height: 48px;
+  width: 422px;
+  gap: 8px;
+  font-size: 20px;
+  font-family: 'Inter';
+  padding-left: 20px;
+}
+
+.signup-input input:placeholder-shown {
+  font-size: 20px;
+  font-family: 'Inter';
+}
+
+::placeholder {    
+  color: #D1D1D1;
+}
+
+.signup-input img {
+  position: absolute;
+  right: 10px;
+  width: 24px;
+}
+
+.signup-checkbox {
+  font-family: 'Inter';
+  font-size: 16px;
+  padding: 20px 80px;
+}
+
+.signup-btn {
+  margin-top: 20px;
+  width: 500px;
+  height: 48px;
+}
+
+.submit-signup-btn {
+  background-color: #2A3647;
+  color: white;
+  width: 110px;
+  height: 48px;
+  border-radius: 8px;
+  gap: 10px;
+  margin-left: 60px;
+  transition: transform 0.125s ease-in-out;
+}
+
+.submit-signup-btn:hover {
+  background-color: #29ABE2;
+  border-color: #29ABE2;
+  border: none!important;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25);
+}
+
+.submit-guest-signup-btn {
+  background-color: white;
+  color: #2A3647;
+  border-color: #2A3647;
+  width: 177px;
+  height: 48px;
+  border-radius: 8px;
+  margin-left: 40px;
+  gap: 10px;
+  transition: transform 0.125s ease-in-out;
+}
+
+.submit-guest-signup-btn:hover {
+  color: #29ABE2;
+  border-color: #29ABE2;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25);
+}
+
+.signup-headline-divider {
+  height: 0px;
+  width: 150px;
+  border-bottom: 3px solid #29abe2;
+  margin: 10px 0;
+}
+
+.signup-info {
+  position: absolute;
+  top: 85%;
+}
+
+.signup-info button {
+  border: none;
+  background-color: rgb(246, 247, 248);
+  font-family: 'Inter';
+  margin: 50px 0px;
+  color: #A8A8A8;
+  font-size: 16px;
+}
