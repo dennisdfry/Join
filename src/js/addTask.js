@@ -11,6 +11,7 @@ async function init() {
         console.log(contacts)
         await assignedTo(contacts);
         let contactImage = contacts.one.img;
+        initializeMultiselect();
     } catch (error) {
         console.log("error")
     }
@@ -79,7 +80,7 @@ function prio(id) {
         if (id == 2) {
             prioArray.push('Medium')
         } else {
-            if (id = 3) {
+            if (id == 3) {
                 prioArray.push('Low')
             }
         }
@@ -109,7 +110,3 @@ function addSubtasks() {
 function cancelTask(){
 
 }
-
-
-
-
