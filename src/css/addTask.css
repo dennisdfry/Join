@@ -177,6 +177,11 @@
     color:#FFFFFF;
     transform: scale(1.1);
 }
+.add-task-prio-button-click{
+    background-color:rgb(255, 168, 0);
+    color:#FFFFFF;
+    transform: scale(1.1);
+}
 .add-task-prio-button-container{
     display: flex;
     align-items: center;

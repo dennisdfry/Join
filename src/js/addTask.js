@@ -3,8 +3,9 @@ let subtasksArray = [];
 let prioArray = [];
 let addTaskArray = [];
 let expanded = false;
-
-async function init() {
+let isValid = true;
+onload();
+async function onload() {
     try {
         let fireBaseData = await onloadData("/");
         let contacts = await fetchContacts(fireBaseData);
@@ -78,15 +79,22 @@ function createTask() {
 }
 
 function prio(id) {
+    backgroundColorFunction(id);
     if (id == 1) {
-        prioArray.push('Urgent');
-    } else if (id == 2) {
-        prioArray.push('Medium');
-    } else if (id == 3) {
-        prioArray.push('Low');
+        prioArray.push('Urgent')
+    } else {
+        if (id == 2) {
+            prioArray.push('Medium')
+        } else {
+            if (id = 3) {
+                prioArray.push('Low')
+            }
+        }
     }
 }
-
+function backgroundColorFunction(id){
+    if(id ==)
+}
 function addSubtasks() {
     let positionOfSubtasksControl = document.getElementById('subtasksControl');
     positionOfSubtasksControl.classList.remove('d-none');
