@@ -10,40 +10,21 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-function home(){
-    window.location.replace('/public/login.html');
+function home() {
+  window.location.replace("/public/login.html");
 }
-    
+
 async function signUp(event) {
   event.preventDefault();
-  let name = document.getElementById("name").value;
-  let mail = document.getElementById("mail").value;
-  let password = document.getElementById("password").value;
-  let confirm = document.getElementById("confirm-password").value;
-  let checkbox = document.getElementById("checkbox").checked;
+  const formData = getFormData();
 
-  const isValid = await passwordValidation(password, confirm, checkbox);
-  if (!isValid) {
+  if (!(await passwordValidation(formData.password, formData.confirm, formData.checkbox))) {
     return false;
   }
 
   try {
-    let userId = await generateUniqueId();
-    let userData = {
-      id: userId,
-      name: name,
-      email: mail,
-      password: password,
-    };
-
-    await firebase.database().ref("users/" + userId).set(userData);
-    
-    updateButtonText("You Signed Up successfully");
-
-    setTimeout(() => {
-        updateButtonText("Sign up");
-    }, 2000);
-
+    await handleUserSignUp(formData);
+    showSuccessMessage("You Signed Up successfully");
     clearInput();
   } catch (error) {
     alert("Error saving data: " + error.message);
@@ -52,20 +33,18 @@ async function signUp(event) {
   return true;
 }
 
-function generateUniqueId() {
-  return firebase.database().ref("users").push().key;
-}
-
-function clearInput() {
-  document.getElementById("name").value = "";
-  document.getElementById("mail").value = "";
-  document.getElementById("password").value = "";
-  document.getElementById("confirm-password").value = "";
-  document.getElementById("checkbox").checked = false;
+function getFormData() {
+  return {
+    name: document.getElementById("name").value,
+    mail: document.getElementById("mail").value,
+    password: document.getElementById("password").value,
+    confirm: document.getElementById("confirm-password").value,
+    checkbox: document.getElementById("checkbox").checked,
+  };
 }
 
 function passwordValidation(password, confirm, checkbox) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     if (password !== confirm) {
       alert("Passwörter stimmen nicht überein.");
       resolve(false);
@@ -78,6 +57,38 @@ function passwordValidation(password, confirm, checkbox) {
   });
 }
 
+async function handleUserSignUp(formData) {
+  const userId = await generateUniqueId();
+  const userData = { id: userId, ...formData };
+  await saveUserData(userId, userData);
+}
+
+function showSuccessMessage(message) {
+  updateButtonText(message);
+  setTimeout(() => {
+    updateButtonText("Sign up");
+  }, 2000);
+}
+
+function clearInput() {
+  document.getElementById("name").value = "";
+  document.getElementById("mail").value = "";
+  document.getElementById("password").value = "";
+  document.getElementById("confirm-password").value = "";
+  document.getElementById("checkbox").checked = false;
+}
+
+function generateUniqueId() {
+  return firebase.database().ref("users").push().key;
+}
+
+async function saveUserData(userId, userData) {
+  await firebase
+    .database()
+    .ref("users/" + userId)
+    .set(userData);
+}
+
 function updateButtonText(newText) {
-    document.getElementById('success').textContent = newText;
+  document.getElementById("success").textContent = newText;
 }
