@@ -5,23 +5,6 @@ body {
   background-color: rgb(246, 247, 248);
 }
 
-.signup-signup {
-  width: 100%;
-  height: 70%;
-  position: absolute;
-  top: 5%;
-  right: 5%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  z-index: 10;
-}
-
-.signup-signup button {
-  border: none;
-  padding: 15px 16px;
-}
-
 .signup-logo {
   width: 100%;
   position: absolute;
@@ -36,15 +19,22 @@ body {
 }
 
 .signup-field {
-  width: 50vw;
+  width: 500px;
   height: 65vh;
   background-color: white;
   position: absolute;
-  top: 25%;
+  top: 18%;
   border-radius: 30px;
   padding: 48px 88px;
-  gap: 32px;
+  gap: 16px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-arrow {
+  position: absolute;
+  top: 12%;
+  left: 12%;
+  cursor: pointer;
 }
 
 .signup-input {    
@@ -62,7 +52,7 @@ body {
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   height: 5vh;
-  width: 50vw;
+  width: 422px;
   gap: 8px;
   font-size: 20px;
   font-family: 'Inter';

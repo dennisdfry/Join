@@ -11,9 +11,12 @@
   <body>
     <section class="main-signup d-flex-center flex-d-col">
       <div class="signup-logo" id="signup-logo">
-        <img src="/public/img/user_logo.png" alt="join logo" />
+        <img src="/public/img/user_logo.png" alt="join logo"/>
       </div>
       <div class="signup-field d-flex-center flex-d-col">
+        <div class="signup-arrow">
+          <img src="/public/img/arrow-left-line.png" alt="zurück pfeil" onclick="home()" />
+        </div>
         <span class="fs-61 fw-700">Sign up</span>
         <div class="signup-headline-divider"></div>
         <form onsubmit="signUp()">
@@ -40,7 +43,7 @@
                 type="text"
                 required
                 placeholder="Confirm Password"
-                id="password"
+                id="confirm-password"
               />
               <img src="/public/img/lock.png" alt="schloss logo" />
             </div>
@@ -52,12 +55,12 @@
               >Privacy Policy</a
             >
           </div>
-        </form>
-        <div class="signup-btn d-flex-center">
-          <button class="submit-signup-btn fw-700 fs-21 d-flex-center pointer">
-            Sign up
-          </button>
-        </div>
+          <div class="signup-btn d-flex-center">
+            <button class="submit-signup-btn fw-700 fs-21 d-flex-center pointer">
+              Sign up
+            </button>
+          </div>
+        </form>        
       </div>
       <div class="signup-info">
         <button class="pointer">Privacy Policy</button>
