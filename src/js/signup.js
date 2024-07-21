@@ -37,7 +37,13 @@ async function signUp(event) {
     };
 
     await firebase.database().ref("users/" + userId).set(userData);
-    document.getElementById('success').textContent = "You Signed Up successfully";
+    
+    updateButtonText("You Signed Up successfully");
+
+    setTimeout(() => {
+        updateButtonText("Sign up");
+    }, 2000);
+
     clearInput();
   } catch (error) {
     alert("Error saving data: " + error.message);
@@ -70,4 +76,8 @@ function passwordValidation(password, confirm, checkbox) {
       resolve(true);
     }
   });
+}
+
+function updateButtonText(newText) {
+    document.getElementById('success').textContent = newText;
 }
