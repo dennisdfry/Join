@@ -88,6 +88,16 @@
               </div>
             </form>
           </div>
+          <div id="edit-contact-overlay" class="d-none">
+            <form id="edit-contact-form">
+              <input type="text" id="edit-name" placeholder="Name" required />
+              <input type="email" id="edit-mail" placeholder="Email" required />
+              <input type="text" id="edit-phone" placeholder="Phone" required />
+              <input type="text" id="edit-img" placeholder="Image URL" required />
+              <button type="submit">Save Changes</button>
+              <button type="button" onclick="closeEditOverlay()">Cancel</button>
+            </form>
+          </div>
         </div>
       </div>
 

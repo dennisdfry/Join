@@ -117,13 +117,15 @@ function renderContactList() {
 
 function openContact(index) {
   let contactSection = document.getElementById('contact-section');
-  
+
   contactSection.classList.remove('d-none');
   renderContactSection(index);
 }
 
 function renderContactSection(index) {
   let contactSection = document.getElementById("contact-section");
+  contactSection.innerHTML = "";
+  
   contactSection.innerHTML = `
     <div class="contact-section-content">
       <img src="${allContacts.images[index]}" alt="Profile Image" />
