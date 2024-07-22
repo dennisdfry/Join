@@ -12,6 +12,7 @@ async function init() {
     await getData("/");
     setupOverlay();
     setupForm();
+ 
   } catch (error) {
     console.log("Error:", error);
   }
@@ -22,7 +23,54 @@ async function getData(path = "") {
   let responseToJson = await response.json();
   updateContacts(responseToJson);
   console.log(responseToJson);
+  setupContacts();
 }
+
+function setupContacts() {
+  let contactList = document.getElementById("contactlist-content");
+  contactList.innerHTML = "";
+
+  for (let i = 0; i < allContacts.names.length; i++) {
+    contactList.innerHTML += `
+    <div class="contactlist-overlay">
+      <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
+      <div class="contactlist-data-box">
+        <div class="contactlist-data-name">${allContacts.names[i]}</div>
+        <a class="contactlist-data-mail" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+      </div>
+    </div>
+    `;
+  }
+setupContactSection();
+}
+
+function setupContactSection() {
+  let contactSection = document.getElementById("contact-section");
+
+  for (let i = 0; i < allContacts.names.length; i++) {
+    contactSection.innerHTML += `
+      <div class="contact-section-content">
+        <img src="${allContacts.images[i]}" alt="Profile Image" />
+        <div class="contact-section-overlay">
+          <p>${allContacts.names[i]}</p>
+          <div class="contact-section-btn-box">
+            <button onclick="editContact(${i})" id="edit-btn">Edit<img src="./img/edit.png"></button>
+            <button onclick="deleteContact(${i})" id="del-btn">Delete<img src="./img/delete.png"></button>
+          </div>
+        </div>
+      </div>
+
+      <div id="contact-section-information">
+        <p class="information-details-headline">Contact Information</p>
+        <p class="contact-section-details"><b>Email</b></p>
+        <a class="contact-section-link" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+        <p class="contact-section-details"><b>Phone</b></p>
+        <p class="contact-section-details">${allContacts.phones[i]}</p>
+      </div>
+    `;
+  }
+}
+
 
 function updateContacts(responseToJson) {
   let keys = Object.keys(responseToJson);
@@ -40,6 +88,7 @@ function updateContacts(responseToJson) {
     }
   }
   console.log(allContacts);
+  
 }
 
 function isContactExisting(contact) {
@@ -73,6 +122,7 @@ async function postData(contact) {
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
+  setupContacts();
 }
 
 function addContact() {
