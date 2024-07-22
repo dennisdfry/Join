@@ -31,50 +31,49 @@ function renderContactList() {
 
   for (let i = 0; i < allContacts.names.length; i++) {
     contactList.innerHTML += `
-    <div class="contactlist-overlay">
-      <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
-      <div class="contactlist-data-box" onclick="openContact(${i})">
-        <div class="contactlist-data-name">${allContacts.names[i]}</div>
-        <a class="contactlist-data-mail" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
-      </div>
-    </div>
-    `;
-  }
-}
-
-//function openContact(){
-  let btn = document.getElementById('contact-section');
-  btn.classList.remove('d-none');
-//}
-
-function renderContactSection() {
-  let contactSection = document.getElementById("");
-
-  for (let i = 0; i < allContacts.names.length; i++) {
-    contactSection.innerHTML += `
-      <div class="contact-section-content">
-        <img src="${allContacts.images[i]}" alt="Profile Image" />
-        <div class="contact-section-overlay">
-          <p>${allContacts.names[i]}</p>
-          <div class="contact-section-btn-box">
-            <button onclick="editContact(${i})" id="edit-btn">Edit<img src="./img/edit.png"></button>
-            <button onclick="deleteContact(${i})" id="del-btn">Delete<img src="./img/delete.png"></button>
-          </div>
+      <div class="contactlist-overlay" onclick="openContact(${i})">
+        <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
+        <div class="contactlist-data-box">
+          <div class="contactlist-data-name">${allContacts.names[i]}</div>
+          <a class="contactlist-data-mail" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
         </div>
       </div>
-
-      <div id="contact-section-information" class="d-none">
-        <p class="information-details-headline">Contact Information</p>
-        <p class="contact-section-details"><b>Email</b></p>
-        <a class="contact-section-link" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
-        <p class="contact-section-details"><b>Phone</b></p>
-        <p class="contact-section-details">${allContacts.phones[i]}</p>
-      </div>
     `;
   }
 }
 
-function updateContacts(responseToJson) {
+function openContact(index) {
+  let contactSection = document.getElementById('contact-section');
+  contactSection.classList.remove('d-none');
+  renderContactSection(index);
+}
+
+function renderContactSection(index) {
+  let contactSection = document.getElementById("contact-section");
+  contactSection.innerHTML = `
+    <div class="contact-section-content">
+      <img src="${allContacts.images[index]}" alt="Profile Image" />
+      <div class="contact-section-overlay">
+        <p>${allContacts.names[index]}</p>
+        <div class="contact-section-btn-box">
+          <button onclick="editContact(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
+          <button onclick="deleteContact(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="contact-section-information">
+      <p class="information-details-headline">Contact Information</p>
+      <p class="contact-section-details"><b>Email</b></p>
+      <a class="contact-section-link" href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
+      <p class="contact-section-details"><b>Phone</b></p>
+      <p class="contact-section-details">${allContacts.phones[index]}</p>
+    </div>
+  `;
+  renderContactInformation(index);
+}
+
+function updateContacts(responseToJson) {     // vorerst nur dafür die die Einträge ins allContactsarray zu rendern
   let keys = Object.keys(responseToJson);
   for (let i = 0; i < keys.length; i++) {
     let contact = responseToJson[keys[i]];
