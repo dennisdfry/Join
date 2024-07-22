@@ -125,7 +125,7 @@ function openContact(index) {
 function renderContactSection(index) {
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
-  
+
   contactSection.innerHTML = `
     <div class="contact-section-content">
       <img src="${allContacts.images[index]}" alt="Profile Image" />
@@ -162,19 +162,6 @@ function updateContacts(responseToJson) {     // vorerst nur dafür die die Eint
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function addContact() {
   let overlay = document.getElementById("add-contact-overlay");
   let contactForm = document.getElementById("contact-form");
@@ -184,11 +171,6 @@ function addContact() {
   contactForm.classList.remove("d-none");
   btn.classList.remove("d-none");
 }
-
-
-
-
-
 
 
 
@@ -229,6 +211,56 @@ function closeOverlay() {
   overlay.classList.add("d-none");
 }
 
+let editIndex = null; // Variable to store the index of the contact being edited
 
+async function openEditForm(index) {
+  editIndex = index;
+  document.getElementById("edit-name").value = allContacts.names[index];
+  document.getElementById("edit-mail").value = allContacts.mails[index];
+  document.getElementById("edit-phone").value = allContacts.phones[index];
+  document.getElementById("edit-img").value = allContacts.images[index];
+  document.getElementById("edit-contact-overlay").classList.remove("d-none");
+}
+
+async function handleEditFormSubmit(event) {
+  event.preventDefault();
+  const updatedContact = {
+    name: document.getElementById("edit-name").value,
+    mail: document.getElementById("edit-mail").value,
+    phone: document.getElementById("edit-phone").value,
+    img: document.getElementById("edit-img").value,
+  };
+  await editContact(editIndex, updatedContact);
+  document.getElementById("edit-contact-overlay").classList.add("d-none");
+}
+
+async function editContact(index, updatedContact) {
+  const contactId = await getContactId(index);
+  if (contactId) {
+    try {
+      let response = await fetch(`${BASE_URL}/${contactId}.json`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedContact),
+      });
+      let responseToJson = await response.json();
+      console.log("Erfolgreich bearbeitet:", responseToJson);
+      allContacts.names[index] = updatedContact.name;
+      allContacts.mails[index] = updatedContact.mail;
+      allContacts.phones[index] = updatedContact.phone;
+      allContacts.images[index] = updatedContact.img;
+      renderContactList();
+      renderContactSection(index);
+    } catch (error) {
+      console.error("Fehler beim Bearbeiten:", error);
+    }
+  }
+}
+
+function closeEditForm() {
+  document.getElementById("edit-contact-overlay").classList.add("d-none");
+}
 
 document.addEventListener("DOMContentLoaded", init);
