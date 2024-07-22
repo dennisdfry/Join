@@ -42,10 +42,10 @@ function renderContactList() {
   }
 }
 
-function openContact(){
+//function openContact(){
   let btn = document.getElementById('contact-section');
   btn.classList.remove('d-none');
-}
+//}
 
 function renderContactSection() {
   let contactSection = document.getElementById("");
@@ -74,7 +74,6 @@ function renderContactSection() {
   }
 }
 
-
 function updateContacts(responseToJson) {
   let keys = Object.keys(responseToJson);
   for (let i = 0; i < keys.length; i++) {
@@ -100,11 +99,6 @@ async function postData(contact) {
 
     let responseToJson = await response.json();
     console.log("Erfolgreich hochgeladen:", responseToJson);
-
-    allContacts.names.push(contact.name);
-    allContacts.mails.push(contact.mail);
-    allContacts.phones.push(contact.phone);
-    allContacts.images.push(contact.img);
 
     await getData("/");
   } catch (error) {
