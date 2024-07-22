@@ -10,9 +10,9 @@ let allContacts = {
 async function init() {
   try {
     await getData("/");
-    setupOverlay();
+    renderOverlay();
     setupForm();
- 
+    renderContactList();
   } catch (error) {
     console.log("Error:", error);
   }
@@ -23,10 +23,9 @@ async function getData(path = "") {
   let responseToJson = await response.json();
   updateContacts(responseToJson);
   console.log(responseToJson);
-  setupContacts();
 }
 
-function setupContacts() {
+function renderContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
 
@@ -34,18 +33,22 @@ function setupContacts() {
     contactList.innerHTML += `
     <div class="contactlist-overlay">
       <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
-      <div class="contactlist-data-box">
+      <div class="contactlist-data-box" onclick="openContact(${i})">
         <div class="contactlist-data-name">${allContacts.names[i]}</div>
         <a class="contactlist-data-mail" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
       </div>
     </div>
     `;
   }
-setupContactSection();
 }
 
-function setupContactSection() {
-  let contactSection = document.getElementById("contact-section");
+function openContact(){
+  let btn = document.getElementById('contact-section');
+  btn.classList.remove('d-none');
+}
+
+function renderContactSection() {
+  let contactSection = document.getElementById("");
 
   for (let i = 0; i < allContacts.names.length; i++) {
     contactSection.innerHTML += `
@@ -60,7 +63,7 @@ function setupContactSection() {
         </div>
       </div>
 
-      <div id="contact-section-information">
+      <div id="contact-section-information" class="d-none">
         <p class="information-details-headline">Contact Information</p>
         <p class="contact-section-details"><b>Email</b></p>
         <a class="contact-section-link" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
@@ -81,23 +84,8 @@ function updateContacts(responseToJson) {
       allContacts.mails.push(contact.mail);
       allContacts.phones.push(contact.phone);
       allContacts.images.push(contact.img);
-    } else {
-      console.log(
-        `${contact.name}, mit der Nummer:${contact.phone}, ist bereits vorhanden.`
-      );
     }
   }
-  console.log(allContacts);
-  
-}
-
-function isContactExisting(contact) {
-  return (
-    allContacts.names.includes(contact.name) &&
-    allContacts.mails.includes(contact.mail) &&
-    allContacts.phones.includes(contact.phone) &&
-    allContacts.images.includes(contact.img)
-  );
 }
 
 async function postData(contact) {
@@ -122,7 +110,16 @@ async function postData(contact) {
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
-  setupContacts();
+  renderContactList();
+}
+
+function isContactExisting(contact) {
+  return (
+    allContacts.names.includes(contact.name) &&
+    allContacts.mails.includes(contact.mail) &&
+    allContacts.phones.includes(contact.phone) &&
+    allContacts.images.includes(contact.img)
+  );
 }
 
 function addContact() {
@@ -153,7 +150,7 @@ function setupForm() {
   form.addEventListener("submit", handleFormSubmit);
 }
 
-function setupOverlay() {
+function renderOverlay() {
   const overlay = document.getElementById("add-contact-overlay");
   overlay.addEventListener("click", function (event) {
     if (event.target === overlay) {
@@ -165,7 +162,7 @@ function setupOverlay() {
 }
 
 function closeOverlay() {
-  document.getElementById('id="exitBtn');
+  document.getElementById('exitBtn');
   document.getElementById("formfield-cancel-btn");
   document.getElementById("contact-form").classList.add("d-none");
   document.getElementById("add-contact-section").classList.add("d-none");
