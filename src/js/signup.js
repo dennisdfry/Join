@@ -8,7 +8,6 @@ const firebaseConfig = {
   appId: FB_APP_ID,
 };
 
-
 firebase.initializeApp(firebaseConfig);
 
 function home() {
@@ -24,11 +23,16 @@ async function signUp(event) {
   }
 
   try {
-    await handleUserSignUp(formData);
+    const userCredential = await firebase.auth().createUserWithEmailAndPassword(formData.mail, formData.password);
+    const user = userCredential.user;
+
+    const userId = user.uid;
+    await saveUserData(userId, { name: formData.name, mail: formData.mail });
+
     showSuccessMessage("You Signed Up successfully");
     clearInput();
   } catch (error) {
-    alert("Error saving data: " + error.message);
+    alert("Error during sign up: " + error.message);
   }
 
   return true;
@@ -58,10 +62,8 @@ function passwordValidation(password, confirm, checkbox) {
   });
 }
 
-async function handleUserSignUp(formData) {
-  const userId = await generateUniqueId();
-  const userData = { id: userId, ...formData };
-  await saveUserData(userId, userData);
+async function saveUserData(userId, userData) {
+  await firebase.database().ref('users/' + userId).set(userData);
 }
 
 function showSuccessMessage(message) {
@@ -77,17 +79,6 @@ function clearInput() {
   document.getElementById("password").value = "";
   document.getElementById("confirm-password").value = "";
   document.getElementById("checkbox").checked = false;
-}
-
-function generateUniqueId() {
-  return firebase.database().ref("users").push().key;
-}
-
-async function saveUserData(userId, userData) {
-  await firebase
-    .database()
-    .ref("users/" + userId)
-    .set(userData);
 }
 
 function updateButtonText(newText) {
