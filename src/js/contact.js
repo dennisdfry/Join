@@ -25,6 +25,47 @@ async function getData(path = "") {
   console.log(responseToJson);
 }
 
+async function deleteContact(index) {
+  try {
+
+    let contactId = await getContactId(index);
+    if (contactId) {
+
+      await fetch(`${BASE_URL}/${contactId}.json`, {
+        method: "DELETE"
+      });
+
+      console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
+
+      allContacts.names.splice(index, 1);
+      allContacts.mails.splice(index, 1);
+      allContacts.phones.splice(index, 1);
+      allContacts.images.splice(index, 1);
+
+      renderContactList();
+    } else {
+      console.error("Kontakt-ID nicht gefunden.");
+    }
+  } catch (error) {
+    console.error("Fehler beim Löschen des Kontakts:", error);
+  }
+}
+
+async function getContactId(index) {
+  let response = await fetch(BASE_URL + ".json");
+  let responseToJson = await response.json();
+  let keys = Object.keys(responseToJson);
+  for (let i = 0; i < keys.length; i++) {
+    let contact = responseToJson[keys[i]];
+    if (contact.name === allContacts.names[index] &&
+        contact.mail === allContacts.mails[index] &&
+        contact.phone === allContacts.phones[index] &&
+        contact.img === allContacts.images[index]) {
+      return keys[i];
+    }
+  }
+  return null;
+}
 function renderContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
