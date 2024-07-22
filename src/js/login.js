@@ -21,3 +21,25 @@ function goToLegalNotice() {
 function goToSignUp() {
   location.replace("/public/signup.html");
 }
+
+function goToSummary() {
+    location.replace("/public/index.html");
+}
+
+document.getElementById('login-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        goToSummary();
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('Error during login', errorCode, errorMessage);
+        alert('Error: ' + errorMessage);
+    }
+});
