@@ -25,7 +25,7 @@ async function getData(path = "") {
   console.log(responseToJson);
 }
 
-async function deleteContact(index) {
+async function deleteData(index) {
   try {
 
     let contactId = await getContactId(index);
@@ -51,7 +51,7 @@ async function deleteContact(index) {
   }
 }
 
-async function getContactId(index) {
+async function getContactId(index) {                      // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
   let response = await fetch(BASE_URL + ".json");
   let responseToJson = await response.json();
   let keys = Object.keys(responseToJson);
@@ -66,13 +66,45 @@ async function getContactId(index) {
   }
   return null;
 }
+
+async function postData(contact) {
+  try {
+    let response = await fetch(BASE_URL + ".json", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(contact),
+    });
+
+    let responseToJson = await response.json();
+    console.log("Erfolgreich hochgeladen:", responseToJson);
+
+    await getData("/");
+  } catch (error) {
+    console.error("Fehler beim Hochladen:", error);
+  }
+  renderContactList();
+}
+
+function isContactExisting(contact) {                     // prüft ob ein Kontakt bereits exisistiert
+  return (
+    allContacts.names.includes(contact.name) &&
+    allContacts.mails.includes(contact.mail) &&
+    allContacts.phones.includes(contact.phone) &&
+    allContacts.images.includes(contact.img)
+  );
+}
+
+//async function editData(i){}
+
 function renderContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
 
   for (let i = 0; i < allContacts.names.length; i++) {
     contactList.innerHTML += `
-      <div class="contactlist-overlay" onclick="openContact(${i})">
+      <div class="contactlist-overlay bg-color-dg" onclick="openContact(${i})">
         <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
         <div class="contactlist-data-box">
           <div class="contactlist-data-name">${allContacts.names[i]}</div>
@@ -85,6 +117,7 @@ function renderContactList() {
 
 function openContact(index) {
   let contactSection = document.getElementById('contact-section');
+  
   contactSection.classList.remove('d-none');
   renderContactSection(index);
 }
@@ -98,7 +131,7 @@ function renderContactSection(index) {
         <p>${allContacts.names[index]}</p>
         <div class="contact-section-btn-box">
           <button onclick="editContact(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
-          <button onclick="deleteContact(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
+          <button onclick="deleteData(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
         </div>
       </div>
     </div>
@@ -127,34 +160,18 @@ function updateContacts(responseToJson) {     // vorerst nur dafür die die Eint
   }
 }
 
-async function postData(contact) {
-  try {
-    let response = await fetch(BASE_URL + ".json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(contact),
-    });
 
-    let responseToJson = await response.json();
-    console.log("Erfolgreich hochgeladen:", responseToJson);
 
-    await getData("/");
-  } catch (error) {
-    console.error("Fehler beim Hochladen:", error);
-  }
-  renderContactList();
-}
 
-function isContactExisting(contact) {
-  return (
-    allContacts.names.includes(contact.name) &&
-    allContacts.mails.includes(contact.mail) &&
-    allContacts.phones.includes(contact.phone) &&
-    allContacts.images.includes(contact.img)
-  );
-}
+
+
+
+
+
+
+
+
+
 
 function addContact() {
   let overlay = document.getElementById("add-contact-overlay");
@@ -165,6 +182,13 @@ function addContact() {
   contactForm.classList.remove("d-none");
   btn.classList.remove("d-none");
 }
+
+
+
+
+
+
+
 
 function handleFormSubmit(event) {
   event.preventDefault();
@@ -202,5 +226,7 @@ function closeOverlay() {
   document.getElementById("add-contact-section").classList.add("d-none");
   overlay.classList.add("d-none");
 }
+
+
 
 document.addEventListener("DOMContentLoaded", init);
