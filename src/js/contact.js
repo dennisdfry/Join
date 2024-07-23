@@ -104,7 +104,7 @@ function renderContactList() {
 
   for (let i = 0; i < allContacts.names.length; i++) {
     contactList.innerHTML += `
-      <div class="contactlist-overlay bg-color-dg" onclick="openContact(${i})">
+      <div id="contactlist-overlay" onclick="openContact(${i})">
         <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
         <div class="contactlist-data-box">
           <div class="contactlist-data-name">${allContacts.names[i]}</div>
@@ -117,7 +117,8 @@ function renderContactList() {
 
 function openContact(index) {
   let contactSection = document.getElementById('contact-section');
-
+  let contactList = document.getElementById('contactlist-overlay');
+  contactList.classList.add('bg-color-dg');
   contactSection.classList.remove('d-none');
   renderContactSection(index);
 }
@@ -146,7 +147,7 @@ function renderContactSection(index) {
       <p class="contact-section-details">${allContacts.phones[index]}</p>
     </div>
   `;
-  renderContactInformation(index);
+  //renderContactInformation(index);
 }
 
 function updateContacts(responseToJson) {     // vorerst nur dafür die die Einträge ins allContactsarray zu rendern
@@ -211,7 +212,7 @@ function closeOverlay() {
   overlay.classList.add("d-none");
 }
 
-let editIndex = null; // Variable to store the index of the contact being edited
+let editIndex = null; // <variable um id vom zu besarbeitenden kontakt zwischenzupeichern
 
 async function openEditForm(index) {
   editIndex = index;
