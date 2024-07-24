@@ -367,14 +367,15 @@ body {
   z-index: 999;
 }
 
+#add-contact-content-right-box {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
 #contact-form {
   width: 422px;
   height: 215px;
-  position: absolute;
-  top: 137px;
-  left: 742px;
-  gap: 32px;
-  padding: 13px, 21px, 13px, 21px;
   display: flex;
   flex-direction: column;
 }
@@ -385,15 +386,14 @@ body {
   gap: 8px;
   border-radius: 10px;
   border: 1px solid lightgray;
+  padding: 16px 0px 0px 0px;
 }
 
 .formfield-btn-box {
   width: 364px;
   height: 57px;
-  top: 400px;
-  left: 742px;
+
   gap: 24px;
-  padding: 16px 0px 0px 0px;
 }
 
 #formfield-cancel-btn input {
@@ -402,31 +402,24 @@ body {
   gap: 4px;
   border-radius: 10px 0px 0px 0px;
   border: 1px 0px 0px 0px;
-
-  gap: 4px;
-  border-radius: 10px 0px 0px 0px;
-  border: 1px 0px 0px 0px;
 }
-#img {
+
+#prof-img {
   width: 120px;
   height: 120px;
-  position: absolute;
-  top: 204px;
-  left: 550px;
+
   border-radius: 70px 0px 0px 0px;
+  border: 3px solid #ffffff;
 }
 
 #exitBtn {
-  width: 32px;
-  height: 32px;
   position: absolute;
   top: 48px;
   left: 1132px;
+  width: 32px;
+  height: 32px;
   padding: 4px 0px 0px 0px;
-  gap: 0;
   border-radius: 56px 0px 0px 0px;
-  display: flex;
-  justify-content: flex-end;
   cursor: pointer;
 }
 
