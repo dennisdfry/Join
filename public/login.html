@@ -11,8 +11,15 @@
   <body>
     <section class="main-login d-flex-center flex-d-col">
       <div class="login-signup">
-        <button class="login-not-user-btn bg-color-lg pointer">Not a Join user?</button>
-        <button class="login-signup-btn fw-700 bg-color-dg pointer">Sign up</button>
+        <button class="login-not-user-btn bg-color-lg pointer">
+          Not a Join user?
+        </button>
+        <button
+          class="login-signup-btn fw-700 bg-color-dg pointer"
+          onclick="goToSignUp()"
+        >
+          Sign up
+        </button>
       </div>
       <div class="login-logo" id="login-logo">
         <img src="/public/img/user_logo.png" alt="join logo" />
@@ -20,15 +27,15 @@
       <div class="login-field d-flex-center flex-d-col">
         <span class="fs-61 fw-700">Log in</span>
         <div class="login-headline-divider"></div>
-        <form onsubmit="login()">
+        <form id="login-form">
           <div class="login-input d-flex-center flex-d-col gap-20 fw-700">
             <div class="input-mail">
-              <input type="mail" required placeholder="Email" id="mail" />
+              <input type="email" required placeholder="Email" id="email" />
               <img src="/public/img/envelope.png" alt="briefumschlag logo" />
             </div>
             <div class="input-password">
               <input
-                type="text"
+                type="password"
                 required
                 placeholder="Password"
                 id="password"
@@ -53,11 +60,15 @@
         </form>
       </div>
       <div class="login-info">
-        <button class="pointer">Privacy Policy</button>
-        <button class="pointer">Legal notice</button>
+        <button class="pointer" onclick="goToPrivacy()">Privacy Policy</button>
+        <button class="pointer" onclick="goToLegalNotice()">Legal notice</button>
       </div>
     </section>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="/src/js/firebase_init.js"></script>
     <script src="/src/js/login.js"></script>
   </body>
 </html>
