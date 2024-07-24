@@ -13,6 +13,7 @@ async function init() {
         console.log(contacts);
         await assignedTo(contacts, imageUrls); // Übergeben Sie die Bild-URLs
         showCheckboxes();
+        subtasksInput();
     } catch (error) {
         console.error("Fehler bei der Initialisierung:", error);
     }
@@ -125,27 +126,41 @@ function prio(id) {
         prioArray.push('Low');
     }
 }
+function subtasksInput(){
+    // document.getElementById('subtasksControl').classList.add('d-none');
+}
+function showSubtaskControls() {
+    // document.getElementById('subtasksPlus').classList.add('d-none');
+    // document.getElementById('subtasksControl').classList.remove('d-none');
+}
 
-function addSubtasks() {
-    let positionOfSubtasksControl = document.getElementById('subtasksControl');
-    positionOfSubtasksControl.classList.remove('d-none');
-    let positionOfSubtasksPlus = document.getElementById('subtasksPlus');
-    positionOfSubtasksPlus.classList.add('d-none');
+function addSubtask() {
     let input = document.getElementById('subtasks');
-    subtasksArray.push(input.value);
+    if (input.value.trim() !== "") {
+        subtasksArray.push(input.value.trim());
+        updateSubtasksList();
+        resetSubtaskInput();
+    }
+}
+
+function resetSubtaskInput() {
+    document.getElementById('subtasks').value = '';
+    document.getElementById('subtasksPlus').classList.remove('d-none');
+    document.getElementById('subtasksControl').classList.add('d-none');
+}
+
+function updateSubtasksList() {
     let subtasksPosition = document.getElementById('subtasksPosition');
     subtasksPosition.innerHTML = '';
     for (let index = 0; index < subtasksArray.length; index++) {
         const element = subtasksArray[index];
         subtasksPosition.innerHTML += `
             <ul>
-            <li>${element}</li>
+                <li>${element}</li>
             </ul>`;
     }
-    input.value = '';
     console.log(subtasksArray);
 }
-
 function cancelTask() {
     // Implementieren Sie hier die Logik zum Abbrechen oder Zurücksetzen eines Tasks
 }

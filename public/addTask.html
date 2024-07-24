@@ -30,26 +30,18 @@
                     <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description"
                         name="description" id="description"></textarea>
                     <label for="assignedTo">Assigned to</label>
-                        <div class="multiselect">
-                          <div class="selectBox" onclick="showCheckboxes()">
+                    <div class="multiselect">
+                        <div class="selectBox" onclick="showCheckboxes()">
                             <select class="add-task-select">
-                              <option>Select an option</option>
+                                <option>Select an option</option>
                             </select>
                             <div class="overSelect"></div>
-                          </div>
-                          <div id="checkboxes">                            
-                          </div>
                         </div>
-                    <!-- <select required class="add-task-select" name="assignedTo" id="assignedTo">
-                        <option value="" selected hidden>Select contacts to assign</option>
-
-                        <div id="contactImage"></div>
-                        Add your options here
-                    </select> -->
+                        <div id="checkboxes">
+                        </div>
+                    </div>
                 </div>
-
                 <div class="add-task-seperator"></div>
-
                 <!-- Rechte Sektion -->
                 <div class="add-task-form-right-section">
                     <label for="dueDate">Due date <span class="red-star">*</span></label>
@@ -81,17 +73,20 @@
                         <option value="inProgress">In progress</option>
                         <option value="awaitFeedback">Await feedback</option>
                     </select>
-
                     <label for="subtasks">Subtasks</label>
                     <div class="input-with-button">
                         <input required type="text" minlength="2" class="add-task-input" placeholder="Add item"
                             id="subtasks" name="subtasks">
-                        <button onclick="addSubtasks()" type="button" class="add-task-button">
-                            <div id="subtasksControl" class="d-none subtasks-control">
-                                <div>X</div>
-                                <img src="../public/img/check.svg" alt="">
-                            </div>
-                            <span id="subtasksPlus">+</span>
+                        <div id="subtasksControl" class="subtasks-control">
+                            <button onclick="resetSubtaskInput()" type="button" class="add-task-button no-border">
+                                <img src="../public/img/closeAddTask.png" alt="Reset">
+                            </button>
+                            <button onclick="addSubtask()" type="button" class="add-task-button no-border">
+                                <img src="../public/img/checkAddTask.png" alt="Add">
+                            </button>
+                        </div>
+                        <button onclick="showSubtaskControls()" type="button" id="subtasksPlus" class="add-task-button">
+                            +
                         </button>
                     </div>
                     <div class="subtasksList" id="subtasksPosition"></div>
