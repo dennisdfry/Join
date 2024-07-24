@@ -3,17 +3,30 @@ let subtasksArray = [];
 let prioArray = [];
 let addTaskArray = [];
 let expanded = false;
-
+let assignedToUserArray = [];
+let isValid = true;
 async function init() {
     try {
         let fireBaseData = await onloadData("/");
         let contacts = await fetchContacts(fireBaseData);
         console.log(contacts);
-        await assignedTo(contacts);
-        let contactImage = contacts.one.img;
+        let images = await fetchImages(contacts);
+        console.log(images)
+        await assignedTo(contacts, images);
         showCheckboxes();
     } catch (error) {
         console.log("error");
+    }
+}
+
+async function fetchImages() {
+    try {
+        let fireBaseData = await onloadData("/");
+        let contacts = fireBaseData.contacts;
+        let imageUrls = Object.values(contacts).map(contact => contact.img);
+        return imageUrls;
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Bilder", error);
     }
 }
 
@@ -41,17 +54,24 @@ function showCheckboxes() {
     };
 }
 
-async function assignedTo(contacts) {
+async function assignedTo(contacts, image) {
     const extractNames = (contacts) => {
-        return Object.values(contacts).map(entry => entry.name);
+        return Object.values(contacts).map(entry => ({ name: entry.name }));
     };
     const names = extractNames(contacts);
     console.log(names);
     let position = document.getElementById('checkboxes');
+    position.innerHTML = '';
     for (let index = 0; index < names.length; index++) {
         const element = names[index];
-        position.innerHTML += `<label for="one">
-                              <input type="checkbox" id="${index}" />${element}</label>`;
+        const images = image[index];
+        let list = `<label class="checkBoxFlex" for="checkbox-${index}">
+                        <div>
+                            <img src="${images}" alt="${element.name}" >
+                            ${element.name}
+                        </div>
+                        <input type="checkbox" id="checkbox-${index}" value="${element.name}" onclick="assignedToUser('${element.name}')">
+                    </label>`;
     }
 }
 
@@ -75,6 +95,11 @@ function createTask() {
         }
     );
     console.log(addTaskArray);
+}
+
+function assignedToUser(element) {
+    assignedToUserArray.push(element);
+    console.log(assignedToUserArray);
 }
 
 function prio(id) {
