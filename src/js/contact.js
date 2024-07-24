@@ -150,7 +150,7 @@ function renderContactSection(index) {
   //renderContactInformation(index);
 }
 
-function updateContacts(responseToJson) {     // vorerst nur dafür die die Einträge ins allContactsarray zu rendern
+function updateContacts(responseToJson) {     
   let keys = Object.keys(responseToJson);
   for (let i = 0; i < keys.length; i++) {
     let contact = responseToJson[keys[i]];
@@ -172,8 +172,6 @@ function addContact() {
   contactForm.classList.remove("d-none");
   btn.classList.remove("d-none");
 }
-
-
 
 function handleFormSubmit(event) {
   event.preventDefault();
@@ -210,54 +208,6 @@ function closeOverlay() {
   document.getElementById("contact-form").classList.add("d-none");
   document.getElementById("add-contact-section").classList.add("d-none");
   overlay.classList.add("d-none");
-}
-
-let editIndex = null; // <variable um id vom zu besarbeitenden kontakt zwischenzupeichern
-
-async function openEditForm(index) {
-  editIndex = index;
-  document.getElementById("edit-name").value = allContacts.names[index];
-  document.getElementById("edit-mail").value = allContacts.mails[index];
-  document.getElementById("edit-phone").value = allContacts.phones[index];
-  document.getElementById("edit-img").value = allContacts.images[index];
-  document.getElementById("edit-contact-overlay").classList.remove("d-none");
-}
-
-async function handleEditFormSubmit(event) {
-  event.preventDefault();
-  const updatedContact = {
-    name: document.getElementById("edit-name").value,
-    mail: document.getElementById("edit-mail").value,
-    phone: document.getElementById("edit-phone").value,
-    img: document.getElementById("edit-img").value,
-  };
-  await editContact(editIndex, updatedContact);
-  document.getElementById("edit-contact-overlay").classList.add("d-none");
-}
-
-async function editContact(index, updatedContact) {
-  const contactId = await getContactId(index);
-  if (contactId) {
-    try {
-      let response = await fetch(`${BASE_URL}/${contactId}.json`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedContact),
-      });
-      let responseToJson = await response.json();
-      console.log("Erfolgreich bearbeitet:", responseToJson);
-      allContacts.names[index] = updatedContact.name;
-      allContacts.mails[index] = updatedContact.mail;
-      allContacts.phones[index] = updatedContact.phone;
-      allContacts.images[index] = updatedContact.img;
-      renderContactList();
-      renderContactSection(index);
-    } catch (error) {
-      console.error("Fehler beim Bearbeiten:", error);
-    }
-  }
 }
 
 function closeEditForm() {

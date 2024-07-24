@@ -35,17 +35,14 @@
         <div id="add-contact-overlay">
           <div id="add-contact-content">
             <div id="add-contact-content-left-box" class="bg-color-dg">
-              <div class="add-contact-content-left-img">
-                <img src="./img/join_logo.svg">
-              </div>
-              <div id="add-contact-content-left">
-                <span id="add-contact-left-text-span">
-                  <h2>Add Contact</h2>
-                  <p>Tasks are better with a Team!</p>
-                  <div class="add-contact-seperator"></div>
-                </span>
+              <div id="add-contact-content-left-text">
+                <img class="add-contact-content-left-box-img" src="./img/join_logo.svg">
+                <h2>Add contact</h2>
+                <p>Tasks are better with a team!</p>              
+                <div class="add-contact-seperator"></div>
               </div>
             </div>
+
             <div id="exitBtn" onclick="closeOverlay()"><img src="./img/Close.png"></div>
             <div id="img"><img src="./img/Group 13.png"></div>
             <form id="contact-form">
@@ -88,18 +85,6 @@
               </div>
             </form>
           </div>
-
-          <div id="edit-contact-overlay" class="d-none">
-            <form id="edit-contact-form">
-              <input type="text" id="edit-name" placeholder="Name" required />
-              <input type="email" id="edit-mail" placeholder="Email" required />
-              <input type="text" id="edit-phone" placeholder="Phone" required />
-              <input type="text" id="edit-img" placeholder="Image URL" required />
-              <button type="submit">Save Changes</button>
-              <button type="button" onclick="closeEditOverlay()">Cancel</button>
-            </form>
-          </div>
-
         </div>
       </div>
 

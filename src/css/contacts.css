@@ -156,7 +156,6 @@ body {
   width: 352px;
   height: 16px;
   border-bottom: 1px solid #d1d1d1;
-  width: Fill (352px) px;
   padding: 8px 0px 8px 0px;
   gap: 10px;
 }
@@ -306,21 +305,6 @@ body {
   display: flex;
   flex-direction: row;
   border-radius: 30px;
-
-}
-
-#exitBtn {
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  top: 48px;
-  left: 1132px;
-  padding: 4px 0px 0px 0px;
-  gap: 0;
-  border-radius: 56px 0px 0px 0px;
-  display: flex;
-  justify-content: flex-end;
-  cursor: pointer;
 }
 
 #add-contact-content-left-box {
@@ -335,40 +319,39 @@ body {
   border-bottom-left-radius: 30px;
 }
 
-#add-contact-content-left {
-  width: 371px;
-  height: 129px;
-  gap: 16px;
-}
-.add-contact-content-left-img {
-  display: flex;
-}
-.add-contact-content-left-img img {
+.add-contact-content-left-box-img {
   width: 55.6px;
   height: 66.48px;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-start;
 }
 
-#add-contact-left-text-span {
-  width: 371px;
-  height: 113px;
-  gap: 8px;
-  color: #ffffff;
-}
-#add-content-left-text-span h2 {
-  font-size: 59px;
+#add-contact-content-left-text h2 {
+  font-size: 61px;
   font-weight: 700;
   line-height: 73.2px;
-  margin-block-start: 0em;
+  margin-block-start: 0.3em;
   margin-block-end: 0em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
+  color: #ffffff;
 }
-#add-contact-content-left-span p {
-  font-size: 25px;
+#add-contact-content-left-text p {
+  font-size: 27px;
   font-weight: 400;
   line-height: 32.4px;
-  text-align: left;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
   color: #ffffff;
+}
+
+.add-contact-seperator {
+  height: 90px;
+  border-bottom: 3px solid #29abe2;
+  transform: rotateX(140deg); /** muss noch abgeändert werden **/
 }
 
 #add-contact-overlay {
@@ -431,6 +414,20 @@ body {
   top: 204px;
   left: 550px;
   border-radius: 70px 0px 0px 0px;
+}
+
+#exitBtn {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 48px;
+  left: 1132px;
+  padding: 4px 0px 0px 0px;
+  gap: 0;
+  border-radius: 56px 0px 0px 0px;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
 }
 
 .create-btn {
