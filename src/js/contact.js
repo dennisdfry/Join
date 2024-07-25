@@ -10,6 +10,7 @@ let allContacts = {
 async function init() {
   try {
     await getData("/");
+    sortContacts();
     renderOverlay();
     setupForm();
     renderContactList();
@@ -98,11 +99,31 @@ function isContactExisting(contact) {                     // prüft ob ein Konta
 
 //async function editData(i){}
 
+function sortContacts() {
+  let sortedIndices = [...Array(allContacts.names.length).keys()].sort((a, b) => {
+    return allContacts.names[a].localeCompare(allContacts.names[b]);
+  });
+
+  allContacts.names = sortedIndices.map(i => allContacts.names[i]);
+  allContacts.mails = sortedIndices.map(i => allContacts.mails[i]);
+  allContacts.phones = sortedIndices.map(i => allContacts.phones[i]);
+  allContacts.images = sortedIndices.map(i => allContacts.images[i]);
+}
+
 function renderContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
 
+  let currentLetter = "";
   for (let i = 0; i < allContacts.names.length; i++) {
+    let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
+    if (firstLetter !== currentLetter) {
+      currentLetter = firstLetter;
+      contactList.innerHTML += `
+        <div class="contactlist-order-letter">${currentLetter}</div>
+        <div class="contactlist-seperator"></div>
+      `;
+    }
     contactList.innerHTML += `
       <div id="contactlist-overlay" onclick="openContact(${i})">
         <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
@@ -180,7 +201,7 @@ function handleFormSubmit(event) {
     name: document.getElementById("name").value,
     mail: document.getElementById("mail").value,
     phone: document.getElementById("phone").value,
-    img: document.getElementById("img").value,
+    img: document.getElementById("prof-img").value,
   };
 
   postData(newContact);

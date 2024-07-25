@@ -1,84 +1,97 @@
-
 @font-face {
     font-family: 'Inter';
     src: url("/src/fonts/inter/inter-v13-latin-regular.woff2") format("woff2");
     font-weight: 600;
 }
+
 @font-face {
     font-family: 'Inter700';
     src: url("/src/fonts/inter/inter-v13-latin-700.woff2") format("woff2");
     font-weight: 700;
 }
-.background-main{
+
+.background-main {
     background-color: rgb(246, 247, 248);
 }
-.add-Task-Container{
-   padding-right: 64px;
-    padding-bottom:64px;
+
+.add-Task-Container {
+    padding-right: 64px;
+    padding-bottom: 64px;
     padding-left: 272px;
     background-color: #f6f7f8;
     max-width: 1440px;
 
 }
-.add-task-head{
+
+.add-task-head {
     margin-top: 64px;
     height: 78px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: 'Inter700';
-    font-size:61px;
+    font-size: 61px;
 }
-.add-task-head h1{
-    
-}
-.add-task-head img{
+
+.add-task-head h1 {}
+
+.add-task-head img {
     height: 32px;
-    width:32px;
+    width: 32px;
     border-radius: 56px;
 }
-.add-task-close-button{
+
+.add-task-close-button {
     display: flex;
-    align-items:last baseline;
+    align-items: last baseline;
 }
-.add-task-close-button:hover{
+
+.add-task-close-button:hover {
     cursor: pointer;
 }
-.add-task-form-left-section{
-    width:50%;
+
+.add-task-form-left-section {
+    width: 50%;
     display: flex;
     flex-direction: column;
 }
-.add-task-form-right-section{
-    width:50%;
+
+.add-task-form-right-section {
+    width: 50%;
     display: flex;
     flex-direction: column;
 }
-.add-task-middle-section{
+
+.add-task-middle-section {
     display: flex;
     margin-top: 48px;
 }
-.add-task-seperator{
-    width:0px;
-    border:1px solid #D1D1D1;
-    height:424px;
-    margin-left:48px;
+
+.add-task-seperator {
+    width: 0px;
+    border: 1px solid #D1D1D1;
+    height: 424px;
+    margin-left: 48px;
     margin-right: 48px;
 }
-.red-star{
-   color:rgb(245, 124, 139) 
+
+.red-star {
+    color: rgb(245, 124, 139)
 }
-.add-task-form-left-section label{
+
+.add-task-form-left-section label {
     font-family: 'Inter';
     font-weight: 400;
     font-size: 20px;
 }
-.add-task-form-right-section label{
+
+.add-task-form-right-section label {
     font-family: 'Inter';
     font-weight: 400;
     font-size: 20px;
 }
-.add-task-title-inputfield{
+
+.add-task-title-inputfield {
     padding-left: 16px;
     padding-right: 16px;
     border-radius: 10px;
@@ -90,9 +103,10 @@
     margin-bottom: 10px;
     margin-top: 10px;
 }
-.add-task-textarea{
+
+.add-task-textarea {
     Padding: 8px 16px 8px 16px;
-    min-height:120px;
+    min-height: 120px;
     border-radius: 10px;
     outline: none;
     border: 1px solid #A8A8A8;
@@ -108,10 +122,10 @@
     position: relative;
 }
 
-.add-task-select{
+.add-task-select {
     padding-left: 16px;
     padding-right: 16px;
-    height:48px;
+    height: 48px;
     border-radius: 10px;
     outline: none;
     border: 1px solid #A8A8A8;
@@ -121,23 +135,27 @@
     font-family: 'Inter';
     font-weight: 400;
     font-size: 20px;
-    appearance: none; /* Entfernt das Standard-Dropdown-Symbol */
-    background-image: url('/public/img/arrow_drop_downaa.png'); /* Pfad zu deinem Bild */
+    appearance: none;
+    /* Entfernt das Standard-Dropdown-Symbol */
+    background-image: url('/public/img/arrow_drop_downaa.png');
+    /* Pfad zu deinem Bild */
     background-repeat: no-repeat;
-    background-position: calc(100% - 16px) center; /* Verschiebt das Symbol 16px nach links und zentriert es vertikal */
-    background-size: 24px; /* Größe des benutzerdefinierten Symbols */
+    background-position: calc(100% - 16px) center;
+    /* Verschiebt das Symbol 16px nach links und zentriert es vertikal */
+    background-size: 24px;
+    /* Größe des benutzerdefinierten Symbols */
 }
-.add-task-select:hover{
+
+.add-task-select:hover {
     cursor: pointer;
 }
 
 .add-task-input {
-    padding: 8px 16px;
-   border-top-left-radius: 10px;
-   border-bottom-left-radius: 10px;
+    padding-left: 16px;
+    border-radius: 10px;
     outline: none;
     border: 1px solid #A8A8A8;
-    border-right: none;
+    height:48px;
     font-size: 20px;
     font-family: 'Inter';
     font-weight: 400;
@@ -145,12 +163,17 @@
 }
 
 .add-task-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding-right: 20px;
     border-radius: 0 10px 10px 0;
     outline: none;
-    border: 1px solid #A8A8A8;
-    border-left: none; /* Entfernt den linken Rand des Buttons, damit er nahtlos mit dem Input-Feld verbunden ist */
-    background-color: #ffffff; /* Passe die Hintergrundfarbe nach Bedarf an */
+    border-left: none;
+    background-color: #ffffff;
     font-size: 24px;
     font-family: 'Inter';
     font-weight: 400;
@@ -161,9 +184,10 @@
     display: flex;
     margin-top: 10px;
 }
-.add-task-prio-button{
-    height:56px;
-    width:136px;
+
+.add-task-prio-button {
+    height: 56px;
+    width: 136px;
     border-radius: 10px;
     margin: 8px;
     border: 1px solid #F0F0F0;
@@ -172,37 +196,43 @@
     font-size: 21px;
     transition: transform 0.2s;
 }
-.add-task-prio-button:hover{
+
+.add-task-prio-button:hover {
     cursor: pointer;
-    background-color:rgb(255, 168, 0);
-    color:#FFFFFF;
+    background-color: rgb(255, 168, 0);
+    color: #FFFFFF;
     transform: scale(1.1);
 }
-.add-task-prio-button-click{
-    background-color:rgb(255, 168, 0);
-    color:#FFFFFF;
+
+.add-task-prio-button-click {
+    background-color: rgb(255, 168, 0);
+    color: #FFFFFF;
     transform: scale(1.1);
 }
-.add-task-prio-button-container{
+
+.add-task-prio-button-container {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
-.add-task-finish-section{
+
+.add-task-finish-section {
     display: flex;
     justify-content: space-between;
-    padding-right:64px;
+    padding-right: 64px;
     padding-left: 272px;
 }
-.add-task-finish-button-container{
+
+.add-task-finish-button-container {
     display: flex;
 
 }
-.add-task-create-button{
-    background-color:rgb(42, 54, 71);
-    color:  #FFFFFF;
+
+.add-task-create-button {
+    background-color: rgb(42, 54, 71);
+    color: #FFFFFF;
     height: 56px;
-    width:183px;
+    width: 183px;
     border-radius: 10px;
     font-family: 'Inter700';
     font-size: 21px;
@@ -212,17 +242,19 @@
     border: none;
     transition: transform 0.2s;
 }
-.add-task-create-button:hover{
+
+.add-task-create-button:hover {
     cursor: pointer;
-    background-color:#007cee;
+    background-color: #007cee;
     color: #FFFFFF;
     transform: scale(1.1);
 }
-.add-task-cancel-button{
-    background-color:#FFFFFF ;
+
+.add-task-cancel-button {
+    background-color: #FFFFFF;
     height: 56px;
-    width:126px;
-    border: 1px solid rgb(42, 54, 71) ;
+    width: 126px;
+    border: 1px solid rgb(42, 54, 71);
     border-radius: 10px;
     color: rgb(42, 54, 71);
     font-family: 'Inter';
@@ -230,122 +262,98 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right:25px;
+    margin-right: 25px;
     transition: transform 0.2s;
 }
-.add-task-cancel-button:hover{
+
+.add-task-cancel-button:hover {
     cursor: pointer;
     border: 1px solid #007cee;
     color: #007cee;
     transform: scale(1.1);
 }
-.subtasksList{
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 20px;
-}
-.d-none{
-    display: none;
-}
-.subtasks-control{
-    display: flex;
-    align-items: center;
-    border: 1px solid #A8A8A8;
-    background-color:#FFFFFF ;
-    border-top-right-radius:10px;
-    border-bottom-right-radius: 10px;
-    padding:7px;
-    border-left: none;
-}
-.subtasks-control img{
-    height:16px;
-    width:16px;
-    padding:4px;
-}
-.subtasks-control img:hover{
-    border-radius: 100%;
-    background-color:#A8A8A8 ;
-    padding:4px;
-}
-.seperator-subtasks{
-    height:14px;
-    margin-left: 4px;
-    margin-right: 4px;
-    border:1px solid #D1D1D1 ;
-}
+
+
+
 /* select section */
-.checkBoxFlex{
+.checkBoxFlex {
     display: flex;
     justify-content: space-between;
     border-radius: 10px;
 }
-.checkBoxFlex:hover{
+
+.checkBoxFlex:hover {
     background-color: #A8A8A8;
     cursor: pointer;
 }
-.flexBoxContainer{
-    width:100%;
+
+.flexBoxContainer {
+    width: 100%;
 }
+
 .multiselect {
     position: relative;
 }
+
 .selectBox {
     position: relative;
 }
+
 .selectBox select {
-    overflow: hidden; /* Hide scrollbar */
-    -webkit-appearance: none; /* Remove default arrow in Webkit browsers */
-    -moz-appearance: none; /* Remove default arrow in Firefox */
-    appearance: none; /* Remove default arrow */
+    overflow: hidden;
+    /* Hide scrollbar */
+    -webkit-appearance: none;
+    /* Remove default arrow in Webkit browsers */
+    -moz-appearance: none;
+    /* Remove default arrow in Firefox */
+    appearance: none;
+    /* Remove default arrow */
     width: 100%;
-    padding: 5px; /* Adjust padding as needed */
-    box-sizing: border-box; /* Ensure padding is included in the element's width */
+    padding: 5px;
+    /* Adjust padding as needed */
+    box-sizing: border-box;
+    /* Ensure padding is included in the element's width */
 }
-.selectBox option{
+
+.selectBox option {
     display: flex;
     align-items: center;
 }
+
 .overSelect {
     position: absolute;
-    left: 0; right: 0; top: 0; bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
+
 #checkboxes {
     display: none;
     border: 1px #dadada solid;
     position: absolute;
     background-color: white;
-    z-index: 1; /* Ensure checkboxes are on top */
+    z-index: 1;
+    /* Ensure checkboxes are on top */
 }
+
 #checkboxes label {
-    padding: 5px; 
+    padding: 5px;
 }
+
 #checkboxes label img {
     vertical-align: middle;
     margin-right: 8px;
 }
-  /* checkbox ende */
 
-  /* subtasks */
-  .input-with-button {
+/* checkbox ende */
+
+/* subtasks */
+.input-with-button {
     position: relative;
     display: flex;
     align-items: center;
 }
-
-.add-task-input {
-    flex: 1;
-    padding-right: 60px; /* Platz für die Buttons */
-}
-
-.add-task-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .no-border {
     border: none;
 }
@@ -354,10 +362,73 @@
     position: absolute;
     right: 10px;
 }
+.subtasksList {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 20px;
+}
 
-/* .subtasks-control {
-    position: absolute;
-    right: 10px;
+.d-none {
+    display: none;
+}
+
+.subtasks-control {
     display: flex;
-    gap: 5px;
-} */
+    align-items: center;
+    border: 1px solid #A8A8A8;
+    background-color: #FFFFFF;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: none;
+}
+
+.subtasks-control img {
+    height: 16px;
+    width: 16px;
+    padding: 4px;
+}
+
+.subtasks-control img:hover {
+    border-radius: 100%;
+    background-color: #A8A8A8;
+    padding: 4px;
+}
+
+.seperator-subtasks {
+    height: 14px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border: 1px solid #D1D1D1;
+}
+.subtask-button{
+    height: 52px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 0 10px 10px 0;
+    outline: none;
+    border-left: none;
+    background-color: #ffffff;
+    font-size: 24px;
+    font-family: 'Inter';
+    font-weight: 400;
+    cursor: pointer;
+}
+.subtasks-input{
+    height:50px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    outline: none;
+    border: 1px solid #A8A8A8;
+    border-right: none;
+    font-size: 20px;
+    font-family: 'Inter';
+    font-weight: 400;
+    flex-grow: 1;
+    padding-left: 16px;
+}

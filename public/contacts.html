@@ -12,7 +12,6 @@
 
   <body onload="init()">
     <div id="main">
-
       <div id="contactlist-section">
         <div class="contactlist-btn-box">
           <button id="add-contact-btn" onclick="addContact()">
@@ -20,7 +19,9 @@
             <img src="./img/person_add.png" />
           </button>
         </div>
-        <div id="contactlist-content" class="contactlist-scrollbar"></div>
+        <div id="contactlist-content">
+
+        </div>
       </div>
 
       <div class="contact-section-header">
@@ -43,52 +44,65 @@
               </div>
             </div>
 
-            <div id="exitBtn" onclick="closeOverlay()"><img src="./img/Close.png"></div>
-            <div id="img"><img src="./img/Group 13.png"></div>
-            <form id="contact-form">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Name"
-                required
-              />
-              <input
-                type="email"
-                id="mail"
-                name="mail"
-                placeholder="Email"
-                required
-              />
+            <div id="add-contact-content-right-box">
 
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                placeholder="Phone"
-                pattern="^[0-9]{10,15}$"
-                required
-              />
-              <div class="formfield-btn-box">
-                <input
-                  id="-formfield-cancel-btn"
-                  onclick="closeOverlay()"
-                  class="create-btn bg-color-dg bradius10 txt-center"
-                  type="submit"
-                  value="cancel"
-                />
-                <input
-                  class="create-btn bg-color-dg bradius10 txt-center"
-                  type="submit"
-                  value="Create"
-                />
+              <div id="exitBtn" onclick="closeOverlay()">
+                <img src="./img/Close.png">
               </div>
-            </form>
+
+              <div id="prof-img">
+                <img src="./img/Group 13.png">
+              </div>
+
+              <form id="contact-form">
+
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Name"
+                  required
+                />
+                <input
+                  type="email"
+                  id="mail"
+                  name="mail"
+                  placeholder="Email"
+                  required
+                />
+
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  placeholder="Phone"
+                  pattern="^[0-9]{10,15}$"
+                  required
+                />
+                <div class="formfield-btn-box">
+                  <input
+                    id="-formfield-cancel-btn"
+                    onclick="closeOverlay()"
+                    class="create-btn bg-color-dg bradius10 txt-center"
+                    type="submit"
+                    value="cancel"
+                  />
+                  <input
+                    class="create-btn bg-color-dg bradius10 txt-center"
+                    type="submit"
+                    value="Create"
+                  />
+                </div>
+              </form>
+
+            </div>
+
+
+
           </div>
         </div>
       </div>
 
     </div>
-    
   </body>
 </html>

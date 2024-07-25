@@ -13,7 +13,6 @@ async function init() {
         console.log(contacts);
         await assignedTo(contacts, imageUrls); // Übergeben Sie die Bild-URLs
         showCheckboxes();
-        subtasksInput();
     } catch (error) {
         console.error("Fehler bei der Initialisierung:", error);
     }
@@ -130,23 +129,37 @@ function subtasksInput(){
     // document.getElementById('subtasksControl').classList.add('d-none');
 }
 function showSubtaskControls() {
-    // document.getElementById('subtasksPlus').classList.add('d-none');
-    // document.getElementById('subtasksControl').classList.remove('d-none');
+    document.getElementById('subtasks').classList.remove('add-task-input');
+    document.getElementById('subtasks').classList.add('subtasks-input');
+   let position = document.getElementById('subtasksControl');
+   position.innerHTML = `<button onclick="resetSubtaskInput()" type="button" class="subtask-button">
+                                <img src="../public/img/closeAddTask.png" alt="Reset">
+                            </button>
+                            <div class="seperator-subtasks"></div>
+                            <button onclick="addSubtask()" type="button" class="subtask-button">
+                                <img src="../public/img/checkAddTask.png" alt="Add">
+                            </button>`;
 }
 
 function addSubtask() {
     let input = document.getElementById('subtasks');
     if (input.value.trim() !== "") {
         subtasksArray.push(input.value.trim());
+        input.value = '';
         updateSubtasksList();
         resetSubtaskInput();
     }
 }
 
 function resetSubtaskInput() {
-    document.getElementById('subtasks').value = '';
-    document.getElementById('subtasksPlus').classList.remove('d-none');
-    document.getElementById('subtasksControl').classList.add('d-none');
+    let input = document.getElementById('subtasks');
+    input.value = '';
+    document.getElementById('subtasks').classList.add('add-task-input');
+    document.getElementById('subtasks').classList.remove('subtasks-input');
+    let position = document.getElementById('subtasksControl');
+    position.innerHTML =` <button onclick="showSubtaskControls()" type="button" id="subtasksPlus" class="add-task-button">
+                                +
+                            </button>`;
 }
 
 function updateSubtasksList() {
