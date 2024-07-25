@@ -98,6 +98,20 @@ function isContactExisting(contact) {                     // prüft ob ein Konta
 }
 
 //async function editData(i){}
+function generateProfileImage(name) {
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F3FF33", "#33FFF3"]; // Beispielhafte Farben
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+  const initials = name.split(" ").map(word => word[0].toUpperCase()).join("");
+
+  const svg = `
+    <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="${randomColor}"/>
+      <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="40" fill="#FFF">${initials}</text>
+    </svg>
+  `;
+  return `data:image/svg+xml;base64,${btoa(svg)}`;
+}
 
 function sortContacts() {
   let sortedIndices = [...Array(allContacts.names.length).keys()].sort((a, b) => {
@@ -124,9 +138,11 @@ function renderContactList() {
         <div class="contactlist-seperator"></div>
       `;
     }
+    let imageSrc = allContacts.images[i] ? allContacts.images[i] : generateProfileImage(allContacts.names[i]);
+
     contactList.innerHTML += `
       <div id="contactlist-overlay" onclick="openContact(${i})">
-        <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
+        <img class="pll-24" src="${imageSrc}" alt="Contact Image"/>
         <div class="contactlist-data-box">
           <div class="contactlist-data-name">${allContacts.names[i]}</div>
           <a class="contactlist-data-mail" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
