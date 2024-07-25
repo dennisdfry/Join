@@ -9,6 +9,9 @@ async function includeHTML() {
           if (file.includes('addTask.html')) {
               init();
           }
+          if (file.includes('summary.html')) {
+            summaryGreeting();
+        }
       } else {
           element.innerHTML = 'Page not found';
       }
