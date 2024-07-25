@@ -98,7 +98,19 @@ function isContactExisting(contact) {                     // prüft ob ein Konta
 
 //async function editData(i){}
 
+function sortContacts() {
+  let sortedIndices = [...Array(allContacts.names.length).keys()].sort((a, b) => {
+    return allContacts.names[a].localeCompare(allContacts.names[b]);
+  });
+
+  allContacts.names = sortedIndices.map(i => allContacts.names[i]);
+  allContacts.mails = sortedIndices.map(i => allContacts.mails[i]);
+  allContacts.phones = sortedIndices.map(i => allContacts.phones[i]);
+  allContacts.images = sortedIndices.map(i => allContacts.images[i]);
+}
+
 function renderContactList() {
+  sortContacts();
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
 
