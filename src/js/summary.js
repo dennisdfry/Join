@@ -18,7 +18,7 @@ function summaryGreeting() {
         } else {
             greetingMessage = 'Good evening,';
         }
-        greetingElement.innerText += ` ${greetingMessage}`;
+        greetingElement.innerText += ` ${greetingMessage}`+` Peter`; /* Hier muss noch der angemeldete User eingefügt werden */
     } else {
         console.error('Element with class "summary-user-greeting" not found.');
     }
