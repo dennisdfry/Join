@@ -31,14 +31,17 @@ body {
 }
 
 #contactlist-section {
+  height:928px;
+  width: 456px;
+  float: right;
   position: absolute;
   top: 96px;
   left: 215px;
+  overflow: auto;
+  padding-left: 28px;
 }
 
 #contactlist-content {
-  height: 928px;
-  float: right;
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
   padding: 15px 24px 15px 24px;
