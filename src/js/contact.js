@@ -99,7 +99,7 @@ function isContactExisting(contact) {                     // prüft ob ein Konta
 
 //async function editData(i){}
 function generateProfileImage(name) {
-  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F3FF33", "#33FFF3"]; // Beispielhafte Farben
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F3FF33", "#33FFF3"]; 
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
   const initials = name.split(" ").map(word => word[0].toUpperCase()).join("");

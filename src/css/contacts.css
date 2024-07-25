@@ -21,34 +21,38 @@
 }
 
 body {
-  font-family: inter;
+  height: 100vh;
+  font-family: inter, sans-serif;
   background: #f6f7f8;
   margin: 0;
-
-}
-
-#main {
-  width: 1440px;
-  height: 1024px;
+  overflow: hidden;
 }
 
 #contactlist-section {
   height: 928px;
   width: 456px;
+  background-color: #ffffff;
   position: absolute;
   top: 96px;
   left: 215px;
 }
 
 #contactlist-content {
+  height: 100%;
+  width: 100%;
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
-  padding: 15px 24px 15px 24px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: scroll;
-  
+}
+
+#contactlist-content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 #contactlist-overlay {
@@ -96,6 +100,7 @@ body {
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
   height: 101px;
+  width: 456px;
   display: flex;
   align-items: center;
   justify-content: center;
