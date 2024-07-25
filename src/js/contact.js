@@ -10,6 +10,7 @@ let allContacts = {
 async function init() {
   try {
     await getData("/");
+    sortContacts();
     renderOverlay();
     setupForm();
     renderContactList();
@@ -110,11 +111,18 @@ function sortContacts() {
 }
 
 function renderContactList() {
-  sortContacts();
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
 
+  let currentLetter = "";
   for (let i = 0; i < allContacts.names.length; i++) {
+    let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
+    if (firstLetter !== currentLetter) {
+      currentLetter = firstLetter;
+      contactList.innerHTML += `
+        <div class="contact-list-separator">${currentLetter}</div>
+      `;
+    }
     contactList.innerHTML += `
       <div id="contactlist-overlay" onclick="openContact(${i})">
         <img class="pll-24" src="${allContacts.images[i]}" alt="Contact Image"/>
