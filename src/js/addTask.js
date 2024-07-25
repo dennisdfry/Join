@@ -13,7 +13,6 @@ async function init() {
         console.log(contacts);
         await assignedTo(contacts, imageUrls); // Übergeben Sie die Bild-URLs
         showCheckboxes();
-        subtasksInput();
     } catch (error) {
         console.error("Fehler bei der Initialisierung:", error);
     }
@@ -132,6 +131,13 @@ function subtasksInput(){
 function showSubtaskControls() {
     // document.getElementById('subtasksPlus').classList.add('d-none');
     // document.getElementById('subtasksControl').classList.remove('d-none');
+   let position = document.getElementById('subtasksControl');
+   position.innerHTML = `<button onclick="resetSubtaskInput()" type="button" class="add-task-button no-border">
+                                <img src="../public/img/closeAddTask.png" alt="Reset">
+                            </button>
+                            <button onclick="addSubtask()" type="button" class="add-task-button no-border">
+                                <img src="../public/img/checkAddTask.png" alt="Add">
+                            </button>`;
 }
 
 function addSubtask() {

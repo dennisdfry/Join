@@ -78,16 +78,11 @@
                         <input required type="text" minlength="2" class="add-task-input" placeholder="Add item"
                             id="subtasks" name="subtasks">
                         <div id="subtasksControl" class="subtasks-control">
-                            <button onclick="resetSubtaskInput()" type="button" class="add-task-button no-border">
-                                <img src="../public/img/closeAddTask.png" alt="Reset">
-                            </button>
-                            <button onclick="addSubtask()" type="button" class="add-task-button no-border">
-                                <img src="../public/img/checkAddTask.png" alt="Add">
+                            <button onclick="showSubtaskControls()" type="button" id="subtasksPlus" class="add-task-button">
+                                +
                             </button>
                         </div>
-                        <button onclick="showSubtaskControls()" type="button" id="subtasksPlus" class="add-task-button">
-                            +
-                        </button>
+                       
                     </div>
                     <div class="subtasksList" id="subtasksPosition"></div>
                 </div>
