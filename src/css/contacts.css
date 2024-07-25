@@ -24,40 +24,31 @@ body {
   font-family: inter;
   background: #f6f7f8;
   margin: 0;
+
 }
 
 #main {
-  height: 100vh;
+  width: 1440px;
+  height: 1024px;
 }
 
 #contactlist-section {
-  height:928px;
+  height: 928px;
   width: 456px;
-  float: right;
   position: absolute;
   top: 96px;
   left: 215px;
-  overflow: auto;
-  padding-left: 28px;
 }
 
 #contactlist-content {
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
   padding: 15px 24px 15px 24px;
-}
-
-.contactlist-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #a8a8a8 #ffffff;
-  height: 928px;
-  border: 8px none #ffffff;
-  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: scroll;
-}
-
-.contactlist::-webkit-scrollbar {
-  display: none;
+  
 }
 
 #contactlist-overlay {
@@ -105,9 +96,6 @@ body {
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
   height: 101px;
-  position: sticky;
-  top: 22.5px;
-  left: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +104,7 @@ body {
 #add-contact-btn {
   width: 352px;
   height: 56px;
-  color: white;
+  color: #ffffff;
   background-color: #2a3647;
   border-radius: 10px;
   font-weight: 700;
@@ -143,11 +131,12 @@ body {
   font-weight: 400;
   line-height: 24px;
   padding: 17px 36px 17px 36px;
+  align-self: baseline;
 }
 
 .contactlist-seperator {
   width: 352px;
-  border-bottom: 1px solid #D1D1D1;
+  border-bottom: 1px solid #d1d1d1;
   gap: 10px;
 }
 

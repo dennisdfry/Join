@@ -12,7 +12,6 @@
 
   <body onload="init()">
     <div id="main">
-
       <div id="contactlist-section">
         <div class="contactlist-btn-box">
           <button id="add-contact-btn" onclick="addContact()">
@@ -20,7 +19,9 @@
             <img src="./img/person_add.png" />
           </button>
         </div>
-        <div id="contactlist-content" class="contactlist-scrollbar"></div>
+        <div id="contactlist-content">
+
+        </div>
       </div>
 
       <div class="contact-section-header">
@@ -45,7 +46,14 @@
 
             <div id="add-contact-content-right-box">
 
-              <div id="prof-img"><img src="./img/Group 13.png"></div>
+              <div id="exitBtn" onclick="closeOverlay()">
+                <img src="./img/Close.png">
+              </div>
+
+              <div id="prof-img">
+                <img src="./img/Group 13.png">
+              </div>
+
               <form id="contact-form">
 
                 <input
@@ -88,12 +96,13 @@
               </form>
 
             </div>
-            <div id="exitBtn" onclick="closeOverlay()"><img src="./img/Close.png"></div>
+
+
+
           </div>
         </div>
       </div>
 
     </div>
-    
   </body>
 </html>
