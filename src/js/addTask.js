@@ -145,6 +145,7 @@ function addSubtask() {
     let input = document.getElementById('subtasks');
     if (input.value.trim() !== "") {
         subtasksArray.push(input.value.trim());
+        input.value = '';
         updateSubtasksList();
         resetSubtaskInput();
     }
