@@ -120,7 +120,8 @@ function renderContactList() {
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
       contactList.innerHTML += `
-        <div class="contact-list-separator">${currentLetter}</div>
+        <div class="contactlist-order-letter">${currentLetter}</div>
+        <div class="contactlist-seperator"></div>
       `;
     }
     contactList.innerHTML += `
@@ -200,7 +201,7 @@ function handleFormSubmit(event) {
     name: document.getElementById("name").value,
     mail: document.getElementById("mail").value,
     phone: document.getElementById("phone").value,
-    img: document.getElementById("img").value,
+    img: document.getElementById("prof-img").value,
   };
 
   postData(newContact);
