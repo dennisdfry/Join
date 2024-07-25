@@ -129,13 +129,14 @@ function subtasksInput(){
     // document.getElementById('subtasksControl').classList.add('d-none');
 }
 function showSubtaskControls() {
-    // document.getElementById('subtasksPlus').classList.add('d-none');
-    // document.getElementById('subtasksControl').classList.remove('d-none');
+    document.getElementById('subtasks').classList.remove('add-task-input');
+    document.getElementById('subtasks').classList.add('subtasks-input');
    let position = document.getElementById('subtasksControl');
-   position.innerHTML = `<button onclick="resetSubtaskInput()" type="button" class="add-task-button no-border">
+   position.innerHTML = `<button onclick="resetSubtaskInput()" type="button" class="subtask-button">
                                 <img src="../public/img/closeAddTask.png" alt="Reset">
                             </button>
-                            <button onclick="addSubtask()" type="button" class="add-task-button no-border">
+                            <div class="seperator-subtasks"></div>
+                            <button onclick="addSubtask()" type="button" class="subtask-button">
                                 <img src="../public/img/checkAddTask.png" alt="Add">
                             </button>`;
 }
@@ -150,9 +151,12 @@ function addSubtask() {
 }
 
 function resetSubtaskInput() {
-    document.getElementById('subtasks').value = '';
-    document.getElementById('subtasksPlus').classList.remove('d-none');
-    document.getElementById('subtasksControl').classList.add('d-none');
+    document.getElementById('subtasks').classList.add('add-task-input');
+    document.getElementById('subtasks').classList.remove('subtasks-input');
+    let position = document.getElementById('subtasksControl');
+    position.innerHTML =` <button onclick="showSubtaskControls()" type="button" id="subtasksPlus" class="add-task-button">
+                                +
+                            </button>`;
 }
 
 function updateSubtasksList() {
