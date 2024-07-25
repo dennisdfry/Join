@@ -152,6 +152,8 @@ function addSubtask() {
 }
 
 function resetSubtaskInput() {
+    let input = document.getElementById('subtasks');
+    input.value = '';
     document.getElementById('subtasks').classList.add('add-task-input');
     document.getElementById('subtasks').classList.remove('subtasks-input');
     let position = document.getElementById('subtasksControl');
