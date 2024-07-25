@@ -41,6 +41,7 @@ body {
   float: right;
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
+  padding: 15px 24px 15px 24px;
 }
 
 .contactlist-scrollbar {
@@ -59,13 +60,11 @@ body {
 #contactlist-overlay {
   width: 352px;
   height: 78px;
-  padding: 15px 24px 15px 24px;
   gap: 35px;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-end;
+  align-items: center;
 }
 
 #contactlist-overlay img {
@@ -81,13 +80,14 @@ body {
 
 .contactlist-data-box {
   height: 48px;
+  display: flex;
+  flex-direction: column;
   gap: 5px;
 }
 
 .contactlist-data-name {
   height: 24px;
   line-height: 24px;
-  font-family: Inter;
   font-size: 20px;
   font-weight: 400;
 }
