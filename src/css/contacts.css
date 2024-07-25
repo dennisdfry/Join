@@ -38,8 +38,8 @@ body {
 }
 
 #contactlist-content {
-  height: 100%;
-  width: 100%;
+  height: 928px;
+  width: 456px;
   background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
   overflow-y: scroll;
@@ -136,13 +136,25 @@ body {
   font-weight: 400;
   line-height: 24px;
   padding: 17px 36px 17px 36px;
-  align-self: baseline;
+  align-self: center;
 }
 
 .contactlist-seperator {
   width: 352px;
   border-bottom: 1px solid #d1d1d1;
   gap: 10px;
+}
+
+.contact-section-header {
+  position: absolute;
+  top: 206px;
+  left: 743px;
+  width: 569px;
+  height: 73px;
+  gap: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .contact-section-header h1 {
@@ -174,18 +186,6 @@ body {
   }
 }
 
-.contact-section-header {
-  position: absolute;
-  top: 206px;
-  left: 743px;
-  width: 569px;
-  height: 73px;
-  gap: 30px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 .contact-section-content {
   width: 461px;
   height: 120px;
@@ -202,17 +202,23 @@ body {
   border: 3px 0px 0px 0px;
 }
 
-.contact-section-content p {
-  font-size: 47px;
-  font-weight: 500;
-  margin: 0;
-  text-align: left;
-}
-
 .contact-section-overlay {
+  width: 287px;
+  gap: 8px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.contact-section-overlay p {
+  font-size: 47px;
+  font-weight: 500;
+  margin: 0;
+  display: block;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
 }
 
 .contact-section-btn-box {
@@ -220,9 +226,14 @@ body {
   height: 24px;
   display: flex;
   font-size: 400;
+  justify-content: space-between;
 }
 
 #edit-btn {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2px;
+  text-align: left;
   width: 62px;
   border: none;
   background-color: transparent;
@@ -235,7 +246,12 @@ body {
 }
 
 #del-btn {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2px;
+  text-align: left;
   width: 81px;
+  height: 24px;
   border: none;
   background-color: transparent;
   gap: 8px;
@@ -247,8 +263,8 @@ body {
 }
 
 #del-btn img {
-  height: 24px;
   width: 24px;
+  height: 24px;
 }
 
 #edit-btn img {
