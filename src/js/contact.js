@@ -167,7 +167,7 @@ function renderContactSection(index) {
   contactSection.innerHTML = `
     <div class="contact-section-content">
       <img src="${allContacts.images[index]}" alt="Profile Image" />
-      <div class="contact-section-overlay">
+      <div class="contact-section-data">
         <p>${allContacts.names[index]}</p>
         <div class="contact-section-btn-box">
           <button onclick="editContact(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
@@ -176,14 +176,15 @@ function renderContactSection(index) {
       </div>
     </div>
 
-    <div id="contact-section-information">
-      <p class="information-details-headline">Contact Information</p>
-      <p class="contact-section-details"><b>Email</b></p>
-      <a class="contact-section-link" href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
-      <p class="contact-section-details"><b>Phone</b></p>
-      <p class="contact-section-details">${allContacts.phones[index]}</p>
-    </div>
-  `;
+    <div id="contact-information-content">
+      <p>Contact Information</p>
+      <div class="contact-information-data">
+        <p><b>Email</b></p>
+        <a href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
+        <p><b>Phone</b></p>
+        <p>${allContacts.phones[index]}</p>
+      </div>
+    </div>`
   //renderContactInformation(index);
 }
 
