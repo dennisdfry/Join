@@ -106,8 +106,8 @@ function generateProfileImage(name) {
 
   const svg = `
     <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" fill="${randomColor}"/>
-      <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="40" fill="#FFF">${initials}</text>
+      <circle cx="50" cy="50" r="50" fill="${randomColor}" />
+      <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
     </svg>
   `;
   return `data:image/svg+xml;base64,${btoa(svg)}`;
