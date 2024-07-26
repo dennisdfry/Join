@@ -388,6 +388,7 @@ body {
   margin-inline-end: 0px;
   color: #ffffff;
 }
+
 #add-contact-content-left-box p {
   font-size: 27px;
   font-weight: 400;
@@ -407,11 +408,11 @@ body {
 }
 
 #add-contact-overlay {
-  position: fixed; 
+  position: fixed;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.1); 
+  background: rgba(0, 0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -421,29 +422,65 @@ body {
 #add-contact-content-right-box {
   display: flex;
   align-items: center;
-  gap: 32px;
+  justify-content: space-evenly;
+  flex-grow: 1;
 }
 
 #contact-form {
-  width: 422px;
-  height: 215px;
   display: flex;
   flex-direction: column;
+  gap: 32px;
+}
+
+.input-img-div {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  justify-content: center; 
+  align-items: center;
+}
+
+.input-img-div img {
+  position: absolute;
+  right: 10px;
+  width: 24px;
+  height: 24px;
 }
 
 #contact-form input {
-  width: 422px;
+  width: 380px;
   height: 50px;
-  gap: 8px;
   border-radius: 10px;
   border: 1px solid lightgray;
-  padding: 16px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+  text-rendering: auto;
+  color: fieldtext;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  text-align: start;
+  appearance: auto;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  background-color: field;
+  margin: 0em;
+  padding: 1px 0px;
+}
+
+#contact-form input::placeholder {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  padding-left: 8px;
 }
 
 .formfield-btn-box {
   width: 364px;
   height: 57px;
-
   gap: 24px;
 }
 
