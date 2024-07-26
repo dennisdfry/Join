@@ -1,15 +1,3 @@
-const firebaseConfig = {
-  apiKey: FB_API_KEY,
-  authDomain: FB_AUTH_DOMAIN,
-  databaseURL: FB_DATABASE_URL,
-  projectId: FB_PROJECT_ID,
-  storageBucket: FB_STORAGE_BUCKET,
-  messagingSenderId: FB_MESSAGING_SENDER_ID,
-  appId: FB_APP_ID,
-};
-
-firebase.initializeApp(firebaseConfig);
-
 function home() {
   window.location.replace("/public/login.html");
 }
@@ -17,24 +5,19 @@ function home() {
 async function signUp(event) {
   event.preventDefault();
   const formData = getFormData();
-
   if (!(await passwordValidation(formData.password, formData.confirm, formData.checkbox))) {
     return false;
   }
-
   try {
     const userCredential = await firebase.auth().createUserWithEmailAndPassword(formData.mail, formData.password);
     const user = userCredential.user;
-
     const userId = user.uid;
     await saveUserData(userId, { name: formData.name, mail: formData.mail });
-
     showSuccessMessage("You Signed Up successfully");
     clearInput();
   } catch (error) {
     alert("Error during sign up: " + error.message);
   }
-
   return true;
 }
 
