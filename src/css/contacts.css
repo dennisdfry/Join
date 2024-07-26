@@ -345,7 +345,10 @@ body {
   animation: moveIn 1s ease-in-out 0.2s forwards;
   border-radius: 30px;
   background: #ffffff;
-  display: flex;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  transform: translate(-25%, -25%);
 }
 @keyframes moveIn {
   0% {
@@ -504,15 +507,36 @@ body {
   height: 56px;
   gap: 4px;
   border-radius: 10px;
-  border: 1px solid white;
+  border: 1px solid #2a3647;
+  text-align: left;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
-#create-btn {
+
+#formfield-cancel-btn p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+#formfield-create-btn {
   width: 214px;
   height: 57px;
   gap: 4px;
   border-radius: 10px;
-  color: #ffffff;
   background-color: #2a3647;
+  text-align: left;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#formfield-create-btn p {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 25.2px;
+  color: #ffffff;
 }
 
 #prof-img {
@@ -536,14 +560,6 @@ body {
   padding: 4px 0px 0px 0px;
   border-radius: 56px 0px 0px 0px;
   cursor: pointer;
-}
-
-.create-btn {
-  color: #ffffff;
-  width: 214px;
-  height: 57px;
-  padding: 16px 0px 0px 0px;
-  gap: 4px;
 }
 
 .contact-section-seperator {
