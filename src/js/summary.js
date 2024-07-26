@@ -27,31 +27,17 @@ async function summaryGreeting() {
 }
 
 async function checkAuthAndGreet(greetingMessage, greetingElement) {
-    return new Promise((resolve, reject) => {
-        firebase.auth().onAuthStateChanged(async (user) => {
-            if (user) {
-                try {
-                    const userId = user.uid;
-                    const userName = await fetchUserName(userId);
-                    greetingElement.innerText = `${greetingMessage} ${userName}`;
-                    resolve();
-                } catch (error) {
-                    reject(error);
-                }
-            } else {
-                window.location.href = '/public/login.html';
-                resolve();
-            }
-        });
-    });
-}
-
-async function fetchUserName(userId) {
-    try {
-        const snapshot = await firebase.database().ref('users/' + userId).once('value');
-        return snapshot.val().name || 'User';
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-        return 'User';
+    const user = firebase.auth().currentUser;
+    if (user) {
+        const userId = user.uid;
+        const userSnapshot = await firebase.database().ref('users/' + userId).once('value');
+        const userData = userSnapshot.val();
+        if (userData && userData.name) {
+            greetingElement.textContent = `${greetingMessage} ${userData.name}!`;
+        } else {
+            greetingElement.textContent = greetingMessage;
+        }
+    } else {
+        greetingElement.textContent = greetingMessage;
     }
 }

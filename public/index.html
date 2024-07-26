@@ -1,65 +1,89 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/src/css/style.css" />
+    <link rel="stylesheet" href="/src/css/utils.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="/src/js/firebase_init.js"></script>
+    <script src="/src/js/script.js"></script>
+    <script src="/src/js/addTask.js"></script>
+    <script src="/src/js/summary.js"></script>
+    <script src="/src/js/contact.js"></script>
+    <title>JOIN</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="img/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="/src/css/style.css" />
-  <link rel="stylesheet" href="/src/css/utils.css" />
-  <script src="/src/js/script.js"></script>
-  <script src="/src/js/addTask.js"></script>
-  <script src="/src/js/summary.js"></script>
-  <script src="/src/js/contact.js"></script>
-  <title>JOIN</title>
-</head>
-
-<body class="background-main">
-  <section class="template">
-    <navbar class="nav d-flex-between flex-d-col">
-      <section class="nav-up">
-        <img src="/public/img/join_logo.svg" alt="join logo" />
-      </section>
-      <section class="nav-mid">
-        <a href="#" class="summary-field d-flex-start" onclick="changeSite('summary.html')">
-          <img src="/public/img/summary.svg" alt="summary icon" />
-          <p>Summary</p>
-        </a>
-        <a href="#" class="task-field d-flex-start" onclick="changeSite('addTask.html')">
-          <img src="/public/img/add-task.svg" alt="add task icon" />
-          <p>Add Task</p>
-        </a>
-        <a href="#" class="board-field d-flex-start" onclick="changeSite('board.html')">
-          <img src="/public/img/board.svg" alt="board icon" />
-          <p>Board</p>
-        </a>
-        <a href="#" class="contact-field d-flex-start" onclick="changeSite('contacts.html')">
-          <img src="/public/img/contacts.svg" alt="contacts icon" />
-          <p>Contacts</p>
-        </a>
-      </section>
-      <section class="nav-down d-flex-end flex-d-col">
-        <a href="#" onclick="changeSite('datenschutz.html')">Privacy Policy</a>
-        <a href="#" onclick="changeSite('impressum.html')">Legal notice</a>
-      </section>
-    </navbar>
-    <section class="main-section-wrapper">
-      <header>
-        <section class="head d-flex-between">
-          <div class="headline">
-            <span>Kanban Project Management Tool</span>
-          </div>
-          <div class="user-section d-flex-center">
-            <img src="/public/img/help.png" alt="help icon" />
-            <img class="user-icon" src="/public/img/user_logo.png" alt="user icon" />
-          </div>
+  <body class="background-main">
+    <section class="template">
+      <navbar class="nav d-flex-between flex-d-col">
+        <section class="nav-up">
+          <img src="/public/img/join_logo.svg" alt="join logo" />
         </section>
-      </header>
-      <div class="main-content" w3-include-html="summary.html">
-        <!-- Hier werden die einzelnen Seiten rein gerendert -->
-      </div>
+        <section class="nav-mid">
+          <a
+            href="#"
+            class="summary-field d-flex-start"
+            onclick="changeSite('summary.html')"
+          >
+            <img src="/public/img/summary.svg" alt="summary icon" />
+            <p>Summary</p>
+          </a>
+          <a
+            href="#"
+            class="task-field d-flex-start"
+            onclick="changeSite('addTask.html')"
+          >
+            <img src="/public/img/add-task.svg" alt="add task icon" />
+            <p>Add Task</p>
+          </a>
+          <a
+            href="#"
+            class="board-field d-flex-start"
+            onclick="changeSite('board.html')"
+          >
+            <img src="/public/img/board.svg" alt="board icon" />
+            <p>Board</p>
+          </a>
+          <a
+            href="#"
+            class="contact-field d-flex-start"
+            onclick="changeSite('contacts.html')"
+          >
+            <img src="/public/img/contacts.svg" alt="contacts icon" />
+            <p>Contacts</p>
+          </a>
+        </section>
+        <section class="nav-down d-flex-end flex-d-col">
+          <a href="#" onclick="changeSite('datenschutz.html')"
+            >Privacy Policy</a
+          >
+          <a href="#" onclick="changeSite('impressum.html')">Legal notice</a>
+        </section>
+      </navbar>
+      <section class="main-section-wrapper">
+        <header>
+          <section class="head d-flex-between">
+            <div class="headline">
+              <span>Kanban Project Management Tool</span>
+            </div>
+            <div class="user-section d-flex-center">
+              <img src="/public/img/help.png" alt="help icon" />
+              <img
+                class="user-icon"
+                src="/public/img/user_logo.png"
+                alt="user icon"
+              />
+            </div>
+          </section>
+        </header>
+        <div class="main-content" w3-include-html="summary.html">
+          <!-- Hier werden die einzelnen Seiten rein gerendert -->
+        </div>
+      </section>
     </section>
-  </section>
-</body>
-
+  </body>
 </html>
