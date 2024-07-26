@@ -4,7 +4,7 @@ function currentDate() {
     document.querySelector('.summary-tasks-mid-right-date').innerHTML = date;
 }
 
-function summaryGreeting() {
+async function summaryGreeting() {
     const hour = new Date().getHours();
     const greetingElement = document.querySelector('.summary-user-greeting');
 
@@ -18,13 +18,15 @@ function summaryGreeting() {
         } else {
             greetingMessage = 'Good evening,';
         }
-        greetingElement.innerText += ` ${greetingMessage}`+` Peter`; /* Hier muss noch der angemeldete User eingefügt werden */
-    } else {
-        console.error('Element with class "summary-user-greeting" not found.');
+        try {
+            await checkAuthAndGreet(greetingMessage, greetingElement);
+        } catch (error) {
+            console.error('Error during authentication check and greeting:', error);
+        }
     }
 }
 
-async function checkAuthAndGreeting(greetingMessage, greetingElement) {
+async function checkAuthAndGreet(greetingMessage, greetingElement) {
     return new Promise((resolve, reject) => {
         firebase.auth().onAuthStateChanged(async (user) => {
             if (user) {

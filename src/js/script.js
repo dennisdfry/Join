@@ -10,7 +10,7 @@ async function includeHTML() {
               init();
           }
           if (file.includes('summary.html')) {
-            summaryGreeting();
+            await summaryGreeting();
         }
       } else {
           element.innerHTML = 'Page not found';
