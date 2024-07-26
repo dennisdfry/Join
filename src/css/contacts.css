@@ -346,9 +346,8 @@ body {
   border-radius: 30px;
   background: #ffffff;
   position: absolute;
-  top: 25%;
-  left: 25%;
-  transform: translate(-25%, -25%);
+  top: 90px;
+  left: 80px;
 }
 @keyframes moveIn {
   0% {
