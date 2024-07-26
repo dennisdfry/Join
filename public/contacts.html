@@ -71,19 +71,15 @@
             </div>
           </form>
           
-          <div class="formfield-btn-box d-none">
-            <input
-              id="-formfield-cancel-btn"
-              onclick="closeOverlay()"
-              class="create-btn bg-color-dg bradius10 txt-center"
-              type="submit"
-              value="cancel"
-            />
-            <input
-              class="create-btn bg-color-dg bradius10 txt-center"
-              type="submit"
-              value="Create"
-            />
+          <div class="formfield-btn-box">
+            <button id="formfield-cancel-btn" onclick="closeOverlay()">
+              cancel
+              <img src="./img/Vector.svg">
+            </button>
+            <button id="create-btn" onclick="createContact()">
+              create
+              <img src="./img/check.png">
+            </button>
           </div>        
         </div>
       </div>
