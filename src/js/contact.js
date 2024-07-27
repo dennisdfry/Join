@@ -11,7 +11,6 @@ async function init() {
   try {
     await getData("/");
     sortContacts();
-    renderOverlay();
     setupForm();
     renderContactList();
   } catch (error) {
@@ -201,16 +200,6 @@ function updateContacts(responseToJson) {
   }
 }
 
-function addContact() {
-  let overlay = document.getElementById("add-contact-overlay");
-  let contactForm = document.getElementById("contact-form");
-  let btn = document.getElementById("add-contact-section");
-
-  overlay.classList.remove("d-none");
-  contactForm.classList.remove("d-none");
-  btn.classList.remove("d-none");
-}
-
 function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -229,23 +218,21 @@ function setupForm() {
   form.addEventListener("submit", handleFormSubmit);
 }
 
-function renderOverlay() {
-  const overlay = document.getElementById("add-contact-overlay");
-  overlay.addEventListener("click", function (event) {
-    if (event.target === overlay) {
-      document.getElementById("contact-form").classList.add("d-none");
-      document.getElementById("add-contact-section").classList.add("d-none");
-      overlay.classList.add("d-none");
-    }
-  });
+function showAddField() {
+  document.getElementById("add-contact-section").classList.remove("d-none");
+  document.addEventListener("click", handleOutsideClick);
 }
 
-function closeOverlay() {
-  document.getElementById('exitBtn');
-  document.getElementById("formfield-cancel-btn");
+function handleOutsideClick(event) {
+  let section = document.getElementById("add-contact-section");
+  if (!section.contains(event.target) && !event.target.closest('#add-contact-btn')) {
+    closeFormfield();
+  }
+}
+
+function closeFormfield() {
   document.getElementById("contact-form").classList.add("d-none");
   document.getElementById("add-contact-section").classList.add("d-none");
-  overlay.classList.add("d-none");
 }
 
 function closeEditForm() {

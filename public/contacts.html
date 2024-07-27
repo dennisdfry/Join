@@ -14,7 +14,7 @@
 
     <div id="contactlist-section">
         <div class="contactlist-btn-box">
-          <button id="add-contact-btn" onclick="addContact()">
+          <button id="add-contact-btn" onclick="showAddField()">
             Add new contact
             <img src="./img/person_add.png" />
           </button>
@@ -33,60 +33,53 @@
     <div id="contact-section"></div>
     
     <div id="add-contact-section" class="d-none">
-      <div id="add-contact-overlay">
-        <div id="add-contact-content-left-box" class="bg-color-dg">
-          <div class="formfield-logo">
-            <img src="./img/join_logo.svg">
-          </div>
-          <h2>Add contact</h2>
-          <p>Tasks are better with a team!</p>
-          <div class="add-contact-seperator"></div>
+      <div id="add-contact-content-left-box" class="bg-color-dg">
+        <div class="formfield-logo">
+          <img src="./img/join_logo.svg">
         </div>
-        <div id="add-contact-content-right-box">
+        <h2>Add contact</h2>
+        <p>Tasks are better with a team!</p>
+        <div class="add-contact-seperator"></div>
 
-          <div id="exitBtn" onclick="closeOverlay()">
-            <img src="./img/Close.png">
-          </div>
-
-          <div id="prof-img">
-            <img src="./img/Group 13.png">
-          </div>
-
-          <form id="contact-form">
-
-            <div class="input-img-div">
-              <input type="text" id="name" name="name" placeholder="Name" required></input>
-              <img src="./img/person.png">
-            </div>
-
-            <div class="input-img-div">
-              <input type="email" id="mail" name="mail" placeholder="Email" required/></input>
-              <img src="./img/mail.png">
-            </div>
-
-
-            <div class="input-img-div">
-              <input type="text" id="phone" name="phone" placeholder="Phone" pattern="^[0-9]{10,15}$" required/></input>
-              <img src="./img/call.png"> 
-            </div>
-          </form>
-          
-          <div class="formfield-btn-box">
-            <button id="formfield-cancel-btn" onclick="closeOverlay()">
-              <p>
-                Cancel
-              </p>
-              <img src="./img/iconoir_cancel.png">
-            </button>
-            <button id="formfield-create-btn" onclick="createContact()">
-              <p>
-                Create contact
-              </p>
-              <img src="./img/check2.png">
-            </button>
-          </div>        
-        </div>
       </div>
+
+      <div id="add-contact-content-right-box">
+        <div id="exitBtn" onclick="closeFormfield()">
+          <img src="./img/Close.png">
+        </div>
+        <div id="prof-img">
+          <img src="./img/Group 13.png">
+        </div>
+        <form id="contact-form">
+          <div class="input-img-div">
+            <input type="text" id="name" name="name" placeholder="Name" required></input>
+            <img src="./img/person.png">
+          </div>
+          <div class="input-img-div">
+            <input type="email" id="mail" name="mail" placeholder="Email" required/></input>
+            <img src="./img/mail.png">
+          </div>
+          <div class="input-img-div">
+            <input type="text" id="phone" name="phone" placeholder="Phone" pattern="^[0-9]{10,15}$" required/></input>
+            <img src="./img/call.png"> 
+          </div>
+        </form>
+          
+        <div class="formfield-btn-box">
+          <button id="formfield-cancel-btn" onclick="closeOverlay()">
+            <p>
+              Cancel
+            </p>
+            <img src="./img/iconoir_cancel.png">
+          </button>
+          <button id="formfield-create-btn" onclick="createContact()">
+            <p>
+              Create contact
+            </p>
+            <img src="./img/check2.png">
+          </button>
+        </div> 
+      </div>     
     </div>
 
     <div id="edit-contact-section" class="d-none">
@@ -109,46 +102,7 @@
                 <img src="./img/Group 13.png">
               </div>
 
-              <form id="edit-contact-form">
-
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Name"
-                  required
-                />
-                <input
-                  type="email"
-                  id="mail"
-                  name="mail"
-                  placeholder="Email"
-                  required
-                />
-
-                <input
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  placeholder="Phone"
-                  pattern="^[0-9]{10,15}$"
-                  required
-                />
-                <div class="formfield-btn-box">
-                  <input
-                    id="-editfield-cancel-btn"
-                    onclick="closeOverlay()"
-                    class="create-btn bg-color-dg bradius10 txt-center"
-                    type="submit"
-                    value="cancel"
-                  />
-                  <input
-                    class="create-btn bg-color-dg bradius10 txt-center"
-                    type="submit"
-                    value="Create"
-                  />
-                </div>
-              </form>
+         
             </div>
           </div>
         </div>
