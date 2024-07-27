@@ -27,14 +27,11 @@ async function getData(path = "") {
 
 async function deleteData(index) {
   try {
-
     let contactId = await getContactId(index);
     if (contactId) {
-
       await fetch(`${BASE_URL}/${contactId}.json`, {
         method: "DELETE"
       });
-
       console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
 
       allContacts.names.splice(index, 1);
@@ -49,22 +46,6 @@ async function deleteData(index) {
   } catch (error) {
     console.error("Fehler beim Löschen des Kontakts:", error);
   }
-}
-
-async function getContactId(index) {                      // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
-  let response = await fetch(BASE_URL + ".json");
-  let responseToJson = await response.json();
-  let keys = Object.keys(responseToJson);
-  for (let i = 0; i < keys.length; i++) {
-    let contact = responseToJson[keys[i]];
-    if (contact.name === allContacts.names[index] &&
-        contact.mail === allContacts.mails[index] &&
-        contact.phone === allContacts.phones[index] &&
-        contact.img === allContacts.images[index]) {
-      return keys[i];
-    }
-  }
-  return null;
 }
 
 async function postData(contact) {
@@ -87,6 +68,28 @@ async function postData(contact) {
   renderContactList();
 }
 
+//async function editData(i){}
+
+
+
+
+
+async function getContactId(index) {                      // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
+  let response = await fetch(BASE_URL + ".json");
+  let responseToJson = await response.json();
+  let keys = Object.keys(responseToJson);
+  for (let i = 0; i < keys.length; i++) {
+    let contact = responseToJson[keys[i]];
+    if (contact.name === allContacts.names[index] &&
+        contact.mail === allContacts.mails[index] &&
+        contact.phone === allContacts.phones[index] &&
+        contact.img === allContacts.images[index]) {
+      return keys[i];
+    }
+  }
+  return null;
+}
+
 function isContactExisting(contact) {                     // prüft ob ein Kontakt bereits exisistiert
   return (
     allContacts.names.includes(contact.name) &&
@@ -96,7 +99,6 @@ function isContactExisting(contact) {                     // prüft ob ein Konta
   );
 }
 
-//async function editData(i){}
 function generateProfileImage(name) {
   const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F3FF33", "#33FFF3"]; 
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -123,7 +125,7 @@ function sortContacts() {
   allContacts.images = sortedIndices.map(i => allContacts.images[i]);
 }
 
-function renderContactList() {
+function renderContactList() {  // cleancode: currentletter in eigene funktion
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
 
@@ -140,11 +142,11 @@ function renderContactList() {
     let imageSrc = allContacts.images[i] ? allContacts.images[i] : generateProfileImage(allContacts.names[i]);
 
     contactList.innerHTML += `
-      <div id="contactlist-overlay" onclick="openContact(${i})">
+      <div id="contactlist-overlay(${i})" class="contactlist-overlay" onclick="openContact(${i})">
         <img class="pll-24" src="${imageSrc}" alt="Contact Image"/>
-        <div class="contactlist-data-box">
-          <div class="contactlist-data-name">${allContacts.names[i]}</div>
-          <a class="contactlist-data-mail" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+        <div class="contactlist-databox">
+          <div class="contactlist-databox-name">${allContacts.names[i]}</div>
+          <a class="contactlist-databox-mail" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
         </div>
       </div>
     `;
@@ -153,13 +155,15 @@ function renderContactList() {
 
 function openContact(index) {
   let contactSection = document.getElementById('contact-section');
-  let contactList = document.getElementById('contactlist-overlay');
+  let contactList = document.getElementById(`contactlist-overlay(${index})`);
+
   contactList.classList.add('bg-color-dg');
   contactSection.classList.remove('d-none');
+
   renderContactSection(index);
 }
 
-function renderContactSection(index) {
+function renderContactSection(index) { // cleancode: header und information-content seperat rendern  //renderContactInformation(index);
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
 
@@ -184,7 +188,6 @@ function renderContactSection(index) {
         <p>${allContacts.phones[index]}</p>
       </div>
     </div>`
-  //renderContactInformation(index);
 }
 
 function updateContacts(responseToJson) {     
@@ -200,7 +203,7 @@ function updateContacts(responseToJson) {
   }
 }
 
-function handleFormSubmit(event) {
+function formSubmit(event) {
   event.preventDefault();
 
   const newContact = {
@@ -215,15 +218,15 @@ function handleFormSubmit(event) {
 
 function setupForm() {
   const form = document.getElementById("contact-form");
-  form.addEventListener("submit", handleFormSubmit);
+  form.addEventListener("submit", formSubmit);
 }
 
-function showAddField() {
+function showFormField() {
   document.getElementById("add-contact-section").classList.remove("d-none");
-  document.addEventListener("click", handleOutsideClick);
+  document.addEventListener("click", outsideForm);
 }
 
-function handleOutsideClick(event) {
+function outsideForm(event) {
   let section = document.getElementById("add-contact-section");
   if (!section.contains(event.target) && !event.target.closest('#add-contact-btn')) {
     closeFormfield();
@@ -238,5 +241,3 @@ function closeFormfield() {
 function closeEditForm() {
   document.getElementById("edit-contact-overlay").classList.add("d-none");
 }
-
-document.addEventListener("DOMContentLoaded", init);

@@ -13,9 +13,9 @@
   <body onload="init()">
 
     <div id="contactlist-section">
-        <div class="contactlist-btn-box">
-          <button id="add-contact-btn" onclick="showAddField()">
-            Add new contact
+        <div class="contactlist-btn-box d-flex-center">
+          <button id="add-contact-btn" class="d-flex-center" onclick="showFormField()">
+            <p>Add new contact</p>
             <img src="./img/person_add.png" />
           </button>
         </div>
@@ -40,7 +40,6 @@
         <h2>Add contact</h2>
         <p>Tasks are better with a team!</p>
         <div class="add-contact-seperator"></div>
-
       </div>
 
       <div id="add-contact-content-right-box">
@@ -66,7 +65,7 @@
         </form>
           
         <div class="formfield-btn-box">
-          <button id="formfield-cancel-btn" onclick="closeOverlay()">
+          <button id="formfield-cancel-btn" onclick="closeFormfield()">
             <p>
               Cancel
             </p>
@@ -79,7 +78,8 @@
             <img src="./img/check2.png">
           </button>
         </div> 
-      </div>     
+      </div>
+
     </div>
 
     <div id="edit-contact-section" class="d-none">

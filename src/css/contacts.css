@@ -35,90 +35,26 @@ body {
   position: absolute;
   top: 96px;
   left: 215px;
-}
-
-#contactlist-content {
-  height: 928px;
-  width: 456px;
-  background-color: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#contactlist-content::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-#contactlist-overlay {
-  width: 352px;
-  height: 78px;
-  gap: 35px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-#contactlist-overlay img {
-  width: 42px;
-  height: 42px;
-  border-left: 2px;
-  gap: 10px;
-}
-
-#contactlist-overlay:hover {
-  background-color: #eeecec;
-}
-
-.contactlist-data-box {
-  height: 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.contactlist-data-name {
-  height: 24px;
-  line-height: 24px;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.contactlist-data-mail {
-  line-height: 19.2px;
-  color: #007cee;
-  font-size: 16px;
 }
 
 .contactlist-btn-box {
-  background-color: #ffffff;
-  box-shadow: 4px 0px 6px 0px #00000014;
   height: 101px;
-  width: 456px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 12px, 0px, 12px, 0px;
 }
 
 #add-contact-btn {
   width: 352px;
   height: 56px;
-  color: #ffffff;
   background-color: #2a3647;
   border-radius: 10px;
+  border: 1px solid #ffffff;
+}
+
+#add-contact-btn p {
   font-weight: 700;
   font-size: 21px;
-  border: 1px;
-  padding: 12px, 0px, 12px, 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #ffffff;
 }
 
 #add-contact-btn img {
@@ -128,7 +64,63 @@ body {
 }
 
 #add-contact-btn:hover {
+  border: none;
   background-color: #29abe2;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#contactlist-content {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#contactlist-content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.contactlist-overlay {
+  width: 352px;
+  height: 78px;
+  gap: 35px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contactlist-overlay img {
+  width: 42px;
+  height: 42px;
+  border-left: 2px;
+  gap: 10px;
+}
+
+.contactlist-overlay:hover {
+  background-color: #eeecec;
+}
+
+.contactlist-databox {
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.contactlist-databox-name {
+  height: 24px;
+  line-height: 24px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.contactlist-databox-mail {
+  line-height: 19.2px;
+  color: #007cee;
+  font-size: 16px;
 }
 
 .contactlist-order-letter {
@@ -136,13 +128,15 @@ body {
   font-weight: 400;
   line-height: 24px;
   padding: 17px 36px 17px 36px;
-  align-self: center;
+  align-self: baseline;
+  display: flex;
+  margin-left: 55px;
+  gap: 10px;
 }
 
 .contactlist-seperator {
   width: 352px;
   border-bottom: 1px solid #d1d1d1;
-  gap: 10px;
 }
 
 .contact-section-header {
@@ -375,6 +369,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 15px 24px 15px 24px;
   gap: 12px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -402,13 +397,6 @@ body {
   color: #ffffff;
 }
 
-.add-contact-seperator {
-  width: 90px;
-  border-bottom: 3px solid #29abe2;
-  transform: rotateX(140deg);
-  margin-right: 275px;
-}
-
 #add-contact-overlay {
   position: fixed;
   left: 0;
@@ -429,7 +417,6 @@ body {
 }
 
 #contact-form {
-
   position: absolute;
   top: 137px;
   left: 742px;
@@ -511,17 +498,14 @@ body {
   align-items: center;
 }
 
-#formfield-cancel-btn:hover{
+#formfield-cancel-btn:hover {
   cursor: pointer;
   color: #29abe2;
   border-color: #29abe2;
 }
 #formfield-cancel-btn:hover img {
-  filter: invert(38%) sepia(77%) saturate(1614%) hue-rotate(165deg) brightness(96%) contrast(95%);
-}
-
-#formfield-cancel-btn p {
- 
+  filter: invert(38%) sepia(77%) saturate(1614%) hue-rotate(165deg)
+    brightness(96%) contrast(95%);
 }
 
 #formfield-cancel-btn p {
@@ -541,8 +525,8 @@ body {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border: none; 
-  box-shadow: none; 
+  border: none;
+  box-shadow: none;
 }
 
 #formfield-create-btn:hover {
@@ -568,7 +552,7 @@ body {
   border-radius: 70px;
   display: flex;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
 }
 
 #exitBtn {
@@ -584,4 +568,11 @@ body {
 .contact-section-seperator {
   border-left: 3px solid #29abe2;
   height: 53px;
+}
+
+.add-contact-seperator {
+  width: 90px;
+  border-bottom: 3px solid #29abe2;
+  transform: rotateX(140deg);
+  margin-right: 275px;
 }
