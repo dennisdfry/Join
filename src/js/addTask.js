@@ -117,6 +117,8 @@ function assignedToUser(element) {
 }
 
 function prio(id) {
+    let position = document.getElementById(`prioButton${id}`);
+    position.classList.toggle('add-task-prio-button-finish')
     if (id == 1) {
         prioArray.push('Urgent');
     } else if (id == 2) {
