@@ -9,7 +9,7 @@ async function includeHTML() {
       let resp = await fetch(sanitizedUrl);
       if (resp.ok) {
         element.innerHTML = await resp.text();
-        if (file.includes('addTask.html')) {
+        if (file.includes('addTask.html') || file.includes('contacts.html'))  {
           init();
         }
       } else {
