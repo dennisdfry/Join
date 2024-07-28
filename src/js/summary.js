@@ -7,6 +7,7 @@ function currentDate() {
   async function summaryGreeting() {
     const hour = new Date().getHours();
     const greetingElement = document.querySelector('.summary-user-greeting');
+    const greetingElementName = document.querySelector('.summary-user-greeting-name');
     if (greetingElement) {
       let greetingMessage = '';
       if (hour > 6 && hour < 12) {
@@ -17,21 +18,22 @@ function currentDate() {
         greetingMessage = 'Good evening,';
       }
       try {
-        await checkAuthAndGreet(greetingMessage, greetingElement);
+        await checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName);
       } catch (error) {
         console.error('Error during authentication check and greeting:', error);
       }
     }
   }
   
-  async function checkAuthAndGreet(greetingMessage, greetingElement) {
+  async function checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName) {
     const user = firebase.auth().currentUser;
     if (user) {
       const userId = user.uid;
       const userSnapshot = await firebase.database().ref('users/' + userId).once('value');
       const userData = userSnapshot.val();
       if (userData && userData.name) {
-        greetingElement.textContent = `${greetingMessage} ${userData.name}!`;
+        greetingElement.textContent = `${greetingMessage}`;
+        greetingElementName.textContent = `${userData.name}`;
       } else {
         greetingElement.textContent = greetingMessage;
       }
