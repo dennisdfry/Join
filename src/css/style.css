@@ -196,6 +196,22 @@ header {
   cursor: pointer;
 }
 
+.user-icon-dropdown {
+  border-radius: 20px 0px 20px 20px;
+  gap: 8px;
+  position: absolute;
+  right: 1%;
+  top: 11.5%;
+  align-items: start !important;
+}
+
+.user-icon-dropdown a {
+  font-size: 16px;
+  text-decoration: none;
+  color: #CDCDCD;
+  padding: 8px 16px;
+}
+
 .main-content-wrapper {
   margin-left: 60px;
   padding-left: 232px;
