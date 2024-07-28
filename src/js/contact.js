@@ -221,6 +221,7 @@ function formSubmit(event) {
   };
 
   postData(newContact);
+  closeFormfield();
 }
 
 function setupForm() {
