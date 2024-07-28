@@ -125,19 +125,20 @@ function sortContacts() {
   allContacts.images = sortedIndices.map(i => allContacts.images[i]);
 }
 
-function renderContactList() {  // cleancode: currentletter in eigene funktion
-  let contactList = document.getElementById("contactlist-content");
-  contactList.innerHTML = "";
+function renderCurrentLetter(contactList, letter) {
+  contactList.innerHTML += `
+    <div class="contactlist-order-letter">${letter}</div>
+    <div class="contactlist-seperator"></div>
+  `;
+}
 
+function processContacts(contactList) {
   let currentLetter = "";
   for (let i = 0; i < allContacts.names.length; i++) {
     let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
-      contactList.innerHTML += `
-        <div class="contactlist-order-letter">${currentLetter}</div>
-        <div class="contactlist-seperator"></div>
-      `;
+      renderCurrentLetter(contactList, currentLetter);
     }
     let imageSrc = allContacts.images[i] ? allContacts.images[i] : generateProfileImage(allContacts.names[i]);
 
@@ -151,6 +152,12 @@ function renderContactList() {  // cleancode: currentletter in eigene funktion
       </div>
     `;
   }
+}
+
+function renderContactList() {
+  let contactList = document.getElementById("contactlist-content");
+  contactList.innerHTML = "";
+  processContacts(contactList);
 }
 
 function openContact(index) {
