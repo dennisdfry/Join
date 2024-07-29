@@ -1,4 +1,4 @@
-let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com/contacts";
+let BASE_URL1 = "https://join-19628-default-rtdb.firebaseio.com/contacts";
 
 let allContacts = {
   names: [],
@@ -19,7 +19,7 @@ async function initContacts() {
 }
 
 async function getData(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
+  let response = await fetch(BASE_URL1 + path + ".json");
   let responseToJson = await response.json();
   updateContacts(responseToJson);
   console.log(responseToJson);
@@ -70,7 +70,7 @@ async function postData(contact) {
 
 async function getContactId(index) {
   // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
-  let response = await fetch(BASE_URL + ".json");
+  let response = await fetch(BASE_URL1 + ".json");
   let responseToJson = await response.json();
   let keys = Object.keys(responseToJson);
   for (let i = 0; i < keys.length; i++) {
