@@ -7,7 +7,7 @@ let allContacts = {
   images: [],
 };
 
-async function init() {
+async function initContacts() {
   try {
     await getData("/");
     sortContacts();
@@ -30,7 +30,7 @@ async function deleteData(index) {
     let contactId = await getContactId(index);
     if (contactId) {
       await fetch(`${BASE_URL}/${contactId}.json`, {
-        method: "DELETE"
+        method: "DELETE",
       });
       console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
 
@@ -68,29 +68,27 @@ async function postData(contact) {
   renderContactList();
 }
 
-//async function editData(i){}
-
-
-
-
-
-async function getContactId(index) {                      // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
+async function getContactId(index) {
+  // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
   let response = await fetch(BASE_URL + ".json");
   let responseToJson = await response.json();
   let keys = Object.keys(responseToJson);
   for (let i = 0; i < keys.length; i++) {
     let contact = responseToJson[keys[i]];
-    if (contact.name === allContacts.names[index] &&
-        contact.mail === allContacts.mails[index] &&
-        contact.phone === allContacts.phones[index] &&
-        contact.img === allContacts.images[index]) {
+    if (
+      contact.name === allContacts.names[index] &&
+      contact.mail === allContacts.mails[index] &&
+      contact.phone === allContacts.phones[index] &&
+      contact.img === allContacts.images[index]
+    ) {
       return keys[i];
     }
   }
   return null;
 }
 
-function isContactExisting(contact) {                     // prüft ob ein Kontakt bereits exisistiert
+function isContactExisting(contact) {
+  // prüft ob ein Kontakt bereits exisistiert
   return (
     allContacts.names.includes(contact.name) &&
     allContacts.mails.includes(contact.mail) &&
@@ -100,10 +98,20 @@ function isContactExisting(contact) {                     // prüft ob ein Konta
 }
 
 function generateProfileImage(name) {
-  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F3FF33", "#33FFF3"]; 
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#FF33A1",
+    "#F3FF33",
+    "#33FFF3",
+  ];
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-  const initials = name.split(" ").map(word => word[0].toUpperCase()).join("");
+  const initials = name
+    .split(" ")
+    //.map((word) => word[0].toUpperCase())
+    .join("");
 
   const svg = `
     <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -115,14 +123,16 @@ function generateProfileImage(name) {
 }
 
 function sortContacts() {
-  let sortedIndices = [...Array(allContacts.names.length).keys()].sort((a, b) => {
-    return allContacts.names[a].localeCompare(allContacts.names[b]);
-  });
+  let sortedIndices = [...Array(allContacts.names.length).keys()].sort(
+    (a, b) => {
+      return allContacts.names[a].localeCompare(allContacts.names[b]);
+    }
+  );
 
-  allContacts.names = sortedIndices.map(i => allContacts.names[i]);
-  allContacts.mails = sortedIndices.map(i => allContacts.mails[i]);
-  allContacts.phones = sortedIndices.map(i => allContacts.phones[i]);
-  allContacts.images = sortedIndices.map(i => allContacts.images[i]);
+  allContacts.names = sortedIndices.map((i) => allContacts.names[i]);
+  allContacts.mails = sortedIndices.map((i) => allContacts.mails[i]);
+  allContacts.phones = sortedIndices.map((i) => allContacts.phones[i]);
+  allContacts.images = sortedIndices.map((i) => allContacts.images[i]);
 }
 
 function renderCurrentLetter(contactList, letter) {
@@ -140,7 +150,9 @@ function processContacts(contactList) {
       currentLetter = firstLetter;
       renderCurrentLetter(contactList, currentLetter);
     }
-    let imageSrc = allContacts.images[i] ? allContacts.images[i] : generateProfileImage(allContacts.names[i]);
+    let imageSrc = allContacts.images[i]
+      ? allContacts.images[i]
+      : generateProfileImage(allContacts.names[i]);
 
     contactList.innerHTML += `
       <div id="contactlist-overlay(${i})" class="contactlist-overlay" onclick="openContact(${i})">
@@ -161,26 +173,27 @@ function renderContactList() {
 }
 
 function openContact(index) {
-  let contactSection = document.getElementById('contact-section');
+  let contactSection = document.getElementById("contact-section");
   let contactList = document.getElementById(`contactlist-overlay(${index})`);
 
-  contactList.classList.add('bg-color-dg');
-  contactSection.classList.remove('d-none');
+  contactList.classList.add("bg-color-dg");
+  contactSection.classList.remove("d-none");
 
   renderContactSection(index);
 }
 
-function renderContactSection(index) { // cleancode: header und information-content seperat rendern  //renderContactInformation(index);
+function renderContactSection(index) {
+  // cleancode: header und information-content seperat rendern  //renderContactInformation(index);
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
 
   contactSection.innerHTML = `
     <div class="contact-section-content">
-      <img src="${allContacts.images[index]}" alt="Profile Image" />
+      <img src="${allContacts.images[index]}"/>
       <div class="contact-section-data">
         <p>${allContacts.names[index]}</p>
         <div class="contact-section-btn-box">
-          <button onclick="editContact(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
+          <button onclick="openEditForm(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
           <button onclick="deleteData(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
         </div>
       </div>
@@ -194,10 +207,10 @@ function renderContactSection(index) { // cleancode: header und information-cont
         <p><b>Phone</b></p>
         <p>${allContacts.phones[index]}</p>
       </div>
-    </div>`
+    </div>`;
 }
 
-function updateContacts(responseToJson) {     
+function updateContacts(responseToJson) {
   let keys = Object.keys(responseToJson);
   for (let i = 0; i < keys.length; i++) {
     let contact = responseToJson[keys[i]];
@@ -236,16 +249,23 @@ function showFormField() {
 
 function outsideForm(event) {
   let section = document.getElementById("add-contact-section");
-  if (!section.contains(event.target) && !event.target.closest('#add-contact-btn')) {
+  if (
+    !section.contains(event.target) &&
+    !event.target.closest("#add-contact-btn")
+  ) {
     closeFormfield();
   }
 }
 
 function closeFormfield() {
+  document.getElementById("name").value = "";
+  document.getElementById("mail").value = "";
+  document.getElementById("phone").value = "";
+
   document.getElementById("contact-form").classList.add("d-none");
   document.getElementById("add-contact-section").classList.add("d-none");
 }
 
-function closeEditForm() {
-  document.getElementById("edit-contact-overlay").classList.add("d-none");
+function openEditForm(index){
+  document.getElementById('edit-contact-section').classList.remove("d-none");
 }

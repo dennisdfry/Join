@@ -10,7 +10,7 @@
     <title>contacts overlay</title>
   </head>
 
-  <body onload="init()">
+  <body onload="initContacts()">
 
     <div id="contactlist-section">
         <div class="contactlist-btn-box d-flex-center">
@@ -33,7 +33,7 @@
     <div id="contact-section"></div>
     
     <div id="add-contact-section" class="d-none">
-      <div id="add-contact-content-left-box" class="bg-color-dg">
+      <div class="add-contact-content-left-box bg-color-dg">
         <div class="formfield-logo">
           <img src="./img/join_logo.svg">
         </div>
@@ -42,8 +42,8 @@
         <div class="add-contact-seperator"></div>
       </div>
 
-      <div id="add-contact-content-right-box">
-        <div id="exitBtn" onclick="closeFormfield()">
+      <div class="add-contact-content-right-box">
+        <div class="exitBtn" onclick="closeFormfield()">
           <img src="./img/Close.png">
         </div>
         <div id="prof-img">
@@ -79,35 +79,56 @@
           </button>
         </div> 
       </div>
-
     </div>
 
+  
     <div id="edit-contact-section" class="d-none">
-        <div id="edit-contact-overlay">
-          <div id="edit-contact-content">
-            <div id="edit-contact-content-left-box" class="bg-color-dg">
-              <div id="edit-contact-content-left-text">
-                <h2>Edit contact</h2>             
-                <div class="add-contact-seperator"></div>
-              </div>
-            </div>
-
-            <div id="edit-contact-content-right-box">
-
-              <div id="exit-edit-Btn" onclick="closeOverlay()">
-                <img src="./img/Close.png">
-              </div>
-
-              <div id="prof-img-edit">
-                <img src="./img/Group 13.png">
-              </div>
-
-         
-            </div>
-          </div>
+      <div class="add-contact-content-left-box" class="bg-color-dg">
+        <div class="formfield-logo">
+          <img src="./img/join_logo.svg">
         </div>
-    </div>
+        <h2>Edit contact</h2>
+        <p>Tasks are better with a team!</p>
+        <div class="add-contact-seperator"></div>
+      </div>
 
-    
+      <div class="add-contact-content-right-box">
+        <div class="exitBtn" onclick="closeFormfield()">
+          <img src="./img/Close.png">
+        </div>
+        <div id="prof2-img">
+          <img src="./img/Group 13.png">
+        </div>
+        <form id="edit-form">
+          <div class="input-img-div">
+            <input type="text" id="name" name="name" placeholder="Name" required></input>
+            <img src="./img/person.png">
+          </div>
+          <div class="input-img-div">
+            <input type="email" id="mail" name="mail" placeholder="Email" required/></input>
+            <img src="./img/mail.png">
+          </div>
+          <div class="input-img-div">
+            <input type="text" id="phone" name="phone" placeholder="Phone" pattern="^[0-9]{10,15}$" required/></input>
+            <img src="./img/call.png"> 
+          </div>
+        </form>
+          
+        <div class="formfield-btn-box">
+          <button id="efitfield-cancel-btn" onclick="closeFormfield()">
+            <p>
+              Cancel
+            </p>
+            <img src="./img/iconoir_cancel.png">
+          </button>
+          <button id="editfield-create-btn" onclick="formSubmit(event)">
+            <p>
+              Edit contact
+            </p>
+            <img src="./img/check2.png">
+          </button>
+        </div> 
+      </div>
+    </div>
   </body>
 </html>
