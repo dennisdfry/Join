@@ -22,14 +22,13 @@ async function getData(path = "") {
   let response = await fetch(BASE_URL1 + path + ".json");
   let responseToJson = await response.json();
   updateContacts(responseToJson);
-  console.log(responseToJson);
 }
 
 async function deleteData(index) {
   try {
     let contactId = await getContactId(index);
     if (contactId) {
-      await fetch(`${BASE_URL}/${contactId}.json`, {
+      await fetch(`${BASE_URL1}/${contactId}.json`, {
         method: "DELETE",
       });
       console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
@@ -50,7 +49,7 @@ async function deleteData(index) {
 
 async function postData(contact) {
   try {
-    let response = await fetch(BASE_URL + ".json", {
+    let response = await fetch(BASE_URL1 + ".json", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,11 +67,28 @@ async function postData(contact) {
   renderContactList();
 }
 
+function updateContacts(responseToJson) {
+  let keys = Object.keys(responseToJson);
+  for (let i = 0; i < keys.length; i++) {
+    let contact = responseToJson[keys[i]];
+    if (!isContactExisting(contact)) {
+      allContacts.names.push(contact.name);
+      allContacts.mails.push(contact.mail);
+      allContacts.phones.push(contact.phone);   
+    }
+    if (!contact.img) {         // wenn kein img hochgeladen wird wird das img aus der  generateProfileImage erstellt und als contact img gespeichert und ins array gepusht
+      contact.img = generateProfileImage(contact.name); /// verur
+    }
+    allContacts.images.push(contact.img);
+  }
+}
+
 async function getContactId(index) {
   // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
   let response = await fetch(BASE_URL1 + ".json");
   let responseToJson = await response.json();
-  let keys = Object.keys(responseToJson);
+  let keys = Object.keys(responseToJson); // nimmt das Array und gibt dessen gesamte Schlüssel zurück
+
   for (let i = 0; i < keys.length; i++) {
     let contact = responseToJson[keys[i]];
     if (
@@ -88,7 +104,7 @@ async function getContactId(index) {
 }
 
 function isContactExisting(contact) {
-  // prüft ob ein Kontakt bereits exisistiert
+  // prüft ob ein Kontakt beim hochladen bereits exisistiert
   return (
     allContacts.names.includes(contact.name) &&
     allContacts.mails.includes(contact.mail) &&
@@ -97,7 +113,7 @@ function isContactExisting(contact) {
   );
 }
 
-function generateProfileImage(name) {
+function generateProfileImage(name) { // generiert ein Profilfoto im vorgegebenen style, falls keines hochgeladen wird
   const colors = [
     "#FF5733",
     "#33FF57",
@@ -106,23 +122,24 @@ function generateProfileImage(name) {
     "#F3FF33",
     "#33FFF3",
   ];
-  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  let randomColor = colors[Math.floor(Math.random() * colors.length)]; // kreirt eine zufällige variable zwischen 0 und 1
 
-  const initials = name
-    .split(" ")
-    //.map((word) => word[0].toUpperCase())
-    .join("");
+  let initials = name
+    .split(" ") 
+    .map((word) => word[0].toUpperCase()) // schneidet die Worte an der ersten Stelle in Großbuchstaben ab
+    .join(""); // fügt diese zusammen
 
-  const svg = `
+  let newContactImg = `
     <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
       <circle cx="50" cy="50" r="50" fill="${randomColor}" />
       <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
     </svg>
   `;
-  return `data:image/svg+xml;base64,${btoa(svg)}`;
+  return `data:image/svg+xml;base64,${btoa(newContactImg)}`;
+
 }
 
-function sortContacts() {
+function sortContacts() {    // sortiert die kontakte anhand der Namen, muss leicht überarbeitet werden
   let sortedIndices = [...Array(allContacts.names.length).keys()].sort(
     (a, b) => {
       return allContacts.names[a].localeCompare(allContacts.names[b]);
@@ -135,14 +152,14 @@ function sortContacts() {
   allContacts.images = sortedIndices.map((i) => allContacts.images[i]);
 }
 
-function renderCurrentLetter(contactList, letter) {
+function renderCurrentLetter(contactList, letter) {   // rendern zu der Kontaktliste einen Seperator
   contactList.innerHTML += `
     <div class="contactlist-order-letter">${letter}</div>
     <div class="contactlist-seperator"></div>
   `;
 }
 
-function processContacts(contactList) {
+function processContacts(contactList) {      // sollte kontakte sortieren.. und diese nacheinander rendern // eigentliche renderfunktion der contaktliste
   let currentLetter = "";
   for (let i = 0; i < allContacts.names.length; i++) {
     let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
@@ -166,23 +183,31 @@ function processContacts(contactList) {
   }
 }
 
-function renderContactList() {
+function renderContactList() {   // Hilfsfunktion, zum cleanen, updaten und rendern der Kontaktliste
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
   processContacts(contactList);
+  updateContacts(responseToJson);
 }
 
-function openContact(index) {
+function openContact(index) { // öffnet den Kontakt.. funktioniert noch nicht einwandfrei
   let contactSection = document.getElementById("contact-section");
   let contactList = document.getElementById(`contactlist-overlay(${index})`);
 
-  contactList.classList.add("bg-color-dg");
-  contactSection.classList.remove("d-none");
-
-  renderContactSection(index);
+  if (contactList.classList.contains("bg-color-dg")) {
+    // Rückgängig machen, falls bereits ausgeführt
+    contactList.classList.remove("bg-color-dg");
+    contactSection.classList.add("d-none");
+  } else {
+    // Klassen hinzufügen, falls noch nicht ausgeführt
+    contactList.classList.add("bg-color-dg");
+    contactSection.classList.remove("d-none");
+    renderContactSection(index);
+  }
 }
 
-function renderContactSection(index) {
+function renderContactSection(index) {// renderfunktion der Kontaktinformationen nach Onclick
+   // animation funktioniert noch nicht und nach erfolgreichem löschen bleibnt die betroffene sektion bis zum reload oder switch bestehen
   // cleancode: header und information-content seperat rendern  //renderContactInformation(index);
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
@@ -210,44 +235,33 @@ function renderContactSection(index) {
     </div>`;
 }
 
-function updateContacts(responseToJson) {
-  let keys = Object.keys(responseToJson);
-  for (let i = 0; i < keys.length; i++) {
-    let contact = responseToJson[keys[i]];
-    if (!isContactExisting(contact)) {
-      allContacts.names.push(contact.name);
-      allContacts.mails.push(contact.mail);
-      allContacts.phones.push(contact.phone);
-      allContacts.images.push(contact.img);
-    }
-  }
-}
 
-function formSubmit(event) {
+
+function formSubmit(event) {  // verhindert das reloaden nacg sumit
   event.preventDefault();
 
-  const newContact = {
+  const newContact = { // erstellt neuen kontakt mit vorgegebenen keys
     name: document.getElementById("name").value,
     mail: document.getElementById("mail").value,
     phone: document.getElementById("phone").value,
     img: document.getElementById("prof-img").value,
   };
 
-  postData(newContact);
-  closeFormfield();
+  postData(newContact); // postet diesen neuen kontakt
+  closeFormfield(); 
 }
 
-function setupForm() {
+function setupForm() {  // aktiviert das submitform
   const form = document.getElementById("contact-form");
   form.addEventListener("submit", formSubmit);
 }
 
-function showFormField() {
+function showFormField() { // zeigt das sumbmitform an 
   document.getElementById("add-contact-section").classList.remove("d-none");
   document.addEventListener("click", outsideForm);
 }
 
-function outsideForm(event) {
+function outsideForm(event) { // schließen des Form bei klick außerhalb
   let section = document.getElementById("add-contact-section");
   if (
     !section.contains(event.target) &&
@@ -257,7 +271,7 @@ function outsideForm(event) {
   }
 }
 
-function closeFormfield() {
+function closeFormfield() { // schließt das formfield
   document.getElementById("name").value = "";
   document.getElementById("mail").value = "";
   document.getElementById("phone").value = "";

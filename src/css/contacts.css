@@ -30,6 +30,9 @@ body {
 
 .contactlist-btn-box {
   height: 101px;
+  position: sticky;
+  top: 0.5px;
+  background-color: #f6f7f8;
 }
 
 #add-contact-btn {
@@ -37,7 +40,7 @@ body {
   height: 56px;
   background-color: #2a3647;
   border-radius: 10px;
-  border: 1px solid #ffffff;
+  border: 1px solid #f6f7f8;
 }
 
 #add-contact-btn p {
@@ -77,6 +80,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 928px;
 }
 
 #contactlist-content::-webkit-scrollbar {
@@ -555,6 +559,17 @@ body {
 }
 
 #prof-img {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 204px;
+  left: 550px;
+  border-radius: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#prof-img2 {
   width: 120px;
   height: 120px;
   position: absolute;
