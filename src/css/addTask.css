@@ -369,7 +369,7 @@
     position: absolute;
     background-color: white;
     z-index: 1;
-    /* Ensure checkboxes are on top */
+    width: 100%
 }
 
 #checkboxes label {
