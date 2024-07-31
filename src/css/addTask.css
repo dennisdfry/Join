@@ -196,13 +196,37 @@
     font-size: 21px;
     transition: transform 0.2s;
 }
-.add-task-prio-button-finish{
+.add-task-prio-button-medium{
     height: 56px;
     width: 136px;
     border-radius: 10px;
     margin: 8px;
     border: 1px solid #F0F0F0;
     background-color: rgb(255, 168, 0);
+    color: #FFFFFF;
+    font-family: 'Inter700';
+    font-size: 21px;
+    transition: transform 0.2s;
+}
+.add-task-prio-button-urgent{
+    height: 56px;
+    width: 136px;
+    border-radius: 10px;
+    margin: 8px;
+    border: 1px solid #F0F0F0;
+    background-color: rgb(255, 93, 0);
+    color: #FFFFFF;
+    font-family: 'Inter700';
+    font-size: 21px;
+    transition: transform 0.2s;
+}
+.add-task-prio-button-low{
+    height: 56px;
+    width: 136px;
+    border-radius: 10px;
+    margin: 8px;
+    border: 1px solid #F0F0F0;
+    background-color: rgb(122, 226, 41);
     color: #FFFFFF;
     font-family: 'Inter700';
     font-size: 21px;

@@ -12,7 +12,6 @@ async function init() {
         let imageUrls = await fetchImages(); // Hier holen wir die Bilder
         console.log(contacts);
         await assignedTo(contacts, imageUrls); // Übergeben Sie die Bild-URLs
-        showCheckboxes();
     } catch (error) {
         console.error("Fehler bei der Initialisierung:", error);
     }
@@ -75,7 +74,6 @@ async function assignedTo(contacts, image) {
                 <input type="checkbox" id="checkbox-${index}" value="${element.name}" onclick="assignedToUser('${element.name}')" />
             </label>`;
     }
-
     position.innerHTML = list; // HTML-Inhalt setzen
 }
 function assignedToUser(element) {
@@ -83,7 +81,6 @@ function assignedToUser(element) {
     assignedToUserArray.push(element);
     console.log(assignedToUserArray);
 }
-
 
 function showCheckboxes() {
     let checkboxes = document.getElementById("checkboxes");
@@ -102,7 +99,6 @@ function createTask() {
     let dueDateTask = document.getElementById('dueDate');
     let taskCategory = document.getElementById('taskCategory');
     let lastString = prioArray.pop();
-
     addTaskArray.push({
         title: taskTitle.value,
         description: taskDescription.value,
@@ -112,25 +108,35 @@ function createTask() {
         category: taskCategory.value,
         subtasks: subtasksArray
     });
-
     console.log(addTaskArray);
 }
 
-
 function prio(id) {
+    const buttons = document.querySelectorAll('.add-task-prio-button-container button');
+    
+    buttons.forEach(button => {
+        button.classList.remove('add-task-prio-button-urgent', 'add-task-prio-button-medium', 'add-task-prio-button-low');
+        button.classList.add('add-task-prio-button');
+    });
+
     let position = document.getElementById(`prioButton${id}`);
-    position.classList.toggle('add-task-prio-button-finish')
+    
     if (id == 1) {
         prioArray.push('Urgent');
+        position.classList.add('add-task-prio-button-urgent');
     } else if (id == 2) {
         prioArray.push('Medium');
+        position.classList.add('add-task-prio-button-medium');
     } else if (id == 3) {
         prioArray.push('Low');
+        position.classList.add('add-task-prio-button-low');
     }
+    
+    position.classList.remove('add-task-prio-button');
+    
+    console.log(prioArray);
 }
-function subtasksInput(){
-    // document.getElementById('subtasksControl').classList.add('d-none');
-}
+
 function showSubtaskControls() {
     document.getElementById('subtasks').classList.remove('add-task-input');
     document.getElementById('subtasks').classList.add('subtasks-input');
