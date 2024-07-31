@@ -203,13 +203,15 @@ body {
   display: flex;
   flex-direction: column;
   gap: 21px;
-  animation: moveIn 1s ease-in-out 0.2s forwards;
+  animation: moveIn 1s ease-in 100ms forwards;
 }
 @keyframes moveIn {
   0% {
+ 
     transform: translateX(100vw);
   }
   100% {
+ 
     transform: translateX(0);
   }
 }
@@ -352,18 +354,21 @@ body {
 #add-contact-section {
   width: 1212px;
   height: 592px;
-  animation: moveIn 1s ease-in-out 0.2s forwards;
+  visibility: hidden;
+  animation: moveIn 200ms ease-in 100ms forwards;
   border-radius: 30px;
   background: #ffffff;
   position: absolute;
-  top: 90px;
-  left: 80px;
+  top: 100px;
+  left: 240px;
 }
 @keyframes moveIn {
   0% {
+    visibility: visible;
     transform: translateX(100vw);
   }
   100% {
+    visibility: visible;
     transform: translateX(0);
   }
 }
