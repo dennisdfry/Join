@@ -78,6 +78,12 @@ async function assignedTo(contacts, image) {
 
     position.innerHTML = list; // HTML-Inhalt setzen
 }
+function assignedToUser(element) {
+    console.log(element);
+    assignedToUserArray.push(element);
+    console.log(assignedToUserArray);
+}
+
 
 function showCheckboxes() {
     let checkboxes = document.getElementById("checkboxes");
@@ -93,7 +99,6 @@ function showCheckboxes() {
 function createTask() {
     let taskTitle = document.getElementById('title');
     let taskDescription = document.getElementById('description');
-    let assignedToTask = document.getElementById('assignedTo');
     let dueDateTask = document.getElementById('dueDate');
     let taskCategory = document.getElementById('taskCategory');
     let lastString = prioArray.pop();
@@ -101,7 +106,7 @@ function createTask() {
     addTaskArray.push({
         title: taskTitle.value,
         description: taskDescription.value,
-        assignedTo: assignedToTask.value,
+        assignedTo: assignedToUserArray,
         dueDate: dueDateTask.value,
         prio: lastString,
         category: taskCategory.value,
@@ -111,10 +116,6 @@ function createTask() {
     console.log(addTaskArray);
 }
 
-function assignedToUser(element) {
-    assignedToUserArray.push(element);
-    console.log(assignedToUserArray);
-}
 
 function prio(id) {
     let position = document.getElementById(`prioButton${id}`);
