@@ -10,7 +10,6 @@ async function init() {
         let fireBaseData = await onloadData("/");
         let contacts = await fetchContacts(fireBaseData);
         let imageUrls = await fetchImages(); // Hier holen wir die Bilder
-        console.log(contacts);
         await assignedTo(contacts, imageUrls); // Übergeben Sie die Bild-URLs
     } catch (error) {
         console.error("Fehler bei der Initialisierung:", error);
@@ -55,13 +54,9 @@ async function assignedTo(contacts, image) {
         return Object.values(contacts).map(entry => ({ name: entry.name }));
     };
     const names = extractNames(contacts);
-    console.log(names);
-
     let position = document.getElementById('checkboxes');
     position.innerHTML = '';
-
     let list = ''; // Initialisierung des Strings
-
     for (let index = 0; index < names.length; index++) {
         const element = names[index];
         const imgSrc = image[index]; // Bild-URL holen
@@ -77,9 +72,7 @@ async function assignedTo(contacts, image) {
     position.innerHTML = list; // HTML-Inhalt setzen
 }
 function assignedToUser(element) {
-    console.log(element);
     assignedToUserArray.push(element);
-    console.log(assignedToUserArray);
 }
 
 function showCheckboxes() {
@@ -93,23 +86,6 @@ function showCheckboxes() {
     }
 }
 
-// function createTask() {
-//     let taskTitle = document.getElementById('title');
-//     let taskDescription = document.getElementById('description');
-//     let dueDateTask = document.getElementById('dueDate');
-//     let taskCategory = document.getElementById('taskCategory');
-//     let lastString = prioArray.pop();
-//     addTaskArray.push({
-//         title: taskTitle.value,
-//         description: taskDescription.value,
-//         assignedTo: assignedToUserArray,
-//         dueDate: dueDateTask.value,
-//         prio: lastString,
-//         category: taskCategory.value,
-//         subtasks: subtasksArray
-//     });
-//     console.log(addTaskArray);
-// }
 function createTask(event) {
     event.preventDefault();
     let form = event.target;
@@ -132,13 +108,24 @@ function createTask(event) {
         category: taskCategory,
         subtasks: subtasksArray
     });
-    console.log(addTaskArray);
+    saveToFirebase();
     // Clear form or any other logic after creating the task
     form.reset();
-    prioArray = [];
-    assignedToUserArray = [];
-    subtasksArray = [];
+
 }
+
+async function saveToFirebase(path="/tasks"){
+    console.log(addTaskArray)
+   
+        let response = await fetch(BASE_URL + path + ".json", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(addTaskArray),
+        });
+}
+
 function prio(id) {
     const buttons = document.querySelectorAll('.add-task-prio-button-container button');
     
@@ -146,9 +133,7 @@ function prio(id) {
         button.classList.remove('add-task-prio-button-urgent', 'add-task-prio-button-medium', 'add-task-prio-button-low');
         button.classList.add('add-task-prio-button');
     });
-
     let position = document.getElementById(`prioButton${id}`);
-    
     if (id == 1) {
         prioArray.push('Urgent');
         position.classList.add('add-task-prio-button-urgent');
@@ -159,10 +144,7 @@ function prio(id) {
         prioArray.push('Low');
         position.classList.add('add-task-prio-button-low');
     }
-    
     position.classList.remove('add-task-prio-button');
-    
-    console.log(prioArray);
 }
 
 function showSubtaskControls() {
@@ -209,8 +191,8 @@ function updateSubtasksList() {
                 <li>${element}</li>
             </ul>`;
     }
-    console.log(subtasksArray);
 }
+
 function cancelTask() {
     // Implementieren Sie hier die Logik zum Abbrechen oder Zurücksetzen eines Tasks
 }

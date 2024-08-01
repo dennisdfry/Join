@@ -12,7 +12,6 @@
 
 <body class="background-main">
     <form onsubmit=" return createTask(event)" class="add-Task-Container">
-        <!-- <form onsubmit="return createTask(event)" class="add-task-container" novalidate> -->
         <section class="add-task-head">
             <h1>Add Task</h1>
             <div class="add-task-close-button">
@@ -65,7 +64,7 @@
                             <img src="../public/img/Prio baja.png" alt="">
                         </button>
                     </div>
-                    
+
 
                     <label for="taskCategory">Category <span class="red-star">*</span></label>
                     <select required class="add-task-select" name="taskCategory" id="taskCategory">
@@ -76,14 +75,15 @@
                     </select>
                     <label for="subtasks">Subtasks</label>
                     <div class="input-with-button">
-                        <input type="text" minlength="2" class="add-task-input" placeholder="Add item"
-                            id="subtasks" name="subtasks">
+                        <input type="text" minlength="2" class="add-task-input" placeholder="Add item" id="subtasks"
+                            name="subtasks">
                         <div id="subtasksControl" class="subtasks-control">
-                            <button onclick="showSubtaskControls()" type="button" id="subtasksPlus" class="add-task-button">
+                            <button onclick="showSubtaskControls()" type="button" id="subtasksPlus"
+                                class="add-task-button">
                                 +
                             </button>
                         </div>
-                       
+
                     </div>
                     <div class="subtasksList" id="subtasksPosition"></div>
                 </div>

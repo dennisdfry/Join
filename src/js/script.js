@@ -53,3 +53,46 @@ function toggleElement(elementClass, className) {
     console.error(`Element with id "${elementId}" not found.`);
   }
 }
+
+async function loadingBoard(){
+    try {
+       let task = await onloadDataBoard("/tasks"); 
+       let taskkeys = Object.keys(task);
+    
+       for (let index = 0; index < taskkeys.length; index++) {
+        const element = taskkeys[index];
+        const taskArray = task[element]; 
+        let category = await taskArray[0].category;
+        let description = taskArray[0].description;
+        let date = taskArray[0].dueDate;
+        let prio = taskArray[0].prio;
+        let title = taskArray[0].title;
+        let users = taskArray[0].assignedTo;
+        let subtasks = taskArray[0].subtasks;
+
+        let position = document.getElementById(`todo${taskkeys}`);
+        console.log(position)
+        position.innerHTML += `
+          <div>
+            <h1>${category}</h1>
+          </div>
+        `;
+        console.log(element);
+        console.log(taskArray);
+       }
+      
+      
+    } catch (error) {
+        console.log("error")
+    }
+    
+}
+async function onloadDataBoard(path="") {
+    let response = await fetch(BASE_URL + path + '.json');
+    let responseToJson = await response.json();
+    return responseToJson;
+}
+
+// async function showTaskContent(task, taskkeys){
+
+// }
