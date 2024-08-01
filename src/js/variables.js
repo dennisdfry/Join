@@ -1,11 +1,5 @@
-let nameInput, mailInput, passwordInput, confirmPasswordInput, submitButton;
-
-document.addEventListener('DOMContentLoaded', function () {
-  nameInput = document.getElementById('name');
-  mailInput = document.getElementById('mail');
-  passwordInput = document.getElementById('password');
-  confirmPasswordInput = document.getElementById('confirm-password');
-  submitButton = document.getElementById('success');
-});
-
-export { nameInput, mailInput, passwordInput, confirmPasswordInput, submitButton };
+export const nameInput = document.getElementById('name');
+export const mailInput = document.getElementById('mail');
+export const passwordInput = document.getElementById('password');
+export const confirmPasswordInput = document.getElementById('confirm-password');
+export const submitButton = document.getElementById('success');
