@@ -98,6 +98,11 @@ body {
   transition: transform 0.125s ease-in-out;
 }
 
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .submit-signup-btn:hover {
   background-color: #29ABE2;
   border-color: #29ABE2;
