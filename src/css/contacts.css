@@ -270,11 +270,7 @@ body {
   border: none;
   background-color: transparent;
   gap: 8px;
-  display: flex;
   flex-direction: row-reverse;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 }
 
 #del-btn {
@@ -287,11 +283,7 @@ body {
   border: none;
   background-color: transparent;
   gap: 8px;
-  display: flex;
   flex-direction: row-reverse;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 }
 
 #del-btn img {

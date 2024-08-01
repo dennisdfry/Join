@@ -26,22 +26,17 @@ async function getData(path = "") {
 
 async function deleteData(index) {
   try {
-    let contactId = await getContactId(index);
-    if (contactId) {
-      await fetch(`${BASE_URL1}/${contactId}.json`, {
-        method: "DELETE",
-      });
-      console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
-
-      allContacts.names.splice(index, 1);
-      allContacts.mails.splice(index, 1);
-      allContacts.phones.splice(index, 1);
-      allContacts.images.splice(index, 1);
-
-      renderContactList();
-    } else {
+    const contactId = await getContactId(index);
+    if (!contactId) {
       console.error("Kontakt-ID nicht gefunden.");
+      return;
     }
+
+    await fetch(`${BASE_URL1}/${contactId}.json`, { method: "DELETE" });
+    console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
+
+    ["names", "mails", "phones", "images"].forEach(field => allContacts[field].splice(index, 1));
+    renderContactList();
   } catch (error) {
     console.error("Fehler beim Löschen des Kontakts:", error);
   }
@@ -75,10 +70,10 @@ function updateContacts(responseToJson) {
       allContacts.names.push(contact.name);
       allContacts.mails.push(contact.mail);
       allContacts.phones.push(contact.phone);
-      allContacts.images.push(contact.img)
+      allContacts.images.push(contact.img);
     }
     //if (!contact.img) {         // wenn kein img hochgeladen wird wird das img aus der  generateProfileImage erstellt und als contact img gespeichert und ins array gepusht
-      //contact.img = generateProfileImage(contact.name); /// muss überarbeitet werden um einen img eintrag zu generieren sonst kann kontakt id nicht gefunden werden
+    //contact.img = generateProfileImage(contact.name); /// muss überarbeitet werden um einen img eintrag zu generieren sonst kann kontakt id nicht gefunden werden
     //}
     //allContacts.images.push(contact.img);
   }
@@ -105,16 +100,13 @@ async function getContactId(index) {
 }
 
 function isContactExisting(contact) {
-  // prüft ob ein Kontakt beim hochladen bereits exisistiert
-  return (
-    allContacts.names.includes(contact.name) &&
-    allContacts.mails.includes(contact.mail) &&
-    allContacts.phones.includes(contact.phone) &&
-    allContacts.images.includes(contact.img)
+  return ["name", "mail", "phone", "img"].every((field) =>
+    allContacts[`${field}s`].includes(contact[field])
   );
 }
 
-function generateProfileImage(name) { // generiert ein Profilfoto im vorgegebenen style, falls keines hochgeladen wird
+function generateProfileImage(name) {
+  // generiert ein Profilfoto im vorgegebenen style, falls keines hochgeladen wird
   const colors = [
     "#FF5733",
     "#33FF57",
@@ -126,7 +118,7 @@ function generateProfileImage(name) { // generiert ein Profilfoto im vorgegebene
   let randomColor = colors[Math.floor(Math.random() * colors.length)]; // kreirt eine zufällige variable zwischen 0 und 1
 
   let initials = name
-    .split(" ") 
+    .split(" ")
     .map((word) => word[0].toUpperCase()) // schneidet die Worte an der ersten Stelle in Großbuchstaben ab
     .join(""); // fügt diese zusammen
 
@@ -137,30 +129,31 @@ function generateProfileImage(name) { // generiert ein Profilfoto im vorgegebene
     </svg>
   `;
   return `data:image/svg+xml;base64,${btoa(newContactImg)}`;
-
 }
 
-function sortContacts() {    // muss leicht überarbeitet werden
-  let sortedIndices = [...Array(allContacts.names.length).keys()].sort(
-    (a, b) => {
-      return allContacts.names[a].localeCompare(allContacts.names[b]);
-    }
-  );
+function sortContacts() {
+  // muss überarbeitet werden
+  let sortedIndices = allContacts.names
+    .map((name, index) => index)
+    .sort((a, b) => allContacts.names[a].localeCompare(allContacts.names[b]));
 
-  allContacts.names = sortedIndices.map((i) => allContacts.names[i]);
-  allContacts.mails = sortedIndices.map((i) => allContacts.mails[i]);
-  allContacts.phones = sortedIndices.map((i) => allContacts.phones[i]);
-  allContacts.images = sortedIndices.map((i) => allContacts.images[i]);
+  ["names", "mails", "phones", "images"].forEach((field) => {
+    allContacts[field] = sortedIndices.map(
+      (index) => allContacts[field][index]
+    );
+  });
 }
 
-function renderCurrentLetter(contactList, letter) {   // rendern zu der Kontaktliste einen Seperator
+function renderCurrentLetter(contactList, letter) {
+  // rendern zu der Kontaktliste einen Seperator
   contactList.innerHTML += `
     <div class="contactlist-order-letter">${letter}</div>
     <div class="contactlist-seperator"></div>
   `;
 }
 
-function processContacts(contactList) {      // sollte kontakte sortieren.. funktioniert erst nach reload
+function processContacts(contactList) {
+  // sollte kontakte sortieren.. funktioniert erst nach reload
   let currentLetter = "";
   for (let i = 0; i < allContacts.names.length; i++) {
     let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
@@ -174,41 +167,41 @@ function processContacts(contactList) {      // sollte kontakte sortieren.. funk
 
     contactList.innerHTML += `
       <div id="contactlist-overlay(${i})" class="contactlist-overlay" onclick="openContact(${i})">
-        <img class="pll-24" src="${imageSrc}" alt="Contact Image"/>
+        <img class="pll-24 pointer" src="${imageSrc}" alt="Contact Image"/>
         <div class="contactlist-databox">
-          <div class="contactlist-databox-name">${allContacts.names[i]}</div>
-          <a class="contactlist-databox-mail" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+          <div class="contactlist-databox-name pointer">${allContacts.names[i]}</div>
+          <a class="contactlist-databox-mail " href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
         </div>
       </div>
     `;
   }
 }
 
-function renderContactList() { 
+function renderContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
   processContacts(contactList);
   updateContacts(responseToJson);
 }
 
-function openContact(index) { //erstellte img werden oval gerendert in der information// öffnet den Kontakt.. funktioniert noch nicht einwandfrei // muss noch eine move out animation erhalten und auf anderen kontakt die farbe verlieren
+function openContact(index) {
+  //erstellte img werden oval gerendert in der information// öffnet den Kontakt.. funktioniert noch nicht einwandfrei // muss noch eine move out animation erhalten und auf anderen kontakt die farbe verlieren
   let contactSection = document.getElementById("contact-section");
   let contactList = document.getElementById(`contactlist-overlay(${index})`);
 
   if (contactList.classList.contains("bg-color-dg")) {
- 
     contactList.classList.remove("bg-color-dg");
     contactSection.classList.add("d-none");
   } else {
-   
     contactList.classList.add("bg-color-dg");
     contactSection.classList.remove("d-none");
     renderContactSection(index);
   }
 }
 
-function renderContactSection(index) {// renderfunktion der Kontaktinformationen nach Onclick
-   // animation funktioniert noch nicht und nach erfolgreichem löschen bleibnt die betroffene sektion bis zum reload oder switch bestehen
+function renderContactSection(index) {
+  // renderfunktion der Kontaktinformationen nach Onclick
+  // animation funktioniert noch nicht und nach erfolgreichem löschen bleibnt die betroffene sektion bis zum reload oder switch bestehen
   // cleancode: header und information-content seperat rendern  //renderContactInformation(index);
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
@@ -219,8 +212,8 @@ function renderContactSection(index) {// renderfunktion der Kontaktinformationen
       <div class="contact-section-data">
         <p>${allContacts.names[index]}</p>
         <div class="contact-section-btn-box">
-          <button onclick="openEditForm(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
-          <button onclick="deleteData(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
+          <button class="pointer d-flex-center" onclick="openEditForm(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
+          <button class="pointer d-flex-center" onclick="deleteData(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
         </div>
       </div>
     </div>
@@ -236,33 +229,32 @@ function renderContactSection(index) {// renderfunktion der Kontaktinformationen
     </div>`;
 }
 
-
-
 function formSubmit(event) {
   event.preventDefault();
 
-  const newContact = { 
-    name: document.getElementById("name").value,
-    mail: document.getElementById("mail").value,
-    phone: document.getElementById("phone").value,
-    img: document.getElementById("prof-img").value,
-  };
+  const fields = ["name", "mail", "phone", "prof-img"];
+  const newContact = Object.fromEntries(
+    fields.map((field) => [
+      field === "prof-img" ? "img" : field,
+      document.getElementById(field).value,
+    ])
+  );
 
-  postData(newContact); 
-  closeFormfield(); 
+  postData(newContact);
+  closeFormfield();
 }
 
-function setupForm() {  
+function setupForm() {
   const form = document.getElementById("contact-form");
   form.addEventListener("submit", formSubmit);
 }
 
-function showFormField() { 
+function showFormField() {
   document.getElementById("add-contact-section").classList.remove("d-none");
   document.addEventListener("click", outsideForm);
 }
 
-function outsideForm(event) { 
+function outsideForm(event) {
   let section = document.getElementById("add-contact-section");
   if (
     !section.contains(event.target) &&
@@ -272,15 +264,14 @@ function outsideForm(event) {
   }
 }
 
-function closeFormfield() { 
-  document.getElementById("name").value = "";
-  document.getElementById("mail").value = "";
-  document.getElementById("phone").value = "";
-
+function closeFormfield() {
+  ["name", "mail", "phone"].forEach(
+    (id) => (document.getElementById(id).value = "")
+  );
   document.getElementById("contact-form").classList.add("d-none");
   document.getElementById("add-contact-section").classList.add("d-none");
 }
 
-function openEditForm(index){
-  document.getElementById('edit-contact-section').classList.remove("d-none");
+function openEditForm(index) {
+  document.getElementById("edit-contact-section").classList.remove("d-none");
 }
