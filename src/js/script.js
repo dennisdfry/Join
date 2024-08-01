@@ -15,6 +15,9 @@ async function includeHTML() {
         if (file.includes('contacts.html')) {
           initContacts();
         }
+        if (file.includes('board.html')) {
+          loadingBoard();
+        }
       } else {
         element.innerHTML = 'Page not found';
       }
