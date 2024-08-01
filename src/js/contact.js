@@ -74,12 +74,13 @@ function updateContacts(responseToJson) {
     if (!isContactExisting(contact)) {
       allContacts.names.push(contact.name);
       allContacts.mails.push(contact.mail);
-      allContacts.phones.push(contact.phone);   
+      allContacts.phones.push(contact.phone);
+      allContacts.images.push(contact.img)
     }
-    if (!contact.img) {         // wenn kein img hochgeladen wird wird das img aus der  generateProfileImage erstellt und als contact img gespeichert und ins array gepusht
-      contact.img = generateProfileImage(contact.name); /// verur
-    }
-    allContacts.images.push(contact.img);
+    //if (!contact.img) {         // wenn kein img hochgeladen wird wird das img aus der  generateProfileImage erstellt und als contact img gespeichert und ins array gepusht
+      //contact.img = generateProfileImage(contact.name); /// muss überarbeitet werden um einen img eintrag zu generieren sonst kann kontakt id nicht gefunden werden
+    //}
+    //allContacts.images.push(contact.img);
   }
 }
 
@@ -139,7 +140,7 @@ function generateProfileImage(name) { // generiert ein Profilfoto im vorgegebene
 
 }
 
-function sortContacts() {    // sortiert die kontakte anhand der Namen, muss leicht überarbeitet werden
+function sortContacts() {    // muss leicht überarbeitet werden
   let sortedIndices = [...Array(allContacts.names.length).keys()].sort(
     (a, b) => {
       return allContacts.names[a].localeCompare(allContacts.names[b]);
@@ -159,7 +160,7 @@ function renderCurrentLetter(contactList, letter) {   // rendern zu der Kontaktl
   `;
 }
 
-function processContacts(contactList) {      // sollte kontakte sortieren.. und diese nacheinander rendern // eigentliche renderfunktion der contaktliste
+function processContacts(contactList) {      // sollte kontakte sortieren.. funktioniert erst nach reload
   let currentLetter = "";
   for (let i = 0; i < allContacts.names.length; i++) {
     let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
@@ -183,23 +184,23 @@ function processContacts(contactList) {      // sollte kontakte sortieren.. und 
   }
 }
 
-function renderContactList() {   // Hilfsfunktion, zum cleanen, updaten und rendern der Kontaktliste
+function renderContactList() { 
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
   processContacts(contactList);
   updateContacts(responseToJson);
 }
 
-function openContact(index) { // öffnet den Kontakt.. funktioniert noch nicht einwandfrei
+function openContact(index) { //erstellte img werden oval gerendert in der information// öffnet den Kontakt.. funktioniert noch nicht einwandfrei // muss noch eine move out animation erhalten und auf anderen kontakt die farbe verlieren
   let contactSection = document.getElementById("contact-section");
   let contactList = document.getElementById(`contactlist-overlay(${index})`);
 
   if (contactList.classList.contains("bg-color-dg")) {
-    // Rückgängig machen, falls bereits ausgeführt
+ 
     contactList.classList.remove("bg-color-dg");
     contactSection.classList.add("d-none");
   } else {
-    // Klassen hinzufügen, falls noch nicht ausgeführt
+   
     contactList.classList.add("bg-color-dg");
     contactSection.classList.remove("d-none");
     renderContactSection(index);
@@ -237,31 +238,31 @@ function renderContactSection(index) {// renderfunktion der Kontaktinformationen
 
 
 
-function formSubmit(event) {  // verhindert das reloaden nacg sumit
+function formSubmit(event) {
   event.preventDefault();
 
-  const newContact = { // erstellt neuen kontakt mit vorgegebenen keys
+  const newContact = { 
     name: document.getElementById("name").value,
     mail: document.getElementById("mail").value,
     phone: document.getElementById("phone").value,
     img: document.getElementById("prof-img").value,
   };
 
-  postData(newContact); // postet diesen neuen kontakt
+  postData(newContact); 
   closeFormfield(); 
 }
 
-function setupForm() {  // aktiviert das submitform
+function setupForm() {  
   const form = document.getElementById("contact-form");
   form.addEventListener("submit", formSubmit);
 }
 
-function showFormField() { // zeigt das sumbmitform an 
+function showFormField() { 
   document.getElementById("add-contact-section").classList.remove("d-none");
   document.addEventListener("click", outsideForm);
 }
 
-function outsideForm(event) { // schließen des Form bei klick außerhalb
+function outsideForm(event) { 
   let section = document.getElementById("add-contact-section");
   if (
     !section.contains(event.target) &&
@@ -271,7 +272,7 @@ function outsideForm(event) { // schließen des Form bei klick außerhalb
   }
 }
 
-function closeFormfield() { // schließt das formfield
+function closeFormfield() { 
   document.getElementById("name").value = "";
   document.getElementById("mail").value = "";
   document.getElementById("phone").value = "";
