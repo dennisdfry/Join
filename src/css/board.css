@@ -116,3 +116,11 @@
 .board-task-column-left{
     padding-left: 76px;
 }
+.board-task-container{
+    border-radius: 10px;
+    width:263px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin:24px;
+}

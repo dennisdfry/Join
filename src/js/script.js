@@ -54,38 +54,45 @@ function toggleElement(elementClass, className) {
   }
 }
 
-async function loadingBoard(){
-    try {
-       let task = await onloadDataBoard("/tasks"); 
-       let taskkeys = Object.keys(task);
-    
-       for (let index = 0; index < taskkeys.length; index++) {
-        const element = taskkeys[index];
-        const taskArray = task[element]; 
-        let category = await taskArray[0].category;
-        let description = taskArray[0].description;
-        let date = taskArray[0].dueDate;
-        let prio = taskArray[0].prio;
-        let title = taskArray[0].title;
-        let users = taskArray[0].assignedTo;
-        let subtasks = taskArray[0].subtasks;
+async function loadingBoard() {
+  try {
+      let task = await onloadDataBoard("/tasks");
+      let taskkeys = Object.keys(task);
 
-        let position = document.getElementById(`todo${taskkeys}`);
-        console.log(position)
-        position.innerHTML += `
-          <div>
-            <h1>${category}</h1>
-          </div>
-        `;
-        console.log(element);
-        console.log(taskArray);
-       }
-      
-      
-    } catch (error) {
-        console.log("error")
-    }
-    
+      for (let index = 0; index < taskkeys.length; index++) {
+          const element = taskkeys[index];
+          const taskArray = task[element];
+          let category = taskArray[0].category;
+          let description = taskArray[0].description;
+          let date = taskArray[0].dueDate;
+          let prio = taskArray[0].prio;
+          let title = taskArray[0].title;
+          let users = taskArray[0].assignedTo;
+          let subtasks = taskArray[0].subtasks;
+
+          let position = document.getElementById('todo');
+          if (position) {
+              position.innerHTML += `
+                  <div class="board-task-container">
+                      <h1>${category}</h1>
+                      <p>${description}</p>
+                      <p>${date}</p>
+                      <p>${prio}</p>
+                      <p>${title}</p>
+                      <p>${users}</p>
+                      <p>${subtasks}</p>
+                  </div>
+              `;
+              console.log(element);
+              console.log(taskArray);
+          } else {
+              console.log(`Element mit ID 'todo${index}' nicht gefunden.`);
+          }
+      }
+
+  } catch (error) {
+      console.log("Fehler beim Laden:", error);
+  }
 }
 async function onloadDataBoard(path="") {
     let response = await fetch(BASE_URL + path + '.json');
