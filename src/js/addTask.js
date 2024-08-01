@@ -93,24 +93,52 @@ function showCheckboxes() {
     }
 }
 
-function createTask() {
-    let taskTitle = document.getElementById('title');
-    let taskDescription = document.getElementById('description');
-    let dueDateTask = document.getElementById('dueDate');
-    let taskCategory = document.getElementById('taskCategory');
+// function createTask() {
+//     let taskTitle = document.getElementById('title');
+//     let taskDescription = document.getElementById('description');
+//     let dueDateTask = document.getElementById('dueDate');
+//     let taskCategory = document.getElementById('taskCategory');
+//     let lastString = prioArray.pop();
+//     addTaskArray.push({
+//         title: taskTitle.value,
+//         description: taskDescription.value,
+//         assignedTo: assignedToUserArray,
+//         dueDate: dueDateTask.value,
+//         prio: lastString,
+//         category: taskCategory.value,
+//         subtasks: subtasksArray
+//     });
+//     console.log(addTaskArray);
+// }
+function createTask(event) {
+    event.preventDefault();
+    let form = event.target;
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return false;
+    }
+    let taskTitle = document.getElementById('title').value;
+    let taskDescription = document.getElementById('description').value;
+    let dueDateTask = document.getElementById('dueDate').value;
+    let taskCategory = document.getElementById('taskCategory').value;
     let lastString = prioArray.pop();
+    
     addTaskArray.push({
-        title: taskTitle.value,
-        description: taskDescription.value,
+        title: taskTitle,
+        description: taskDescription,
         assignedTo: assignedToUserArray,
-        dueDate: dueDateTask.value,
+        dueDate: dueDateTask,
         prio: lastString,
-        category: taskCategory.value,
+        category: taskCategory,
         subtasks: subtasksArray
     });
     console.log(addTaskArray);
+    // Clear form or any other logic after creating the task
+    form.reset();
+    prioArray = [];
+    assignedToUserArray = [];
+    subtasksArray = [];
 }
-
 function prio(id) {
     const buttons = document.querySelectorAll('.add-task-prio-button-container button');
     

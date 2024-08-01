@@ -11,7 +11,8 @@
 </head>
 
 <body class="background-main">
-    <form class="add-Task-Container">
+    <form onsubmit=" return createTask(event)" class="add-Task-Container">
+        <!-- <form onsubmit="return createTask(event)" class="add-task-container" novalidate> -->
         <section class="add-task-head">
             <h1>Add Task</h1>
             <div class="add-task-close-button">
@@ -32,7 +33,7 @@
                     <label for="assignedTo">Assigned to</label>
                     <div class="multiselect">
                         <div class="selectBox" onclick="showCheckboxes()">
-                            <select class="add-task-select">
+                            <select required class="add-task-select">
                                 <option>Select an option</option>
                             </select>
                             <div class="overSelect"></div>
@@ -75,7 +76,7 @@
                     </select>
                     <label for="subtasks">Subtasks</label>
                     <div class="input-with-button">
-                        <input required type="text" minlength="2" class="add-task-input" placeholder="Add item"
+                        <input type="text" minlength="2" class="add-task-input" placeholder="Add item"
                             id="subtasks" name="subtasks">
                         <div id="subtasksControl" class="subtasks-control">
                             <button onclick="showSubtaskControls()" type="button" id="subtasksPlus" class="add-task-button">
@@ -91,10 +92,10 @@
         <section class="add-task-finish-section">
             <p><span class="red-star">*</span>This field is required</p>
             <div class="add-task-finish-button-container">
-                <button onclick="cancelTask()" class="add-task-cancel-button">
+                <button class="add-task-cancel-button">
                     <span>Cancel <span>x</span></span>
                 </button>
-                <button onclick="createTask()" class="add-task-create-button">
+                <button class="add-task-create-button">
                     <span>Create Task</span>
                     <img src="../public/img/check.svg" alt="">
                 </button>
