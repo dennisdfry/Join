@@ -9,8 +9,11 @@ async function includeHTML() {
       let resp = await fetch(sanitizedUrl);
       if (resp.ok) {
         element.innerHTML = await resp.text();
-        if (file.includes('addTask.html') || file.includes('contacts.html'))  {
+        if (file.includes('addTask.html'))  {
           init();
+        }
+        if (file.includes('contacts.html')) {
+          initContacts();
         }
       } else {
         element.innerHTML = 'Page not found';

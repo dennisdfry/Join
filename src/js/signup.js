@@ -1,3 +1,5 @@
+import { nameInput, mailInput, passwordInput, confirmPasswordInput, submitButton } from "./variables.js";
+
 function home() {
   window.location.replace("/public/login.html");
 }
@@ -53,6 +55,7 @@ function showSuccessMessage(message) {
   updateButtonText(message);
   setTimeout(() => {
     updateButtonText("Sign up");
+    home();
   }, 2000);
 }
 
@@ -67,3 +70,27 @@ function clearInput() {
 function updateButtonText(newText) {
   document.getElementById("success").textContent = newText;
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  function validateForm() {
+    const isFormValid =
+      nameInput.value.trim() !== '' &&
+      mailInput.value.trim() !== '' &&
+      passwordInput.value.trim() !== '' &&
+      confirmPasswordInput.value.trim() !== '';
+
+    submitButton.disabled = !isFormValid;
+    if (isFormValid) {
+      submitButton.classList.remove('disabled')
+    } else {
+      submitButton.classList.add('disabled');
+    }
+  }
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', validateForm);
+  });
+  validateForm();
+});
+
+window.home = home;
+window.signUp = signUp;
