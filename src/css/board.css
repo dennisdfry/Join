@@ -124,3 +124,12 @@
     padding: 24px;
     margin:24px;
 }
+.board-task-container h1{
+    background-color: rgb(0, 56, 255);
+    border-radius: 10px;
+    padding-top:4px;
+    padding-right: 16px;
+    padding-left:16px;
+    padding-bottom:4px;
+    color:rgb(255, 255, 255);
+}

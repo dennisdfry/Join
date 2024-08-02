@@ -80,13 +80,22 @@ async function loadingBoard() {
           if (position) {
               position.innerHTML += `
                   <div class="board-task-container">
+                    <div class="d-flex-start">
                       <h1>${category}</h1>
+                    </div>
+                    <div>
+                      <h2>${title}</h2> 
+                    </div>
+                    <div>  
                       <p>${description}</p>
+                    </div> 
+                    <div>
+                    ${subtasks.length}
+                    </div> 
                       <p>${date}</p>
                       <p>${prio}</p>
-                      <p>${title}</p>
                       <p>${users}</p>
-                      <p>${subtasks}</p>
+                      <p></p>
                   </div>
               `;
               console.log(element);
