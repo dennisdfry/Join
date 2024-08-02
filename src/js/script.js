@@ -75,7 +75,9 @@ async function loadingBoard() {
           let title = taskArray[0].title;
           let users = taskArray[0].assignedTo;
           let subtasks = taskArray[0].subtasks;
-
+          let images = taskArray[0].assignedTo;
+          imagesNames(images);
+          console.log(imagesNames)
           let position = document.getElementById('todo');
           if (position) {
               position.innerHTML += `
@@ -92,23 +94,36 @@ async function loadingBoard() {
                     <div>
                     ${subtasks.length}
                     </div> 
+                    <div>
+                      <img src="" alt="">
+                    </div>
                       <p>${date}</p>
                       <p>${prio}</p>
                       <p>${users}</p>
                       <p></p>
                   </div>
               `;
+          
               console.log(element);
               console.log(taskArray);
           } else {
               console.log(`Element mit ID 'todo${index}' nicht gefunden.`);
           }
-      }
+      
+    }
 
   } catch (error) {
       console.log("Fehler beim Laden:", error);
   }
 }
+function imagesNames(images){
+  for (let index = 0; index < images.length; index++) {
+      const imageUrl = images[index].image;
+      console.log(imageUrl);
+      
+  }
+}
+
 async function onloadDataBoard(path="") {
     let response = await fetch(BASE_URL + path + '.json');
     let responseToJson = await response.json();
