@@ -12,25 +12,23 @@
 
   <body onload="initContacts()">
 
-    <div id="contactlist-section">
-        <div class="contactlist-btn-box d-flex-center">
-          <button id="add-contact-btn" class="d-flex-center pointer" onclick="showFormField()">
-            <p>Add new contact</p>
-            <img src="./img/person_add.png" />
-          </button>
-        </div>
-        <div id="contactlist-content">
-
-        </div>
+    <div id="contactlist-section" class="bg-color-wh pos-abs" style="width: 456px; height: 928px;">  
+      <div class="contactlist-btn-box d-flex-center bg-color-wh" style="height: 101px; position: sticky; top: 0.1px;">
+        <button id="add-contact-btn" class="d-flex-center fs-21 pointer bg-color-dg b-unset bradius10" style="width: 352px; height: 56px; padding: 12px 0px 12px 0px;" onclick="showFormField()">
+          <p class="f-weight-700 color-wh">Add new contact</p>
+          <img src="./img/person_add.png" class="p-l-16" style="width: 32px; height: 32px;" />
+        </button>
+      </div>
+      <div id="contactlist-content" class="flex-d-col b-unset d-flex-start"></div>    <!-- Wenn der contactlist-content gescrollt wird wird der container in den dev-tools hochgescrollt bis zum anschlag, weswegen man den unterstern eintrag nicht mehr sieht -->
     </div>
 
-    <div class="contact-section-header">
-        <h1>Contacts</h1>
+    <div class="contact-section-header d-flex flex-d-row item-center pos-abs">
+        <h1 class="mg-block-inline fs-61 f-weight-700"  style="width: 274px;">Contacts</h1>
         <div class="contact-section-seperator"></div>
-        <p>Better with a team</p>
+        <p class="mg-block-inline fw-400 no-wrap-text">Better with a team</p>
     </div>
 
-    <div id="contact-section"></div>
+    <div id="contact-section" class="pos-abs d-flex flex-d-col"></div>
     
     <div id="add-contact-section" class="d-none">
       <div class="add-contact-content-left-box bg-color-dg">

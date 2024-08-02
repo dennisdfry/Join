@@ -147,7 +147,7 @@ function sortContacts() {
 function renderCurrentLetter(contactList, letter) {
   // rendern zu der Kontaktliste einen Seperator
   contactList.innerHTML += `
-    <div class="contactlist-order-letter">${letter}</div>
+    <div class="contactlist-order-letter d-flex fw-400 fs-20">${letter}</div>
     <div class="contactlist-seperator"></div>
   `;
 }
@@ -166,11 +166,11 @@ function processContacts(contactList) {
       : generateProfileImage(allContacts.names[i]);
 
     contactList.innerHTML += `
-      <div id="contactlist-overlay(${i})" class="contactlist-overlay" onclick="openContact(${i})">
-        <img class="pll-24 pointer" src="${imageSrc}" alt="Contact Image"/>
-        <div class="contactlist-databox">
-          <div class="contactlist-databox-name pointer">${allContacts.names[i]}</div>
-          <a class="contactlist-databox-mail " href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+      <div id="contactlist-information(${i})" class="contactlist-information bradius10 d-flex item-center flex-d-row" onclick="openContact(${i})">
+        <img class="pll-24 pointer" src="${imageSrc}" style="width: 42px; height: 42px;"/>
+        <div class="contactlist-databox flex-d-col">
+          <div class="no-wrap-text fw-400 fs-20 pointer" style="height: 24px;">${allContacts.names[i]}</div>
+          <a class="contactlist-databox-mail color-lb fs-16" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
         </div>
       </div>
     `;
@@ -187,7 +187,7 @@ function renderContactList() {
 function openContact(index) {
   //erstellte img werden oval gerendert in der information// öffnet den Kontakt.. funktioniert noch nicht einwandfrei // muss noch eine move out animation erhalten und auf anderen kontakt die farbe verlieren
   let contactSection = document.getElementById("contact-section");
-  let contactList = document.getElementById(`contactlist-overlay(${index})`);
+  let contactList = document.getElementById(`contactlist-information(${index})`);
 
   if (contactList.classList.contains("bg-color-dg")) {
     contactList.classList.remove("bg-color-dg");
@@ -207,10 +207,10 @@ function renderContactSection(index) {
   contactSection.innerHTML = "";
 
   contactSection.innerHTML = `
-    <div class="contact-section-content">
-      <img src="${allContacts.images[index]}"/>
-      <div class="contact-section-data">
-        <p>${allContacts.names[index]}</p>
+    <div class="contact-section-content item-center d-flex">
+      <img src="${allContacts.images[index]}" class="d-flex"/>
+      <div class="contact-section-data d-flex flex-d-col">
+        <p class="mg-block-inline fw-500 no-wrap-text fs-47">${allContacts.names[index]}</p>
         <div class="contact-section-btn-box">
           <button class="pointer d-flex-center" onclick="openEditForm(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
           <button class="pointer d-flex-center" onclick="deleteData(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
