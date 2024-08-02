@@ -38,17 +38,6 @@ async function fetchContacts(responseToJson) {
     return contacts;
 }
 
-async function fetchImages() {
-    try {
-        let fireBaseData = await onloadData("/");
-        let contacts = fireBaseData.contacts;
-        let imageUrls = Object.values(contacts).map(contact => contact.img);
-        return imageUrls;
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Bilder:", error);
-    }
-}
-
 async function assignedTo(contacts, image) {
     const extractNames = (contacts) => {
         return Object.values(contacts).map(entry => ({ name: entry.name }));
@@ -58,21 +47,29 @@ async function assignedTo(contacts, image) {
     position.innerHTML = '';
     let list = ''; // Initialisierung des Strings
     for (let index = 0; index < names.length; index++) {
-        const element = names[index];
+        const element = names[index].name;
+        console.log(element);
         const imgSrc = image[index]; // Bild-URL holen
+        console.log(imgSrc)
         list += `
             <label class="checkBoxFlex" for="checkbox-${index}">
                 <div>
-                    <img src="${imgSrc}" alt="${element.name}" />
-                    ${element.name}
+                    <img src="${imgSrc}" alt="${element}" />
+                    ${element}
                 </div>
-                <input type="checkbox" id="checkbox-${index}" value="${element.name}" onclick="assignedToUser('${element.name}')" />
+                <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${element}', '${imgSrc}')" />
             </label>`;
     }
     position.innerHTML = list; // HTML-Inhalt setzen
 }
-function assignedToUser(element) {
-    assignedToUserArray.push(element);
+function assignedToUser(element, image) {
+    const index = assignedToUserArray.findIndex(entry => entry.element === element);
+    if (index !== -1) {
+        assignedToUserArray.splice(index, 1);
+    } else {
+        assignedToUserArray.push({ element, image });
+    }
+    console.log(assignedToUserArray);
 }
 
 function showCheckboxes() {
@@ -109,9 +106,7 @@ function createTask(event) {
         subtasks: subtasksArray
     });
     saveToFirebase();
-    // Clear form or any other logic after creating the task
     form.reset();
-
 }
 
 async function saveToFirebase(path="/tasks"){

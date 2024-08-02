@@ -60,11 +60,11 @@ function toggleElement(elementClass, className) {
   }
 }
 
+
 async function loadingBoard() {
   try {
       let task = await onloadDataBoard("/tasks");
       let taskkeys = Object.keys(task);
-
       for (let index = 0; index < taskkeys.length; index++) {
           const element = taskkeys[index];
           const taskArray = task[element];
