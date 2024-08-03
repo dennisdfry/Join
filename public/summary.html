@@ -37,7 +37,7 @@
                 />
               </div>
               <div class="summary-to-do-right d-flex-center flex-d-col">
-                <span class="fs-64 fw-600">1</span>
+                <span class="fs-64 fw-600" id="smry-to-do-val"></span>
                 <span class="fs-20 color-bg">To-do</span>
               </div>
             </div>
@@ -58,7 +58,7 @@
                 />
               </div>
               <div class="summary-done-right d-flex-center flex-d-col">
-                <span class="fs-64 fw-600">1</span>
+                <span class="fs-64 fw-600" id="smry-done-val">0</span>
                 <span class="fs-20 color-bg">Done</span>
               </div>
             </div>
@@ -81,7 +81,7 @@
                 />
               </div>
               <div class="summary-urgent-right d-flex-center flex-d-col">
-                <span class="fs-64 fw-600">1</span>
+                <span class="fs-64 fw-600" id="smry-urgent-val">0</span>
                 <span class="fs-20 color-bg">Urgent</span>
               </div>
             </div>
@@ -100,7 +100,7 @@
               class="summary-task-in-board d-flex-center flex-d-col pointer smry-btn"
               onclick="changeSite('board.html')"
             >
-              <span class="fs-64 fw-600">5</span>
+              <span class="fs-64 fw-600" id="smry-board-val">0</span>
               <span class="fs-20 color-dg txt-center plr-20"
                 >Tasks in Board</span
               >
@@ -109,7 +109,7 @@
               class="summary-task-in-progress d-flex-center flex-d-col pointer smry-btn"
               onclick="changeSite('board.html')"
             >
-              <span class="fs-64 fw-600">2</span>
+              <span class="fs-64 fw-600" id="smry-progress-val">0</span>
               <span class="fs-20 color-dg txt-center plr-20"
                 >Tasks in Progress</span
               >
@@ -118,7 +118,7 @@
               class="summary-task-feedback d-flex-center flex-d-col pointer smry-btn"
               onclick="changeSite('board.html')"
             >
-              <span class="fs-64 fw-600">2</span>
+              <span class="fs-64 fw-600" id="smry-feedback-val">0</span>
               <span class="fs-20 color-dg txt-center plr-20"
                 >Awating Feedback</span
               >
@@ -132,6 +132,7 @@
       </section>
     </div>
 
+    <script src="/src/js/firebase_init.js"></script>
     <script src="/src/js/script.js"></script>
     <script src="/src/js/summary.js"></script>
   </body>

@@ -18,6 +18,9 @@ async function includeHTML() {
         if (file.includes('board.html')) {
           loadingBoard();
         }
+        if (file.includes('summary.html')) {
+          initSmry();
+        }
       } else {
         element.innerHTML = 'Page not found';
       }
