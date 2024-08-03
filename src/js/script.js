@@ -80,6 +80,7 @@ async function loadingBoard() {
           console.log(prio);
           let title = taskArray[0].title;
           let users = taskArray[0].assignedTo;
+          console.log(users);
           let subtasks = taskArray[0].subtasks;
           let position = document.getElementById('todo');
           if (position) {
@@ -115,7 +116,9 @@ function searchprio(prio){
 function openTaskToBoard() {
   let position = document.getElementById('parentContainer'); 
   let positionOfDate = document.getElementById('dateTask');
+  let positionOfPrio = document.getElementById('prioTask');
   positionOfDate.classList.remove('d-none');
+  positionOfPrio.classList.remove('d-none');
   position.classList.remove('board-task-container');
   let parentDiv = document.createElement('div');
   parentDiv.id = 'parent-container';
@@ -146,6 +149,9 @@ async function htmlboard(category, title, description, subtasks, users, date, pr
                     <div class="d-none" id="dateTask">
                       <time>${date}</time>
                     </div>
+                    <div class="d-none" id="prioTask">
+                      <p></p><span>${prio}</span>
+                    </div>
                     <div class="progress-container d-flex-between">
                       <div class="progress-bar" style="width: 50%;"></div><div>${subtasks.length}Subtasks</div> <!-- Set width based on the progress -->
                     </div>
@@ -167,6 +173,7 @@ async function searchIndexUrl(users, fetchImage){
     const element = users[index];
     let imageUrl = fetchImage[element];
     console.log(imageUrl);
+    
     position.innerHTML += await htmlBoardImage(imageUrl);
   }
 }

@@ -55,7 +55,7 @@ async function assignedTo(contacts, imageUrls) {
             list += `
                 <label class="checkBoxFlex" for="checkbox-${index}">
                     <div>
-                        <img src="${imgSrc}" alt="${element}" />
+                        <img src="${imgSrc}" alt="" />
                         ${element}
                     </div>
                     <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser(${index})" />
