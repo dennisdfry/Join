@@ -83,7 +83,7 @@ async function loadingBoard() {
           let subtasks = taskArray[0].subtasks;
           let position = document.getElementById('todo');
           if (position) {
-              position.innerHTML += await htmlboard(category, title, description, subtasks, users);
+              position.innerHTML += await htmlboard(category, title, description, subtasks, users, date, prio);
               await searchIndexUrl(users, fetchImage);
               searchprio(prio);
           } else {
@@ -111,20 +111,12 @@ function searchprio(prio){
     }
   }
 }
-// function openTaskToBoard(){
-//   let position = document.getElementById('parentContainer'); 
-//   let parentDiv = document.createElement('div');
-//   parentDiv.id = 'parent-container';
-
-//   parentDiv.className = 'modal';
-
-//             // Das vorhandene Element in den neuen übergeordneten Container verschieben
-//             position.parentNode.insertBefore(parentDiv, position);
-//             parentDiv.appendChild(position);
-  
 
 function openTaskToBoard() {
   let position = document.getElementById('parentContainer'); 
+  let positionOfDate = document.getElementById('dateTask');
+  positionOfDate.classList.remove('d-none');
+  position.classList.remove('board-task-container');
   let parentDiv = document.createElement('div');
   parentDiv.id = 'parent-container';
   parentDiv.className = 'modal';
@@ -138,7 +130,7 @@ function openTaskToBoard() {
   overlay.className = 'modal-overlay';
   document.body.appendChild(overlay);
 }
-async function htmlboard(category, title, description, subtasks){
+async function htmlboard(category, title, description, subtasks, users, date, prio){
   return `
  
                   <div onclick="openTaskToBoard()" class="board-task-container" id="parentContainer">
@@ -151,6 +143,9 @@ async function htmlboard(category, title, description, subtasks){
                     <div>  
                       <p>${description}</p>
                     </div> 
+                    <div class="d-none" id="dateTask">
+                      <time>${date}</time>
+                    </div>
                     <div class="progress-container d-flex-between">
                       <div class="progress-bar" style="width: 50%;"></div><div>${subtasks.length}Subtasks</div> <!-- Set width based on the progress -->
                     </div>
