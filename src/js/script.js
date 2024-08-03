@@ -78,13 +78,16 @@ async function loadingBoard() {
           let description = taskArray[0].description;
           let date = taskArray[0].dueDate;
           let prio = taskArray[0].prio;
+         
+          console.log(prio);
           let title = taskArray[0].title;
           let users = taskArray[0].assignedTo;
           let subtasks = taskArray[0].subtasks;
           let position = document.getElementById('todo');
           if (position) {
-              position.innerHTML += htmlboard(category, title, description, subtasks, users);
+              position.innerHTML += await htmlboard(category, title, description, subtasks, users);
               await searchIndexUrl(users, fetchImage);
+              searchprio(prio);
           } else {
               console.log(`Element mit ID 'todo${index}' nicht gefunden.`);
           }
@@ -95,7 +98,22 @@ async function loadingBoard() {
       console.log("Fehler beim Laden:", error);
   }
 }
-function htmlboard(category, title, description, subtasks){
+function searchprio(prio){
+  let position = document.getElementById('prioPosition');
+  position.innerHTML = '';
+  if(prio == 'Urgent'){
+    position.innerHTML = `<img src="../public/img/Prio alta.png" alt="">`;
+  }else{
+    if(prio == 'Medium'){
+      position.innerHTML = `<span>=</span>`;
+    }else{
+      if(prio == 'Low'){
+        position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
+      }
+    }
+  }
+}
+async function htmlboard(category, title, description, subtasks){
   return `
                   <div class="board-task-container">
                     <div class="d-flex-start">
@@ -107,14 +125,15 @@ function htmlboard(category, title, description, subtasks){
                     <div>  
                       <p>${description}</p>
                     </div> 
-                    <div class="progress-container">
-                      <div class="progress-bar" style="width: 50%;"></div><div>${subtasks.length}</div> <!-- Set width based on the progress -->
+                    <div class="progress-container d-flex-between">
+                      <div class="progress-bar" style="width: 50%;"></div><div>${subtasks.length}Subtasks</div> <!-- Set width based on the progress -->
                     </div>
-                    <div id="userImageBoard">
-                    </div>
-                    <div>
-
-                    </div>
+                    <div class="d-flex-between">
+                      <div id="userImageBoard">
+                      </div>
+                      <div id="prioPosition">
+                      </div>
+                    </div>  
                   </div>
               `;
 }
@@ -124,11 +143,13 @@ async function searchIndexUrl(users, fetchImage){
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
-    position.innerHTML +=`
-    <img src="${imageUrl}">`;
-    
+    console.log(imageUrl);
+    position.innerHTML += await htmlBoardImage(imageUrl);
   }
-  
+}
+
+async function htmlBoardImage(imageUrl){
+  return `<img src="${imageUrl}">`;
 }
 
 async function fetchImagesBoard(path=""){

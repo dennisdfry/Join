@@ -111,6 +111,7 @@ function createTask(event) {
     });
     saveToFirebase();
     form.reset();
+    addTaskArray = [];
 }
 
 async function saveToFirebase(path="/tasks"){
