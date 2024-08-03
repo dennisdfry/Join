@@ -153,12 +153,30 @@
     position: fixed;
     top: 50%;
     left: 50%;
+    height:931px;
+    width:525px;
     transform: translate(-50%, -50%);
     z-index: 1000;
     background-color: white;
     padding: 20px;
-    border: 2px solid black;
+   border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.modal h1{
+    background-color: rgb(0, 56, 255);
+    border-radius: 10px;
+    padding-top:4px;
+    padding-right: 24px;
+    padding-left:24px;
+    padding-bottom:4px;
+    color:rgb(255, 255, 255);  
+    font-size: 23px;
+}
+.modal h2{
+    font-size: 61px;
+}
+.modal p{
+    font-size: 20px;
 }
 
 .modal-overlay {
