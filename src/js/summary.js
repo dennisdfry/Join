@@ -6,6 +6,7 @@ function currentDate() {
   
 function initSmry() {
   summaryGreeting();
+  updateTaskCounts();
 }
 
   async function summaryGreeting() {
@@ -49,7 +50,16 @@ function initSmry() {
 var database = firebase.database();
 var tasksRef = database.ref('tasks');
 
-tasksRef.on('value', function(snapshot) {
-  var taskCount = snapshot.numChildren();
-  document.getElementById('smry-to-do-val').innerText = taskCount;
+function updateTaskCounts() {
+  tasksRef.on('value', function(snapshot) {
+    var taskCount = snapshot.numChildren();
+    var todoValElement = document.getElementById('smry-to-do-val');
+    if (todoValElement) {
+      todoValElement.innerText = taskCount;
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initSmry();
 });
