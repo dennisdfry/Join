@@ -133,3 +133,16 @@
     padding-bottom:4px;
     color:rgb(255, 255, 255);
 }
+.progress-container {
+    width: 128px;
+    height: 8px;
+    background-color: #e0e0e0; /* Light grey background for the container */
+    border-radius: 4px; /* Rounded corners */
+    overflow: hidden; /* Ensures that the bar stays within the container */
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: rgb(69, 137, 255); /* Color of the progress bar */
+    border-radius: 4px 0 0 4px; /* Rounded corners for the progress bar */
+  }

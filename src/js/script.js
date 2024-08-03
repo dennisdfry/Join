@@ -81,14 +81,10 @@ async function loadingBoard() {
           let title = taskArray[0].title;
           let users = taskArray[0].assignedTo;
           let subtasks = taskArray[0].subtasks;
-          
-          
           let position = document.getElementById('todo');
           if (position) {
-              position.innerHTML += htmlboard(category, title, description, subtasks, users)
-              console.log(element);
+              position.innerHTML += htmlboard(category, title, description, subtasks, users);
               await searchIndexUrl(users, fetchImage);
-              console.log(searchIndexUrl);
           } else {
               console.log(`Element mit ID 'todo${index}' nicht gefunden.`);
           }
@@ -99,7 +95,7 @@ async function loadingBoard() {
       console.log("Fehler beim Laden:", error);
   }
 }
-function htmlboard(category, title, description, subtasks, users){
+function htmlboard(category, title, description, subtasks){
   return `
                   <div class="board-task-container">
                     <div class="d-flex-start">
@@ -111,30 +107,23 @@ function htmlboard(category, title, description, subtasks, users){
                     <div>  
                       <p>${description}</p>
                     </div> 
-                    <div>
-                    ${subtasks.length}
-                    </div> 
-                    <div id="userImageBoard">
-                    
+                    <div class="progress-container">
+                      <div class="progress-bar" style="width: 50%;"></div><div>${subtasks.length}</div> <!-- Set width based on the progress -->
                     </div>
-                      <p></p>
-                      <p></p>
-                      <p>${users}</p>
-                      <p></p>
+                    <div id="userImageBoard">
+                    </div>
+                    <div>
+
+                    </div>
                   </div>
               `;
 }
 async function searchIndexUrl(users, fetchImage){
-  console.log(users);
-  console.log(fetchImage)
   let position = document.getElementById('userImageBoard');
   position.innerHTML = '';
-  
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
-    console.log(element);
     let imageUrl = fetchImage[element];
-    console.log(imageUrl);
     position.innerHTML +=`
     <img src="${imageUrl}">`;
     
