@@ -4,6 +4,10 @@ function currentDate() {
     document.querySelector('.summary-tasks-mid-right-date').innerHTML = date;
   }
   
+function initSmry() {
+  summaryGreeting();
+}
+
   async function summaryGreeting() {
     const hour = new Date().getHours();
     const greetingElement = document.querySelector('.summary-user-greeting');
