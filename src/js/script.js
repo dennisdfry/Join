@@ -60,11 +60,17 @@ function toggleElement(elementClass, className) {
   }
 }
 
-
+// async function fetchImagesBoard() {
+//   console.log('hallo')
+//   let contacts = await onloadDataBoard("/contacts");
+//   console.log(contacts);
+// }
 async function loadingBoard() {
   try {
       let task = await onloadDataBoard("/tasks");
       let taskkeys = Object.keys(task);
+      let fetchImage = await fetchImagesBoard("/");
+      console.log(fetchImage);
       for (let index = 0; index < taskkeys.length; index++) {
           const element = taskkeys[index];
           const taskArray = task[element];
@@ -75,12 +81,26 @@ async function loadingBoard() {
           let title = taskArray[0].title;
           let users = taskArray[0].assignedTo;
           let subtasks = taskArray[0].subtasks;
-          let images = taskArray[0].assignedTo;
-          imagesNames(images);
-          console.log(imagesNames)
+          
+          
           let position = document.getElementById('todo');
           if (position) {
-              position.innerHTML += `
+              position.innerHTML += htmlboard(category, title, description, subtasks, users)
+              console.log(element);
+              await searchIndexUrl(users, fetchImage);
+              console.log(searchIndexUrl);
+          } else {
+              console.log(`Element mit ID 'todo${index}' nicht gefunden.`);
+          }
+      
+    }
+
+  } catch (error) {
+      console.log("Fehler beim Laden:", error);
+  }
+}
+function htmlboard(category, title, description, subtasks, users){
+  return `
                   <div class="board-task-container">
                     <div class="d-flex-start">
                       <h1>${category}</h1>
@@ -94,42 +114,47 @@ async function loadingBoard() {
                     <div>
                     ${subtasks.length}
                     </div> 
-                    <div>
-                      <img src="" alt="">
+                    <div id="userImageBoard">
+                    
                     </div>
-                      <p>${date}</p>
-                      <p>${prio}</p>
+                      <p></p>
+                      <p></p>
                       <p>${users}</p>
                       <p></p>
                   </div>
               `;
-          
-              console.log(element);
-              console.log(taskArray);
-          } else {
-              console.log(`Element mit ID 'todo${index}' nicht gefunden.`);
-          }
-      
-    }
-
-  } catch (error) {
-      console.log("Fehler beim Laden:", error);
-  }
 }
-function imagesNames(images){
-  for (let index = 0; index < images.length; index++) {
-      const imageUrl = images[index].image;
-      console.log(imageUrl);
-      
+async function searchIndexUrl(users, fetchImage){
+  console.log(users);
+  console.log(fetchImage)
+  let position = document.getElementById('userImageBoard');
+  position.innerHTML = '';
+  
+  for (let index = 0; index < users.length; index++) {
+    const element = users[index];
+    console.log(element);
+    let imageUrl = fetchImage[element];
+    console.log(imageUrl);
+    position.innerHTML +=`
+    <img src="${imageUrl}">`;
+    
   }
+  
+}
+
+async function fetchImagesBoard(path=""){
+  let response = await fetch(BASE_URL + path + '.json');
+    let responseToJson = await response.json();
+    let contacts = responseToJson.contacts;
+    let imageUrl = Object.values(contacts).map(contacts => contacts.img);
+    return imageUrl;
 }
 
 async function onloadDataBoard(path="") {
     let response = await fetch(BASE_URL + path + '.json');
     let responseToJson = await response.json();
     return responseToJson;
+    
 }
 
-// async function showTaskContent(task, taskkeys){
 
-// }

@@ -3,8 +3,10 @@ let subtasksArray = [];
 let prioArray = [];
 let addTaskArray = [];
 let expanded = false;
-let assignedToUserArray = [];
 let isValid = true;
+let assignedToUserArray = []; // Globale Variable zur Speicherung der ausgewählten Indizes
+let imageUrlsGlobal = []; // Globale Variable zur Speicherung der Bild-URLs
+
 async function init() {
     try {
         let fireBaseData = await onloadData("/");
@@ -38,40 +40,42 @@ async function fetchContacts(responseToJson) {
     return contacts;
 }
 
-async function assignedTo(contacts, image) {
-    const extractNames = (contacts) => {
-        return Object.values(contacts).map(entry => ({ name: entry.name }));
-    };
-    const names = extractNames(contacts);
-    let position = document.getElementById('checkboxes');
-    position.innerHTML = '';
-    let list = ''; // Initialisierung des Strings
-    for (let index = 0; index < names.length; index++) {
-        const element = names[index].name;
-        console.log(element);
-        const imgSrc = image[index]; // Bild-URL holen
-        console.log(imgSrc)
-        list += `
-            <label class="checkBoxFlex" for="checkbox-${index}">
-                <div>
-                    <img src="${imgSrc}" alt="${element}" />
-                    ${element}
-                </div>
-                <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${element}', '${imgSrc}')" />
-            </label>`;
+async function assignedTo(contacts, imageUrls) {
+    try {
+        const extractNames = (contacts) => {
+            return Object.values(contacts).map(entry => ({ name: entry.name }));
+        };
+        const names = extractNames(contacts);
+        let position = document.getElementById('checkboxes');
+        position.innerHTML = '';
+        let list = ''; // Initialisierung des Strings
+        for (let index = 0; index < names.length; index++) {
+            const element = names[index].name;
+            const imgSrc = imageUrls[index]; // Bild-URL holen
+            list += `
+                <label class="checkBoxFlex" for="checkbox-${index}">
+                    <div>
+                        <img src="${imgSrc}" alt="${element}" />
+                        ${element}
+                    </div>
+                    <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser(${index})" />
+                </label>`;
+        }
+        position.innerHTML = list; // HTML-Inhalt setzen
+    } catch (error) {
+        console.error(error);
     }
-    position.innerHTML = list; // HTML-Inhalt setzen
-}
-function assignedToUser(element, image) {
-    const index = assignedToUserArray.findIndex(entry => entry.element === element);
-    if (index !== -1) {
-        assignedToUserArray.splice(index, 1);
-    } else {
-        assignedToUserArray.push({ element, image });
-    }
-    console.log(assignedToUserArray);
 }
 
+async function assignedToUser(index, imageUrl) {
+    const image = imageUrlsGlobal[index]; // Bild-URL holen
+    const arrayIndex = assignedToUserArray.indexOf(index);
+    if (arrayIndex !== -1) {
+        assignedToUserArray.splice(arrayIndex, 1);
+    } else {
+        assignedToUserArray.push(index);
+    }
+}
 function showCheckboxes() {
     let checkboxes = document.getElementById("checkboxes");
     if (!expanded) {
