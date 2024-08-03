@@ -60,11 +60,6 @@ function toggleElement(elementClass, className) {
   }
 }
 
-// async function fetchImagesBoard() {
-//   console.log('hallo')
-//   let contacts = await onloadDataBoard("/contacts");
-//   console.log(contacts);
-// }
 async function loadingBoard() {
   try {
       let task = await onloadDataBoard("/tasks");
@@ -113,9 +108,37 @@ function searchprio(prio){
     }
   }
 }
+// function openTaskToBoard(){
+//   let position = document.getElementById('parentContainer'); 
+//   let parentDiv = document.createElement('div');
+//   parentDiv.id = 'parent-container';
+
+//   parentDiv.className = 'modal';
+
+//             // Das vorhandene Element in den neuen übergeordneten Container verschieben
+//             position.parentNode.insertBefore(parentDiv, position);
+//             parentDiv.appendChild(position);
+  
+
+function openTaskToBoard() {
+  let position = document.getElementById('parentContainer'); 
+  let parentDiv = document.createElement('div');
+  parentDiv.id = 'parent-container';
+  parentDiv.className = 'modal';
+
+  // Das vorhandene Element in den neuen übergeordneten Container verschieben
+  position.parentNode.insertBefore(parentDiv, position);
+  parentDiv.appendChild(position);
+
+  // Overlay hinzufügen
+  let overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  document.body.appendChild(overlay);
+}
 async function htmlboard(category, title, description, subtasks){
   return `
-                  <div class="board-task-container">
+ 
+                  <div onclick="openTaskToBoard()" class="board-task-container" id="parentContainer">
                     <div class="d-flex-start">
                       <h1>${category}</h1>
                     </div>
@@ -135,8 +158,10 @@ async function htmlboard(category, title, description, subtasks){
                       </div>
                     </div>  
                   </div>
+                  
               `;
 }
+
 async function searchIndexUrl(users, fetchImage){
   let position = document.getElementById('userImageBoard');
   position.innerHTML = '';
