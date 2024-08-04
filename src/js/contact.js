@@ -167,10 +167,10 @@ function processContacts(contactList) {
 
     contactList.innerHTML += `
       <div id="contactlist-information(${i})" class="contactlist-information bradius10 d-flex item-center flex-d-row" onclick="openContact(${i})">
-        <img class="pll-24 pointer" src="${imageSrc}" style="width: 42px; height: 42px;"/>
+        <img class="pll-24 pointer" src="${imageSrc}"/>
         <div class="contactlist-databox flex-d-col">
-          <div class="no-wrap-text fw-400 fs-20 pointer" style="height: 24px;">${allContacts.names[i]}</div>
-          <a class="contactlist-databox-mail color-lb fs-16" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+          <div class="no-wrap-text fw-400 fs-20 pointer">${allContacts.names[i]}</div>
+          <a class="color-lb fs-16 text-deco-n" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
         </div>
       </div>
     `;
@@ -218,13 +218,17 @@ function renderContactSection(index) {
       </div>
     </div>
 
-    <div id="contact-information-content">
-      <p>Contact Information</p>
-      <div class="contact-information-data">
-        <p><b>Email</b></p>
-        <a href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
-        <p><b>Phone</b></p>
-        <p>${allContacts.phones[index]}</p>
+    <div id="contact-information-content" class="d-flex flex-d-col no-wrap-text">
+      <p class="fw-400 l-height-24 fs-20 mg-block-inline">Contact Information</p>
+      <div class="contact-information-data d-flex flex-d-col gap-22">
+        <div class="d-flex flex-d-col gap-15 text-left">
+          <p class="fs-16 f-weight-700 no-wrap-text mg-block-inline l-height-19 txt-left"><b>Email</b></p>
+          <a class="pointer color-lb text-deco-n" href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
+        </div>
+        <div class="d-flex flex-d-col gap-15 text-left">
+          <p class="fs-16 f-weight-700 no-wrap-text mg-block-inline l-height-19 txt-left"><b>Phone</b></p>
+          <p class="fs-16 fw-400 no-wrap-text mg-block-inline l-height-19 txt-left">${allContacts.phones[index]}</p>
+        </div>
       </div>
     </div>`;
 }
