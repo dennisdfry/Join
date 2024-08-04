@@ -77,16 +77,18 @@ async function loadingBoard() {
           let date = taskArray[0].dueDate;
           let prio = taskArray[0].prio;
          
-          console.log(prio);
+          
           let title = taskArray[0].title;
           let users = taskArray[0].assignedTo;
-          console.log(users);
+          console.log(users)
           let subtasks = taskArray[0].subtasks;
+          console.log(subtasks);
           let position = document.getElementById('todo');
           if (position) {
               position.innerHTML += await htmlboard(category, title, description, subtasks, users, date, prio);
               await searchIndexUrl(users, fetchImage);
               searchprio(prio);
+              await subtasksRender(subtasks);
           } else {
               console.log(`Element mit ID 'todo${index}' nicht gefunden.`);
           }
@@ -95,6 +97,17 @@ async function loadingBoard() {
 
   } catch (error) {
       console.log("Fehler beim Laden:", error);
+  }
+}
+async function subtasksRender(subtasks){
+  let position = document.getElementById('subtasksBoard');
+  position.innerHTML = '';
+  for (let index = 0; index < subtasks.length; index++) {
+    const element = subtasks[index];
+    console.log(element);
+    position.innerHTML += `
+    <p>${element}</p>`;
+    
   }
 }
 function searchprio(prio){
@@ -157,6 +170,8 @@ async function htmlboard(category, title, description, subtasks, users, date, pr
                     </div>
                     <div class="d-flex-between">
                       <div id="userImageBoard">
+                      </div>
+                      <div id="subtasksBoard">
                       </div>
                       <div id="prioPosition">
                       </div>
