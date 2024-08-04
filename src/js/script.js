@@ -68,43 +68,34 @@ async function loadingBoard() {
       let task = await onloadDataBoard("/tasks");
       let taskkeys = Object.keys(task);
       let fetchImage = await fetchImagesBoard("/");
-      console.log(fetchImage);
       for (let index = 0; index < taskkeys.length; index++) {
           const element = taskkeys[index];
           const taskArray = task[element];
-          console.log(element)
-          console.log(taskArray)
           let category = taskArray[0].category;
           let description = taskArray[0].description;
           let date = taskArray[0].dueDate;
           let prio = taskArray[0].prio;
-         
-          
           let title = taskArray[0].title;
           let users = taskArray[0].assignedTo;
-          console.log(category)
           let subtasks = taskArray[0].subtasks;
-          console.log(subtasks);
           let position = document.getElementById('todo');
-          if (position) {
               position.innerHTML += await htmlboard(index, category, title, description, subtasks, users, date, prio);
-              await searchIndexUrl(users, fetchImage);
-              searchprio(prio);
-              await subtasksRender(subtasks);
-          } else {
-              console.log(`Element mit ID 'todo${index}' nicht gefunden.`);
-          }
-      
-    }
-
-  } catch (error) {
-      console.log("Fehler beim Laden:", error);
-  }
-}
+              
+              await Promise.all([
+                searchIndexUrl(index, users, fetchImage),
+                subtasksRender(index, subtasks),
+                searchprio(index, prio)
+            ]);
+   }} catch (error) {
+    
+   }}
+ 
 
 
-function searchprio(prio){
-  let position = document.getElementById('prioPosition');
+
+
+async function searchprio(index, prio){
+  let position = document.getElementById(`prioPosition${index}`);
   position.innerHTML = '';
   if(prio == 'Urgent'){
     position.innerHTML = `<img src="../public/img/Prio alta.png" alt="">`;
@@ -119,8 +110,8 @@ function searchprio(prio){
   }
 }
 
-function openTaskToBoard() {
-  let position = document.getElementById('parentContainer'); 
+function openTaskToBoard(index) {
+  let position = document.getElementById(`parentContainer${index}`); 
   let positionOfDate = document.getElementById('dateTask');
   let positionOfPrio = document.getElementById('prioTask');
   positionOfDate.classList.remove('d-none');
@@ -140,9 +131,7 @@ function openTaskToBoard() {
   document.body.appendChild(overlay);
 }
 async function htmlboard(index, category, title, description, subtasks, users, date, prio){
-  return `
- 
-                  <div onclick="openTaskToBoard()" class="board-task-container" id="parentContainer">
+  return `  <div onclick="openTaskToBoard(${index})" class="board-task-container" id="parentContainer${index}">
                     <div class="d-flex-start" >
                       <h1>${category}</h1>
                     </div>
@@ -162,26 +151,25 @@ async function htmlboard(index, category, title, description, subtasks, users, d
                       <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength">Subtasks</div> <!-- Set width based on the progress -->
                     </div>
                     <div class="d-flex-between">
-                      <div id="userImageBoard">
+                      <div id="userImageBoard${index}">
                       </div>
-                      <div id="subtasksBoard">
+                      <div id="subtasksBoard${index}">
                       </div>
-                      <div id="prioPosition">
+                      <div id="prioPosition${index}">
                       </div>
                     </div>  
                   </div>
-                  
+ 
+  
               `;
 }
 
-async function searchIndexUrl(users, fetchImage){
-  let position = document.getElementById('userImageBoard');
+async function searchIndexUrl(index, users, fetchImage){
+  let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
-    console.log(imageUrl);
-    
     position.innerHTML += await htmlBoardImage(imageUrl);
   }
 }
@@ -205,8 +193,9 @@ async function onloadDataBoard(path="") {
     
 }
 
-async function subtasksRender(subtasks){
-  let position = document.getElementById('subtasksBoard');
+ async function subtasksRender(index, subtasks){
+  let position = document.getElementById(`subtasksBoard${index}`);
+  console.log(position)
   position.innerHTML = '';
   for (let index = 0; index < subtasks.length; index++) {
     const element = subtasks[index];
