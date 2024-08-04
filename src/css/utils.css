@@ -126,6 +126,23 @@
   padding: 0px 20px;
 }
 
+/* gaps*/
+
+.gap-22{
+  gap: 22px;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+
+.gap-15{
+  gap: 15px;
+}
+
+.gap-8{
+  gap: 8px;
+}
 
 /* font-color*/ 
 
@@ -206,10 +223,18 @@
   position: absolute;
 }
 
+.text-deco-n {
+  text-decoration:  none;
+}
+
+.l-height-19 {
+  line-height: 19.2px;
+}
+
+.l-height-24 {
+  line-height: 24px;
+}
+
 .bradius10 {
   border-radius: 10px;
-  }
-
-  .gap-20 {
-    gap: 20px;
   }
