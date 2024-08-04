@@ -171,8 +171,8 @@ function processContacts(contactList) {
       : generateProfileImage(allContacts.names[i]);
 
     contactList.innerHTML += `
-      <div id="contactlist-content(${i})" class="contactlist-content bradius10 d-flex item-center flex-d-row" onclick="openContact(${i})">
-        <img class="pointer" src="${imageSrc}"/>
+      <div id="contactlist-content(${i})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="openContact(${i})">
+        <img class="pointer d-flex" src="${imageSrc}"/>
         <div class="contactlist-databox flex-d-col">
           <div class="no-wrap-text fw-400 fs-20 pointer">${allContacts.names[i]}</div>
           <a class="color-lb fs-16 text-deco-n" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>

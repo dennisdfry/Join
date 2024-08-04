@@ -87,8 +87,8 @@ body {
 .contactlist-content img {
   width: 42px;
   height: 42px;
-  border: 2px solid #ffffff;
   gap: 10px;
+
 }
 
 .contactlist-content:hover {
@@ -103,6 +103,7 @@ body {
 
 .contactlist-order-letter {
   padding: 17px 36px 17px 36px;
+  margin-left: 24px;
   gap: 10px;
 }
 
@@ -124,13 +125,16 @@ body {
   height: 364px;
   top: 311px;
   left: 750px;
+  visibility: hidden;
   animation: moveIn 1s ease-in 100ms forwards;
 }
 @keyframes moveIn {
   0% {
+    visibility: visible;
     transform: translateX(100vw);
   }
   100% {
+    visibility: visible;
     transform: translateX(0);
   }
 }
