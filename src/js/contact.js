@@ -147,8 +147,8 @@ function sortContacts() {
 function renderCurrentLetter(contactList, letter) {
   // rendern zu der Kontaktliste einen Seperator
   contactList.innerHTML += `
-    <div class="contactlist-order-letter d-flex fw-400 fs-20">${letter}</div>
-    <div class="contactlist-seperator"></div>
+    <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
+    <div class="contactlist-seperator "></div>
   `;
 }
 
@@ -166,8 +166,8 @@ function processContacts(contactList) {
       : generateProfileImage(allContacts.names[i]);
 
     contactList.innerHTML += `
-      <div id="contactlist-information(${i})" class="contactlist-information bradius10 d-flex item-center flex-d-row" onclick="openContact(${i})">
-        <img class="pll-24 pointer" src="${imageSrc}"/>
+      <div id="contactlist-content(${i})" class="contactlist-content bradius10 d-flex item-center flex-d-row" onclick="openContact(${i})">
+        <img class="pointer" src="${imageSrc}"/>
         <div class="contactlist-databox flex-d-col">
           <div class="no-wrap-text fw-400 fs-20 pointer">${allContacts.names[i]}</div>
           <a class="color-lb fs-16 text-deco-n" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
@@ -187,7 +187,7 @@ function renderContactList() {
 function openContact(index) {
   //erstellte img werden oval gerendert in der information// öffnet den Kontakt.. funktioniert noch nicht einwandfrei // muss noch eine move out animation erhalten und auf anderen kontakt die farbe verlieren
   let contactSection = document.getElementById("contact-section");
-  let contactList = document.getElementById(`contactlist-information(${index})`);
+  let contactList = document.getElementById(`contactlist-content(${index})`);
 
   if (contactList.classList.contains("bg-color-dg")) {
     contactList.classList.remove("bg-color-dg");
@@ -207,13 +207,13 @@ function renderContactSection(index) {
   contactSection.innerHTML = "";
 
   contactSection.innerHTML = `
-    <div class="contact-section-content item-center d-flex">
-      <img src="${allContacts.images[index]}" class="d-flex"/>
-      <div class="contact-section-data d-flex flex-d-col">
+    <div class="contact-information item-center d-flex">
+      <img src="${allContacts.images[index]}" class="d-flex gap-10 obj-cover bradius70"/>
+      <div class="d-flex flex-d-col gap-8 item-start flex-grow">
         <p class="mg-block-inline fw-500 no-wrap-text fs-47">${allContacts.names[index]}</p>
-        <div class="contact-section-btn-box">
-          <button class="pointer d-flex-center" onclick="openEditForm(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
-          <button class="pointer d-flex-center" onclick="deleteData(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
+        <div class="contact-section-btn-box fw-400 d-flex-between l-height-19">
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="openEditForm(${index})" id="edit-btn"><img src="./img/edit.png">Edit</button>
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteData(${index})" id="del-btn"><img src="./img/delete.png">Delete</button>
         </div>
       </div>
     </div>
