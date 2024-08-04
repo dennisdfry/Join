@@ -1,3 +1,5 @@
+let subtasksLengthArray = [];
+
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
   for (let element of includeElements) {
@@ -68,6 +70,9 @@ async function loadingBoard() {
       let task = await onloadDataBoard("/tasks");
       let taskkeys = Object.keys(task);
       let fetchImage = await fetchImagesBoard("/");
+
+      console.log(taskkeys);
+
       for (let index = 0; index < taskkeys.length; index++) {
           const element = taskkeys[index];
           const taskArray = task[element];
@@ -79,18 +84,28 @@ async function loadingBoard() {
           let users = taskArray[0].assignedTo;
           let subtasks = taskArray[0].subtasks;
           let position = document.getElementById('todo');
-              position.innerHTML += await htmlboard(index, category, title, description, subtasks, users, date, prio);
-              
-              await Promise.all([
-                searchIndexUrl(index, users, fetchImage),
-                subtasksRender(index, subtasks),
-                searchprio(index, prio)
-            ]);
-   }} catch (error) {
-    
-   }}
- 
 
+          position.innerHTML += await htmlboard(index, category, title, description, subtasks, users, date, prio);
+      }
+
+      for (let index = 0; index < taskkeys.length; index++) {
+          const element = taskkeys[index];
+          const taskArray = task[element];
+          let users = taskArray[0].assignedTo;
+          let prio = taskArray[0].prio;
+          let subtasks = taskArray[0].subtasks;
+
+          await Promise.all([
+              searchIndexUrl(index, users, fetchImage),
+              subtasksRender(index, subtasks),
+              searchprio(index, prio)
+          ]);
+      }
+
+  } catch (error) {
+      console.error('Error loading tasks:', error);
+  }
+}
 
 
 
@@ -112,13 +127,13 @@ async function searchprio(index, prio){
 
 function openTaskToBoard(index) {
   let position = document.getElementById(`parentContainer${index}`); 
-  let positionOfDate = document.getElementById('dateTask');
-  let positionOfPrio = document.getElementById('prioTask');
+  let positionOfDate = document.getElementById(`dateTask${index}`);
+  let positionOfPrio = document.getElementById(`prioTask${index}`);
   positionOfDate.classList.remove('d-none');
   positionOfPrio.classList.remove('d-none');
   position.classList.remove('board-task-container');
   let parentDiv = document.createElement('div');
-  parentDiv.id = 'parent-container';
+  parentDiv.id = `parent-container`;
   parentDiv.className = 'modal';
 
   // Das vorhandene Element in den neuen übergeordneten Container verschieben
@@ -141,14 +156,14 @@ async function htmlboard(index, category, title, description, subtasks, users, d
                     <div>  
                       <p>${description}</p>
                     </div> 
-                    <div class="d-none" id="dateTask">
+                    <div class="d-none" id="dateTask${index}">
                       <time>${date}</time>
                     </div>
-                    <div class="d-none" id="prioTask">
+                    <div class="d-none" id="prioTask${index}">
                       <p></p><span>${prio}</span>
                     </div>
                     <div class="progress-container d-flex-between">
-                      <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength">Subtasks</div> <!-- Set width based on the progress -->
+                      <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}">Subtasks</div> <!-- Set width based on the progress -->
                     </div>
                     <div class="d-flex-between">
                       <div id="userImageBoard${index}">
@@ -193,16 +208,28 @@ async function onloadDataBoard(path="") {
     
 }
 
- async function subtasksRender(index, subtasks){
-  let position = document.getElementById(`subtasksBoard${index}`);
-  console.log(position)
-  position.innerHTML = '';
-  for (let index = 0; index < subtasks.length; index++) {
-    const element = subtasks[index];
-    console.log(element);
-    position.innerHTML += `
-    <p>${element}</p>`;
-    
-  }
-}
+async function subtasksRender(indexHtml, subtasks) {
+    let position = document.getElementById(`subtasksBoard${indexHtml}`);
+    position.innerHTML = '';
 
+    subtasksLengthArray.push({
+        position: indexHtml,
+        subs: subtasks
+    });
+    console.log(subtasksLengthArray);
+
+    let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
+  // prüft, ob die Variable subtasks tatsächlich ein Array ist
+    if (Array.isArray(subtasks)) {
+        for (let index = 0; index < subtasks.length; index++) {
+            const element = subtasks[index];
+            console.log(element);
+            position.innerHTML += `<p>${element}</p>`;
+        }
+
+        positionOfSubtasksLength.innerHTML = subtasks.length;
+    } else {
+        console.error(`subtasks for index ${indexHtml} is not an array:`, subtasks);
+        positionOfSubtasksLength.innerHTML = 0;
+    }
+}
