@@ -72,6 +72,8 @@ async function loadingBoard() {
       for (let index = 0; index < taskkeys.length; index++) {
           const element = taskkeys[index];
           const taskArray = task[element];
+          console.log(element)
+          console.log(taskArray)
           let category = taskArray[0].category;
           let description = taskArray[0].description;
           let date = taskArray[0].dueDate;
@@ -80,12 +82,12 @@ async function loadingBoard() {
           
           let title = taskArray[0].title;
           let users = taskArray[0].assignedTo;
-          console.log(users)
+          console.log(category)
           let subtasks = taskArray[0].subtasks;
           console.log(subtasks);
           let position = document.getElementById('todo');
           if (position) {
-              position.innerHTML += await htmlboard(category, title, description, subtasks, users, date, prio);
+              position.innerHTML += await htmlboard(index, category, title, description, subtasks, users, date, prio);
               await searchIndexUrl(users, fetchImage);
               searchprio(prio);
               await subtasksRender(subtasks);
@@ -99,17 +101,8 @@ async function loadingBoard() {
       console.log("Fehler beim Laden:", error);
   }
 }
-async function subtasksRender(subtasks){
-  let position = document.getElementById('subtasksBoard');
-  position.innerHTML = '';
-  for (let index = 0; index < subtasks.length; index++) {
-    const element = subtasks[index];
-    console.log(element);
-    position.innerHTML += `
-    <p>${element}</p>`;
-    
-  }
-}
+
+
 function searchprio(prio){
   let position = document.getElementById('prioPosition');
   position.innerHTML = '';
@@ -146,11 +139,11 @@ function openTaskToBoard() {
   overlay.className = 'modal-overlay';
   document.body.appendChild(overlay);
 }
-async function htmlboard(category, title, description, subtasks, users, date, prio){
+async function htmlboard(index, category, title, description, subtasks, users, date, prio){
   return `
  
                   <div onclick="openTaskToBoard()" class="board-task-container" id="parentContainer">
-                    <div class="d-flex-start">
+                    <div class="d-flex-start" >
                       <h1>${category}</h1>
                     </div>
                     <div>
@@ -166,7 +159,7 @@ async function htmlboard(category, title, description, subtasks, users, date, pr
                       <p></p><span>${prio}</span>
                     </div>
                     <div class="progress-container d-flex-between">
-                      <div class="progress-bar" style="width: 50%;"></div><div>${subtasks.length}Subtasks</div> <!-- Set width based on the progress -->
+                      <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength">Subtasks</div> <!-- Set width based on the progress -->
                     </div>
                     <div class="d-flex-between">
                       <div id="userImageBoard">
@@ -212,4 +205,15 @@ async function onloadDataBoard(path="") {
     
 }
 
+async function subtasksRender(subtasks){
+  let position = document.getElementById('subtasksBoard');
+  position.innerHTML = '';
+  for (let index = 0; index < subtasks.length; index++) {
+    const element = subtasks[index];
+    console.log(element);
+    position.innerHTML += `
+    <p>${element}</p>`;
+    
+  }
+}
 
