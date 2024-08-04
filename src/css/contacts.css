@@ -143,7 +143,7 @@ body {
 .contact-information img {
   width: 120px;
   height: 120px;
-  border: 3px solid #0f0e0e;
+  border: 3px solid #ffffff;
 }
 
 .contact-section-btn-box {
@@ -224,13 +224,6 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 999;
-}
-
-.add-contact-content-right-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-grow: 1;
 }
 
 #contact-form {

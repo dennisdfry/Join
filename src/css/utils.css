@@ -59,6 +59,10 @@
   align-items: flex-start;
 }
 
+.content-even {
+  justify-content: space-evenly;
+}
+
 .self-baseline {
   align-self: baseline;
 }
@@ -225,6 +229,10 @@
   border: unset;
 }
 
+.b-none {
+  border: none;
+}
+
 .no-wrap-text {
   white-space: nowrap;
 }
@@ -277,6 +285,10 @@
   border-bottom-left-radius: 30px;
 }
 
+.bradius-rb-30 {
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
 .bradius70 {
   border-radius: 70px;
 }

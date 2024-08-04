@@ -44,6 +44,11 @@ async function deleteData(index) {
 
 async function postData(contact) {
   try {
+ 
+    if (!contact.img) {
+      contact.img = generateProfileImage(contact.name);
+    }
+
     let response = await fetch(BASE_URL1 + ".json", {
       method: "POST",
       headers: {
@@ -72,18 +77,18 @@ function updateContacts(responseToJson) {
       allContacts.phones.push(contact.phone);
       allContacts.images.push(contact.img);
     }
+  }
+}
     //if (!contact.img) {         // wenn kein img hochgeladen wird wird das img aus der  generateProfileImage erstellt und als contact img gespeichert und ins array gepusht
     //contact.img = generateProfileImage(contact.name); /// muss überarbeitet werden um einen img eintrag zu generieren sonst kann kontakt id nicht gefunden werden
     //}
     //allContacts.images.push(contact.img);
-  }
-}
 
 async function getContactId(index) {
-  // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
+  // Um die eindeutige ID des Kontaktes aus der Firebase-Datenbank zu identifizieren
   let response = await fetch(BASE_URL1 + ".json");
   let responseToJson = await response.json();
-  let keys = Object.keys(responseToJson); // nimmt das Array und gibt dessen gesamte Schlüssel zurück
+  let keys = Object.keys(responseToJson); // Nimmt das Array und gibt dessen gesamte Schlüssel zurück
 
   for (let i = 0; i < keys.length; i++) {
     let contact = responseToJson[keys[i]];
@@ -106,7 +111,7 @@ function isContactExisting(contact) {
 }
 
 function generateProfileImage(name) {
-  // generiert ein Profilfoto im vorgegebenen style, falls keines hochgeladen wird
+  // Generiert ein Profilfoto im vorgegebenen Stil, falls keines hochgeladen wird
   const colors = [
     "#FF5733",
     "#33FF57",
@@ -115,12 +120,12 @@ function generateProfileImage(name) {
     "#F3FF33",
     "#33FFF3",
   ];
-  let randomColor = colors[Math.floor(Math.random() * colors.length)]; // kreirt eine zufällige variable zwischen 0 und 1
+  let randomColor = colors[Math.floor(Math.random() * colors.length)]; // Kreiert eine zufällige Variable zwischen 0 und 1
 
   let initials = name
     .split(" ")
-    .map((word) => word[0].toUpperCase()) // schneidet die Worte an der ersten Stelle in Großbuchstaben ab
-    .join(""); // fügt diese zusammen
+    .map((word) => word[0].toUpperCase()) // Schneidet die Worte an der ersten Stelle in Großbuchstaben ab
+    .join(""); // Fügt diese zusammen
 
   let newContactImg = `
     <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
