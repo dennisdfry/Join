@@ -154,6 +154,12 @@ body {
   height: 24px;
 }
 
+.contact-section-btn-box img {
+  height: 24px;
+  width: 24px;
+  border: unset;
+}
+
 #edit-btn {
   width: 62px;
 }
