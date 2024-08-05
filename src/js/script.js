@@ -54,16 +54,12 @@ firebase.auth().onAuthStateChanged((user) => {
 
 function toggleElement(elementClass, className) {
   const element = document.querySelector(elementClass);
-  if (element) {
     if (element.classList.contains(className)) {
       element.classList.remove(className);
     } else {
       element.classList.add(className);
     }
-  } else {
-    console.error(`Element with id "${elementId}" not found.`);
   }
-}
 
 async function loadingBoard() {
   try {
