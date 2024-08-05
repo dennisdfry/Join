@@ -57,12 +57,12 @@ body {
   height: 53px;
 }
 
-.contactlist-btn-box{
+.contactlist-btn-box {
   height: 101px;
   position: sticky;
   top: 0.1px;
 }
-#add-contact-btn{
+#add-contact-btn {
   width: 352px;
   height: 56px;
   padding: 12px 0px 12px 0px;
@@ -89,7 +89,6 @@ body {
   width: 42px;
   height: 42px;
   gap: 10px;
-
 }
 
 .contactlist-content:hover {
@@ -155,24 +154,12 @@ body {
   height: 24px;
 }
 
-#edit-btn { 
+#edit-btn {
   width: 62px;
 }
 
 #del-btn {
   width: 81px;
-}
-
-#del-btn img {
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
-}
-
-#edit-btn img {
-  height: 24px;
-  width: 24px;
-  object-fit: cover;
 }
 
 #contact-information-content {
@@ -187,7 +174,7 @@ body {
   height: 128px;
 }
 
-#add-contact-section {
+#add-form-section {
   width: 1212px;
   height: 592px;
   animation: moveIn 200ms ease-in 100ms forwards;
@@ -206,10 +193,15 @@ body {
 }
 
 .formfield-logo {
+  top: 154px;
+  left: 46.9px;
+  margin-right: 304px;
+}
+
+.formfield-logo img {
   width: 55.6px;
   height: 66.48px;
-  margin-right: 304px;
-  overflow: hidden;
+
 }
 
 .add-contact-content-left-box {
@@ -230,163 +222,62 @@ body {
 }
 
 #contact-form {
-  position: absolute;
   top: 137px;
   left: 742px;
-  gap: 32px;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-img-div {
-  position: relative;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
 }
 
 .input-img-div img {
-  position: absolute;
   right: 32px;
-  width: 24px;
-  height: 24px;
 }
 
 #contact-form input {
   width: 380px;
   height: 50px;
-  border-radius: 10px;
   border: 1px solid lightgray;
-  display: flex;
-  align-items: center;
-  text-rendering: auto;
-  color: fieldtext;
-  letter-spacing: normal;
-  word-spacing: normal;
-  line-height: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  text-align: start;
-  appearance: auto;
-  -webkit-rtl-ordering: logical;
-  cursor: text;
-  background-color: field;
-  margin: 0em;
-  cursor: pointer;
-}
-
-#contact-form input::placeholder {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 24px;
   padding-left: 8px;
 }
 
 .formfield-btn-box {
   width: 364px;
   height: 57px;
-  position: absolute;
   top: 400px;
   left: 742px;
-  gap: 24px;
-  display: flex;
-  flex-direction: row;
-}
-.formfield-btn-box img {
-  height: 24px;
-  width: 24px;
 }
 
 #formfield-cancel-btn {
   width: 126px;
   height: 56px;
-  gap: 4px;
-  border-radius: 10px;
   border: 1px solid #2a3647;
-  text-align: left;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
 }
 
 #formfield-cancel-btn:hover {
-  cursor: pointer;
   color: #29abe2;
   border-color: #29abe2;
+  box-shadow: 4px 0px 6px 0px #00000014;
 }
+
 #formfield-cancel-btn:hover img {
   filter: invert(38%) sepia(77%) saturate(1614%) hue-rotate(165deg)
     brightness(96%) contrast(95%);
 }
 
-#formfield-cancel-btn p {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 24px;
-  margin: 0;
-}
-
 #formfield-create-btn {
   width: 214px;
   height: 57px;
-  gap: 4px;
-  border-radius: 10px;
   background-color: #2a3647;
-  text-align: left;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  border: none;
-  box-shadow: none;
 }
 
 #formfield-create-btn:hover {
-  cursor: pointer;
   background-color: #29abe2;
-  box-shadow: none;
-}
-
-#formfield-create-btn p {
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 25.2px;
-  color: #ffffff;
-  margin: 0;
-}
-
-#prof-img {
-  width: 120px;
-  height: 120px;
-  position: absolute;
-  top: 204px;
-  left: 550px;
-  border-radius: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#prof-img2 {
-  width: 120px;
-  height: 120px;
-  position: absolute;
-  top: 204px;
-  left: 550px;
-  border-radius: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 4px 0px 6px 0px #00000014;
 }
 
 .exitBtn {
-  position: absolute;
   top: 48px;
   left: 1132px;
   width: 32px;
   height: 32px;
   border-radius: 56px 0px 0px 0px;
-  cursor: pointer;
 }
 
 .contact-section-seperator {

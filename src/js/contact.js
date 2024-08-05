@@ -10,8 +10,6 @@ let allContacts = {
 async function initContacts() {
   try {
     await getData("/");
-    sortContacts();
-    setupForm();
     renderContactList();
   } catch (error) {
     console.log("Error:", error);
@@ -21,7 +19,7 @@ async function initContacts() {
 async function getData(path = "") {
   let response = await fetch(BASE_URL1 + path + ".json");
   let responseToJson = await response.json();
-  updateContacts(responseToJson);
+    updateContacts(responseToJson);
 }
 
 async function deleteData(index) {
@@ -34,7 +32,6 @@ async function deleteData(index) {
 
     await fetch(`${BASE_URL1}/${contactId}.json`, { method: "DELETE" });
     console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
-
     ["names", "mails", "phones", "images"].forEach(field => allContacts[field].splice(index, 1));
     renderContactList();
   } catch (error) {
@@ -58,6 +55,7 @@ async function postData(contact) {
     });
 
     let responseToJson = await response.json();
+
     console.log("Erfolgreich hochgeladen:", responseToJson);
 
     await getData("/");
@@ -68,16 +66,14 @@ async function postData(contact) {
 }
 
 function updateContacts(responseToJson) {
-  let keys = Object.keys(responseToJson);
-  for (let i = 0; i < keys.length; i++) {
-    let contact = responseToJson[keys[i]];
+  Object.values(responseToJson).forEach(contact => {
     if (!isContactExisting(contact)) {
       allContacts.names.push(contact.name);
       allContacts.mails.push(contact.mail);
       allContacts.phones.push(contact.phone);
       allContacts.images.push(contact.img);
     }
-  }
+  });
 }
     //if (!contact.img) {         // wenn kein img hochgeladen wird wird das img aus der  generateProfileImage erstellt und als contact img gespeichert und ins array gepusht
     //contact.img = generateProfileImage(contact.name); /// muss überarbeitet werden um einen img eintrag zu generieren sonst kann kontakt id nicht gefunden werden
@@ -185,8 +181,10 @@ function processContacts(contactList) {
 function renderContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
+  sortContacts();
   processContacts(contactList);
   updateContacts(responseToJson);
+  setupForm();
 }
 
 function openContact(index) {
@@ -217,8 +215,8 @@ function renderContactSection(index) {
       <div class="d-flex flex-d-col gap-8 item-start flex-grow">
         <p class="mg-block-inline fw-500 no-wrap-text fs-47">${allContacts.names[index]}</p>
         <div class="contact-section-btn-box fw-400 d-flex-between l-height-19">
-          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="openEditForm(${index})" id="edit-btn"><img src="./img/edit.png">Edit</button>
-          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteData(${index})" id="del-btn"><img src="./img/delete.png">Delete</button>
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="openEditForm(${index})" id="edit-btn"><img class="obj-cover img-24" src="./img/edit.png">Edit</button>
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteData(${index})" id="del-btn"><img class="obj-cover img-24" src="./img/delete.png">Delete</button>
         </div>
       </div>
     </div>
@@ -259,12 +257,12 @@ function setupForm() {
 }
 
 function showFormField() {
-  document.getElementById("add-contact-section").classList.remove("d-none");
+  document.getElementById("add-form-section").classList.remove("d-none");
   document.addEventListener("click", outsideForm);
 }
 
 function outsideForm(event) {
-  let section = document.getElementById("add-contact-section");
+  let section = document.getElementById("add-form-section");
   if (
     !section.contains(event.target) &&
     !event.target.closest("#add-contact-btn")
@@ -278,7 +276,7 @@ function closeFormfield() {
     (id) => (document.getElementById(id).value = "")
   );
   document.getElementById("contact-form").classList.add("d-none");
-  document.getElementById("add-contact-section").classList.add("d-none");
+  document.getElementById("add-form-section").classList.add("d-none");
 }
 
 function openEditForm(index) {

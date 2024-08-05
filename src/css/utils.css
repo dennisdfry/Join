@@ -142,6 +142,9 @@
 }
 
 /* gaps*/
+.gap-4 {
+  gap: 4px;
+}
 
 .gap-8 {
   gap: 8px;
@@ -161,6 +164,14 @@
 
 .gap-22 {
   gap: 22px;
+}
+
+.gap-24 {
+  gap: 24px;
+}
+
+.gap-32 {
+  gap: 32px;
 }
 
 .gap-21 {
@@ -256,6 +267,10 @@
   position: absolute;
 }
 
+.pos-rel {
+  position: relative;
+}
+
 .text-deco-n {
   text-decoration: none;
 }
@@ -299,4 +314,21 @@
 
 .vis-hidden {
   visibility: hidden;
+}
+
+.img-24 {
+  height: 24px;
+  width: 24px;
+}
+
+.shadow-none {
+  box-shadow: none;
+}
+
+.form-prof-img {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 204px;
+  left: 550px;
 }
