@@ -61,6 +61,13 @@ function toggleElement(elementClass, className) {
     }
   }
 
+function hideDropdown() {
+  const element = document.querySelector('.user-icon-dropdown');
+  if(!element.classList.contains('d-none')) {
+    element.classList.add('d-none')
+  }
+}
+
 async function loadingBoard() {
   try {
       let task = await onloadDataBoard("/tasks");
