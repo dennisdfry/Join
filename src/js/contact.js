@@ -44,6 +44,11 @@ async function deleteData(index) {
 
 async function postData(contact) {
   try {
+ 
+    if (!contact.img) {
+      contact.img = generateProfileImage(contact.name);
+    }
+
     let response = await fetch(BASE_URL1 + ".json", {
       method: "POST",
       headers: {
@@ -72,18 +77,18 @@ function updateContacts(responseToJson) {
       allContacts.phones.push(contact.phone);
       allContacts.images.push(contact.img);
     }
+  }
+}
     //if (!contact.img) {         // wenn kein img hochgeladen wird wird das img aus der  generateProfileImage erstellt und als contact img gespeichert und ins array gepusht
     //contact.img = generateProfileImage(contact.name); /// muss überarbeitet werden um einen img eintrag zu generieren sonst kann kontakt id nicht gefunden werden
     //}
     //allContacts.images.push(contact.img);
-  }
-}
 
 async function getContactId(index) {
-  // um eindeutige ID des Kontaktes der Firebase Datenbank zu identifizieren
+  // Um die eindeutige ID des Kontaktes aus der Firebase-Datenbank zu identifizieren
   let response = await fetch(BASE_URL1 + ".json");
   let responseToJson = await response.json();
-  let keys = Object.keys(responseToJson); // nimmt das Array und gibt dessen gesamte Schlüssel zurück
+  let keys = Object.keys(responseToJson); // Nimmt das Array und gibt dessen gesamte Schlüssel zurück
 
   for (let i = 0; i < keys.length; i++) {
     let contact = responseToJson[keys[i]];
@@ -106,7 +111,7 @@ function isContactExisting(contact) {
 }
 
 function generateProfileImage(name) {
-  // generiert ein Profilfoto im vorgegebenen style, falls keines hochgeladen wird
+  // Generiert ein Profilfoto im vorgegebenen Stil, falls keines hochgeladen wird
   const colors = [
     "#FF5733",
     "#33FF57",
@@ -115,12 +120,12 @@ function generateProfileImage(name) {
     "#F3FF33",
     "#33FFF3",
   ];
-  let randomColor = colors[Math.floor(Math.random() * colors.length)]; // kreirt eine zufällige variable zwischen 0 und 1
+  let randomColor = colors[Math.floor(Math.random() * colors.length)]; // Kreiert eine zufällige Variable zwischen 0 und 1
 
   let initials = name
     .split(" ")
-    .map((word) => word[0].toUpperCase()) // schneidet die Worte an der ersten Stelle in Großbuchstaben ab
-    .join(""); // fügt diese zusammen
+    .map((word) => word[0].toUpperCase()) // Schneidet die Worte an der ersten Stelle in Großbuchstaben ab
+    .join(""); // Fügt diese zusammen
 
   let newContactImg = `
     <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -147,8 +152,8 @@ function sortContacts() {
 function renderCurrentLetter(contactList, letter) {
   // rendern zu der Kontaktliste einen Seperator
   contactList.innerHTML += `
-    <div class="contactlist-order-letter d-flex fw-400 fs-20">${letter}</div>
-    <div class="contactlist-seperator"></div>
+    <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
+    <div class="contactlist-seperator "></div>
   `;
 }
 
@@ -166,11 +171,11 @@ function processContacts(contactList) {
       : generateProfileImage(allContacts.names[i]);
 
     contactList.innerHTML += `
-      <div id="contactlist-information(${i})" class="contactlist-information bradius10 d-flex item-center flex-d-row" onclick="openContact(${i})">
-        <img class="pll-24 pointer" src="${imageSrc}" style="width: 42px; height: 42px;"/>
+      <div id="contactlist-content(${i})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="openContact(${i})">
+        <img class="pointer d-flex" src="${imageSrc}"/>
         <div class="contactlist-databox flex-d-col">
-          <div class="no-wrap-text fw-400 fs-20 pointer" style="height: 24px;">${allContacts.names[i]}</div>
-          <a class="contactlist-databox-mail color-lb fs-16" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+          <div class="no-wrap-text fw-400 fs-20 pointer">${allContacts.names[i]}</div>
+          <a class="color-lb fs-16 text-deco-n" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
         </div>
       </div>
     `;
@@ -187,7 +192,7 @@ function renderContactList() {
 function openContact(index) {
   //erstellte img werden oval gerendert in der information// öffnet den Kontakt.. funktioniert noch nicht einwandfrei // muss noch eine move out animation erhalten und auf anderen kontakt die farbe verlieren
   let contactSection = document.getElementById("contact-section");
-  let contactList = document.getElementById(`contactlist-information(${index})`);
+  let contactList = document.getElementById(`contactlist-content(${index})`);
 
   if (contactList.classList.contains("bg-color-dg")) {
     contactList.classList.remove("bg-color-dg");
@@ -207,24 +212,28 @@ function renderContactSection(index) {
   contactSection.innerHTML = "";
 
   contactSection.innerHTML = `
-    <div class="contact-section-content item-center d-flex">
-      <img src="${allContacts.images[index]}" class="d-flex"/>
-      <div class="contact-section-data d-flex flex-d-col">
+    <div class="contact-information item-center d-flex">
+      <img src="${allContacts.images[index]}" class="d-flex gap-10 obj-cover bradius70"/>
+      <div class="d-flex flex-d-col gap-8 item-start flex-grow">
         <p class="mg-block-inline fw-500 no-wrap-text fs-47">${allContacts.names[index]}</p>
-        <div class="contact-section-btn-box">
-          <button class="pointer d-flex-center" onclick="openEditForm(${index})" id="edit-btn">Edit<img src="./img/edit.png"></button>
-          <button class="pointer d-flex-center" onclick="deleteData(${index})" id="del-btn">Delete<img src="./img/delete.png"></button>
+        <div class="contact-section-btn-box fw-400 d-flex-between l-height-19">
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="openEditForm(${index})" id="edit-btn"><img src="./img/edit.png">Edit</button>
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteData(${index})" id="del-btn"><img src="./img/delete.png">Delete</button>
         </div>
       </div>
     </div>
 
-    <div id="contact-information-content">
-      <p>Contact Information</p>
-      <div class="contact-information-data">
-        <p><b>Email</b></p>
-        <a href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
-        <p><b>Phone</b></p>
-        <p>${allContacts.phones[index]}</p>
+    <div id="contact-information-content" class="d-flex flex-d-col no-wrap-text">
+      <p class="fw-400 l-height-24 fs-20 mg-block-inline">Contact Information</p>
+      <div class="contact-information-data d-flex flex-d-col gap-22">
+        <div class="d-flex flex-d-col gap-15 text-left">
+          <p class="fs-16 f-weight-700 no-wrap-text mg-block-inline l-height-19 txt-left"><b>Email</b></p>
+          <a class="pointer color-lb text-deco-n" href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
+        </div>
+        <div class="d-flex flex-d-col gap-15 text-left">
+          <p class="fs-16 f-weight-700 no-wrap-text mg-block-inline l-height-19 txt-left"><b>Phone</b></p>
+          <p class="fs-16 fw-400 no-wrap-text mg-block-inline l-height-19 txt-left">${allContacts.phones[index]}</p>
+        </div>
       </div>
     </div>`;
 }

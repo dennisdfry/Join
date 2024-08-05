@@ -55,9 +55,23 @@
   align-items: center;
 }
 
+.item-start {
+  align-items: flex-start;
+}
+
+.content-even {
+  justify-content: space-evenly;
+}
+
+.self-baseline {
+  align-self: baseline;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
 
 /* font-sizes */
-
 
 .fs-16 {
   font-size: 16px;
@@ -69,6 +83,10 @@
 
 .fs-21 {
   font-size: 21px;
+}
+
+.fs-27 {
+  font-size: 27px;
 }
 
 .fs-47 {
@@ -85,7 +103,6 @@
 
 /* font-weights + familys */
 
-
 .fw-400 {
   font-weight: 400;
 }
@@ -99,16 +116,14 @@
 }
 
 .fw-600 {
-  font-family: 'Inter600';
+  font-family: "Inter600";
 }
 
 .fw-700 {
-  font-family: 'Inter700';
+  font-family: "Inter700";
 }
 
-
 /* padding */
-
 
 .p-10 {
   padding: 10px;
@@ -126,8 +141,41 @@
   padding: 0px 20px;
 }
 
+/* gaps*/
 
-/* font-color*/ 
+.gap-8 {
+  gap: 8px;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.gap-12 {
+  gap: 12px;
+}
+
+.gap-16 {
+  gap: 16px;
+}
+
+.gap-22 {
+  gap: 22px;
+}
+
+.gap-21 {
+  gap: 21px;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+
+.gap-15 {
+  gap: 15px;
+}
+
+/* font-color*/
 
 .color-wh {
   color: #ffffff;
@@ -138,19 +186,21 @@
 }
 
 .color-lb {
-  color: #29ABE2
+  color: #29abe2;
 }
 
 .color-lg {
-  color: #CDCDCD
+  color: #cdcdcd;
 }
-
 
 /* background - colors*/
 
-
 .bg-color-wh {
   background-color: #f6f7f8;
+}
+
+.bg-color-ww {
+  background-color: #ffffff;
 }
 
 .bg-color-dg {
@@ -158,15 +208,16 @@
 }
 
 .bg-color-lb {
- background-color:#29ABE2;
+  background-color: #29abe2;
 }
 
+.bg-color-tr {
+  background-color: transparent;
+}
 
 .bg-color-lg {
-  background-color: rgb(246, 247, 248)
+  background-color: rgb(246, 247, 248);
 }
-
-
 
 /* subclasses - help*/
 
@@ -176,6 +227,10 @@
 
 .b-unset {
   border: unset;
+}
+
+.b-none {
+  border: none;
 }
 
 .no-wrap-text {
@@ -195,21 +250,49 @@
   unicode-bidi: isolate;
 }
 
-
-
-
-
-
 /* dunno */
 
 .pos-abs {
   position: absolute;
 }
 
+.text-deco-n {
+  text-decoration: none;
+}
+
+.l-height-19 {
+  line-height: 19.2px;
+}
+
+.l-height-24 {
+  line-height: 24px;
+}
+
+.l-height-32 {
+  line-height: 32.4px;
+}
+
+.l-height-73 {
+  line-height: 73.2px;
+}
+
 .bradius10 {
   border-radius: 10px;
-  }
+}
 
-  .gap-20 {
-    gap: 20px;
-  }
+.bradius-lb-30 {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.bradius-rb-30 {
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.bradius70 {
+  border-radius: 70px;
+}
+
+.obj-cover {
+  object-fit: cover;
+}
