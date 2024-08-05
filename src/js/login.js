@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
       
       animatedDiv.style.position = 'absolute';
       animatedDiv.style.top = '-300px';
-      animatedDiv.style.left = '-500px';
+      animatedDiv.style.left = '-800px';
 
       animatedImg.classList.add('shrink');
   }, 500);
