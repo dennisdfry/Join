@@ -33,6 +33,7 @@ body {
   height: 85vh;
   top: 96px;
   left: 215px;
+  padding: 32px 24px 32px 24px;
   box-shadow: 4px 0px 6px 0px #00000014;
   overflow: auto;
   overflow-y: scroll;
@@ -125,7 +126,6 @@ body {
   height: 364px;
   top: 311px;
   left: 750px;
-  visibility: hidden;
   animation: moveIn 1s ease-in 100ms forwards;
 }
 @keyframes moveIn {
@@ -190,7 +190,6 @@ body {
 #add-contact-section {
   width: 1212px;
   height: 592px;
-  visibility: hidden;
   animation: moveIn 200ms ease-in 100ms forwards;
   top: 100px;
   left: 240px;

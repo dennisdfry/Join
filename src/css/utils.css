@@ -296,3 +296,7 @@
 .obj-cover {
   object-fit: cover;
 }
+
+.vis-hidden {
+  visibility: hidden;
+}
