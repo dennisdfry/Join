@@ -32,3 +32,16 @@ document.getElementById("login-form").addEventListener("submit", async function 
     alert("Error: " + error.message);
   }
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(() => {
+      const animatedDiv = document.getElementById('login-logo');
+      const animatedImg = document.getElementById('login-logo-animated');
+      
+      animatedDiv.style.position = 'absolute';
+      animatedDiv.style.top = '-330px';
+      animatedDiv.style.left = '-800px';
+
+      animatedImg.classList.add('shrink');
+  }, 500);
+});

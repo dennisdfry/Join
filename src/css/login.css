@@ -34,16 +34,40 @@ body {
 }
 
 .login-logo {
-    width: 100%;
     position: absolute;
-    top: 5%;
-    z-index: 9;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 1.0s ease;
 }
 
-.login-logo img {
-    height: 122px;
-    margin-left: 77px;
-    margin-bottom: 8px;
+#login-logo-animated {
+    height: 334px;
+    width: 274px;
+    transition: transform 1s ease, top 1s ease, left 1s ease;
+}
+
+.shrink {
+    animation: shrink-animation 1s forwards;
+}
+
+@keyframes shrink-animation {
+    from {
+        transform: scale(1);
+        top: 50%;
+        left: 50%;
+
+    }
+    to {
+        transform: scale(0.4);
+        top: 0;
+        left: 0;
+    }
 }
 
 .login-field {
