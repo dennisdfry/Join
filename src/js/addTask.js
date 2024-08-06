@@ -4,15 +4,15 @@ let prioArray = [];
 let addTaskArray = [];
 let expanded = false;
 let isValid = true;
-let assignedToUserArray = []; // Globale Variable zur Speicherung der ausgewählten Indizes
-let imageUrlsGlobal = []; // Globale Variable zur Speicherung der Bild-URLs
+let assignedToUserArray = [];
+let imageUrlsGlobal = []; 
 
 async function init() {
     try {
         let fireBaseData = await onloadData("/");
         let contacts = await fetchContacts(fireBaseData);
-        let imageUrls = await fetchImages(); // Hier holen wir die Bilder
-        await assignedTo(contacts, imageUrls); // Übergeben Sie die Bild-URLs
+        let imageUrls = await fetchImages();
+        await assignedTo(contacts, imageUrls);
     } catch (error) {
         console.error("Fehler bei der Initialisierung:", error);
     }
@@ -46,29 +46,37 @@ async function assignedTo(contacts, imageUrls) {
             return Object.values(contacts).map(entry => ({ name: entry.name }));
         };
         const names = extractNames(contacts);
-        let position = document.getElementById('checkboxes');
+        checkboxInit(names,imageUrls)
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function checkboxInit(names,imageUrls){
+    let position = document.getElementById('checkboxes');
         position.innerHTML = '';
         let list = ''; // Initialisierung des Strings
         for (let index = 0; index < names.length; index++) {
             const element = names[index].name;
             const imgSrc = imageUrls[index]; // Bild-URL holen
-            list += `
-                <label class="checkBoxFlex" for="checkbox-${index}">
+            list += checkBoxRender(index, imgSrc,element )
+               
+        }
+        position.innerHTML = list; // HTML-Inhalt setzen
+}
+
+function checkBoxRender(index, imgSrc,element ){
+    return  `<label class="checkBoxFlex" for="checkbox-${index}">
                     <div>
                         <img src="${imgSrc}" alt="" />
                         ${element}
                     </div>
                     <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser(${index})" />
                 </label>`;
-        }
-        position.innerHTML = list; // HTML-Inhalt setzen
-    } catch (error) {
-        console.error(error);
-    }
 }
 
 async function assignedToUser(index, imageUrl) {
-    const image = imageUrlsGlobal[index]; // Bild-URL holen
+    const image = imageUrlsGlobal[index];
     const arrayIndex = assignedToUserArray.indexOf(index);
     if (arrayIndex !== -1) {
         assignedToUserArray.splice(arrayIndex, 1);
@@ -76,6 +84,7 @@ async function assignedToUser(index, imageUrl) {
         assignedToUserArray.push(index);
     }
 }
+
 function showCheckboxes() {
     let checkboxes = document.getElementById("checkboxes");
     if (!expanded) {
@@ -94,12 +103,22 @@ function createTask(event) {
         form.reportValidity();
         return false;
     }
+    defineTaskObjects()
+    saveToFirebase();
+    form.reset();
+    addTaskArray = [];
+}
+
+function defineTaskObjects(){
     let taskTitle = document.getElementById('title').value;
     let taskDescription = document.getElementById('description').value;
     let dueDateTask = document.getElementById('dueDate').value;
     let taskCategory = document.getElementById('taskCategory').value;
     let lastString = prioArray.pop();
-    
+    pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCategory, lastString)
+}
+
+function pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCategory, lastString){
     addTaskArray.push({
         title: taskTitle,
         description: taskDescription,
@@ -110,14 +129,9 @@ function createTask(event) {
         subtasks: subtasksArray,
         boardCategory: 'ToDo'
     });
-    saveToFirebase();
-    form.reset();
-    addTaskArray = [];
 }
 
 async function saveToFirebase(path="/tasks"){
-    console.log(addTaskArray)
-   
         let response = await fetch(BASE_URL + path + ".json", {
           method: "POST",
           headers: {
@@ -135,6 +149,10 @@ function prio(id) {
         button.classList.add('add-task-prio-button');
     });
     let position = document.getElementById(`prioButton${id}`);
+    prioIdCheck(id, position);  
+}
+
+function prioIdCheck(id, position){
     if (id == 1) {
         prioArray.push('Urgent');
         position.classList.add('add-task-prio-button-urgent');
