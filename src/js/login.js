@@ -37,11 +37,16 @@ document.addEventListener("DOMContentLoaded", function() {
   setTimeout(() => {
       const animatedDiv = document.getElementById('login-logo');
       const animatedImg = document.getElementById('login-logo-animated');
+      const fadeoutDiv = document.getElementById('fadeout');
       
       animatedDiv.style.position = 'fixed';
-      animatedDiv.style.top = '5%';
-      animatedDiv.style.left = '5%';
+      animatedDiv.style.top = '-6%';
+      animatedDiv.style.left = '1%';
 
       animatedImg.classList.add('shrink');
+      fadeoutDiv.classList.add('fadeout-animate');
+      fadeoutDiv.addEventListener('animationend', function() {
+        fadeoutDiv.classList.add('d-none');
+      });
   }, 500);
 });
