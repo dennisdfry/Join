@@ -35,10 +35,10 @@ body {
 
 .login-logo {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 50%;
+    left: 50%;
+    width: 5vw;
+    height: 20vh;
     z-index: 10;
     display: flex;
     align-items: center;

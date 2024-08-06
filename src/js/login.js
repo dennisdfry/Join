@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
       const animatedImg = document.getElementById('login-logo-animated');
       
       animatedDiv.style.position = 'fixed';
-      animatedDiv.style.top = '-35%';
-      animatedDiv.style.left = '-40%';
+      animatedDiv.style.top = '5%';
+      animatedDiv.style.left = '5%';
 
       animatedImg.classList.add('shrink');
   }, 500);
