@@ -108,7 +108,7 @@ function createTask(event) {
         prio: lastString,
         category: taskCategory,
         subtasks: subtasksArray,
-        boadCategory: 'ToDo'
+        boardCategory: 'ToDo'
     });
     saveToFirebase();
     form.reset();

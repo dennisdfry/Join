@@ -113,10 +113,10 @@ async function searchprio(index, prio){
   let position = document.getElementById(`prioPosition${index}`);
   position.innerHTML = '';
   if(prio == 'Urgent'){
-    position.innerHTML = `<img src="../public/img/Prio alta.png" alt="">`;
+    position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
   }else{
     if(prio == 'Medium'){
-      position.innerHTML = `<span>=</span>`;
+      position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
     }else{
       if(prio == 'Low'){
         position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
@@ -135,12 +135,8 @@ function openTaskToBoard(index) {
   let parentDiv = document.createElement('div');
   parentDiv.id = `parent-container`;
   parentDiv.className = 'modal';
-
-  // Das vorhandene Element in den neuen übergeordneten Container verschieben
   position.parentNode.insertBefore(parentDiv, position);
   parentDiv.appendChild(position);
-
-  // Overlay hinzufügen
   let overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
   document.body.appendChild(overlay);
@@ -152,7 +148,7 @@ async function htmlboard(index, category, title, description, subtasks, users, d
     return `
     <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index})" class="board-task-container" id="parentContainer${index}">
         <div class="d-flex-start">
-            <h1>${category}</h1>
+            <h1 class="txt-center">${category}</h1>
         </div>
         <div>
             <h2>${title}</h2> 
@@ -167,25 +163,23 @@ async function htmlboard(index, category, title, description, subtasks, users, d
             <p></p><span>${prio}</span>
         </div>
         <div class="progress-container d-flex-between">
-            <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}">Subtasks</div>
+            <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}"></div>
         </div>
         <div class="d-flex-between">
-            <div id="userImageBoard${index}">
+            <div class="user-image-bord-container" id="userImageBoard${index}">
             </div>
-            <div id="subtasksBoard${index}">
+            <div class="d-none" id="subtasksBoard${index}">
             </div>
-            <div id="prioPosition${index}">
+            <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
             </div>
         </div>  
-    </div>`;
-
-    
+    </div>`;  
 }
-
 
 async function searchIndexUrl(index, users, fetchImage){
   let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
+  
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
@@ -194,7 +188,7 @@ async function searchIndexUrl(index, users, fetchImage){
 }
 
 async function htmlBoardImage(imageUrl){
-  return `<img src="${imageUrl}">`;
+  return `<img class="user-image-board" src="${imageUrl}">`;
 }
 
 async function fetchImagesBoard(path=""){
@@ -227,9 +221,9 @@ async function subtasksRender(indexHtml, subtasks) {
             position.innerHTML += `<p>${element}</p>`;
         }
 
-        positionOfSubtasksLength.innerHTML = subtasks.length;
+        positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
     } else {
         // console.error(`subtasks for index ${indexHtml} is not an array:`, subtasks);
-        positionOfSubtasksLength.innerHTML = 0;
+        positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
     }
 }
