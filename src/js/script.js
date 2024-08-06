@@ -73,9 +73,6 @@ async function loadingBoard() {
       let task = await onloadDataBoard("/tasks");
       let taskkeys = Object.keys(task);
       let fetchImage = await fetchImagesBoard("/");
-
-      console.log(taskkeys);
-
       for (let index = 0; index < taskkeys.length; index++) {
           const element = taskkeys[index];
           const taskArray = task[element];
@@ -148,39 +145,43 @@ function openTaskToBoard(index) {
   overlay.className = 'modal-overlay';
   document.body.appendChild(overlay);
 }
-async function htmlboard(index, category, title, description, subtasks, users, date, prio){
-  return `  <div onclick="openTaskToBoard(${index})" class="board-task-container" id="parentContainer${index}">
-                    <div class="d-flex-start" >
-                      <h1>${category}</h1>
-                    </div>
-                    <div>
-                      <h2>${title}</h2> 
-                    </div>
-                    <div>  
-                      <p>${description}</p>
-                    </div> 
-                    <div class="d-none" id="dateTask${index}">
-                      <time>${date}</time>
-                    </div>
-                    <div class="d-none" id="prioTask${index}">
-                      <p></p><span>${prio}</span>
-                    </div>
-                    <div class="progress-container d-flex-between">
-                      <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}">Subtasks</div> <!-- Set width based on the progress -->
-                    </div>
-                    <div class="d-flex-between">
-                      <div id="userImageBoard${index}">
-                      </div>
-                      <div id="subtasksBoard${index}">
-                      </div>
-                      <div id="prioPosition${index}">
-                      </div>
-                    </div>  
-                  </div>
- 
-  
-              `;
+
+
+
+async function htmlboard(index, category, title, description, subtasks, users, date, prio) {
+    return `
+    <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index})" class="board-task-container" id="parentContainer${index}">
+        <div class="d-flex-start">
+            <h1>${category}</h1>
+        </div>
+        <div>
+            <h2>${title}</h2> 
+        </div>
+        <div>  
+            <p>${description}</p>
+        </div> 
+        <div class="d-none" id="dateTask${index}">
+            <time>${date}</time>
+        </div>
+        <div class="d-none" id="prioTask${index}">
+            <p></p><span>${prio}</span>
+        </div>
+        <div class="progress-container d-flex-between">
+            <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}">Subtasks</div>
+        </div>
+        <div class="d-flex-between">
+            <div id="userImageBoard${index}">
+            </div>
+            <div id="subtasksBoard${index}">
+            </div>
+            <div id="prioPosition${index}">
+            </div>
+        </div>  
+    </div>`;
+
+    
 }
+
 
 async function searchIndexUrl(index, users, fetchImage){
   let position = document.getElementById(`userImageBoard${index}`);
@@ -208,7 +209,6 @@ async function onloadDataBoard(path="") {
     let response = await fetch(BASE_URL + path + '.json');
     let responseToJson = await response.json();
     return responseToJson;
-    
 }
 
 async function subtasksRender(indexHtml, subtasks) {
@@ -219,20 +219,17 @@ async function subtasksRender(indexHtml, subtasks) {
         position: indexHtml,
         subs: subtasks
     });
-    console.log(subtasksLengthArray);
-
     let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
   // prüft, ob die Variable subtasks tatsächlich ein Array ist
     if (Array.isArray(subtasks)) {
         for (let index = 0; index < subtasks.length; index++) {
             const element = subtasks[index];
-            console.log(element);
             position.innerHTML += `<p>${element}</p>`;
         }
 
         positionOfSubtasksLength.innerHTML = subtasks.length;
     } else {
-        console.error(`subtasks for index ${indexHtml} is not an array:`, subtasks);
+        // console.error(`subtasks for index ${indexHtml} is not an array:`, subtasks);
         positionOfSubtasksLength.innerHTML = 0;
     }
 }

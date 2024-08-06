@@ -192,3 +192,9 @@
 .board-task-container {
     margin: 20px;
 }
+.board-render-section{
+    display: flex;
+}
+.board-render-status-container{
+    width:500px;
+}

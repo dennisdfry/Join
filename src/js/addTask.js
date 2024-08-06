@@ -107,7 +107,8 @@ function createTask(event) {
         dueDate: dueDateTask,
         prio: lastString,
         category: taskCategory,
-        subtasks: subtasksArray
+        subtasks: subtasksArray,
+        boadCategory: 'ToDo'
     });
     saveToFirebase();
     form.reset();
