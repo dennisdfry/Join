@@ -13,7 +13,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    z-index: 10;
+    z-index: 8;
 }
 
 .login-signup button {
@@ -35,15 +35,20 @@ body {
 
 .login-logo {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 35%;
+    left: 42%;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 1.0s ease;
+}
+
+.fadeout {
+    z-index: 9;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(246, 247, 248, 1);
 }
 
 #login-logo-animated {
@@ -56,6 +61,10 @@ body {
     animation: shrink-animation 1s forwards;
 }
 
+.fadeout-animate {
+    animation: fadeOutBackground 2.5s forwards;
+}
+
 @keyframes shrink-animation {
     from {
         transform: scale(1);
@@ -63,6 +72,15 @@ body {
     }
     to {
         transform: scale(0.4);
+    }
+}
+
+@keyframes fadeOutBackground {
+    from {
+        background-color: rgba(246, 247, 248, 1);
+    }
+    to {
+        background-color: rgba(246, 247, 248, 0);
     }
 }
 

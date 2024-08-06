@@ -101,6 +101,24 @@
   font-size: 64px;
 }
 
+/** border - radius **/
+.bradius10 {
+  border-radius: 10px;
+}
+
+.bradius-lb-30 {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.bradius-rb-30 {
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.bradius70 {
+  border-radius: 70px;
+}
+
 /* font-weights + familys */
 
 .fw-400 {
@@ -141,6 +159,24 @@
   padding: 0px 20px;
 }
 
+/** Line -heights **/
+.l-height-19 {
+  line-height: 19.2px;
+}
+
+.l-height-24 {
+  line-height: 24px;
+}
+
+.l-height-32 {
+  line-height: 32.4px;
+}
+
+.l-height-73 {
+  line-height: 73.2px;
+}
+
+
 /* gaps*/
 .gap-4 {
   gap: 4px;
@@ -158,8 +194,16 @@
   gap: 12px;
 }
 
+.gap-15 {
+  gap: 15px;
+}
+
 .gap-16 {
   gap: 16px;
+}
+
+.gap-20 {
+  gap: 20px;
 }
 
 .gap-22 {
@@ -178,12 +222,19 @@
   gap: 21px;
 }
 
-.gap-20 {
-  gap: 20px;
+/** img -heights **/
+
+.img-24 {
+  height: 24px;
+  width: 24px;
 }
 
-.gap-15 {
-  gap: 15px;
+.form-prof-img {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 204px;
+  left: 550px;
 }
 
 /* font-color*/
@@ -232,6 +283,18 @@
 
 /* subclasses - help*/
 
+.obj-cover {
+  object-fit: cover;
+}
+
+.vis-hidden {
+  visibility: hidden;
+}
+
+.shadow-none {
+  box-shadow: none;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -261,7 +324,6 @@
   unicode-bidi: isolate;
 }
 
-/* dunno */
 
 .pos-abs {
   position: absolute;
@@ -273,62 +335,4 @@
 
 .text-deco-n {
   text-decoration: none;
-}
-
-.l-height-19 {
-  line-height: 19.2px;
-}
-
-.l-height-24 {
-  line-height: 24px;
-}
-
-.l-height-32 {
-  line-height: 32.4px;
-}
-
-.l-height-73 {
-  line-height: 73.2px;
-}
-
-.bradius10 {
-  border-radius: 10px;
-}
-
-.bradius-lb-30 {
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
-
-.bradius-rb-30 {
-  border-top-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
-.bradius70 {
-  border-radius: 70px;
-}
-
-.obj-cover {
-  object-fit: cover;
-}
-
-.vis-hidden {
-  visibility: hidden;
-}
-
-.img-24 {
-  height: 24px;
-  width: 24px;
-}
-
-.shadow-none {
-  box-shadow: none;
-}
-
-.form-prof-img {
-  width: 120px;
-  height: 120px;
-  position: absolute;
-  top: 204px;
-  left: 550px;
 }
