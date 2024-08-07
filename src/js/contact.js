@@ -1,10 +1,3 @@
-let allContacts = {
-  names: [],
-  mails: [],
-  phones: [],
-  images: [],
-};
-
 async function initContacts() {
   try {
     await getData("/");
@@ -16,8 +9,8 @@ async function initContacts() {
 
 async function getData(path = "") {
   let response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts" + path + ".json");
-  let responseToJson = await response.json();
-    updateContacts(responseToJson);
+  let data = await response.json();
+  return data;
 }
 
 async function deleteData(index) {
@@ -28,9 +21,8 @@ async function deleteData(index) {
       return;
     }
 
-    await fetch(`"https://join-19628-default-rtdb.firebaseio.com/contacts"/${contactId}.json`, { method: "DELETE" });
-    console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
-    ["names", "mails", "phones", "images"].forEach(field => allContacts[field].splice(index, 1));
+    await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`, { method: "DELETE" });
+    console.log(`Kontakt erfolgreich gelöscht.`);
     renderContactList();
   } catch (error) {
     console.error("Fehler beim Löschen des Kontakts:", error);
@@ -39,12 +31,11 @@ async function deleteData(index) {
 
 async function postData(contact) {
   try {
- 
     if (!contact.img) {
       contact.img = generateProfileImage(contact.name);
     }
 
-    let response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts" + ".json", {
+    await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts.json", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,74 +43,23 @@ async function postData(contact) {
       body: JSON.stringify(contact),
     });
 
-    let responseToJson = await response.json();
-
-    console.log("Erfolgreich hochgeladen:", responseToJson);
-
-    await getData("/");
+    console.log("Erfolgreich hochgeladen.");
+    renderContactList();
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
-  renderContactList();
 }
-
-function updateContacts(responseToJson) {
-  Object.values(responseToJson).forEach(contact => {
-    if (!isContactExisting(contact)) {
-      allContacts.names.push(contact.name);
-      allContacts.mails.push(contact.mail);
-      allContacts.phones.push(contact.phone);
-      allContacts.images.push(contact.img);
-    }
-  });
-}
-    //if (!contact.img) {         // wenn kein img hochgeladen wird wird das img aus der  generateProfileImage erstellt und als contact img gespeichert und ins array gepusht
-    //contact.img = generateProfileImage(contact.name); /// muss überarbeitet werden um einen img eintrag zu generieren sonst kann kontakt id nicht gefunden werden
-    //}
-    //allContacts.images.push(contact.img);
 
 async function getContactId(index) {
-  // Um die eindeutige ID des Kontaktes aus der Firebase-Datenbank zu identifizieren
-  let response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts" + ".json");
-  let responseToJson = await response.json();
-  let keys = Object.keys(responseToJson); // Nimmt das Array und gibt dessen gesamte Schlüssel zurück
-
-  for (let i = 0; i < keys.length; i++) {
-    let contact = responseToJson[keys[i]];
-    if (
-      contact.name === allContacts.names[index] &&
-      contact.mail === allContacts.mails[index] &&
-      contact.phone === allContacts.phones[index] &&
-      contact.img === allContacts.images[index]
-    ) {
-      return keys[i];
-    }
-  }
-  return null;
-}
-
-function isContactExisting(contact) {
-  return ["name", "mail", "phone", "img"].every((field) =>
-    allContacts[`${field}s`].includes(contact[field])
-  );
+  let contacts = await getData("/");
+  let contactKeys = Object.keys(contacts);
+  return contactKeys[index];
 }
 
 function generateProfileImage(name) {
-  // Generiert ein Profilfoto im vorgegebenen Stil, falls keines hochgeladen wird
-  const colors = [
-    "#FF5733",
-    "#33FF57",
-    "#3357FF",
-    "#FF33A1",
-    "#F3FF33",
-    "#33FFF3",
-  ];
-  let randomColor = colors[Math.floor(Math.random() * colors.length)]; // Kreiert eine zufällige Variable zwischen 0 und 1
-
-  let initials = name
-    .split(" ")
-    .map((word) => word[0].toUpperCase()) // Schneidet die Worte an der ersten Stelle in Großbuchstaben ab
-    .join(""); // Fügt diese zusammen
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F3FF33", "#33FFF3"];
+  let randomColor = colors[Math.floor(Math.random() * colors.length)];
+  let initials = name.split(" ").map(word => word[0].toUpperCase()).join("");
 
   let newContactImg = `
     <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -130,63 +70,54 @@ function generateProfileImage(name) {
   return `data:image/svg+xml;base64,${btoa(newContactImg)}`;
 }
 
-function sortContacts() {
-  // muss überarbeitet werden
-  let sortedIndices = allContacts.names
-    .map((name, index) => index)
-    .sort((a, b) => allContacts.names[a].localeCompare(allContacts.names[b]));
-
-  ["names", "mails", "phones", "images"].forEach((field) => {
-    allContacts[field] = sortedIndices.map(
-      (index) => allContacts[field][index]
-    );
+function sortContacts(contacts) {
+  return Object.keys(contacts).sort((a, b) => {
+    return contacts[a].name.localeCompare(contacts[b].name);
   });
 }
 
 function renderCurrentLetter(contactList, letter) {
-  // rendern zu der Kontaktliste einen Seperator
   contactList.innerHTML += `
     <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
     <div class="contactlist-seperator "></div>
   `;
 }
 
-function processContacts(contactList) {
-  // sollte kontakte sortieren.. funktioniert erst nach reload
+async function processContacts(contactList) {
+  let contacts = await getData("/");
+  let sortedContactKeys = sortContacts(contacts);
   let currentLetter = "";
-  for (let i = 0; i < allContacts.names.length; i++) {
-    let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
+
+  sortedContactKeys.forEach(key => {
+    let contact = contacts[key];
+    let firstLetter = contact.name.charAt(0).toUpperCase();
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
       renderCurrentLetter(contactList, currentLetter);
     }
-    let imageSrc = allContacts.images[i]
-      ? allContacts.images[i]
-      : generateProfileImage(allContacts.names[i]);
+
+    let imageSrc = contact.img ? contact.img : generateProfileImage(contact.name);
 
     contactList.innerHTML += `
-      <div id="contactlist-content(${i})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="openContact(${i})">
+      <div id="contactlist-content(${key})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="openContact('${key}')">
         <img class="pointer d-flex" src="${imageSrc}"/>
         <div class="contactlist-databox flex-d-col">
-          <div class="no-wrap-text fw-400 fs-20 pointer">${allContacts.names[i]}</div>
-          <a class="color-lb fs-16 text-deco-n" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+          <div class="no-wrap-text fw-400 fs-20 pointer">${contact.name}</div>
+          <a class="color-lb fs-16 text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
         </div>
       </div>
     `;
-  }
+  });
 }
 
-function renderContactList() {
+async function renderContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
-  sortContacts();
-  processContacts(contactList);
-  updateContacts(responseToJson);
+  await processContacts(contactList);
   setupForm();
 }
 
-function openContact(index) {
-  //erstellte img werden oval gerendert in der information// öffnet den Kontakt.. funktioniert noch nicht einwandfrei // muss noch eine move out animation erhalten und auf anderen kontakt die farbe verlieren
+async function openContact(index) {
   let contactSection = document.getElementById("contact-section");
   let contactList = document.getElementById(`contactlist-content(${index})`);
 
@@ -200,21 +131,22 @@ function openContact(index) {
   }
 }
 
-function renderContactSection(index) {
-  // renderfunktion der Kontaktinformationen nach Onclick
-  // animation funktioniert noch nicht und nach erfolgreichem löschen bleibnt die betroffene sektion bis zum reload oder switch bestehen
-  // cleancode: header und information-content seperat rendern  //renderContactInformation(index);
+async function renderContactSection(index) {
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
 
+  let contacts = await getData("/");
+  let contactKeys = Object.keys(contacts);
+  let contact = contacts[contactKeys[index]];
+
   contactSection.innerHTML = `
     <div class="contact-information item-center d-flex">
-      <img src="${allContacts.images[index]}" class="d-flex gap-10 obj-cover bradius70"/>
+      <img src="${contact.img}" class="d-flex gap-10 obj-cover bradius70"/>
       <div class="d-flex flex-d-col gap-8 item-start flex-grow">
-        <p class="mg-block-inline fw-500 no-wrap-text fs-47">${allContacts.names[index]}</p>
+        <p class="mg-block-inline fw-500 no-wrap-text fs-47">${contact.name}</p>
         <div class="contact-section-btn-box fw-400 d-flex-between l-height-19">
-          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="openEditForm(${index})" id="edit-btn"><img class="obj-cover img-24" src="./img/edit.png">Edit</button>
-          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteData(${index})" id="del-btn"><img class="obj-cover img-24" src="./img/delete.png">Delete</button>
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="openEditForm('${index}')" id="edit-btn"><img class="obj-cover img-24" src="./img/edit.png">Edit</button>
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteData('${index}')" id="del-btn"><img class="obj-cover img-24" src="./img/delete.png">Delete</button>
         </div>
       </div>
     </div>
@@ -224,11 +156,11 @@ function renderContactSection(index) {
       <div class="contact-information-data d-flex flex-d-col gap-22">
         <div class="d-flex flex-d-col gap-15 text-left">
           <p class="fs-16 f-weight-700 no-wrap-text mg-block-inline l-height-19 txt-left"><b>Email</b></p>
-          <a class="pointer color-lb text-deco-n" href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
+          <a class="pointer color-lb text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
         </div>
         <div class="d-flex flex-d-col gap-15 text-left">
           <p class="fs-16 f-weight-700 no-wrap-text mg-block-inline l-height-19 txt-left"><b>Phone</b></p>
-          <p class="fs-16 fw-400 no-wrap-text mg-block-inline l-height-19 txt-left">${allContacts.phones[index]}</p>
+          <p class="fs-16 fw-400 no-wrap-text mg-block-inline l-height-19 txt-left">${contact.phone}</p>
         </div>
       </div>
     </div>`;
@@ -270,10 +202,9 @@ function outsideForm(event) {
 }
 
 function closeFormfield() {
-  ["name", "mail", "phone"].forEach(
+  ["add-form-name", "add-form-mail", "add-form-phone"].forEach(
     (id) => (document.getElementById(id).value = "")
   );
-  document.getElementById("contact-form").classList.add("d-none");
   document.getElementById("add-form-section").classList.add("d-none");
 }
 
