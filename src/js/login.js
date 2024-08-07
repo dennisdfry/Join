@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", function() {
       const fadeoutDiv = document.getElementById('fadeout');
       
       animatedDiv.style.position = 'fixed';
-      animatedDiv.style.top = '-6%';
-      animatedDiv.style.left = '1%';
+      animatedDiv.style.top = '-6.4%';
+      animatedDiv.style.left = '-1.1%';
 
       animatedImg.classList.add('shrink');
       fadeoutDiv.classList.add('fadeout-animate');
