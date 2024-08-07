@@ -1,5 +1,3 @@
-let BASE_URL1 = "https://join-19628-default-rtdb.firebaseio.com/contacts";
-
 let allContacts = {
   names: [],
   mails: [],
@@ -17,7 +15,7 @@ async function initContacts() {
 }
 
 async function getData(path = "") {
-  let response = await fetch(BASE_URL1 + path + ".json");
+  let response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts" + path + ".json");
   let responseToJson = await response.json();
     updateContacts(responseToJson);
 }
@@ -30,7 +28,7 @@ async function deleteData(index) {
       return;
     }
 
-    await fetch(`${BASE_URL1}/${contactId}.json`, { method: "DELETE" });
+    await fetch(`"https://join-19628-default-rtdb.firebaseio.com/contacts"/${contactId}.json`, { method: "DELETE" });
     console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
     ["names", "mails", "phones", "images"].forEach(field => allContacts[field].splice(index, 1));
     renderContactList();
@@ -46,7 +44,7 @@ async function postData(contact) {
       contact.img = generateProfileImage(contact.name);
     }
 
-    let response = await fetch(BASE_URL1 + ".json", {
+    let response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts" + ".json", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +80,7 @@ function updateContacts(responseToJson) {
 
 async function getContactId(index) {
   // Um die eindeutige ID des Kontaktes aus der Firebase-Datenbank zu identifizieren
-  let response = await fetch(BASE_URL1 + ".json");
+  let response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts" + ".json");
   let responseToJson = await response.json();
   let keys = Object.keys(responseToJson); // Nimmt das Array und gibt dessen gesamte Schlüssel zurück
 
