@@ -54,22 +54,10 @@ async function checkAuthAndGreet(
   }
 }
 
-function updateTaskCounts() {
-  tasksRef.on("value", function (snapshot) {
-    var taskCount = snapshot.numChildren();
-    var todoValElement = document.getElementById("smry-to-do-val");
-    if (todoValElement) {
-      todoValElement.innerText = taskCount;
-    }
-  });
-}
-
 async function loadTasks() {
   try {
     const taskSnapshot = await tasksRef.once("value");
     const taskData = taskSnapshot.val();
-
-    console.log("Task data:", JSON.stringify(taskData));
 
     return taskData;
   } catch (error) {
