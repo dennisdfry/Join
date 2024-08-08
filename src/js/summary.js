@@ -3,7 +3,7 @@ var tasksRef = database.ref("tasks");
 
 function initSmry() {
   summaryGreeting();
-  updateTaskCounts();
+  loadTasksAndCountCategories();
 }
 
 async function summaryGreeting() {
@@ -77,21 +77,23 @@ async function loadTasks() {
   }
 }
 
-
 function countTasks(taskData) {
   const categoryCounts = {
     ToDo: 0,
-    Done: 0,
-    Progress: 0,
-    Feedback: 0
+    done: 0,
+    progress: 0,
+    feedback: 0,
   };
 
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
 
-      tasks.forEach(task => {
-        if (task.boardCategory && categoryCounts.hasOwnProperty(task.boardCategory)) {
+      tasks.forEach((task) => {
+        if (
+          task.boardCategory &&
+          categoryCounts.hasOwnProperty(task.boardCategory)
+        ) {
           categoryCounts[task.boardCategory]++;
         }
       });
@@ -106,18 +108,17 @@ async function loadTasksAndCountCategories() {
     const taskData = await loadTasks();
     const categoryCounts = countTasks(taskData);
 
-    console.log('Board Category Counts:', categoryCounts);
-
+    updateCategoryCounts(categoryCounts);
   } catch (error) {
-    console.error('Error loading tasks and counting categories:', error);
+    console.error("Error loading tasks and counting categories:", error);
   }
 }
 
 function updateCategoryCounts(counts) {
-  document.getElementById('smry-to-do-val').innerText = counts.ToDo || 0;
-  document.getElementById('smry-done-val').innerText = counts.Done || 0;
-  document.getElementById('smry-progress-val').innerText = counts.Progress || 0;
-  document.getElementById('smry-feedback-val').innerText = counts.Feedback || 0;
+  document.getElementById("smry-to-do-val").innerText = counts.ToDo || 0;
+  document.getElementById("smry-done-val").innerText = counts.done || 0;
+  document.getElementById("smry-progress-val").innerText = counts.progress || 0;
+  document.getElementById("smry-feedback-val").innerText = counts.feedback || 0;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
