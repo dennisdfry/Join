@@ -62,7 +62,7 @@ body {
 }
 
 .fadeout-animate {
-    animation: fadeOutBackground 2.5s forwards;
+    animation: fadeOutBackground 1s forwards;
 }
 
 @keyframes shrink-animation {
