@@ -212,6 +212,3 @@ function updateSubtasksList() {
     }
 }
 
-function cancelTask() {
-    // Implementieren Sie hier die Logik zum Abbrechen oder Zurücksetzen eines Tasks
-}

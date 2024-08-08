@@ -9,27 +9,27 @@ async function includeHTML() {
       sanitizedUrl.username = '';
       sanitizedUrl.password = '';
       let resp = await fetch(sanitizedUrl);
-      if (resp.ok) {
-        element.innerHTML = await resp.text();
-        if (file.includes('addTask.html'))  {
-          init();
-        }
-        if (file.includes('contacts.html')) {
-          initContacts();
-        }
-        if (file.includes('board.html')) {
-          loadingBoard();
-        }
-        if (file.includes('summary.html')) {
-          initSmry();
-        }
-      } else {
-        element.innerHTML = 'Page not found';
-      }
+      await whichChangeSite(resp, element, file);
     } catch (error) {
       console.error('Error fetching file:', file, error);
       element.innerHTML = 'Error loading page';
     }
+  }
+}
+
+async function whichChangeSite(resp, element, file){
+  if (resp.ok) {
+    element.innerHTML = await resp.text();
+    if (file.includes('addTask.html'))  {
+      init();}
+    if (file.includes('contacts.html')) {
+      initContacts();}
+    if (file.includes('board.html')) {
+      loadingBoard();}
+    if (file.includes('summary.html')) {
+      initSmry();}
+  } else {
+    element.innerHTML = 'Page not found';
   }
 }
 
@@ -73,41 +73,46 @@ async function loadingBoard() {
       let task = await onloadDataBoard("/tasks");
       let taskkeys = Object.keys(task);
       let fetchImage = await fetchImagesBoard("/");
-      for (let index = 0; index < taskkeys.length; index++) {
-          const element = taskkeys[index];
-          const taskArray = task[element];
-          let category = taskArray[0].category;
-          let description = taskArray[0].description;
-          let date = taskArray[0].dueDate;
-          let prio = taskArray[0].prio;
-          let title = taskArray[0].title;
-          let users = taskArray[0].assignedTo;
-          let subtasks = taskArray[0].subtasks;
-          let position = document.getElementById('todo');
-
-          position.innerHTML += await htmlboard(index, category, title, description, subtasks, users, date, prio);
-      }
-
-      for (let index = 0; index < taskkeys.length; index++) {
-          const element = taskkeys[index];
-          const taskArray = task[element];
-          let users = taskArray[0].assignedTo;
-          let prio = taskArray[0].prio;
-          let subtasks = taskArray[0].subtasks;
-
-          await Promise.all([
-              searchIndexUrl(index, users, fetchImage),
-              subtasksRender(index, subtasks),
-              searchprio(index, prio)
-          ]);
-      }
-
+      await generateHTMLObjects(taskkeys, task);
+      await generateHTMLObjectsForUserPrioSubtasks(taskkeys,task, fetchImage);
   } catch (error) {
       console.error('Error loading tasks:', error);
   }
 }
 
+async function generateHTMLObjectsForUserPrioSubtasks(taskkeys,task, fetchImage){
+  for (let index = 0; index < taskkeys.length; index++) {
+    const element = taskkeys[index];
+    const taskArray = task[element];
+    let users = taskArray[0].assignedTo;
+    let prio = taskArray[0].prio;
+    let subtasks = taskArray[0].subtasks;
+    await Promise.all([
+        searchIndexUrl(index, users, fetchImage),
+        subtasksRender(index, subtasks),
+        searchprio(index, prio)
+    ]);
+}
+}
 
+async function generateHTMLObjects(taskkeys, task){
+for (let index = 0; index < taskkeys.length; index++) {
+  const element = taskkeys[index];
+  const taskArray = task[element];
+  let category = taskArray[0].category;
+  let description = taskArray[0].description;
+  let date = taskArray[0].dueDate;
+  let prio = taskArray[0].prio;
+  let title = taskArray[0].title;
+  let users = taskArray[0].assignedTo;
+  let subtasks = taskArray[0].subtasks;
+ await positionOfHTMLBlock(index, category, title, description, subtasks, users, date, prio)
+}}
+
+async function positionOfHTMLBlock(index, category, title, description, subtasks, users, date, prio){
+  let position = document.getElementById('todo');
+ position.innerHTML += await htmlboard(index, category, title, description, subtasks, users, date, prio);     
+}
 
 async function searchprio(index, prio){
   let position = document.getElementById(`prioPosition${index}`);
@@ -208,22 +213,19 @@ async function onloadDataBoard(path="") {
 async function subtasksRender(indexHtml, subtasks) {
     let position = document.getElementById(`subtasksBoard${indexHtml}`);
     position.innerHTML = '';
-
     subtasksLengthArray.push({
         position: indexHtml,
         subs: subtasks
     });
+
     let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
-  // prüft, ob die Variable subtasks tatsächlich ein Array ist
     if (Array.isArray(subtasks)) {
         for (let index = 0; index < subtasks.length; index++) {
             const element = subtasks[index];
             position.innerHTML += `<p>${element}</p>`;
         }
-
         positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
     } else {
-        // console.error(`subtasks for index ${indexHtml} is not an array:`, subtasks);
         positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
     }
 }
