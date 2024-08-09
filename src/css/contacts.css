@@ -30,7 +30,7 @@ body {
 
 #contactlist-section {
   width: 456px;
-  height: 85vh;
+  height: 82vh;
   top: 96px;
   left: 215px;
   padding: 32px 24px 32px 24px;
@@ -59,9 +59,12 @@ body {
 
 .contactlist-btn-box {
   height: 101px;
-  position: sticky;
-  top: 0.1px;
+  width: 456px;
+  position: fixed;
+  top: 96px;
+  left: 224px;
 }
+
 #add-contact-btn {
   width: 352px;
   height: 56px;

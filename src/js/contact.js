@@ -131,7 +131,7 @@ async function openContact(index) {
   }
 }
 
-async function renderContactSection(index) {
+async function renderContactSection(index) { // ich denkke es liegt an erstellen  des images //
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
 
