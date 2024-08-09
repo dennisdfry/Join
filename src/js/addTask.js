@@ -5,6 +5,7 @@ let addTaskArray = [];
 let expanded = false;
 let isValid = true;
 let assignedToUserArray = [];
+let assignedToUserArrayNamesGlobal = [];
 let imageUrlsGlobal = []; 
 
 async function init() {
@@ -71,17 +72,19 @@ function checkBoxRender(index, imgSrc,element ){
                         <img src="${imgSrc}" alt="" />
                         ${element}
                     </div>
-                    <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser(${index})" />
+                    <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${index}','${element}')" />
                 </label>`;
 }
 
-async function assignedToUser(index, imageUrl) {
+async function assignedToUser(index, element) {
     const image = imageUrlsGlobal[index];
     const arrayIndex = assignedToUserArray.indexOf(index);
     if (arrayIndex !== -1) {
         assignedToUserArray.splice(arrayIndex, 1);
+        assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
     } else {
         assignedToUserArray.push(index);
+        assignedToUserArrayNamesGlobal.push(element);
     }
 }
 
@@ -96,7 +99,7 @@ function showCheckboxes() {
     }
 }
 
-function createTask(event) {
+async function createTask(event) {
     event.preventDefault();
     let form = event.target;
     if (!form.checkValidity()) {
@@ -107,6 +110,8 @@ function createTask(event) {
     saveToFirebase();
     form.reset();
     addTaskArray = [];
+    clearSubtasks();
+    await changeSite('board.html');
 }
 
 function defineTaskObjects(){
@@ -123,6 +128,7 @@ function pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCat
         title: taskTitle,
         description: taskDescription,
         assignedTo: assignedToUserArray,
+        assignedToNames: assignedToUserArrayNamesGlobal,
         dueDate: dueDateTask,
         prio: lastString,
         category: taskCategory,
@@ -212,3 +218,7 @@ function updateSubtasksList() {
     }
 }
 
+function clearSubtasks(){
+    let position = document.getElementById('subtasksPosition');
+    position.innerHTML = '';
+}

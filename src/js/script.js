@@ -33,7 +33,7 @@ async function whichChangeSite(resp, element, file){
   }
 }
 
-function changeSite(page) {
+async function changeSite(page) {
   document.querySelector('.main-content').setAttribute('w3-include-html', page);
   includeHTML();
 }
@@ -152,8 +152,9 @@ function openTaskToBoard(index) {
 async function htmlboard(index, category, title, description, subtasks, users, date, prio) {
     return `
     <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index})" class="board-task-container" id="parentContainer${index}">
-        <div class="d-flex-start">
+        <div class="d-flex-between">
             <h1 class="txt-center">${category}</h1>
+            <img class="d-none" src="../public/img/Close.png">
         </div>
         <div>
             <h2>${title}</h2> 
@@ -178,6 +179,12 @@ async function htmlboard(index, category, title, description, subtasks, users, d
             <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
             </div>
         </div>  
+        <div class="d-none">
+          <div>
+          <button><img src="../public/img/deleteOpenTask.png"><span>Delete</span></button>
+          <button><img src="../public/img/editOpenTask.png"><span>Edit</span></button>
+          </div>
+        </div>
     </div>`;  
 }
 
