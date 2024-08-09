@@ -53,7 +53,7 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 function clearLocalStorage() {
-  localStorage.clear();
+  localStorage.removeItem('user');
 }
 
 function toggleElement(elementClass, className) {
