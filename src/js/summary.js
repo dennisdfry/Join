@@ -122,6 +122,10 @@ function updateCategoryCounts(counts) {
   document.getElementById("smry-done-val").innerText = counts.done || 0;
   document.getElementById("smry-progress-val").innerText = counts.progress || 0;
   document.getElementById("smry-feedback-val").innerText = counts.feedback || 0;
+
+  const totalTasks = (counts.ToDo || 0) + (counts.done || 0) + (counts.progress || 0) + (counts.feedback || 0);
+
+  document.getElementById("smry-board-val").innerText = totalTasks;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
