@@ -1,5 +1,4 @@
 let subtasksLengthArray = [];
-let taskDataStore = [];
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -111,7 +110,6 @@ for (let index = 0; index < taskkeys.length; index++) {
   let title = taskArray[0].title;
   let users = taskArray[0].assignedTo;
   let subtasks = taskArray[0].subtasks;
-  taskDataStore[index] = { category, title, description, subtasks, users, date, prio };
  await positionOfHTMLBlock(index, category, title, description, subtasks, users, date, prio)
 }}
 
@@ -151,7 +149,6 @@ async function openTaskToBoard(index) {
   container.classList.remove('d-none');
   container.classList.remove('board-task-container')
   container.classList.add('board-task-container-open')
-  
 }
 
 async function htmlboard(index, category, title, description, subtasks, users, date, prio) {
@@ -194,10 +191,15 @@ async function htmlboard(index, category, title, description, subtasks, users, d
 }
 
 function closeOpenTask(index){
-  
+  let container = document.getElementById(`parentContainer${index}`);
+  let openPosition = document.getElementById('openTask');
+  openPosition.classList.remove('modal-overlay');
   let positionOfCard = document.getElementById('openTask');
   positionOfCard.innerHTML = '';
-  changeSite('board.html');
+  container.innerHTML='';
+  let todos = document.getElementById('todo');
+  todos.innerHTML = '';
+  loadingBoard();
 }
 
 async function searchIndexUrl(index, users, fetchImage){
