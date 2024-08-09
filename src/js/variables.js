@@ -1,5 +1,5 @@
-export const nameInput = document.getElementById('name');
-export const mailInput = document.getElementById('mail');
-export const passwordInput = document.getElementById('password');
-export const confirmPasswordInput = document.getElementById('confirm-password');
-export const submitButton = document.getElementById('success');
+const nameInput = document.getElementById('name');
+const mailInput = document.getElementById('mail');
+const passwordInput = document.getElementById('password');
+const confirmPasswordInput = document.getElementById('confirm-password');
+const submitButton = document.getElementById('success');

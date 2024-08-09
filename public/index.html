@@ -9,7 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="/src/js/firebase_init.js"></script>    
+    <script src="/src/js/firebase_init.js"></script>
     <!-- <script src="/src/js/auth.js" defer></script> -->
     <script src="/src/js/script.js"></script>
     <script src="/src/js/addTask.js"></script>
@@ -25,43 +25,25 @@
           <img src="/public/img/join_logo.svg" alt="join logo" />
         </section>
         <section class="nav-mid">
-          <a
-            href="#"
-            class="summary-field d-flex-start"
-            onclick="changeSite('summary.html')"
-          >
+          <a href="#" class="summary-field d-flex-start" onclick="changeSite('summary.html')">
             <img src="/public/img/summary.svg" alt="summary icon" />
             <p>Summary</p>
           </a>
-          <a
-            href="#"
-            class="task-field d-flex-start"
-            onclick="changeSite('addTask.html')"
-          >
+          <a href="#" class="task-field d-flex-start" onclick="changeSite('addTask.html')">
             <img src="/public/img/add-task.svg" alt="add task icon" />
             <p>Add Task</p>
           </a>
-          <a
-            href="#"
-            class="board-field d-flex-start"
-            onclick="changeSite('board.html')"
-          >
+          <a href="#" class="board-field d-flex-start" onclick="changeSite('board.html')">
             <img src="/public/img/board.svg" alt="board icon" />
             <p>Board</p>
           </a>
-          <a
-            href="#"
-            class="contact-field d-flex-start"
-            onclick="changeSite('contacts.html')"
-          >
+          <a href="#" class="contact-field d-flex-start" onclick="changeSite('contacts.html')">
             <img src="/public/img/contacts.svg" alt="contacts icon" />
             <p>Contacts</p>
           </a>
         </section>
         <section class="nav-down d-flex-end flex-d-col">
-          <a href="#" onclick="changeSite('datenschutz.html')"
-            >Privacy Policy</a
-          >
+          <a href="#" onclick="changeSite('datenschutz.html')">Privacy Policy</a>
           <a href="#" onclick="changeSite('impressum.html')">Legal notice</a>
         </section>
       </navbar>
@@ -73,21 +55,16 @@
             </div>
             <div class="user-section d-flex-center">
               <img src="/public/img/help.png" alt="help icon" onclick="changeSite('helpdesk.html')" />
-              <img
-                class="user-icon"
-                src="/public/img/user_logo.png"
-                alt="user icon"
-                onclick="toggleElement('.user-icon-dropdown', 'd-none')"
-              />
+              <img class="user-icon" src="/public/img/user_logo.png" alt="user icon" onclick="toggleElement('.user-icon-dropdown', 'd-none')" />
             </div>
             <div class="user-icon-dropdown d-flex-start flex-d-col bg-color-dg p-10 d-none">
               <a href="#" onclick="changeSite('impressum.html')">Legal notice</a>
               <a href="#" onclick="changeSite('datenschutz.html')">Privacy Policy</a>
-              <a href="/public/login.html">Log out</a>
+              <a href="/public/login.html" onclick="clearLocalStorage()">Log out</a>
             </div>
           </section>
         </header>
-        <div class="main-content" w3-include-html="summary.html">
+        <div class="main-content" w3-include-html="summary.html" onclick="hideDropdown()">
           <!-- Hier werden die einzelnen Seiten rein gerendert -->
         </div>
       </section>
