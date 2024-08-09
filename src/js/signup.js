@@ -1,5 +1,3 @@
-import { nameInput, mailInput, passwordInput, confirmPasswordInput, submitButton } from "./variables.js";
-
 function home() {
   window.location.replace("/public/login.html");
 }
@@ -91,6 +89,3 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   validateForm();
 });
-
-window.home = home;
-window.signUp = signUp;
