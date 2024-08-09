@@ -1,4 +1,5 @@
 let subtasksLengthArray = [];
+let taskDataStore = [];
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -106,6 +107,7 @@ for (let index = 0; index < taskkeys.length; index++) {
   let title = taskArray[0].title;
   let users = taskArray[0].assignedTo;
   let subtasks = taskArray[0].subtasks;
+  taskDataStore[index] = { category, title, description, subtasks, users, date, prio };
  await positionOfHTMLBlock(index, category, title, description, subtasks, users, date, prio)
 }}
 
@@ -130,31 +132,30 @@ async function searchprio(index, prio){
   }
 }
 
-function openTaskToBoard(index) {
-  let position = document.getElementById(`parentContainer${index}`); 
-  let positionOfDate = document.getElementById(`dateTask${index}`);
-  let positionOfPrio = document.getElementById(`prioTask${index}`);
-  positionOfDate.classList.remove('d-none');
-  positionOfPrio.classList.remove('d-none');
-  position.classList.remove('board-task-container');
-  let parentDiv = document.createElement('div');
-  parentDiv.id = `parent-container`;
-  parentDiv.className = 'modal';
-  position.parentNode.insertBefore(parentDiv, position);
-  parentDiv.appendChild(position);
-  let overlay = document.createElement('div');
-  overlay.className = 'modal-overlay';
-  document.body.appendChild(overlay);
+
+
+async function openTaskToBoard(index) {
+  let container = document.getElementById(`parentContainer${index}`);
+  let openPosition = document.getElementById('openTask');
+  let date = document.getElementById(`dateTask${index}`);
+  let closeButton = document.getElementById(`closeOpenTask${index}`);
+  closeButton.classList.remove('d-none');
+  date.classList.remove('d-none');
+  openPosition.appendChild(container);
+  openPosition.classList.add('modal-overlay');
+  openPosition.classList.remove('d-none');
+  container.classList.remove('d-none');
+  container.classList.remove('board-task-container')
+  container.classList.add('board-task-container-open')
+  
 }
-
-
 
 async function htmlboard(index, category, title, description, subtasks, users, date, prio) {
     return `
     <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index})" class="board-task-container" id="parentContainer${index}">
         <div class="d-flex-between">
             <h1 class="txt-center">${category}</h1>
-            <img class="d-none" src="../public/img/Close.png">
+            <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
         </div>
         <div>
             <h2>${title}</h2> 
@@ -186,6 +187,13 @@ async function htmlboard(index, category, title, description, subtasks, users, d
           </div>
         </div>
     </div>`;  
+}
+
+function closeOpenTask(index){
+  
+  let positionOfCard = document.getElementById('openTask');
+  positionOfCard.innerHTML = '';
+  changeSite('board.html');
 }
 
 async function searchIndexUrl(index, users, fetchImage){
