@@ -14,7 +14,7 @@ async function summaryGreeting() {
 
   if (greetingElement) {
     if (user === 'Guest') {
-      greetingGuest(hour, greetingElement, greetingElementName);
+      greetingGuest(hour, greetingElement);
     } else {
       await greetingUser(hour, greetingElement, greetingElementName);
     }

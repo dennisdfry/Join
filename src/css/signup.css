@@ -37,17 +37,20 @@ body {
   cursor: pointer;
 }
 
-.signup-input {    
+.signup-input {
   padding: 12px 21px;
 }
 
-.input-name, .input-mail, .input-password, .input-confirm-password {
+.input-name,
+.input-mail,
+.input-password,
+.input-confirm-password {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.signup-input input{
+.signup-input input {
   border-style: none;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
@@ -55,17 +58,17 @@ body {
   width: 422px;
   gap: 8px;
   font-size: 20px;
-  font-family: 'Inter';
+  font-family: "Inter";
   padding-left: 20px;
 }
 
 .signup-input input:placeholder-shown {
   font-size: 20px;
-  font-family: 'Inter';
+  font-family: "Inter";
 }
 
-::placeholder {    
-  color: #D1D1D1;
+::placeholder {
+  color: #d1d1d1;
 }
 
 .signup-input img {
@@ -75,10 +78,10 @@ body {
 }
 
 .signup-checkbox {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-size: 16px;
   padding: 20px 80px;
-  color: #A8A8A8
+  color: #a8a8a8;
 }
 
 .signup-btn {
@@ -88,7 +91,7 @@ body {
 }
 
 .submit-signup-btn {
-  background-color: #2A3647;
+  background-color: #2a3647;
   color: white;
   min-width: 110px;
   width: auto;
@@ -104,17 +107,17 @@ body {
 }
 
 .submit-signup-btn:hover {
-  background-color: #29ABE2;
-  border-color: #29ABE2;
-  border: none!important;
+  background-color: #29abe2;
+  border-color: #29abe2;
+  border: none !important;
   transform: scale(1.05);
   box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25);
 }
 
 .submit-guest-signup-btn {
   background-color: white;
-  color: #2A3647;
-  border-color: #2A3647;
+  color: #2a3647;
+  border-color: #2a3647;
   width: 177px;
   height: 48px;
   border-radius: 8px;
@@ -124,8 +127,8 @@ body {
 }
 
 .submit-guest-signup-btn:hover {
-  color: #29ABE2;
-  border-color: #29ABE2;
+  color: #29abe2;
+  border-color: #29abe2;
   transform: scale(1.05);
   box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25);
 }
@@ -145,9 +148,9 @@ body {
 .signup-info button {
   border: none;
   background-color: rgb(246, 247, 248);
-  font-family: 'Inter';
+  font-family: "Inter";
   margin: 50px 0px;
-  color: #A8A8A8;
+  color: #a8a8a8;
   font-size: 16px;
 }
 
