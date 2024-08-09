@@ -28,7 +28,6 @@ document.getElementById("login-form").addEventListener("submit", async function 
     await firebase.auth().signInWithEmailAndPassword(email, password);
     goToSummary();
   } catch (error) {
-    console.log("Error during login", error.code, error.message);
     alert("Error: " + error.message);
   }
 });
@@ -49,4 +48,10 @@ document.addEventListener("DOMContentLoaded", function() {
         fadeoutDiv.classList.add('d-none');
       });
   }, 500);
+});
+
+document.querySelector(".submit-guest-login-btn").addEventListener("click", function (e) {
+  e.preventDefault();
+  localStorage.setItem('user', 'Guest');
+  goToSummary();
 });

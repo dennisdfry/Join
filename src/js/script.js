@@ -52,6 +52,10 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
+function clearLocalStorage() {
+  localStorage.clear();
+}
+
 function toggleElement(elementClass, className) {
   const element = document.querySelector(elementClass);
     if (element.classList.contains(className)) {

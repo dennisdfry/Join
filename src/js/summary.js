@@ -9,35 +9,50 @@ function initSmry() {
 async function summaryGreeting() {
   const hour = new Date().getHours();
   const greetingElement = document.querySelector(".summary-user-greeting");
-  const greetingElementName = document.querySelector(
-    ".summary-user-greeting-name"
-  );
+  const greetingElementName = document.querySelector(".summary-user-greeting-name");
+  const user = localStorage.getItem('user');
+
   if (greetingElement) {
-    let greetingMessage = "";
-    if (hour > 6 && hour < 12) {
-      greetingMessage = "Good morning,";
-    } else if (hour >= 12 && hour < 18) {
-      greetingMessage = "Good afternoon,";
+    if (user === 'Guest') {
+      greetingGuest(hour, greetingElement, greetingElementName);
     } else {
-      greetingMessage = "Good evening,";
-    }
-    try {
-      await checkAuthAndGreet(
-        greetingMessage,
-        greetingElement,
-        greetingElementName
-      );
-    } catch (error) {
-      console.error("Error during authentication check and greeting:", error);
+      await greetingUser(hour, greetingElement, greetingElementName);
     }
   }
 }
 
-async function checkAuthAndGreet(
-  greetingMessage,
-  greetingElement,
-  greetingElementName
-) {
+async function greetingUser(hour, greetingElement, greetingElementName) {
+  let greetingMessage = "";
+  if (hour > 6 && hour < 12) {
+    greetingMessage = "Good morning,";
+  } else if (hour >= 12 && hour < 18) {
+    greetingMessage = "Good afternoon,";
+  } else {
+    greetingMessage = "Good evening,";
+  }
+
+  try {
+    await checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName
+    );
+  } catch (error) {
+    console.error("Error during authentication check and greeting:", error);
+  }
+}
+
+function greetingGuest(hour, greetingElement) {
+  let greetingMessage = "";
+  if (hour > 6 && hour < 12) {
+    greetingMessage = "Good morning";
+  } else if (hour >= 12 && hour < 18) {
+    greetingMessage = "Good afternoon";
+  } else {
+    greetingMessage = "Good evening";
+  }
+
+  greetingElement.textContent = greetingMessage;
+}
+
+async function checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName) {
   const user = firebase.auth().currentUser;
   if (user) {
     const userId = user.uid;
