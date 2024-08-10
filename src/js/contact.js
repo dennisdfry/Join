@@ -49,11 +49,9 @@ async function deleteData(index) {
 
 async function postData(contact) {
   try {
-
     if (!contact.img) {
       contact.img = generateProfileImage(contact.name);
     }
-
     let response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts" + ".json", {
       method: "POST",
       headers: {
@@ -68,7 +66,6 @@ async function postData(contact) {
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
- 
 }
 
 function updateContacts(responseToJson) {
@@ -78,12 +75,11 @@ function updateContacts(responseToJson) {
       allContacts.mails.push(contact.mail);
       allContacts.phones.push(contact.phone);
       allContacts.images.push(contact.img);
-    }
+    } // else für wenn der kontakt bereits so existiert
   });
 }
 
 async function getContactId(index) {
-  // Um die eindeutige ID des Kontaktes aus der Firebase-Datenbank zu identifizieren
   let response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts" + ".json");
   let responseToJson = await response.json();
   let keys = Object.keys(responseToJson);
@@ -105,7 +101,6 @@ async function getContactId(index) {
 function isContactExisting(contact) {
   return ["name", "mail", "phone", "img"].every((field) => {
     const contactArray = allContacts[`${field}s`];
-    // Überprüfen, ob das Array existiert und ein Wert enthalten ist
     return Array.isArray(contactArray) && contactArray.includes(contact[field]);
   });
 }
@@ -187,39 +182,25 @@ function openContact(index) {
   let contactSection = document.getElementById("contact-section");
   let selectedContact = document.getElementById(`contactlist-content(${index})`);
 
-  // Entfernen der Hintergrundfarbe von allen Kontakten
   let allContacts = document.querySelectorAll('[id^="contactlist-content"]');
   allContacts.forEach(contact => {
     contact.classList.remove("bg-color-dg");
   });
 
-  // Wenn der Kontakt bereits geöffnet ist, schließen und Move-Out-Animation hinzufügen
   if (contactSection.classList.contains("d-none") || !selectedContact.classList.contains("bg-color-dg")) {
-    // Setzt die Hintergrundfarbe des ausgewählten Kontakts
     selectedContact.classList.add("bg-color-dg");
-    
-    // Kontaktbereich anzeigen
     contactSection.classList.remove("d-none");
-
-    // Kontaktinhalt rendern
     renderContactSection(index);
-    
   } else {
-    // Move-Out-Animation hinzufügen
     contactSection.classList.add("animate__animated", "animate__fadeOut");
-
-    // Entfernt den Kontaktbereich nach der Animation
     contactSection.addEventListener('animationend', function() {
-      contactSection.classList.add("d-none");
-      contactSection.classList.remove("animate__fadeOut");
+    contactSection.classList.add("d-none");
+    contactSection.classList.remove("animate__fadeOut");
     }, { once: true });
   }
 }
 
 function renderContactSection(index) {
-  // renderfunktion der Kontaktinformationen nach Onclick
-  // animation funktioniert noch nicht und nach erfolgreichem löschen bleibnt die betroffene sektion bis zum reload oder switch bestehen
-  // cleancode: header und information-content seperat rendern  //renderContactInformation(index);
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
   contactSection.innerHTML = `
@@ -247,6 +228,7 @@ function renderContactSection(index) {
       </div>
     </div>`;
 }
+
 function formSubmit(event) {
   event.preventDefault();
   const fields = ["name", "mail", "phone", "prof-img"];
