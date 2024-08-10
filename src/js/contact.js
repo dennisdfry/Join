@@ -208,9 +208,7 @@ function updateContactList() {
 
 function openContact(index) {
   let contactSection = document.getElementById("contact-section");
-  let selectedContact = document.getElementById(
-    `contactlist-content(${index})`
-  );
+  let selectedContact = document.getElementById(`contactlist-content(${index})`);
 
   let allContacts = document.querySelectorAll('[id^="contactlist-content"]');
   allContacts.forEach((contact) => {
@@ -222,6 +220,7 @@ function openContact(index) {
     !selectedContact.classList.contains("bg-color-dg")
   ) {
     selectedContact.classList.add("bg-color-dg");
+    selectedContact.style.pointerEvents = "none"; // funktioniert in der anordnung noch nicht richtig aber der richtige ansatz
     contactSection.classList.remove("d-none");
     renderContactSection(index);
   } else {
