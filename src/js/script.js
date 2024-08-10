@@ -1,4 +1,5 @@
 let subtasksLengthArray = [];
+const taskData = {};
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -78,24 +79,29 @@ async function loadingBoard() {
       let taskkeys = Object.keys(task);
       let fetchImage = await fetchImagesBoard("/");
       await generateHTMLObjects(taskkeys, task);
-      await generateHTMLObjectsForUserPrioSubtasks(taskkeys,task, fetchImage);
+      await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
   } catch (error) {
       console.error('Error loading tasks:', error);
   }
 }
 
-async function generateHTMLObjectsForUserPrioSubtasks(taskkeys,task, fetchImage){
+async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage){
   for (let index = 0; index < taskkeys.length; index++) {
     const element = taskkeys[index];
     const taskArray = task[element];
     let users = taskArray[0].assignedTo;
     let prio = taskArray[0].prio;
     let subtasks = taskArray[0].subtasks;
-    await Promise.all([
-        searchIndexUrl(index, users, fetchImage),
-        subtasksRender(index, subtasks),
-        searchprio(index, prio)
-    ]);
+    taskData[index] = {
+      users: users,
+      prio: prio,
+      subtasks: subtasks,
+      fetchImage: fetchImage
+  };
+  await Promise.all([
+    searchIndexUrl(index, users, fetchImage),
+    // subtasksRender(index, subtasks),
+  ]);
 }
 }
 
@@ -136,24 +142,77 @@ async function searchprio(index, prio){
 
 
 
-async function openTaskToBoard(index) {
-  let container = document.getElementById(`parentContainer${index}`);
-  let openPosition = document.getElementById('openTask');
-  let date = document.getElementById(`dateTask${index}`);
-  let closeButton = document.getElementById(`closeOpenTask${index}`);
-  closeButton.classList.remove('d-none');
-  date.classList.remove('d-none');
-  openPosition.appendChild(container);
-  openPosition.classList.add('modal-overlay');
-  openPosition.classList.remove('d-none');
-  container.classList.remove('d-none');
-  container.classList.remove('board-task-container')
-  container.classList.add('board-task-container-open')
-}
+async function openTaskToBoard(index, category, title, description, date, prio ) {
+  console.log(index)
+  console.log(category)
+  console.log(title)
+  console.log(description)
+  console.log(date)
+  
+  let position = document.getElementById('openTask');
+  if (position.classList.contains('modal-overlay')){
+    return
+  }else{
+  position.classList.add('modal-overlay');
+  position.classList.remove('d-none');
+  position.innerHTML = `
+  <div draggable="true" ondragstart="startDragging(${index})" class="board-task-container-open" id="parentContainer${index}">
+        <div class="d-flex-between">
+            <h1 class="txt-center">${category}</h1>
+            <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="" src="../public/img/Close.png">
+        </div>
+        <div>
+            <h2>${title}</h2> 
+        </div>
+        <div>  
+            <p>${description}</p>
+        </div> 
+        <div class="" id="dateTask${index}">
+            <time>${date}</time>
+        </div>
+        <div class="" id="prioTask${index}">
+            <p></p><span>${prio}</span>
+        </div>
+        <div class="progress-container d-flex-between">
+            <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}"></div>
+        </div>
+        <div class="d-flex-between">
+            <div class="user-image-bord-container" id="userImageBoard${index}">
+            </div>
+            <div class="" id="subtasksBoard${index}">
+            </div>
+            <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
+            </div>
+        </div>  
+        <div class="">
+          <div>
+          <button><img src="../public/img/deleteOpenTask.png"><span>Delete</span></button>
+          <button><img src="../public/img/editOpenTask.png"><span>Edit</span></button>
+          </div>
+        </div>
+    </div>`;  
 
-async function htmlboard(index, category, title, description, subtasks, users, date, prio) {
+ 
+}
+let taskInfo = taskData[index];
+
+    if (taskInfo) {
+        let users = taskInfo.users;
+        let prio = taskInfo.prio;
+        let subtasks = taskInfo.subtasks;
+        let fetchImage = taskInfo.fetchImage; // Abrufen von fetchImage
+        await Promise.all([
+          searchIndexUrl(index, users, fetchImage),
+          subtasksRender(index, subtasks),
+          searchprio(index, prio)
+      ]);
+}else {
+  console.error("Keine Daten für den angegebenen Index gefunden.");
+}
+}
+async function htmlboard(index, category, title, description, date, prio, users, subtasks) {
     return `
-    <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index})" class="board-task-container" id="parentContainer${index}">
+    <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}', '${users}', '${subtasks}')" class="board-task-container" id="parentContainer${index}">
         <div class="d-flex-between">
             <h1 class="txt-center">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
@@ -164,42 +223,26 @@ async function htmlboard(index, category, title, description, subtasks, users, d
         <div>  
             <p>${description}</p>
         </div> 
-        <div class="d-none" id="dateTask${index}">
-            <time>${date}</time>
-        </div>
-        <div class="d-none" id="prioTask${index}">
-            <p></p><span>${prio}</span>
-        </div>
         <div class="progress-container d-flex-between">
             <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}"></div>
         </div>
         <div class="d-flex-between">
             <div class="user-image-bord-container" id="userImageBoard${index}">
             </div>
-            <div class="d-none" id="subtasksBoard${index}">
-            </div>
             <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
             </div>
         </div>  
-        <div class="d-none">
-          <div>
-          <button><img src="../public/img/deleteOpenTask.png"><span>Delete</span></button>
-          <button><img src="../public/img/editOpenTask.png"><span>Edit</span></button>
-          </div>
-        </div>
     </div>`;  
 }
 
-function closeOpenTask(index){
-  let container = document.getElementById(`parentContainer${index}`);
+
+function closeOpenTask(event, index) {
+  event.stopPropagation(); 
+
   let openPosition = document.getElementById('openTask');
   openPosition.classList.remove('modal-overlay');
-  let positionOfCard = document.getElementById('openTask');
-  positionOfCard.innerHTML = '';
-  container.innerHTML='';
-  let todos = document.getElementById('todo');
-  todos.innerHTML = '';
-  loadingBoard();
+  openPosition.classList.add('d-none');
+  openPosition.innerHTML = '';
 }
 
 async function searchIndexUrl(index, users, fetchImage){

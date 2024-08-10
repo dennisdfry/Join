@@ -208,16 +208,8 @@
 .prio-board-image{
     color:rgb(255, 168, 0)
 }
+
 /* openTask */
-.board-task-container-open {
-    border-radius: 24px;
-    height: 800px;
-    width: 525px;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin: 24px;
-}
 @keyframes slideInFromRight {
     0% {
         transform: translateX(100vw);
