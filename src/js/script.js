@@ -154,12 +154,6 @@ async function searchprio(index, prio){
 }
 
 async function openTaskToBoard(index, category, title, description, date, prio ) {
-  console.log(index)
-  console.log(category)
-  console.log(title)
-  console.log(description)
-  console.log(date)
-  
   let position = document.getElementById('openTask');
   if (position.classList.contains('modal-overlay')){
     return
@@ -170,15 +164,16 @@ async function openTaskToBoard(index, category, title, description, date, prio )
   <div draggable="true" ondragstart="startDragging(${index})" class="board-task-container-open" id="parentContainer${index}">
         <div class="d-flex-between">
             <h1 class="txt-center">${category}</h1>
-            <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="" src="../public/img/Close.png">
+            <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
         </div>
         <div>
             <h2>${title}</h2> 
         </div>
         <div>  
-            <p>${description}</p>
+            <p class="description-open-task">${description}</p>
         </div> 
-        <div class="" id="dateTask${index}">
+        <div class="d-flex item-center" id="dateTask${index}">
+            <p>Due date: </p>
             <time>${date}</time>
         </div>
         <div class="" id="prioTask${index}">
@@ -211,7 +206,6 @@ let taskInfo = taskData[index];
         let prio = taskInfo.prio;
         let subtasks = taskInfo.subtasks;
         let fetchImage = taskInfo.fetchImage; // Abrufen von fetchImage
-        console.log(userNames)
         await Promise.all([
           userNamesRender(userNames, index),
           searchIndexUrlOpen(index, users, fetchImage),
@@ -252,13 +246,12 @@ async function userNamesRender(userNames, index){
   let position = document.getElementById(`userNames${index}`)
   for (let index = 0; index < userNames.length; index++) {
     const element = userNames[index];
-    console.log(element);
     position.innerHTML += `<p>${element}</p>`;
   }
 }
+
 function closeOpenTask(event, index) {
   event.stopPropagation(); 
-
   let openPosition = document.getElementById('openTask');
   openPosition.classList.remove('modal-overlay');
   openPosition.classList.add('d-none');
@@ -275,11 +268,10 @@ async function searchIndexUrl(index, users, fetchImage){
     position.innerHTML += await htmlBoardImage(imageUrl, index);
   }
 }
+
 async function searchIndexUrlOpen(index, users, fetchImage){
-  console.log(users)
   let position = document.getElementById(`userImageBoardOpen${index}`);
   position.innerHTML = '';
-  
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
