@@ -77,6 +77,12 @@ function updateContacts(responseToJson) {
       allContacts.images.push(contact.img);
     } // else für wenn der kontakt bereits so existiert
   });
+  showUpdateBar();
+}
+
+function showUpdateBar(){
+  let updateBar = document.getElementById('update-bar');
+  updateBar.classList.remove('d-none');
 }
 
 async function getContactId(index) {
