@@ -100,7 +100,7 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
   };
   await Promise.all([
     searchIndexUrl(index, users, fetchImage),
-    // subtasksRender(index, subtasks),
+    searchprio(index, prio)
   ]);
 }
 }
@@ -114,14 +114,12 @@ for (let index = 0; index < taskkeys.length; index++) {
   let date = taskArray[0].dueDate;
   let prio = taskArray[0].prio;
   let title = taskArray[0].title;
-  let users = taskArray[0].assignedTo;
-  let subtasks = taskArray[0].subtasks;
- await positionOfHTMLBlock(index, category, title, description, subtasks, users, date, prio)
+ await positionOfHTMLBlock(index, category, title, description, date, prio)
 }}
 
-async function positionOfHTMLBlock(index, category, title, description, subtasks, users, date, prio){
+async function positionOfHTMLBlock(index, category, title, description, date, prio){
   let position = document.getElementById('todo');
- position.innerHTML += await htmlboard(index, category, title, description, subtasks, users, date, prio);     
+ position.innerHTML += await htmlboard(index, category, title, description, date, prio);     
 }
 
 async function searchprio(index, prio){
@@ -173,13 +171,10 @@ async function openTaskToBoard(index, category, title, description, date, prio )
         <div class="" id="prioTask${index}">
             <p></p><span>${prio}</span>
         </div>
-        <div class="progress-container d-flex-between">
-            <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}"></div>
-        </div>
         <div class="d-flex-between">
-            <div class="user-image-bord-container" id="userImageBoard${index}">
+            <div class="user-image-bord-container" id="userImageBoardOpen${index}">
             </div>
-            <div class="" id="subtasksBoard${index}">
+            <div class="" id="subtasksBoardOpen${index}">
             </div>
             <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
             </div>
@@ -202,17 +197,18 @@ let taskInfo = taskData[index];
         let subtasks = taskInfo.subtasks;
         let fetchImage = taskInfo.fetchImage; // Abrufen von fetchImage
         await Promise.all([
-          searchIndexUrl(index, users, fetchImage),
-          subtasksRender(index, subtasks),
+          searchIndexUrlOpen(index, users, fetchImage),
+          subtasksRenderOpen(index, subtasks),
           searchprio(index, prio)
       ]);
 }else {
   console.error("Keine Daten für den angegebenen Index gefunden.");
 }
 }
-async function htmlboard(index, category, title, description, date, prio, users, subtasks) {
+
+async function htmlboard(index, category, title, description, date, prio) {
     return `
-    <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}', '${users}', '${subtasks}')" class="board-task-container" id="parentContainer${index}">
+    <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container" id="parentContainer${index}">
         <div class="d-flex-between">
             <h1 class="txt-center">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
@@ -255,7 +251,16 @@ async function searchIndexUrl(index, users, fetchImage){
     position.innerHTML += await htmlBoardImage(imageUrl);
   }
 }
-
+async function searchIndexUrlOpen(index, users, fetchImage){
+  let position = document.getElementById(`userImageBoardOpen${index}`);
+  position.innerHTML = '';
+  
+  for (let index = 0; index < users.length; index++) {
+    const element = users[index];
+    let imageUrl = fetchImage[element];
+    position.innerHTML += await htmlBoardImage(imageUrl);
+  }
+}
 async function htmlBoardImage(imageUrl){
   return `<img class="user-image-board" src="${imageUrl}">`;
 }
@@ -292,4 +297,19 @@ async function subtasksRender(indexHtml, subtasks) {
     } else {
         positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
     }
+}
+async function subtasksRenderOpen(indexHtml, subtasks) {
+  let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
+  position.innerHTML = '';
+  subtasksLengthArray.push({
+      position: indexHtml,
+      subs: subtasks
+  });
+  if (Array.isArray(subtasks)) {
+      for (let index = 0; index < subtasks.length; index++) {
+          const element = subtasks[index];
+          position.innerHTML += `<p>${element}</p>`;
+      }
+     
+}
 }
