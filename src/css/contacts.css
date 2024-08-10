@@ -326,8 +326,8 @@ pointer-events: none;
 .update-animation {
   width: 326px;
   height: 74px;
-  top: 90vh;
-  left: 50vh;
+  top: 80vh;
+  left: 743px;;
   justify-content: center;
   align-items: baseline;
   animation: moveIn 800ms ease-in 100ms forwards;
@@ -341,4 +341,18 @@ pointer-events: none;
     visibility: visible;
     transform: translateX(0);
   }
+}
+@keyframes moveOut {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  100% {
+    visibility: visible;
+    transform: translateX(100vw);
+  }
+}
+
+.move-out {
+  animation: moveOut 800ms ease-out forwards;
 }

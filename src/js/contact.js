@@ -80,9 +80,24 @@ function updateContacts(responseToJson) {
   showUpdateBar();
 }
 
-function showUpdateBar(){
+function showUpdateBar() {
   let updateBar = document.getElementById('update-bar');
   updateBar.classList.remove('d-none');
+
+  updateBar.addEventListener('animationend', function(event) {
+    if (event.animationName === 'moveIn') {
+      setTimeout(function() {
+        updateBar.classList.add('move-out');
+
+        updateBar.addEventListener('animationend', function(event) {
+          if (event.animationName === 'moveOut') {
+            updateBar.classList.add('d-none');
+          }
+        });
+
+      }, 200);
+    }
+  });
 }
 
 async function getContactId(index) {
