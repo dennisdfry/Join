@@ -201,6 +201,24 @@ body {
   }
 }
 
+#edit-contact-section {
+  width: 1212px;
+  height: 592px;
+  animation: moveIn 200ms ease-in 100ms forwards;
+  top: 100px;
+  left: 240px;
+}
+@keyframes moveIn {
+  0% {
+    visibility: visible;
+    transform: translateX(100vw);
+  }
+  100% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+}
+
 .formfield-logo {
   top: 154px;
   left: 46.9px;
@@ -299,4 +317,8 @@ body {
   border-bottom: 3px solid #29abe2;
   transform: rotateX(140deg);
   margin-right: 275px;
+}
+
+.no-hover:hover {
+pointer-events: none;
 }

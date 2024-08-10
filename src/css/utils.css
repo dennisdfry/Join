@@ -105,16 +105,15 @@
 .bradius10 {
   border-radius: 10px;
 }
+.bradius30 {
+  border-radius: 30px;
+}
 
 .bradius-lb-30 {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
 }
 
-.bradius-rb-30 {
-  border-top-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
 .bradius70 {
   border-radius: 70px;
 }
