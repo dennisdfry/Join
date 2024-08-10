@@ -220,12 +220,12 @@
         opacity: 1;
     }
 }
-.user-image-bord-container-open{
+/* .user-image-bord-container-open{
 
-}
+} */
 .board-task-container-open {
     border-radius: 24px;
-    height: 800px;
+    height: fit-content;
     width: 525px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
@@ -264,6 +264,9 @@
 .close-open-task-img:hover{
     cursor: pointer;
 }
+.margin-left-open-task{
+    margin-left:25px;
+}
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -282,4 +285,13 @@
 
 .board-render-status-container {
     width: 500px;
+}
+.user-image-bord-container-open{
+    padding-left:4px;
+    
+}
+.user-image-task-open{
+    width:42px;
+    height:42px;
+    margin-right:16px;
 }

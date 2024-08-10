@@ -173,21 +173,19 @@ async function openTaskToBoard(index, category, title, description, date, prio )
             <p class="description-open-task">${description}</p>
         </div> 
         <div class="d-flex item-center" id="dateTask${index}">
-            <p>Due date: </p>
-            <time>${date}</time>
+            <p class="d-flex item-center fs-20 fw-400 color-dg">Due date:</p>
+            <p class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${date}</p>
         </div>
-        <div class="" id="prioTask${index}">
-            <p></p><span>${prio}</span>
+        <div class="d-flex item-center" id="prioTask${index}">
+            <p class="d-flex item-center fs-20 fw-400 color-dg">Priority:</p>
+            <span class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${prio}</span>
         </div>
-        <div class="d-flex-between">
+        <p class="d-flex item-center fs-20 fw-400 color-dg">Assigned To:</p>
         <div class="user-open-Container d-flex">
             <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
             </div>
-            <div id="userNames${index}"></div>
         </div>    
             <div class="" id="subtasksBoardOpen${index}">
-            </div>
-            <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
             </div>
         </div>  
         <div class="">
@@ -195,11 +193,10 @@ async function openTaskToBoard(index, category, title, description, date, prio )
           <button><img src="../public/img/deleteOpenTask.png"><span>Delete</span></button>
           <button><img src="../public/img/editOpenTask.png"><span>Edit</span></button>
           </div>
-        </div>
-    </div>`;  
+  </div>`;  
 }
-let taskInfo = taskData[index];
 
+let taskInfo = taskData[index];
     if (taskInfo) {
         let users = taskInfo.users;
         let userNames = taskInfo.userNames
@@ -207,8 +204,7 @@ let taskInfo = taskData[index];
         let subtasks = taskInfo.subtasks;
         let fetchImage = taskInfo.fetchImage; // Abrufen von fetchImage
         await Promise.all([
-          userNamesRender(userNames, index),
-          searchIndexUrlOpen(index, users, fetchImage),
+          searchIndexUrlOpen(index, users, fetchImage, userNames),
           subtasksRenderOpen(index, subtasks),
           searchprio(index, prio)
       ]);
@@ -242,14 +238,6 @@ async function htmlboard(index, category, title, description, date, prio) {
     </div>`;  
 }
 
-async function userNamesRender(userNames, index){
-  let position = document.getElementById(`userNames${index}`)
-  for (let index = 0; index < userNames.length; index++) {
-    const element = userNames[index];
-    position.innerHTML += `<p>${element}</p>`;
-  }
-}
-
 function closeOpenTask(event, index) {
   event.stopPropagation(); 
   let openPosition = document.getElementById('openTask');
@@ -269,13 +257,22 @@ async function searchIndexUrl(index, users, fetchImage){
   }
 }
 
-async function searchIndexUrlOpen(index, users, fetchImage){
+async function userNamesRender(index){
+  let position = document.getElementById(`userNames${index}`)
+  for (let index = 0; index < userNames.length; index++) {
+    const element = userNames[index];
+    position.innerHTML += `<p class="d-flex item-center  fs-20 fw-400">${element}</p>`;
+  }
+}
+
+async function searchIndexUrlOpen(index, users, fetchImage, userNames){
   let position = document.getElementById(`userImageBoardOpen${index}`);
   position.innerHTML = '';
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
+    const names = userNames[index];
     let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImageOpen(imageUrl);
+    position.innerHTML += await htmlBoardImageOpen(imageUrl, index, names);
   }
 }
 
@@ -286,16 +283,13 @@ async function htmlBoardImage(imageUrl){
   </div>  `;
 }
 
-async function htmlBoardImageOpen(imageUrl, index){
+async function htmlBoardImageOpen(imageUrl, index, names){
   return `
-  <div>
-    <img class="user-image-board" src="${imageUrl}">
+  <div class="d-flex pa-7-16">
+    <img class="user-image-task-open" src="${imageUrl}">
+    <div class="d-flex item-center font-sf fs-19 fw-400" >${names}</div>
   </div>  `;
 }
-
-
-
-
 
 async function subtasksRender(indexHtml, subtasks) {
     let position = document.getElementById(`subtasksBoard${indexHtml}`);
