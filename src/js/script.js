@@ -84,16 +84,43 @@ async function loadingBoard() {
       console.error('Error loading tasks:', error);
   }
 }
+async function onloadDataBoard(path="") {
+  let response = await fetch(BASE_URL + path + '.json');
+  let responseToJson = await response.json();
+  return responseToJson;
+}
+
+async function fetchImagesBoard(path=""){
+  let response = await fetch(BASE_URL + path + '.json');
+    let responseToJson = await response.json();
+    let contacts = responseToJson.contacts;
+    let imageUrl = Object.values(contacts).map(contacts => contacts.img);
+    return imageUrl;
+}
+
+async function generateHTMLObjects(taskkeys, task){
+  for (let index = 0; index < taskkeys.length; index++) {
+    const element = taskkeys[index];
+    const taskArray = task[element];
+    let category = taskArray[0].category;
+    let description = taskArray[0].description;
+    let date = taskArray[0].dueDate;
+    let prio = taskArray[0].prio;
+    let title = taskArray[0].title;
+   await positionOfHTMLBlock(index, category, title, description, date, prio)
+  }}
 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage){
   for (let index = 0; index < taskkeys.length; index++) {
     const element = taskkeys[index];
     const taskArray = task[element];
     let users = taskArray[0].assignedTo;
+    let nameOfUsers = taskArray[0].assignedToNames
     let prio = taskArray[0].prio;
     let subtasks = taskArray[0].subtasks;
     taskData[index] = {
       users: users,
+      userNames: nameOfUsers,
       prio: prio,
       subtasks: subtasks,
       fetchImage: fetchImage
@@ -104,18 +131,6 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
   ]);
 }
 }
-
-async function generateHTMLObjects(taskkeys, task){
-for (let index = 0; index < taskkeys.length; index++) {
-  const element = taskkeys[index];
-  const taskArray = task[element];
-  let category = taskArray[0].category;
-  let description = taskArray[0].description;
-  let date = taskArray[0].dueDate;
-  let prio = taskArray[0].prio;
-  let title = taskArray[0].title;
- await positionOfHTMLBlock(index, category, title, description, date, prio)
-}}
 
 async function positionOfHTMLBlock(index, category, title, description, date, prio){
   let position = document.getElementById('todo');
@@ -137,8 +152,6 @@ async function searchprio(index, prio){
     }
   }
 }
-
-
 
 async function openTaskToBoard(index, category, title, description, date, prio ) {
   console.log(index)
@@ -172,8 +185,11 @@ async function openTaskToBoard(index, category, title, description, date, prio )
             <p></p><span>${prio}</span>
         </div>
         <div class="d-flex-between">
-            <div class="user-image-bord-container" id="userImageBoardOpen${index}">
+        <div class="user-open-Container d-flex">
+            <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
             </div>
+            <div id="userNames${index}"></div>
+        </div>    
             <div class="" id="subtasksBoardOpen${index}">
             </div>
             <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
@@ -186,17 +202,18 @@ async function openTaskToBoard(index, category, title, description, date, prio )
           </div>
         </div>
     </div>`;  
-
- 
 }
 let taskInfo = taskData[index];
 
     if (taskInfo) {
         let users = taskInfo.users;
+        let userNames = taskInfo.userNames
         let prio = taskInfo.prio;
         let subtasks = taskInfo.subtasks;
         let fetchImage = taskInfo.fetchImage; // Abrufen von fetchImage
+        console.log(userNames)
         await Promise.all([
+          userNamesRender(userNames, index),
           searchIndexUrlOpen(index, users, fetchImage),
           subtasksRenderOpen(index, subtasks),
           searchprio(index, prio)
@@ -231,7 +248,14 @@ async function htmlboard(index, category, title, description, date, prio) {
     </div>`;  
 }
 
-
+async function userNamesRender(userNames, index){
+  let position = document.getElementById(`userNames${index}`)
+  for (let index = 0; index < userNames.length; index++) {
+    const element = userNames[index];
+    console.log(element);
+    position.innerHTML += `<p>${element}</p>`;
+  }
+}
 function closeOpenTask(event, index) {
   event.stopPropagation(); 
 
@@ -248,36 +272,38 @@ async function searchIndexUrl(index, users, fetchImage){
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImage(imageUrl);
+    position.innerHTML += await htmlBoardImage(imageUrl, index);
   }
 }
 async function searchIndexUrlOpen(index, users, fetchImage){
+  console.log(users)
   let position = document.getElementById(`userImageBoardOpen${index}`);
   position.innerHTML = '';
   
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImage(imageUrl);
+    position.innerHTML += await htmlBoardImageOpen(imageUrl);
   }
 }
+
 async function htmlBoardImage(imageUrl){
-  return `<img class="user-image-board" src="${imageUrl}">`;
+  return `
+  <div>
+    <img class="user-image-board" src="${imageUrl}">
+  </div>  `;
 }
 
-async function fetchImagesBoard(path=""){
-  let response = await fetch(BASE_URL + path + '.json');
-    let responseToJson = await response.json();
-    let contacts = responseToJson.contacts;
-    let imageUrl = Object.values(contacts).map(contacts => contacts.img);
-    return imageUrl;
+async function htmlBoardImageOpen(imageUrl, index){
+  return `
+  <div>
+    <img class="user-image-board" src="${imageUrl}">
+  </div>  `;
 }
 
-async function onloadDataBoard(path="") {
-    let response = await fetch(BASE_URL + path + '.json');
-    let responseToJson = await response.json();
-    return responseToJson;
-}
+
+
+
 
 async function subtasksRender(indexHtml, subtasks) {
     let position = document.getElementById(`subtasksBoard${indexHtml}`);
@@ -298,6 +324,7 @@ async function subtasksRender(indexHtml, subtasks) {
         positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
     }
 }
+
 async function subtasksRenderOpen(indexHtml, subtasks) {
   let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
   position.innerHTML = '';
