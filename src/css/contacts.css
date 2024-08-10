@@ -30,10 +30,9 @@ body {
 
 #contactlist-section {
   width: 456px;
-  height: 82vh;
+  height: 90vh;
   top: 96px;
   left: 215px;
-  /**padding: 32px 24px 32px 24px;**/
   box-shadow: 4px 0px 6px 0px #00000014;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -59,7 +58,6 @@ body {
 
 .contactlist-btn-box {
   height: 101px;
-  width: 456px;
   position: sticky;
   top: 0;
   left: 224px;
@@ -84,7 +82,6 @@ body {
 .contactlist-content {
   width: 352px;
   height: 78px;
-  padding: 15px 24px 15px 24px;
   gap: 35px;
 }
 
@@ -92,6 +89,9 @@ body {
   width: 42px;
   height: 42px;
   gap: 10px;
+  margin-left: 16px;
+  border-radius: 70px;
+  border: 2px solid #ffffff;
 }
 
 .contactlist-content:hover {
@@ -106,12 +106,13 @@ body {
 
 .contactlist-order-letter {
   padding: 17px 36px 17px 36px;
-  margin-left: 24px;
+  margin-left: 40px;
   gap: 10px;
 }
 
 .contactlist-seperator {
   width: 352px;
+  margin-bottom: 8px;
   border-bottom: 1px solid #d1d1d1;
 }
 
@@ -198,6 +199,16 @@ body {
   100% {
     visibility: visible;
     transform: translateX(0);
+  }
+}
+@keyframes moveOut {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  100% {
+    visibility: visible;
+    transform: translateX(100vw);
   }
 }
 
@@ -351,8 +362,4 @@ pointer-events: none;
     visibility: visible;
     transform: translateX(100vw);
   }
-}
-
-.move-out {
-  animation: moveOut 800ms ease-out forwards;
 }

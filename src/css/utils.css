@@ -347,3 +347,7 @@
 .font-sf {
   font-family: sans-serif;
 }
+
+.move-out {
+  animation: moveOut 800ms ease-out forwards;
+}
