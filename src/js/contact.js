@@ -9,7 +9,7 @@ let allContacts = {
 async function initContacts() {
   try {
     await getData("/");
-    renderContactList();
+    updateContactList();
   } catch (error) {
     console.log("Error:", error);
   }
@@ -39,7 +39,8 @@ async function deleteData(index) {
 
     console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
 
-    renderContactList();
+    updateContactList();
+    renderContactSection(index);
 
   } catch (error) {
     console.error("Fehler beim Löschen des Kontakts:", error);
@@ -63,7 +64,7 @@ async function postData(contact) {
     let responseToJson = await response.json();
     console.log("Erfolgreich hochgeladen:", responseToJson);
     await getData("/");
-    renderContactList();
+    updateContactList();
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
@@ -133,8 +134,8 @@ let initials = name
   `;
   return `data:image/svg+xml;base64,${btoa(newContactImg)}`;
 }
+
 function sortContacts() {
-  // muss überarbeitet werden
   let sortedIndices = allContacts.names
     .map((name, index) => index)
     .sort((a, b) => allContacts.names[a].localeCompare(allContacts.names[b]));
@@ -144,21 +145,22 @@ function sortContacts() {
     );
   });
 }
-function renderCurrentLetter(contactList, letter) {
-  // rendern zu der Kontaktliste einen Seperator
+
+function renderSeperator(contactList, letter) {
+ 
   contactList.innerHTML += `
     <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
     <div class="contactlist-seperator "></div>
   `;
 }
-function processContacts(contactList) {
-  // sollte kontakte sortieren.. funktioniert erst nach reload
+function renderListItems(contactList) {
+
   let currentLetter = "";
   for (let i = 0; i < allContacts.names.length; i++) {
     let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
-      renderCurrentLetter(contactList, currentLetter);
+      renderSeperator(contactList, currentLetter);
     }
     let imageSrc = allContacts.images[i]
       ? allContacts.images[i]
@@ -174,11 +176,11 @@ function processContacts(contactList) {
     `;
   }
 }
-function renderContactList() {
+function updateContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
   sortContacts();
-  processContacts(contactList);
+  renderListItems(contactList);
 }
 
 function openContact(index) {
