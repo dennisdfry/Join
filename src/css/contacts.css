@@ -83,6 +83,7 @@ body {
   width: 352px;
   height: 78px;
   gap: 35px;
+  margin: 4px;
 }
 
 .contactlist-content img {
