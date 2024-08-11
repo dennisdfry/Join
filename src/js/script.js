@@ -153,6 +153,22 @@ async function searchprio(index, prio){
   }
 }
 
+async function searchprioOpenTask(index, prio){
+  let position = document.getElementById(`prioPositionOpenTask${index}`);
+  position.innerHTML = '';
+  if(prio == 'Urgent'){
+    position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
+  }else{
+    if(prio == 'Medium'){
+      position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
+    }else{
+      if(prio == 'Low'){
+        position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
+      }
+    }
+  }
+}
+
 async function openTaskToBoard(index, category, title, description, date, prio ) {
   let position = document.getElementById('openTask');
   if (position.classList.contains('modal-overlay')){
@@ -173,26 +189,28 @@ async function openTaskToBoard(index, category, title, description, date, prio )
             <p class="description-open-task">${description}</p>
         </div> 
         <div class="d-flex item-center" id="dateTask${index}">
-            <p class="d-flex item-center fs-20 fw-400 color-dg">Due date:</p>
+            <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Due date:</p>
             <p class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${date}</p>
         </div>
         <div class="d-flex item-center" id="prioTask${index}">
-            <p class="d-flex item-center fs-20 fw-400 color-dg">Priority:</p>
+            <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Priority:</p>
             <span class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${prio}</span>
+            <div class="prio-board-image-container d-flex-center" id="prioPositionOpenTask${index}">
+            </div>
         </div>
-        <p class="d-flex item-center fs-20 fw-400 color-dg">Assigned To:</p>
+        <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Assigned To:</p>
         <div class="user-open-Container d-flex">
             <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
             </div>
-        </div>    
-            <div class="" id="subtasksBoardOpen${index}">
-            </div>
-        </div>  
+        </div>
+        <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
+            <div class="" id="subtasksBoardOpen${index}"></div>
         <div class="">
           <div>
           <button><img src="../public/img/deleteOpenTask.png"><span>Delete</span></button>
           <button><img src="../public/img/editOpenTask.png"><span>Edit</span></button>
           </div>
+        </div>
   </div>`;  
 }
 
@@ -206,7 +224,8 @@ let taskInfo = taskData[index];
         await Promise.all([
           searchIndexUrlOpen(index, users, fetchImage, userNames),
           subtasksRenderOpen(index, subtasks),
-          searchprio(index, prio)
+          searchprio(index, prio),
+          searchprioOpenTask(index, prio)
       ]);
 }else {
   console.error("Keine Daten für den angegebenen Index gefunden.");
@@ -319,10 +338,13 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
       subs: subtasks
   });
   if (Array.isArray(subtasks)) {
-      for (let index = 0; index < subtasks.length; index++) {
-          const element = subtasks[index];
-          position.innerHTML += `<p>${element}</p>`;
-      }
-     
+    for (let index = 0; index < subtasks.length; index++) {
+        const element = subtasks[index];
+        position.innerHTML += `
+            <div class="d-flex item-center">
+                <input class="checkbox-open-Task" type="checkbox" id="subtask-${indexHtml}-${index}">
+                <label class="" for="subtask-${indexHtml}-${index}">${element}</label>
+            </div>`;
+    }
 }
 }
