@@ -13,7 +13,7 @@ async function signUp(event) {
     const user = userCredential.user;
     const userId = user.uid;
     await saveUserData(userId, { name: formData.name, mail: formData.mail });
-    showSuccessMessage("You Signed Up successfully");
+    showSuccessMessage();
     clearInput();
   } catch (error) {
     alert("Error during sign up: " + error.message);
@@ -49,13 +49,23 @@ async function saveUserData(userId, userData) {
   await firebase.database().ref('users/' + userId).set(userData);
 }
 
-function showSuccessMessage(message) {
-  updateButtonText(message);
+function showSuccessMessage() {
+  const successBody = document.querySelector('.successBody');
+  const successSignup = document.getElementById('successSignup');
+
+  successBody.classList.remove('d-none');
+  
+  successBody.style.backgroundColor = 'rgba(0,0,0,0.2)';
+
   setTimeout(() => {
-    updateButtonText("Sign up");
+    successSignup.classList.add('show');
+  }, 100);
+
+  setTimeout(() => {
     home();
-  }, 2000);
+  }, 1000);
 }
+
 
 function clearInput() {
   document.getElementById("name").value = "";
@@ -63,10 +73,6 @@ function clearInput() {
   document.getElementById("password").value = "";
   document.getElementById("confirm-password").value = "";
   document.getElementById("checkbox").checked = false;
-}
-
-function updateButtonText(newText) {
-  document.getElementById("success").textContent = newText;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
