@@ -106,3 +106,48 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   validateForm();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirm-password');
+  const togglePassword = document.getElementById('toggle-password');
+  const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+
+  function updatePasswordVisibility(input, toggle) {
+    if (input.type === 'password') {
+      input.type = 'text';
+      toggle.src = '/public/img/password-show.png';
+    } else {
+      input.type = 'password';
+      toggle.src = '/public/img/password-hidden.png';
+    }
+  }
+
+  togglePassword.addEventListener('click', function() {
+    updatePasswordVisibility(passwordInput, togglePassword);
+  });
+
+  toggleConfirmPassword.addEventListener('click', function() {
+    updatePasswordVisibility(confirmPasswordInput, toggleConfirmPassword);
+  });
+
+  function updateToggleButtonVisibility() {
+    if (passwordInput.value.length > 0) {
+      togglePassword.classList.add('show');
+    } else {
+      togglePassword.classList.remove('show');
+    }
+
+    if (confirmPasswordInput.value.length > 0) {
+      toggleConfirmPassword.classList.add('show');
+    } else {
+      toggleConfirmPassword.classList.remove('show');
+    }
+  }
+
+  passwordInput.addEventListener('input', updateToggleButtonVisibility);
+  confirmPasswordInput.addEventListener('input', updateToggleButtonVisibility);
+
+  // Initiale Überprüfung beim Laden der Seite
+  updateToggleButtonVisibility();
+});
