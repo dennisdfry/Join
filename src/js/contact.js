@@ -72,11 +72,9 @@ async function postData(contact) {
     let responseToJson = await response.json();
     console.log("Erfolgreich hochgeladen:", responseToJson);
 
-    // Kontakte aktualisieren
     await getData("/");
     updateContactList();
 
-    // Suche den Index des neu hinzugefügten Kontakts
     const newContactIndex = allContacts.names.findIndex(
       (name) => name === contact.name && 
                 allContacts.mails.includes(contact.mail) && 
@@ -195,6 +193,7 @@ function renderSeperator(contactList, letter) {
     <div class="contactlist-seperator "></div>
   `;
 }
+
 function renderListItems(contactList) {
   let currentLetter = "";
   for (let i = 0; i < allContacts.names.length; i++) {
@@ -208,15 +207,16 @@ function renderListItems(contactList) {
       : generateProfileImage(allContacts.names[i]);
     contactList.innerHTML += `
       <div id="contactlist-content(${i})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="openContact(${i})">
-        <img class="pointer d-flex" src="${imageSrc}"/>
+        <img class="d-flex pointer" src="${imageSrc}"/>
         <div class="contactlist-databox flex-d-col">
-          <div class="no-wrap-text fw-400 fs-20 pointer">${allContacts.names[i]}</div>
-          <a class="color-lb fs-16 text-deco-n" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+          <div class="pointer no-wrap-text fw-400 fs-20 pointer">${allContacts.names[i]}</div>
+          <a class="pointer color-lb fs-16 text-deco-n" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
         </div>
       </div>
     `;
   }
 }
+
 function updateContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
@@ -226,33 +226,17 @@ function updateContactList() {
 
 function openContact(index) {
   let contactSection = document.getElementById("contact-section");
-  let selectedContact = document.getElementById(
-    `contactlist-content(${index})`
-  );
+  let selectedContact = document.getElementById(`contactlist-content(${index})`);
 
   let allContacts = document.querySelectorAll('[id^="contactlist-content"]');
   allContacts.forEach((contact) => {
     contact.classList.remove("bg-color-dg");
   });
-
-  if (
-    contactSection.classList.contains("d-none") ||
-    !selectedContact.classList.contains("bg-color-dg")
+  if (contactSection.classList.contains("d-none") || !selectedContact.classList.contains("bg-color-dg")
   ) {
     selectedContact.classList.add("bg-color-dg");
-    selectedContact.style.pointerEvents = "none"; // funktioniert in der anordnung noch nicht richtig aber der richtige ansatz
     contactSection.classList.remove("d-none");
     renderContactSection(index);
-  } else {
-    contactSection.classList.add("animate__animated", "animate__fadeOut");
-    contactSection.addEventListener(
-      "animationend",
-      function () {
-        contactSection.classList.add("d-none");
-        contactSection.classList.remove("animate__fadeOut");
-      },
-      { once: true }
-    );
   }
 }
 
@@ -260,6 +244,7 @@ function renderContactSection(index) {
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
   contactSection.innerHTML = `
+  <div class="animation-100">
     <div class="contact-information item-center d-flex">
       <img src="${allContacts.images[index]}" class="d-flex gap-10 obj-cover bradius70"/>
       <div class="d-flex flex-d-col gap-8 item-start flex-grow">
@@ -282,7 +267,8 @@ function renderContactSection(index) {
           <p class="fs-16 fw-400 no-wrap-text mg-block-inline l-height-19 txt-left">${allContacts.phones[index]}</p>
         </div>
       </div>
-    </div>`;
+    </div>
+  </div>`;
 }
 
 function formSubmit(event) {
@@ -327,8 +313,8 @@ function closeFormfield() {
     (id) => (document.getElementById(id).value = "")
   );
   let formField = document.getElementById("add-form-section");
-  formField.classList.add("move-out");
-  if (formField.classList.contains("move-out")) {
+  formField.classList.add("ani-out-100");
+  if (formField.classList.contains("ani-out-100")) {
     // schauen wir  nochmal
     formField.classList.add("d-none");
   }
