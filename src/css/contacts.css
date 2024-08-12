@@ -130,18 +130,8 @@ body {
   height: 364px;
   top: 311px;
   left: 750px;
-  animation: moveIn 1s ease-in 100ms forwards;
 }
-@keyframes moveIn {
-  0% {
-    visibility: visible;
-    transform: translateX(100vw);
-  }
-  100% {
-    visibility: visible;
-    transform: translateX(0);
-  }
-}
+
 
 .contact-information {
   height: 120px;
@@ -202,16 +192,7 @@ body {
     transform: translateX(0);
   }
 }
-@keyframes moveOut {
-  0% {
-    visibility: visible;
-    transform: translateX(0);
-  }
-  100% {
-    visibility: visible;
-    transform: translateX(100vw);
-  }
-}
+
 
 #edit-contact-section {
   width: 1212px;
@@ -361,6 +342,34 @@ pointer-events: none;
   }
   100% {
     visibility: visible;
+    transform: translateX(100vw);
+  }
+}
+
+.animation-100 {
+  animation: moveIn 1s ease-in 100ms forwards;
+}
+@keyframes moveIn {
+  0% {
+    visibility: visible;
+    transform: translateX(100vw);
+  }
+  100% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+}
+
+.ani-out-100 {
+  animation: moveOut 200ms ease-out 100ms forwards;
+}
+@keyframes moveOut {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  100% {
+    visibility: hidden;
     transform: translateX(100vw);
   }
 }

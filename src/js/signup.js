@@ -13,7 +13,7 @@ async function signUp(event) {
     const user = userCredential.user;
     const userId = user.uid;
     await saveUserData(userId, { name: formData.name, mail: formData.mail });
-    showSuccessMessage("You Signed Up successfully");
+    showSuccessMessage();
     clearInput();
   } catch (error) {
     alert("Error during sign up: " + error.message);
@@ -31,10 +31,26 @@ function getFormData() {
   };
 }
 
+document.getElementById('confirm-password').addEventListener('input', validatePassword);
+
+function validatePassword() {
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+  const errorMessage = document.getElementById('error-message');
+  const confirmPasswordInput = document.getElementById('confirm-password');
+
+  if (password !== confirmPassword) {
+    confirmPasswordInput.classList.add('invalid');
+    errorMessage.style.display = 'block';
+  } else {
+    confirmPasswordInput.classList.remove('invalid');
+    errorMessage.style.display = 'none';
+  }
+}
+
 function passwordValidation(password, confirm, checkbox) {
   return new Promise((resolve) => {
     if (password !== confirm) {
-      alert("Passwörter stimmen nicht überein.");
       resolve(false);
     } else if (!checkbox) {
       alert("Sie müssen die Privacy Policy akzeptieren.");
@@ -49,12 +65,17 @@ async function saveUserData(userId, userData) {
   await firebase.database().ref('users/' + userId).set(userData);
 }
 
-function showSuccessMessage(message) {
-  updateButtonText(message);
+function showSuccessMessage() {
+  const successBody = document.querySelector('.successBody');
+  const successSignup = document.getElementById('successSignup');
+  successBody.classList.remove('d-none');  
+  successBody.style.backgroundColor = 'rgba(0,0,0,0.2)';
   setTimeout(() => {
-    updateButtonText("Sign up");
+    successSignup.classList.add('show');
+  }, 100);
+  setTimeout(() => {
     home();
-  }, 2000);
+  }, 1000);
 }
 
 function clearInput() {
@@ -63,10 +84,6 @@ function clearInput() {
   document.getElementById("password").value = "";
   document.getElementById("confirm-password").value = "";
   document.getElementById("checkbox").checked = false;
-}
-
-function updateButtonText(newText) {
-  document.getElementById("success").textContent = newText;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -88,4 +105,49 @@ document.addEventListener('DOMContentLoaded', function () {
     input.addEventListener('input', validateForm);
   });
   validateForm();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirm-password');
+  const togglePassword = document.getElementById('toggle-password');
+  const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+
+  function updatePasswordVisibility(input, toggle) {
+    if (input.type === 'password') {
+      input.type = 'text';
+      toggle.src = '/public/img/password-show.png';
+    } else {
+      input.type = 'password';
+      toggle.src = '/public/img/password-hidden.png';
+    }
+  }
+
+  togglePassword.addEventListener('click', function() {
+    updatePasswordVisibility(passwordInput, togglePassword);
+  });
+
+  toggleConfirmPassword.addEventListener('click', function() {
+    updatePasswordVisibility(confirmPasswordInput, toggleConfirmPassword);
+  });
+
+  function updateToggleButtonVisibility() {
+    if (passwordInput.value.length > 0) {
+      togglePassword.classList.add('show');
+    } else {
+      togglePassword.classList.remove('show');
+    }
+
+    if (confirmPasswordInput.value.length > 0) {
+      toggleConfirmPassword.classList.add('show');
+    } else {
+      toggleConfirmPassword.classList.remove('show');
+    }
+  }
+
+  passwordInput.addEventListener('input', updateToggleButtonVisibility);
+  confirmPasswordInput.addEventListener('input', updateToggleButtonVisibility);
+
+  // Initiale Überprüfung beim Laden der Seite
+  updateToggleButtonVisibility();
 });
