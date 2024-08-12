@@ -188,27 +188,29 @@ async function openTaskToBoard(index, category, title, description, date, prio )
         <div>  
             <p class="description-open-task">${description}</p>
         </div> 
-        <div class="d-flex item-center" id="dateTask${index}">
-            <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Due date:</p>
-            <p class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${date}</p>
+        <div class="d-flex item-center mg-btt25" id="dateTask${index}">
+            <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
+            <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task">${date}</p>
         </div>
-        <div class="d-flex item-center" id="prioTask${index}">
-            <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Priority:</p>
+        <div class="d-flex item-center mg-btt25" id="prioTask${index}">
+            <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Priority:</p>
             <span class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${prio}</span>
             <div class="prio-board-image-container d-flex-center" id="prioPositionOpenTask${index}">
             </div>
         </div>
-        <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Assigned To:</p>
-        <div class="user-open-Container d-flex">
+        <div class="mg-btt25">
+        <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Assigned To:</p>
+        </div>
+        <div class="user-open-Container d-flex mg-btt25">
             <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
             </div>
         </div>
         <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
             <div class="" id="subtasksBoardOpen${index}"></div>
-        <div class="">
+        <div class="d-flex-end">
           <div>
-          <button><img src="../public/img/deleteOpenTask.png"><span>Delete</span></button>
-          <button><img src="../public/img/editOpenTask.png"><span>Edit</span></button>
+          <button class="open-task-delete-edit "><img src="../public/img/deleteOpenTask.png"><span class="">Delete</span></button>
+          <button class="open-task-delete-edit"><img src="../public/img/editOpenTask.png"><span>Edit</span></button>
           </div>
         </div>
   </div>`;  
@@ -341,7 +343,7 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
     for (let index = 0; index < subtasks.length; index++) {
         const element = subtasks[index];
         position.innerHTML += `
-            <div class="d-flex item-center">
+            <div class="d-flex item-center pa-7-16">
                 <input class="checkbox-open-Task" type="checkbox" id="subtask-${indexHtml}-${index}">
                 <label class="" for="subtask-${indexHtml}-${index}">${element}</label>
             </div>`;

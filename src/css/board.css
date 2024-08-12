@@ -229,7 +229,7 @@
     width: 525px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
-    padding: 24px;
+    padding: 48px 40px 48px 40px;
     animation: slideInFromRight 0.5s ease-out forwards; /* Animation hinzufügen */
 }
 .board-task-container-open h1{
@@ -299,6 +299,11 @@
     width: 16px;
     height:16px;
     margin-right: 16px;
-    Padding:6px, 16px;
+}
+.open-task-delete-edit{
 
+}
+.open-task-delete-edit img{
+    width:24px;
+    height:24px;
 }
