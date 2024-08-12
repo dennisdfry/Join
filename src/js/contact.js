@@ -57,8 +57,9 @@ async function postData(contact) {
     if (!contact.img) {
       contact.img = generateProfileImage(contact.name);
     }
+
     let response = await fetch(
-      "https://join-19628-default-rtdb.firebaseio.com/contacts" + ".json",
+      "https://join-19628-default-rtdb.firebaseio.com/contacts.json",
       {
         method: "POST",
         headers: {
@@ -67,12 +68,29 @@ async function postData(contact) {
         body: JSON.stringify(contact),
       }
     );
+
     let responseToJson = await response.json();
     console.log("Erfolgreich hochgeladen:", responseToJson);
+
+    // Kontakte aktualisieren
     await getData("/");
     updateContactList();
+
+    // Suche den Index des neu hinzugefügten Kontakts
+    const newContactIndex = allContacts.names.findIndex(
+      (name) => name === contact.name && 
+                allContacts.mails.includes(contact.mail) && 
+                allContacts.phones.includes(contact.phone)
+    );
+
+    // Zeige den neuen Kontakt an
+    if (newContactIndex !== -1) {
+      renderContactSection(newContactIndex);
+    } else {
+      console.error("Fehler: Neuer Kontakt wurde nicht in der Liste gefunden.");
+    }
+
     showUpdateBar();
-    //renderContactSection(contact); damit der aktuell erstellte kontakt sofort angezeigt wird, parameter stimmt noch nicht
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
@@ -208,7 +226,9 @@ function updateContactList() {
 
 function openContact(index) {
   let contactSection = document.getElementById("contact-section");
-  let selectedContact = document.getElementById(`contactlist-content(${index})`);
+  let selectedContact = document.getElementById(
+    `contactlist-content(${index})`
+  );
 
   let allContacts = document.querySelectorAll('[id^="contactlist-content"]');
   allContacts.forEach((contact) => {
@@ -308,10 +328,10 @@ function closeFormfield() {
   );
   let formField = document.getElementById("add-form-section");
   formField.classList.add("move-out");
-  if(formField.classList.contains('move-out')){     // schauen wir  nochmal
-    formField.classList.add('d-none');
+  if (formField.classList.contains("move-out")) {
+    // schauen wir  nochmal
+    formField.classList.add("d-none");
   }
-
 }
 
 function closeEditfield() {
