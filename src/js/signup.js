@@ -31,10 +31,26 @@ function getFormData() {
   };
 }
 
+document.getElementById('confirm-password').addEventListener('input', validatePassword);
+
+function validatePassword() {
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+  const errorMessage = document.getElementById('error-message');
+  const confirmPasswordInput = document.getElementById('confirm-password');
+
+  if (password !== confirmPassword) {
+    confirmPasswordInput.classList.add('invalid');
+    errorMessage.style.display = 'block';
+  } else {
+    confirmPasswordInput.classList.remove('invalid');
+    errorMessage.style.display = 'none';
+  }
+}
+
 function passwordValidation(password, confirm, checkbox) {
   return new Promise((resolve) => {
     if (password !== confirm) {
-      alert("Passwörter stimmen nicht überein.");
       resolve(false);
     } else if (!checkbox) {
       alert("Sie müssen die Privacy Policy akzeptieren.");
@@ -52,20 +68,15 @@ async function saveUserData(userId, userData) {
 function showSuccessMessage() {
   const successBody = document.querySelector('.successBody');
   const successSignup = document.getElementById('successSignup');
-
-  successBody.classList.remove('d-none');
-  
+  successBody.classList.remove('d-none');  
   successBody.style.backgroundColor = 'rgba(0,0,0,0.2)';
-
   setTimeout(() => {
     successSignup.classList.add('show');
   }, 100);
-
   setTimeout(() => {
     home();
   }, 1000);
 }
-
 
 function clearInput() {
   document.getElementById("name").value = "";
