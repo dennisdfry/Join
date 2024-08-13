@@ -130,23 +130,4 @@ document.addEventListener('DOMContentLoaded', function() {
   toggleConfirmPassword.addEventListener('click', function() {
     updatePasswordVisibility(confirmPasswordInput, toggleConfirmPassword);
   });
-
-  function updateToggleButtonVisibility() {
-    if (passwordInput.value.length > 0) {
-      togglePassword.classList.add('.password-toggle.hide');
-    } else {
-      togglePassword.classList.remove('show');
-    }
-
-    if (confirmPasswordInput.value.length > 0) {
-      toggleConfirmPassword.classList.add('.password-toggle.hide');
-    } else {
-      toggleConfirmPassword.classList.remove('show');
-    }
-  }
-
-  passwordInput.addEventListener('input', updateToggleButtonVisibility);
-  confirmPasswordInput.addEventListener('input', updateToggleButtonVisibility);
-
-  updateToggleButtonVisibility();
 });
