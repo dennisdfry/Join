@@ -26,7 +26,7 @@ window.htmlboard = async function(index, category, title, description, date, pri
 
 window.openTaskToBoardHtml = function (index, category, title, description, date, prio){
     return `
-    <div draggable="true" ondragstart="startDragging(${index})" class="board-task-container-open" id="parentContainer${index}">
+    <div class="board-task-container-open" id="parentContainer${index}">
           <div class="d-flex-between">
               <h1 class="txt-center">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
@@ -60,10 +60,51 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
             <div class="d-flex item-center">
               <div class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none" >Delete</p></div>
               <div class="seperator-opentask"></div>
-              <div class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
+              <div onclick="editOpenTask(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
             </div>
           </div>
     </div>`;  
 }
 
- 
+ window.editTaskHtml = function(index, category, title, description, date, prio){
+    return `
+    <div class="board-task-container-open" id="parentContainer${index}">
+          <div class="d-flex-between">
+              <h1 class="txt-center">${category}</h1>
+              <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
+          </div>
+          <div>
+              <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Title:</p>
+              <input placeholder="${title}" type="text">
+          </div>
+          <div>  
+              <p class="description-open-task">${description}</p>
+          </div> 
+          <div class="d-flex item-center mg-btt25" id="dateTask${index}">
+              <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
+              <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task">${date}</p>
+          </div>
+          <div class="d-flex item-center mg-btt25" id="prioTask${index}">
+              <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Priority:</p>
+              <span class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${prio}</span>
+              <div class="prio-board-image-container d-flex-center" id="prioPositionOpenTask${index}">
+              </div>
+          </div>
+          <div class="mg-btt25">
+          <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Assigned To:</p>
+          </div>
+          <div class="user-open-Container d-flex mg-btt25">
+              <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
+              </div>
+          </div>
+          <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
+              <div class="" id="subtasksBoardOpen${index}"></div>
+          <div class="d-flex-end">
+            <div class="d-flex item-center">
+              <div class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none" >Delete</p></div>
+              <div class="seperator-opentask"></div>
+              <div onclick="editTask()" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
+            </div>
+          </div>
+    </div>`; 
+ }

@@ -86,6 +86,7 @@ async function loadingBoard() {
       console.error('Error loading tasks:', error);
   }
 }
+
 async function onloadDataBoard(path="") {
   let response = await fetch(BASE_URL + path + '.json');
   let responseToJson = await response.json();
@@ -110,9 +111,7 @@ async function generateHTMLObjects(taskkeys, task) {
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
   for (let index = 0; index < taskkeys.length; index++) {
     const { assignedTo: users, assignedToNames: userNames, prio, subtasks } = task[taskkeys[index]][0];
-    
     taskData[index] = { users, userNames, prio, subtasks, fetchImage };
-    
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
       searchprio(index, prio)
@@ -272,4 +271,10 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
             </div>`;
     }
 }
+}
+
+async function editOpenTask(index, category, title, description, date, prio){
+  let position = document.getElementById('openTask');
+  position.innerHTML = '';
+  position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
 }
