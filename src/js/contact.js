@@ -295,39 +295,21 @@ function setupForm() {
 
 function showFormField() {
   let formField = document.getElementById("add-form-section");
-
-
   formField.classList.remove("d-none");
-
-
   formField.classList.remove("hidden");
-
-
   formField.style.visibility = "visible";
   formField.style.transform = "translateX(100vw)";
-
-
   formField.style.animation = "moveIn 200ms ease-in forwards";
-
-
   document.addEventListener("click", outsideForm);
 }
 
 function showEditForm(index) {
   let editField = document.getElementById("edit-contact-section");
-
-  
   editField.classList.remove("d-none");
-
-  
   editField.classList.remove("hidden");
-
-
   editField.style.visibility = "visible";
   editField.style.transform = "translateX(100vw)";
-
   editField.style.animation = "moveIn 200ms ease-in forwards";
-
   document.addEventListener("click", outsideForm);
   loadEditFormData(index);
 }
@@ -351,12 +333,8 @@ function closeFormfield() {
 
   setTimeout(() => {
     formField.classList.add("hidden");
-
-   
     formField.style.visibility = "hidden";
     formField.style.transform = "translateX(100vw)";
-
-    
     formField.classList.add("d-none");
   }, 200);
 }
@@ -364,23 +342,14 @@ function closeFormfield() {
 function closeEditfield() {
   let editField = document.getElementById("edit-contact-section");
 
-  
   ["edit-name", "edit-mail", "edit-phone"].forEach(
     (id) => (document.getElementById(id).value = "")
   );
-
-
   editField.style.animation = "moveOut 200ms ease-out forwards";
-
-  
   setTimeout(() => {
     editField.classList.add("hidden");
-
- 
     editField.style.visibility = "hidden";
     editField.style.transform = "translateX(100vw)";
-
-
     editField.classList.add("d-none");
   }, 200);
 }
