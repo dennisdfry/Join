@@ -133,13 +133,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function updateToggleButtonVisibility() {
     if (passwordInput.value.length > 0) {
-      togglePassword.classList.add('show');
+      togglePassword.classList.add('.password-toggle.hide');
     } else {
       togglePassword.classList.remove('show');
     }
 
     if (confirmPasswordInput.value.length > 0) {
-      toggleConfirmPassword.classList.add('show');
+      toggleConfirmPassword.classList.add('.password-toggle.hide');
     } else {
       toggleConfirmPassword.classList.remove('show');
     }
@@ -148,6 +148,5 @@ document.addEventListener('DOMContentLoaded', function() {
   passwordInput.addEventListener('input', updateToggleButtonVisibility);
   confirmPasswordInput.addEventListener('input', updateToggleButtonVisibility);
 
-  // Initiale Überprüfung beim Laden der Seite
   updateToggleButtonVisibility();
 });
