@@ -76,9 +76,10 @@ async function postData(contact) {
     updateContactList();
 
     const newContactIndex = allContacts.names.findIndex(
-      (name) => name === contact.name && 
-                allContacts.mails.includes(contact.mail) && 
-                allContacts.phones.includes(contact.phone)
+      (name) =>
+        name === contact.name &&
+        allContacts.mails.includes(contact.mail) &&
+        allContacts.phones.includes(contact.phone)
     );
 
     // Zeige den neuen Kontakt an
@@ -226,14 +227,18 @@ function updateContactList() {
 
 function openContact(index) {
   let contactSection = document.getElementById("contact-section");
-  let selectedContact = document.getElementById(`contactlist-content(${index})`);
+  let selectedContact = document.getElementById(
+    `contactlist-content(${index})`
+  );
 
   let allContacts = document.querySelectorAll('[id^="contactlist-content"]');
   allContacts.forEach((contact) => {
     contact.classList.remove("bg-color-dg");
     //selectedContact.style.pointerEvents = "enable";
   });
-  if (contactSection.classList.contains("d-none") || !selectedContact.classList.contains("bg-color-dg")
+  if (
+    contactSection.classList.contains("d-none") ||
+    !selectedContact.classList.contains("bg-color-dg")
   ) {
     selectedContact.classList.add("bg-color-dg");
     selectedContact.style.pointerEvents = "disable";
@@ -355,13 +360,35 @@ function closeEditfield() {
 }
 
 function loadEditFormData(index) {
-
   document.getElementById("edit-name").value = allContacts.names[index];
   document.getElementById("edit-mail").value = allContacts.mails[index];
   document.getElementById("edit-phone").value = allContacts.phones[index];
 
   let editImage = document.getElementById("prof2-img");
-    editImage.innerHTML = `<img src="${allContacts.images[index]}">`;
+  if (editImage) {
+    editImage.innerHTML = `<img src="${allContacts.images[index]}" alt="Contact Image">`;
   }
+}
 
+async function editFormSubmit(event) {
+  event.preventDefault();
 
+  const index = event.target.getAttribute("data-index");
+
+  const fields = ["edit-name", "edit-mail", "edit-phone"];
+  const updatedContact = Object.fromEntries(
+    fields.map((field) => [
+      field.replace("edit-", ""),
+      document.getElementById(field).value,
+    ])
+  );
+  allContacts.names[index] = updatedContact.name;
+  allContacts.mails[index] = updatedContact.mail;
+  allContacts.phones[index] = updatedContact.phone;
+
+  await postData(updatedContact);
+  await deleteData(index);
+
+  renderContactSection(index);
+  closeEditfield(index);
+}
