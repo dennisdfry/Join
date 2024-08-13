@@ -182,6 +182,7 @@ body {
   top: 100px;
   left: 240px;
 }
+
 @keyframes moveIn {
   0% {
     visibility: visible;
@@ -191,6 +192,25 @@ body {
     visibility: visible;
     transform: translateX(0);
   }
+}
+
+/* New keyframe for moveOut (closing animation) */
+@keyframes moveOut {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+/* Apply hidden state for the form after animation */
+.hidden {
+  visibility: hidden;
 }
 
 
@@ -361,7 +381,7 @@ pointer-events: none;
 }
 
 .ani-out-100 {
-  animation: moveOut 200ms ease-out 100ms forwards;
+  animation: moveOut 200ms ease-in-out 100ms forwards;
 }
 @keyframes moveOut {
   0% {
@@ -369,7 +389,7 @@ pointer-events: none;
     transform: translateX(0);
   }
   100% {
-    visibility: hidden;
+    visibility: visible;
     transform: translateX(100vw);
   }
 }

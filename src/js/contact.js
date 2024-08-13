@@ -231,10 +231,12 @@ function openContact(index) {
   let allContacts = document.querySelectorAll('[id^="contactlist-content"]');
   allContacts.forEach((contact) => {
     contact.classList.remove("bg-color-dg");
+    //selectedContact.style.pointerEvents = "enable";
   });
   if (contactSection.classList.contains("d-none") || !selectedContact.classList.contains("bg-color-dg")
   ) {
     selectedContact.classList.add("bg-color-dg");
+    selectedContact.style.pointerEvents = "disable";
     contactSection.classList.remove("d-none");
     renderContactSection(index);
   }
@@ -285,17 +287,49 @@ function formSubmit(event) {
 }
 
 function setupForm() {
-  const form = document.getElementById("contact-form");
-  form.addEventListener("submit", formSubmit);
+  const addForm = document.getElementById("contact-form");
+  addForm.addEventListener("submit", formSubmit);
+  const editForm = document.getElementById("edit-contact-form");
+  editForm.addEventListener("submit", formSubmit);
 }
 
 function showFormField() {
-  document.getElementById("add-form-section").classList.remove("d-none");
+  let formField = document.getElementById("add-form-section");
+
+
+  formField.classList.remove("d-none");
+
+
+  formField.classList.remove("hidden");
+
+
+  formField.style.visibility = "visible";
+  formField.style.transform = "translateX(100vw)";
+
+
+  formField.style.animation = "moveIn 200ms ease-in forwards";
+
+
   document.addEventListener("click", outsideForm);
 }
 
 function showEditForm(index) {
-  document.getElementById("edit-contact-section").classList.remove("d-none");
+  let editField = document.getElementById("edit-contact-section");
+
+  
+  editField.classList.remove("d-none");
+
+  
+  editField.classList.remove("hidden");
+
+
+  editField.style.visibility = "visible";
+  editField.style.transform = "translateX(100vw)";
+
+  editField.style.animation = "moveIn 200ms ease-in forwards";
+
+  document.addEventListener("click", outsideForm);
+  loadEditFormData(index);
 }
 
 function outsideForm(event) {
@@ -309,24 +343,58 @@ function outsideForm(event) {
 }
 
 function closeFormfield() {
+  let formField = document.getElementById("add-form-section");
   ["name", "mail", "phone"].forEach(
     (id) => (document.getElementById(id).value = "")
   );
-  let formField = document.getElementById("add-form-section");
-  formField.classList.add("ani-out-100");
-  if (formField.classList.contains("ani-out-100")) {
-    // schauen wir  nochmal
+  formField.style.animation = "moveOut 200ms ease-out forwards";
+
+  setTimeout(() => {
+    formField.classList.add("hidden");
+
+   
+    formField.style.visibility = "hidden";
+    formField.style.transform = "translateX(100vw)";
+
+    
     formField.classList.add("d-none");
-  }
+  }, 200);
 }
 
 function closeEditfield() {
+  let editField = document.getElementById("edit-contact-section");
+
+  
   ["edit-name", "edit-mail", "edit-phone"].forEach(
     (id) => (document.getElementById(id).value = "")
   );
-  document.getElementById("edit-contact-section").classList.add("d-none");
+
+
+  editField.style.animation = "moveOut 200ms ease-out forwards";
+
+  
+  setTimeout(() => {
+    editField.classList.add("hidden");
+
+ 
+    editField.style.visibility = "hidden";
+    editField.style.transform = "translateX(100vw)";
+
+
+    editField.classList.add("d-none");
+  }, 200);
 }
 
-function openEditForm(index) {
-  document.getElementById("edit-contact-section").classList.remove("d-none");
+function loadEditFormData(index) {
+
+  document.getElementById("edit-name").value = allContacts.names[index];
+  document.getElementById("edit-mail").value = allContacts.mails[index];
+  document.getElementById("edit-phone").value = allContacts.phones[index];
+
+  let editImage = document.getElementById("edit-image");
+  if (editImage) {
+    editImage.src = allContacts.images[index];
+  }
 }
+
+
