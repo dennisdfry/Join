@@ -261,7 +261,7 @@ body {
   z-index: 999;
 }
 
-#contact-form {
+#contact-form,#edit-contact-form {
   top: 137px;
   left: 742px;
 }
@@ -270,7 +270,7 @@ body {
   right: 32px;
 }
 
-#contact-form input {
+#contact-form input, #edit-contact-form input {
   width: 380px;
   height: 50px;
   border: 1px solid lightgray;
@@ -284,30 +284,30 @@ body {
   left: 742px;
 }
 
-#formfield-cancel-btn {
+#formfield-cancel-btn,#editfield-cancel-btn {
   width: 126px;
   height: 56px;
   border: 1px solid #2a3647;
 }
 
-#formfield-cancel-btn:hover {
+#formfield-cancel-btn:hover,#editfield-cancel-btn:hover {
   color: #29abe2;
   border-color: #29abe2;
   box-shadow: 4px 0px 6px 0px #00000014;
 }
 
-#formfield-cancel-btn:hover img {
+#formfield-cancel-btn:hover img, #editfield-cancel-btn:hover img {
   filter: invert(38%) sepia(77%) saturate(1614%) hue-rotate(165deg)
     brightness(96%) contrast(95%);
 }
 
-#formfield-create-btn {
+#formfield-create-btn,#editfield-create-btn {
   width: 214px;
   height: 57px;
   background-color: #2a3647;
 }
 
-#formfield-create-btn:hover {
+#formfield-create-btn:hover,#editfield-create-btn:hover {
   background-color: #29abe2;
   box-shadow: 4px 0px 6px 0px #00000014;
 }
