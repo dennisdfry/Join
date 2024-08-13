@@ -78,8 +78,10 @@ function hideDropdown() {
 async function loadingBoard() {
   try {
       let task = await onloadDataBoard("/tasks");
+      // let contacts =await onloadDataBoard("/contacts")
       let taskkeys = Object.keys(task);
       let fetchImage = await fetchImagesBoard("/");
+      // await assignedToBoard(contacts,fetchImage);
       await generateHTMLObjects(taskkeys, task);
       await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
   } catch (error) {
@@ -290,3 +292,61 @@ function dueDateEditTask(index, date){
   let position = document.getElementById(`dueDate${index}`);
   position.value = date;
 }
+
+// async function assignedToBoard(contacts, imageUrls) {
+//   try {
+//       const extractNames = (contacts) => {
+//           return Object.values(contacts).map(entry => ({ name: entry.name }));
+//       };
+//       const names = extractNames(contacts);
+//       checkboxInitBoard(names,imageUrls)
+//   } catch (error) {
+//       console.error(error);
+//   }
+// }
+
+// function checkboxInitBoard(names,imageUrls){
+//   let position = document.getElementById('checkboxesBoard');
+//       position.innerHTML = '';
+//       let list = ''; // Initialisierung des Strings
+//       for (let index = 0; index < names.length; index++) {
+//           const element = names[index].name;
+//           const imgSrc = imageUrls[index]; // Bild-URL holen
+//           list += checkBoxRenderBoard(index, imgSrc,element )
+             
+//       }
+//       position.innerHTML = list; // HTML-Inhalt setzen
+// }
+
+// function checkBoxRenderBoard(index, imgSrc,element ){
+//   return  `<label class="checkBoxFlex" for="checkbox-${index}">
+//                   <div>
+//                       <img src="${imgSrc}" alt="" />
+//                       ${element}
+//                   </div>
+//                   <input type="checkbox" id="checkbox-board${index}" value="${element}" onclick="assignedToUserBoard('${index}','${element}')" />
+//               </label>`;
+// }
+
+// async function assignedToUserBoard(index, element) {
+//   const image = imageUrlsGlobal[index];
+//   const arrayIndex = assignedToUserArray.indexOf(index);
+//   if (arrayIndex !== -1) {
+//       assignedToUserArray.splice(arrayIndex, 1);
+//       assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+//   } else {
+//       assignedToUserArray.push(index);
+//       assignedToUserArrayNamesGlobal.push(element);
+//   }
+// }
+
+// function showCheckboxesBoard() {
+//   let checkboxes = document.getElementById("checkboxes");
+//   if (!expanded) {
+//       checkboxes.style.display = "block";
+//       expanded = true;
+//   } else {
+//       checkboxes.style.display = "none";
+//       expanded = false;
+//   }
+// }

@@ -75,11 +75,13 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           </div>
           <div>
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Title:</p>
-              <input placeholder="${title}" type="text">
+              <input minlength="2" class="title-edit-input" type="text"
+                        placeholder="${title}" name="title" id="title">
           </div>
           <div>  
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Description:</p>
-              <textarea placeholder="${description}" name="" id=""></textarea>
+              <textarea minlength="2" class="add-task-textarea" placeholder="${description}"
+                        name="description" id="description"></textarea>
           </div> 
           <div class="d-flex item-center mg-btt25" id="dateTask${index}">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
@@ -108,9 +110,15 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           <div class="mg-btt25">
           <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Assigned To:</p>
           </div>
-          <div class="user-open-Container d-flex mg-btt25">
-              <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
-              </div>
+          <div class="multiselect">
+            <div class="selectBox" onclick="showCheckboxes()">
+                <select required class="add-task-select">
+                    <option>Select an option</option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div id="checkboxesBoard">
+            </div>
           </div>
           <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
               <div class="" id="subtasksBoardOpen${index}"></div>
