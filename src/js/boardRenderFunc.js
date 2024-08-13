@@ -78,16 +78,31 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <input placeholder="${title}" type="text">
           </div>
           <div>  
-              <p class="description-open-task">${description}</p>
+              <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Description:</p>
+              <textarea placeholder="${description}" name="" id=""></textarea>
           </div> 
           <div class="d-flex item-center mg-btt25" id="dateTask${index}">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
-              <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task">${date}</p>
+                    <input required placeholder="${date}" class="add-task-select" type="date" id="dueDate${index}" name="dueDate">
+              <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task"></p>
           </div>
           <div class="d-flex item-center mg-btt25" id="prioTask${index}">
               <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Priority:</p>
-              <span class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${prio}</span>
-              <div class="prio-board-image-container d-flex-center" id="prioPositionOpenTask${index}">
+              <div class="add-task-prio-button-container">
+                        <button onclick="prio(1)" id="prioButton1" value="1" data-prio="urgent" type="button"
+                            class="add-task-prio-button">
+                            <span>Urgent</span>
+                            <img src="../public/img/Prio alta.png" alt="">
+                        </button>
+                        <button onclick="prio(2)" id="prioButton2" value="2" data-prio="medium" type="button"
+                            class="add-task-prio-button">
+                            <span>Medium =</span>
+                        </button>
+                        <button onclick="prio(3)" id="prioButton3" value="3" data-prio="low" type="button"
+                            class="add-task-prio-button">
+                            <span>Low</span>
+                            <img src="../public/img/Prio baja.png" alt="">
+                        </button>
               </div>
           </div>
           <div class="mg-btt25">

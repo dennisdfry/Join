@@ -283,4 +283,10 @@ async function editOpenTask(index, category, title, description, date, prio){
   position.innerHTML = '';
   position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
   promiseSecondInfoOpenTask(index);
+  dueDateEditTask(index, date);
+}
+
+function dueDateEditTask(index, date){
+  let position = document.getElementById(`dueDate${index}`);
+  position.value = date;
 }
