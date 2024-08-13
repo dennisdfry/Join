@@ -123,13 +123,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  if (passwordInput.value.length > 0) {
-    togglePassword.src = '/public/img/password-hidden.png';
+  function updateIconVisibility() {
+    if (passwordInput.value.length > 0) {
+      togglePassword.src = '/public/img/password-hidden.png';
+    } else {
+      togglePassword.src = '/public/img/lock.png';
+    }
+
+    if (confirmPasswordInput.value.length > 0) {
+      toggleConfirmPassword.src = '/public/img/password-hidden.png';
+    } else {
+      toggleConfirmPassword.src = '/public/img/lock.png';
+    }
   }
 
-  if (confirmPasswordInput.value.length > 0) {
-    toggleConfirmPassword.src = '/public/img/password-hidden.png';
-  }
+  updateIconVisibility();
+
+  passwordInput.addEventListener('input', updateIconVisibility);
+  confirmPasswordInput.addEventListener('input', updateIconVisibility);
 
   togglePassword.addEventListener('click', function() {
     updatePasswordVisibility(passwordInput, togglePassword);
