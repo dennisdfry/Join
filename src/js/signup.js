@@ -123,6 +123,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  if (passwordInput.value.length > 0) {
+    togglePassword.src = '/public/img/password-hidden.png';
+  }
+
+  if (confirmPasswordInput.value.length > 0) {
+    toggleConfirmPassword.src = '/public/img/password-hidden.png';
+  }
+
   togglePassword.addEventListener('click', function() {
     updatePasswordVisibility(passwordInput, togglePassword);
   });
