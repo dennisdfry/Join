@@ -9,7 +9,10 @@
     src: url("/src/fonts/inter/inter-v13-latin-700.woff2") format("woff2");
     font-weight: 700;
 }
-
+body{
+    font-family: 'Inter';
+    font-weight: 400;
+}
 .background-main {
     background-color: rgb(246, 247, 248);
 }
@@ -300,10 +303,14 @@
     height:16px;
     margin-right: 16px;
 }
-.open-task-delete-edit{
-
-}
-.open-task-delete-edit img{
+.open-task-delete-edit {
     width:24px;
     height:24px;
+    margin-right: 8px;
+}
+.seperator-opentask{
+    width: 0px;
+    border: 1px solid #D1D1D1;
+    height: 24px;
+    margin: 4px;
 }
