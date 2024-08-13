@@ -166,7 +166,12 @@ async function openTaskToBoardRender(index, category, title, description, date, 
   position.classList.remove('d-none');
   position.innerHTML = window.openTaskToBoardHtml(index, category, title, description, date, prio); 
 }
-let taskInfo = taskData[index];
+promiseSecondInfoOpenTask(index)
+
+}
+
+async function promiseSecondInfoOpenTask(index){
+  let taskInfo = taskData[index];
   if (taskInfo) {
       let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
       console.log(prio)
@@ -277,4 +282,5 @@ async function editOpenTask(index, category, title, description, date, prio){
   let position = document.getElementById('openTask');
   position.innerHTML = '';
   position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
+  promiseSecondInfoOpenTask(index);
 }
