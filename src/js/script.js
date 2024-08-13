@@ -158,7 +158,29 @@ async function searchprioOpenTask(index, prio){
   }
 }
 
-
+async function openTaskToBoardRender(index, category, title, description, date, prio ) {
+  let position = document.getElementById('openTask');
+  if (position.classList.contains('modal-overlay')){
+    return
+  }else{
+  position.classList.add('modal-overlay');
+  position.classList.remove('d-none');
+  position.innerHTML = window.openTaskToBoardHtml(index, category, title, description, date, prio); 
+}
+let taskInfo = taskData[index];
+  if (taskInfo) {
+      let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
+      console.log(prio)
+      await Promise.all([
+        searchIndexUrlOpen(index, users, fetchImage, userNames),
+        subtasksRenderOpen(index, subtasks),
+        searchprio(index, prio),
+        searchprioOpenTask(index, prio)
+    ]);
+}else {
+console.error("Keine Daten für den angegebenen Index gefunden.");
+}
+}
 
 function closeOpenTask(event, index) {
   event.stopPropagation(); 

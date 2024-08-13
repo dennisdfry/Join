@@ -1,7 +1,7 @@
 
 window.htmlboard = async function(index, category, title, description, date, prio) {
     return `
-    <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoard(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container" id="parentContainer${index}">
+    <div draggable="true" ondragstart="startDragging(${index})" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container" id="parentContainer${index}">
         <div class="d-flex-between">
             <h1 class="txt-center">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
@@ -24,14 +24,8 @@ window.htmlboard = async function(index, category, title, description, date, pri
     </div>`;  
 };
 
-window.openTaskToBoard = async function (index, category, title, description, date, prio ) {
-    let position = document.getElementById('openTask');
-    if (position.classList.contains('modal-overlay')){
-      return
-    }else{
-    position.classList.add('modal-overlay');
-    position.classList.remove('d-none');
-    position.innerHTML = `
+window.openTaskToBoardHtml = function (index, category, title, description, date, prio){
+    return `
     <div draggable="true" ondragstart="startDragging(${index})" class="board-task-container-open" id="parentContainer${index}">
           <div class="d-flex-between">
               <h1 class="txt-center">${category}</h1>
@@ -70,21 +64,6 @@ window.openTaskToBoard = async function (index, category, title, description, da
             </div>
           </div>
     </div>`;  
-  }
-  let taskInfo = taskData[index];
-    if (taskInfo) {
-        let users = taskInfo.users;
-        let userNames = taskInfo.userNames
-        let prio = taskInfo.prio;
-        let subtasks = taskInfo.subtasks;
-        let fetchImage = taskInfo.fetchImage; // Abrufen von fetchImage
-        await Promise.all([
-          searchIndexUrlOpen(index, users, fetchImage, userNames),
-          subtasksRenderOpen(index, subtasks),
-          searchprio(index, prio),
-          searchprioOpenTask(index, prio)
-      ]);
-}else {
-  console.error("Keine Daten für den angegebenen Index gefunden.");
 }
-}
+
+ 
