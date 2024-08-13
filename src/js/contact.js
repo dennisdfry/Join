@@ -360,10 +360,8 @@ function loadEditFormData(index) {
   document.getElementById("edit-mail").value = allContacts.mails[index];
   document.getElementById("edit-phone").value = allContacts.phones[index];
 
-  let editImage = document.getElementById("edit-image");
-  if (editImage) {
-    editImage.src = allContacts.images[index];
+  let editImage = document.getElementById("prof2-img");
+    editImage.innerHTML = `<img src="${allContacts.images[index]}">`;
   }
-}
 
 
