@@ -198,9 +198,10 @@ header {
 
 .user-icon-dropdown {
   border-radius: 20px 0px 20px 20px;
+  width: 150px;
   gap: 8px;
   position: absolute;
-  right: 1%;
+  margin-right: 80px;
   top: 11.5%;
   align-items: start !important;
 }
