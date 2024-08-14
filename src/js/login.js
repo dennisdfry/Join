@@ -1,9 +1,9 @@
 function goToPrivacy() {
-  window.location.replace("/public/datenschutz.html");
+  window.location.replace("/public/login-datenschutz.html");
 }
 
 function goToLegalNotice() {
-  window.location.replace("/public/impressum.html");
+  window.location.replace("/public/login-impressum.html");
 }
 
 function goToSignUp() {
