@@ -42,14 +42,12 @@ async function postData(contact) {
     let responseToJson = await response.json();
     console.log("Erfolgreich hochgeladen:", responseToJson);
 
-    await updateContactList();
-    renderContactSection(responseToJson.name); // Assuming name as unique identifier for now
+    await updateContactList(); // Ensure the contact list is updated
     showUpdateBar();
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
 }
-
 
 
 function showUpdateBar() {
@@ -95,7 +93,6 @@ function generateProfileImage(name) {
   return `data:image/svg+xml;base64,${btoa(newContactImg)}`;
 }
 
-
 function renderSeperator(contactList, letter) {
   contactList.innerHTML += `
     <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
@@ -103,17 +100,11 @@ function renderSeperator(contactList, letter) {
   `;
 }
 
-async function renderListItems(contactList) {
+async function renderListItems(contactList, sortedContacts) {
   contactList.innerHTML = "";
   let currentLetter = "";
 
-  const response = await fetch(
-    "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
-  );
-  const contacts = await response.json();
-  const contactEntries = Object.entries(contacts);
-
-  contactEntries.forEach(([id, contact], i) => {
+  sortedContacts.forEach(([id, contact]) => {
     let firstLetter = contact.name.charAt(0).toUpperCase();
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
@@ -133,10 +124,21 @@ async function renderListItems(contactList) {
   });
 }
 
+function sortContacts(contacts) {
+  return Object.entries(contacts)
+    .sort(([idA, contactA], [idB, contactB]) => contactA.name.localeCompare(contactB.name));
+}
+
 async function updateContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
-  await renderListItems(contactList);
+
+  const response = await fetch(
+    "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
+  );
+  const contacts = await response.json();
+  const sortedContacts = sortContacts(contacts);
+  await renderListItems(contactList, sortedContacts);
 }
 
 async function openContact(contactId) {
@@ -221,7 +223,7 @@ function setupForm() {
   const addForm = document.getElementById("contact-form");
   addForm.addEventListener("submit", formSubmit);
   const editForm = document.getElementById("edit-contact-form");
-  editForm.addEventListener("submit", formSubmit);
+  editForm.addEventListener("submit", editFormSubmit);
 }
 
 function showEditForm(contactId) {
@@ -233,17 +235,6 @@ function showEditForm(contactId) {
   editField.style.animation = "moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideForm);
   loadEditFormData(contactId);
-}
-
-function showEditForm(index) {
-  let editField = document.getElementById("edit-contact-section");
-  editField.classList.remove("d-none");
-  editField.classList.remove("hidden");
-  editField.style.visibility = "visible";
-  editField.style.transform = "translateX(100vw)";
-  editField.style.animation = "moveIn 200ms ease-in forwards";
-  document.addEventListener("click", outsideForm);
-  loadEditFormData(index);
 }
 
 function outsideForm(event) {
@@ -325,14 +316,4 @@ async function editFormSubmit(event) {
 
   await updateContactList();
   closeEditfield();
-}
-
-async function postData(newContact) {
-  await fetch(
-    "https://join-19628-default-rtdb.firebaseio.com/contacts.json",
-    {
-      method: "POST",
-      body: JSON.stringify(newContact),
-    }
-  );
 }
