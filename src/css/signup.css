@@ -173,24 +173,24 @@ body {
 
 .input-password input:focus {
   outline: none !important;
-  border: 2px solid #29abe2;
+  border: 1px solid #29abe2;
 }
 
 .input-confirm-password input.invalid {
   outline: none !important;
-  border: 2px solid red;
+  border: 1px solid red;
 }
 
 .input.invalid:focus {
   outline: none !important;
-  border: 2px solid red;
+  border: 1px solid red;
 }
 
 .error-message {
   color: red;
   font-size: 12px;
-  margin-top: 5px;
   display: none;
+  width: 422px;
 }
 
 .password-toggle {

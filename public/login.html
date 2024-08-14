@@ -28,9 +28,10 @@
               <img src="/public/img/envelope.png" alt="briefumschlag logo" />
             </div>
             <div class="input-password">
-              <input type="password" required placeholder="Password" id="password" />
-              <img src="/public/img/lock.png" alt="schloss logo" />
+              <input type="password" required placeholder="Password" id="password-login" />
+              <img src="/public/img/lock.png" class="password-toggle" id="toggle-password-login" alt="schloss logo" />
             </div>
+            <div class="error-message d-none" id="error-message">Check your email and password. Please try again.</div>
           </div>
           <div class="login-checkbox">
             <input type="checkbox" id="remember-me" name="remember-me" />
@@ -52,6 +53,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="/src/js/firebase_init.js"></script>
+    <script src="/src/js/script.js"></script>
     <script src="/src/js/login.js"></script>
   </body>
 </html>

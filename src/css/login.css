@@ -1,206 +1,256 @@
 body {
-    margin: 0;
-    height: 100vh;
-    width: 98vw;
-    background-color: rgb(246, 247, 248);
+  margin: 0;
+  height: 100vh;
+  width: 98vw;
+  background-color: rgb(246, 247, 248);
 }
 
 .login-signup {
-    width: 100%;
-    position: absolute;
-    top: 5%;
-    right: 5%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    z-index: 8;
+  width: 100%;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 8;
 }
 
 .login-signup button {
-    border: none;
-    padding: 15px 16px;
+  border: none;
+  padding: 15px 16px;
 }
 
 .login-not-user {
-    font-family: 'Inter';
-    font-size: 20px;
-    margin-right: 20px;
-    padding: 10px;
+  font-family: "Inter";
+  font-size: 20px;
+  margin-right: 20px;
+  padding: 10px;
 }
 
 .login-signup-btn {
-    font-size: 16px;
-    color: white;
-    border-radius: 8px;
+  font-size: 16px;
+  color: white;
+  border-radius: 8px;
 }
 
 .login-logo {
-    position: absolute;
-    top: 35%;
-    left: 42%;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 1.0s ease;
+  position: absolute;
+  top: 35%;
+  left: 42%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s ease;
 }
 
 .fadeout {
-    z-index: 9;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(246, 247, 248, 1);
+  z-index: 9;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(246, 247, 248, 1);
 }
 
 #login-logo-animated {
-    height: 334px;
-    width: 274px;
-    transition: transform 1s ease, top 1s ease, left 1s ease;
+  height: 334px;
+  width: 274px;
+  transition: transform 1s ease, top 1s ease, left 1s ease;
 }
 
 .shrink {
-    animation: shrink-animation 1s forwards;
+  animation: shrink-animation 1s forwards;
 }
 
 .fadeout-animate {
-    animation: fadeOutBackground 1s forwards;
+  animation: fadeOutBackground 1s forwards;
 }
 
 @keyframes shrink-animation {
-    from {
-        transform: scale(1);
-
-    }
-    to {
-        transform: scale(0.37);
-    }
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.37);
+  }
 }
 
 @keyframes fadeOutBackground {
-    from {
-        background-color: rgba(246, 247, 248, 1);
-    }
-    to {
-        background-color: rgba(246, 247, 248, 0);
-    }
+  from {
+    background-color: rgba(246, 247, 248, 1);
+  }
+  to {
+    background-color: rgba(246, 247, 248, 0);
+  }
 }
 
 .login-field {
-    width: 500px;
-    background-color: white;
-    position: absolute;
-    top: 25%;
-    border-radius: 30px;
-    padding: 48px 88px;
-    gap: 32px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  background-color: white;
+  position: absolute;
+  top: 25%;
+  border-radius: 30px;
+  padding: 48px 88px;
+  gap: 32px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.login-input {    
-    padding: 12px 21px;
+.login-input {
+  padding: 12px 21px;
 }
 
-.input-mail, .input-password {
-    position: relative;
-    display: flex;
-    align-items: center;
+.input-mail,
+.input-password {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.login-input input{
-    border-style: none;
-    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    height: 48px;
-    width: 422px;
-    gap: 8px;
-    font-size: 20px;
-    font-family: 'Inter';
-    padding-left: 20px;
+.login-input input {
+  border-style: none;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  height: 48px;
+  width: 422px;
+  gap: 8px;
+  font-size: 20px;
+  font-family: "Inter";
+  padding-left: 20px;
 }
 
 .login-input input:placeholder-shown {
-    font-size: 20px;
-    font-family: 'Inter';
+  font-size: 20px;
+  font-family: "Inter";
 }
 
-::placeholder {    
-    color: #D1D1D1;
+::placeholder {
+  color: #d1d1d1;
 }
 
 .login-input img {
-    position: absolute;
-    right: 10px;
-    width: 24px;
+  position: absolute;
+  right: 10px;
+  width: 24px;
 }
 
 .login-checkbox {
-    font-family: 'Inter';
-    font-size: 16px;
-    padding: 20px 80px;
+  font-family: "Inter";
+  font-size: 16px;
+  padding: 20px 80px;
 }
 
 .login-btn {
-    margin-top: 20px;
-    width: 500px;
-    height: 48px;
+  margin-top: 20px;
+  width: 500px;
+  height: 48px;
 }
 
 .submit-login-btn {
-    background-color: #2A3647;
-    color: white;
-    width: 110px;
-    height: 48px;
-    border-radius: 8px;
-    gap: 10px;
-    margin-left: 60px;
-    transition: transform 0.125s ease-in-out;
+  background-color: #2a3647;
+  color: white;
+  width: 110px;
+  height: 48px;
+  border-radius: 8px;
+  gap: 10px;
+  margin-left: 60px;
+  transition: transform 0.125s ease-in-out;
 }
 
 .submit-login-btn:hover,
 .login-signup-btn:hover {
-    background-color: #29ABE2;
-    border-color: #29ABE2;
-    border: none!important;
-    transform: scale(1.05);
-    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25);
+  background-color: #29abe2;
+  border-color: #29abe2;
+  border: none !important;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25);
 }
 
 .submit-guest-login-btn {
-    background-color: white;
-    color: #2A3647;
-    border-color: #2A3647;
-    width: 177px;
-    height: 48px;
-    border-radius: 8px;
-    margin-left: 40px;
-    gap: 10px;
-    transition: transform 0.125s ease-in-out;
+  background-color: white;
+  color: #2a3647;
+  border-color: #2a3647;
+  width: 177px;
+  height: 48px;
+  border-radius: 8px;
+  margin-left: 40px;
+  gap: 10px;
+  transition: transform 0.125s ease-in-out;
 }
 
 .submit-guest-login-btn:hover {
-    color: #29ABE2;
-    border-color: #29ABE2;
-    transform: scale(1.05);
-    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25);
+  color: #29abe2;
+  border-color: #29abe2;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25);
 }
 
 .login-headline-divider {
-    height: 0px;
-    width: 150px;
-    border-bottom: 3px solid #29abe2;
-    margin: 10px 0;
-  }
+  height: 0px;
+  width: 150px;
+  border-bottom: 3px solid #29abe2;
+  margin: 10px 0;
+}
 
 .login-info {
-    position: absolute;
-    top: 85%;
+  position: absolute;
+  top: 85%;
 }
 
 .login-info button {
-    border: none;
-    background-color: rgb(246, 247, 248);
-    font-family: 'Inter';
-    margin: 50px 0px;
-    color: #A8A8A8;
-    font-size: 16px;
+  border: none;
+  background-color: rgb(246, 247, 248);
+  font-family: "Inter";
+  margin: 50px 0px;
+  color: #a8a8a8;
+  font-size: 16px;
+}
+
+.input-mail input:focus {
+    outline: none !important;
+    border: 1px solid #29abe2;
+  }
+
+.input-password input:focus {
+  outline: none !important;
+  border: 1px solid #29abe2;
+}
+
+.input.invalid:focus {
+  outline: none !important;
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  width: 422px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.password-toggle.show {
+  content: url("/public/img/password-show.png");
+}
+
+.password-toggle.hide {
+  content: url("/public/img/password-hidden.png");
+}
+
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+input[type="password"]::-webkit-inner-spin-button,
+input[type="password"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="password"]::-webkit-password-field {
+  display: none;
 }

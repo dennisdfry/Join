@@ -19,7 +19,7 @@ document
   .addEventListener("submit", async function (e) {
     e.preventDefault();
     const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const password = document.getElementById("password-login").value;
     const rememberMe = document.getElementById("remember-me").checked;
     try {
       if (rememberMe) {
@@ -34,7 +34,7 @@ document
       await firebase.auth().signInWithEmailAndPassword(email, password);
       goToSummary();
     } catch (error) {
-      alert("Error: " + error.message);
+      toggleElement('.error-message', 'd-none');
     }
   });
 
@@ -62,4 +62,35 @@ document
     e.preventDefault();
     localStorage.setItem("user", "Guest");
     goToSummary();
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('password-login');
+    const togglePassword = document.getElementById('toggle-password-login');
+  
+    function updatePasswordVisibility(input, toggle) {
+      if (input.type === 'password') {
+        input.type = 'text';
+        toggle.src = '/public/img/password-show.png';
+      } else {
+        input.type = 'password';
+        toggle.src = '/public/img/password-hidden.png';
+      }
+    }
+  
+    function updateIconVisibility() {
+      if (passwordInput.value.length > 0) {
+        togglePassword.src = '/public/img/password-hidden.png';
+      } else {
+        togglePassword.src = '/public/img/lock.png';
+      }
+    }
+  
+    updateIconVisibility();
+  
+    passwordInput.addEventListener('input', updateIconVisibility);
+  
+    togglePassword.addEventListener('click', function() {
+      updatePasswordVisibility(passwordInput, togglePassword);
+    });
   });
