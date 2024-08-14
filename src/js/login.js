@@ -35,6 +35,8 @@ document
       goToSummary();
     } catch (error) {
       toggleElement('.error-message', 'd-none');
+      toggleElement('.input-password', 'input-invalid');
+      toggleElement('.input-mail', 'input-invalid');
     }
   });
 
@@ -64,33 +66,33 @@ document
     goToSummary();
   });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const passwordInput = document.getElementById('password-login');
-    const togglePassword = document.getElementById('toggle-password-login');
-  
-    function updatePasswordVisibility(input, toggle) {
-      if (input.type === 'password') {
-        input.type = 'text';
-        toggle.src = '/public/img/password-show.png';
-      } else {
-        input.type = 'password';
-        toggle.src = '/public/img/password-hidden.png';
-      }
+document.addEventListener("DOMContentLoaded", function () {
+  const passwordInput = document.getElementById("password-login");
+  const togglePassword = document.getElementById("toggle-password-login");
+
+  function updatePasswordVisibility(input, toggle) {
+    if (input.type === "password") {
+      input.type = "text";
+      toggle.src = "/public/img/password-show.png";
+    } else {
+      input.type = "password";
+      toggle.src = "/public/img/password-hidden.png";
     }
-  
-    function updateIconVisibility() {
-      if (passwordInput.value.length > 0) {
-        togglePassword.src = '/public/img/password-hidden.png';
-      } else {
-        togglePassword.src = '/public/img/lock.png';
-      }
+  }
+
+  function updateIconVisibility() {
+    if (passwordInput.value.length > 0) {
+      togglePassword.src = "/public/img/password-hidden.png";
+    } else {
+      togglePassword.src = "/public/img/lock.png";
     }
-  
-    updateIconVisibility();
-  
-    passwordInput.addEventListener('input', updateIconVisibility);
-  
-    togglePassword.addEventListener('click', function() {
-      updatePasswordVisibility(passwordInput, togglePassword);
-    });
+  }
+
+  updateIconVisibility();
+
+  passwordInput.addEventListener("input", updateIconVisibility);
+
+  togglePassword.addEventListener("click", function () {
+    updatePasswordVisibility(passwordInput, togglePassword);
   });
+});
