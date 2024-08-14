@@ -1,52 +1,22 @@
-let allContacts = {
-  names: [],
-  mails: [],
-  phones: [],
-  images: [],
-};
-
 async function initContacts() {
   try {
-    await getData("/");
-    updateContactList();
+    await updateContactList();
   } catch (error) {
     console.log("Error:", error);
   }
 }
 
-async function getData(path = "") {
+async function deleteData(contactId) {
   try {
-    let response = await fetch(
-      `https://join-19628-default-rtdb.firebaseio.com/contacts${path}.json`
-    );
-    let responseToJson = await response.json();
-    updateContacts(responseToJson);
-  } catch (error) {
-    console.error("Fehler beim Abrufen der Daten:", error);
-  }
-}
-
-async function deleteData(index) {
-  try {
-    const contactId = await getContactId(index);
-    if (!contactId) {
-      console.error("Kontakt-ID nicht gefunden.");
-      return;
-    }
-
     await fetch(
       `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`,
       { method: "DELETE" }
     );
 
-    ["names", "mails", "phones", "images"].forEach((field) =>
-      allContacts[field].splice(index, 1)
-    );
+    console.log(`Kontakt mit ID ${contactId} erfolgreich gelöscht.`);
 
-    console.log(`Kontakt ${allContacts.names[index]} erfolgreich gelöscht.`);
-
-    updateContactList();
-    renderContactSection(index);
+    await updateContactList();
+    closeEditfield();
   } catch (error) {
     console.error("Fehler beim Löschen des Kontakts:", error);
   }
@@ -72,39 +42,15 @@ async function postData(contact) {
     let responseToJson = await response.json();
     console.log("Erfolgreich hochgeladen:", responseToJson);
 
-    await getData("/");
-    updateContactList();
-
-    const newContactIndex = allContacts.names.findIndex(
-      (name) =>
-        name === contact.name &&
-        allContacts.mails.includes(contact.mail) &&
-        allContacts.phones.includes(contact.phone)
-    );
-
-    // Zeige den neuen Kontakt an
-    if (newContactIndex !== -1) {
-      renderContactSection(newContactIndex);
-    } else {
-      console.error("Fehler: Neuer Kontakt wurde nicht in der Liste gefunden.");
-    }
-
+    await updateContactList();
+    renderContactSection(responseToJson.name); // Assuming name as unique identifier for now
     showUpdateBar();
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
 }
 
-function updateContacts(responseToJson) {
-  Object.values(responseToJson).forEach((contact) => {
-    if (!isContactExisting(contact)) {
-      allContacts.names.push(contact.name);
-      allContacts.mails.push(contact.mail);
-      allContacts.phones.push(contact.phone);
-      allContacts.images.push(contact.img);
-    } // else für wenn der kontakt bereits so existiert
-  });
-}
+
 
 function showUpdateBar() {
   let updateBar = document.getElementById("update-bar");
@@ -122,34 +68,6 @@ function showUpdateBar() {
         });
       }, 200);
     }
-  });
-}
-
-async function getContactId(index) {
-  let response = await fetch(
-    "https://join-19628-default-rtdb.firebaseio.com/contacts" + ".json"
-  );
-  let responseToJson = await response.json();
-  let keys = Object.keys(responseToJson);
-
-  for (let i = 0; i < keys.length; i++) {
-    let contact = responseToJson[keys[i]];
-    if (
-      contact.name === allContacts.names[index] &&
-      contact.mail === allContacts.mails[index] &&
-      contact.phone === allContacts.phones[index] &&
-      contact.img === allContacts.images[index]
-    ) {
-      return keys[i];
-    }
-  }
-  return null;
-}
-
-function isContactExisting(contact) {
-  return ["name", "mail", "phone", "img"].every((field) => {
-    const contactArray = allContacts[`${field}s`];
-    return Array.isArray(contactArray) && contactArray.includes(contact[field]);
   });
 }
 
@@ -177,16 +95,6 @@ function generateProfileImage(name) {
   return `data:image/svg+xml;base64,${btoa(newContactImg)}`;
 }
 
-function sortContacts() {
-  let sortedIndices = allContacts.names
-    .map((name, index) => index)
-    .sort((a, b) => allContacts.names[a].localeCompare(allContacts.names[b]));
-  ["names", "mails", "phones", "images"].forEach((field) => {
-    allContacts[field] = sortedIndices.map(
-      (index) => allContacts[field][index]
-    );
-  });
-}
 
 function renderSeperator(contactList, letter) {
   contactList.innerHTML += `
@@ -195,70 +103,78 @@ function renderSeperator(contactList, letter) {
   `;
 }
 
-function renderListItems(contactList) {
+async function renderListItems(contactList) {
+  contactList.innerHTML = "";
   let currentLetter = "";
-  for (let i = 0; i < allContacts.names.length; i++) {
-    let firstLetter = allContacts.names[i].charAt(0).toUpperCase();
+
+  const response = await fetch(
+    "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
+  );
+  const contacts = await response.json();
+  const contactEntries = Object.entries(contacts);
+
+  contactEntries.forEach(([id, contact], i) => {
+    let firstLetter = contact.name.charAt(0).toUpperCase();
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
       renderSeperator(contactList, currentLetter);
     }
-    let imageSrc = allContacts.images[i]
-      ? allContacts.images[i]
-      : generateProfileImage(allContacts.names[i]);
+
+    let imageSrc = contact.img || generateProfileImage(contact.name);
     contactList.innerHTML += `
-      <div id="contactlist-content(${i})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="openContact(${i})">
+      <div id="contactlist-content(${id})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="openContact('${id}')">
         <img class="d-flex pointer" src="${imageSrc}"/>
         <div class="contactlist-databox flex-d-col">
-          <div class="pointer no-wrap-text fw-400 fs-20 pointer">${allContacts.names[i]}</div>
-          <a class="pointer color-lb fs-16 text-deco-n" href="mailto:${allContacts.mails[i]}">${allContacts.mails[i]}</a>
+          <div class="pointer no-wrap-text fw-400 fs-20 pointer">${contact.name}</div>
+          <a class="pointer color-lb fs-16 text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
         </div>
       </div>
     `;
-  }
+  });
 }
 
-function updateContactList() {
+async function updateContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
-  sortContacts();
-  renderListItems(contactList);
+  await renderListItems(contactList);
 }
 
-function openContact(index) {
+async function openContact(contactId) {
   let contactSection = document.getElementById("contact-section");
-  let selectedContact = document.getElementById(
-    `contactlist-content(${index})`
-  );
+  let selectedContact = document.getElementById(`contactlist-content(${contactId})`);
 
-  let allContacts = document.querySelectorAll('[id^="contactlist-content"]');
-  allContacts.forEach((contact) => {
+  document.querySelectorAll('[id^="contactlist-content"]').forEach((contact) => {
     contact.classList.remove("bg-color-dg");
-    //selectedContact.style.pointerEvents = "enable";
   });
+
   if (
     contactSection.classList.contains("d-none") ||
     !selectedContact.classList.contains("bg-color-dg")
   ) {
     selectedContact.classList.add("bg-color-dg");
-    selectedContact.style.pointerEvents = "disable";
     contactSection.classList.remove("d-none");
-    renderContactSection(index);
+    await renderContactSection(contactId);
   }
 }
 
-function renderContactSection(index) {
+async function renderContactSection(contactId) {
   let contactSection = document.getElementById("contact-section");
   contactSection.innerHTML = "";
+
+  const response = await fetch(
+    `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`
+  );
+  const contact = await response.json();
+
   contactSection.innerHTML = `
   <div class="animation-100">
     <div class="contact-information item-center d-flex">
-      <img src="${allContacts.images[index]}" class="d-flex gap-10 obj-cover bradius70"/>
+      <img src="${contact.img || generateProfileImage(contact.name)}" class="d-flex gap-10 obj-cover bradius70"/>
       <div class="d-flex flex-d-col gap-8 item-start flex-grow">
-        <p class="mg-block-inline fw-500 no-wrap-text fs-47">${allContacts.names[index]}</p>
+        <p class="mg-block-inline fw-500 no-wrap-text fs-47">${contact.name}</p>
         <div class="contact-section-btn-box fw-400 d-flex-between l-height-19">
-          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="showEditForm(${index})" id="edit-btn"><img class="obj-cover img-24" src="./img/edit.png">Edit</button>
-          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteData(${index})" id="del-btn"><img class="obj-cover img-24" src="./img/delete.png">Delete</button>
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="showEditForm('${contactId}')" id="edit-btn"><img class="obj-cover img-24" src="./img/edit.png">Edit</button>
+          <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteData('${contactId}')" id="del-btn"><img class="obj-cover img-24" src="./img/delete.png">Delete</button>
         </div>
       </div>
     </div>
@@ -267,11 +183,11 @@ function renderContactSection(index) {
       <div class="contact-information-data d-flex flex-d-col gap-22">
         <div class="d-flex flex-d-col gap-15 text-left">
           <p class="fs-16 f-weight-700 no-wrap-text mg-block-inline l-height-19 txt-left"><b>Email</b></p>
-          <a class="pointer color-lb text-deco-n" href="mailto:${allContacts.mails[index]}">${allContacts.mails[index]}</a>
+          <a class="pointer color-lb text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
         </div>
         <div class="d-flex flex-d-col gap-15 text-left">
           <p class="fs-16 f-weight-700 no-wrap-text mg-block-inline l-height-19 txt-left"><b>Phone</b></p>
-          <p class="fs-16 fw-400 no-wrap-text mg-block-inline l-height-19 txt-left">${allContacts.phones[index]}</p>
+          <p class="fs-16 fw-400 no-wrap-text mg-block-inline l-height-19 txt-left">${contact.phone}</p>
         </div>
       </div>
     </div>
@@ -291,13 +207,6 @@ function formSubmit(event) {
   closeFormfield();
 }
 
-function setupForm() {
-  const addForm = document.getElementById("contact-form");
-  addForm.addEventListener("submit", formSubmit);
-  const editForm = document.getElementById("edit-contact-form");
-  editForm.addEventListener("submit", formSubmit);
-}
-
 function showFormField() {
   let formField = document.getElementById("add-form-section");
   formField.classList.remove("d-none");
@@ -306,6 +215,24 @@ function showFormField() {
   formField.style.transform = "translateX(100vw)";
   formField.style.animation = "moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideForm);
+}
+
+function setupForm() {
+  const addForm = document.getElementById("contact-form");
+  addForm.addEventListener("submit", formSubmit);
+  const editForm = document.getElementById("edit-contact-form");
+  editForm.addEventListener("submit", formSubmit);
+}
+
+function showEditForm(contactId) {
+  let editField = document.getElementById("edit-contact-section");
+  editField.classList.remove("d-none");
+  editField.classList.remove("hidden");
+  editField.style.visibility = "visible";
+  editField.style.transform = "translateX(100vw)";
+  editField.style.animation = "moveIn 200ms ease-in forwards";
+  document.addEventListener("click", outsideForm);
+  loadEditFormData(contactId);
 }
 
 function showEditForm(index) {
@@ -359,21 +286,26 @@ function closeEditfield() {
   }, 200);
 }
 
-function loadEditFormData(index) {
-  document.getElementById("edit-name").value = allContacts.names[index];
-  document.getElementById("edit-mail").value = allContacts.mails[index];
-  document.getElementById("edit-phone").value = allContacts.phones[index];
+async function loadEditFormData(contactId) {
+  const response = await fetch(
+    `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`
+  );
+  const contact = await response.json();
+
+  document.getElementById("edit-name").value = contact.name;
+  document.getElementById("edit-mail").value = contact.mail;
+  document.getElementById("edit-phone").value = contact.phone;
 
   let editImage = document.getElementById("prof2-img");
   if (editImage) {
-    editImage.innerHTML = `<img src="${allContacts.images[index]}" alt="Contact Image">`;
+    editImage.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}" alt="Contact Image">`;
   }
 }
 
 async function editFormSubmit(event) {
   event.preventDefault();
 
-  const index = event.target.getAttribute("data-index");
+  const contactId = event.target.getAttribute("data-id");
 
   const fields = ["edit-name", "edit-mail", "edit-phone"];
   const updatedContact = Object.fromEntries(
@@ -382,13 +314,25 @@ async function editFormSubmit(event) {
       document.getElementById(field).value,
     ])
   );
-  allContacts.names[index] = updatedContact.name;
-  allContacts.mails[index] = updatedContact.mail;
-  allContacts.phones[index] = updatedContact.phone;
 
-  await postData(updatedContact);
-  await deleteData(index);
+  await fetch(
+    `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(updatedContact),
+    }
+  );
 
-  renderContactSection(index);
-  closeEditfield(index);
+  await updateContactList();
+  closeEditfield();
+}
+
+async function postData(newContact) {
+  await fetch(
+    "https://join-19628-default-rtdb.firebaseio.com/contacts.json",
+    {
+      method: "POST",
+      body: JSON.stringify(newContact),
+    }
+  );
 }
