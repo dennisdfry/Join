@@ -17,6 +17,7 @@ async function deleteData(contactId) {
 
     await updateContactList();
     closeEditfield();
+    await renderContactSection(contactId);
   } catch (error) {
     console.error("Fehler beim Löschen des Kontakts:", error);
   }
@@ -42,7 +43,9 @@ async function postData(contact) {
     let responseToJson = await response.json();
     console.log("Erfolgreich hochgeladen:", responseToJson);
 
-    await updateContactList(); // Ensure the contact list is updated
+    
+    await renderContactSection(responseToJson.name); 
+    updateContactList();
     showUpdateBar();
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
