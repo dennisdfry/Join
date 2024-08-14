@@ -6,6 +6,18 @@ async function initContacts() {
   }
 }
 
+async function updateContactList() {
+  let contactList = document.getElementById("contactlist-content");
+  contactList.innerHTML = "";
+
+  const response = await fetch(
+    "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
+  );
+  const contacts = await response.json();
+  const sortedContacts = sortContacts(contacts);
+  await renderListItems(contactList, sortedContacts);
+}
+
 async function deleteData(contactId) {
   try {
     await fetch(
@@ -28,7 +40,6 @@ async function postData(contact) {
     if (!contact.img) {
       contact.img = generateProfileImage(contact.name);
     }
-
     let response = await fetch(
       "https://join-19628-default-rtdb.firebaseio.com/contacts.json",
       {
@@ -39,61 +50,15 @@ async function postData(contact) {
         body: JSON.stringify(contact),
       }
     );
-
     let responseToJson = await response.json();
     console.log("Erfolgreich hochgeladen:", responseToJson);
 
-    
     await renderContactSection(responseToJson.name); 
     updateContactList();
     showUpdateBar();
   } catch (error) {
     console.error("Fehler beim Hochladen:", error);
   }
-}
-
-
-function showUpdateBar() {
-  let updateBar = document.getElementById("update-bar");
-  updateBar.classList.remove("d-none");
-
-  updateBar.addEventListener("animationend", function (event) {
-    if (event.animationName === "moveIn") {
-      setTimeout(function () {
-        updateBar.classList.add("move-out");
-
-        updateBar.addEventListener("animationend", function (event) {
-          if (event.animationName === "moveOut") {
-            updateBar.classList.add("d-none");
-          }
-        });
-      }, 200);
-    }
-  });
-}
-
-function generateProfileImage(name) {
-  const colors = [
-    "#FF5733",
-    "#33FF57",
-    "#3357FF",
-    "#FF33A1",
-    "#F3FF33",
-    "#33FFF3",
-  ];
-  let randomColor = colors[Math.floor(Math.random() * colors.length)];
-  let initials = name
-    .split(" ")
-    .filter((word) => word.length > 0)
-    .map((word) => word.charAt(0).toUpperCase())
-    .join("");
-  let newContactImg = `
-    <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="50" fill="${randomColor}" />
-      <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
-    </svg>
-  `;
-  return `data:image/svg+xml;base64,${btoa(newContactImg)}`;
 }
 
 function renderSeperator(contactList, letter) {
@@ -116,7 +81,7 @@ async function renderListItems(contactList, sortedContacts) {
 
     let imageSrc = contact.img || generateProfileImage(contact.name);
     contactList.innerHTML += `
-      <div id="contactlist-content(${id})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="openContact('${id}')">
+      <div id="contactlist-content(${id})" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="hoverContact('${id}')">
         <img class="d-flex pointer" src="${imageSrc}"/>
         <div class="contactlist-databox flex-d-col">
           <div class="pointer no-wrap-text fw-400 fs-20 pointer">${contact.name}</div>
@@ -125,41 +90,6 @@ async function renderListItems(contactList, sortedContacts) {
       </div>
     `;
   });
-}
-
-function sortContacts(contacts) {
-  return Object.entries(contacts)
-    .sort(([idA, contactA], [idB, contactB]) => contactA.name.localeCompare(contactB.name));
-}
-
-async function updateContactList() {
-  let contactList = document.getElementById("contactlist-content");
-  contactList.innerHTML = "";
-
-  const response = await fetch(
-    "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
-  );
-  const contacts = await response.json();
-  const sortedContacts = sortContacts(contacts);
-  await renderListItems(contactList, sortedContacts);
-}
-
-async function openContact(contactId) {
-  let contactSection = document.getElementById("contact-section");
-  let selectedContact = document.getElementById(`contactlist-content(${contactId})`);
-
-  document.querySelectorAll('[id^="contactlist-content"]').forEach((contact) => {
-    contact.classList.remove("bg-color-dg");
-  });
-
-  if (
-    contactSection.classList.contains("d-none") ||
-    !selectedContact.classList.contains("bg-color-dg")
-  ) {
-    selectedContact.classList.add("bg-color-dg");
-    contactSection.classList.remove("d-none");
-    await renderContactSection(contactId);
-  }
 }
 
 async function renderContactSection(contactId) {
@@ -199,6 +129,13 @@ async function renderContactSection(contactId) {
   </div>`;
 }
 
+function setupForms() {
+  const addForm = document.getElementById("contact-form");
+  addForm.addEventListener("submit", formSubmit);
+  const editForm = document.getElementById("edit-contact-form");
+  editForm.addEventListener("submit", editFormSubmit);
+}
+
 function formSubmit(event) {
   event.preventDefault();
   const fields = ["name", "mail", "phone", "prof-img"];
@@ -212,7 +149,7 @@ function formSubmit(event) {
   closeFormfield();
 }
 
-function showFormField() {
+function showFormField() { // hier muss ich noch einen dunkelgrauen hintergrund hinzufügen absprache welche schattierung und farbe
   let formField = document.getElementById("add-form-section");
   formField.classList.remove("d-none");
   formField.classList.remove("hidden");
@@ -220,34 +157,6 @@ function showFormField() {
   formField.style.transform = "translateX(100vw)";
   formField.style.animation = "moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideForm);
-}
-
-function setupForm() {
-  const addForm = document.getElementById("contact-form");
-  addForm.addEventListener("submit", formSubmit);
-  const editForm = document.getElementById("edit-contact-form");
-  editForm.addEventListener("submit", editFormSubmit);
-}
-
-function showEditForm(contactId) {
-  let editField = document.getElementById("edit-contact-section");
-  editField.classList.remove("d-none");
-  editField.classList.remove("hidden");
-  editField.style.visibility = "visible";
-  editField.style.transform = "translateX(100vw)";
-  editField.style.animation = "moveIn 200ms ease-in forwards";
-  document.addEventListener("click", outsideForm);
-  loadEditFormData(contactId);
-}
-
-function outsideForm(event) {
-  let section = document.getElementById("add-form-section");
-  if (
-    !section.contains(event.target) &&
-    !event.target.closest("#add-contact-btn")
-  ) {
-    closeFormfield();
-  }
 }
 
 function closeFormfield() {
@@ -263,6 +172,100 @@ function closeFormfield() {
     formField.style.transform = "translateX(100vw)";
     formField.classList.add("d-none");
   }, 200);
+}
+
+
+
+async function hoverContact(contactId) {
+  let contactSection = document.getElementById("contact-section");
+  let selectedContact = document.getElementById(`contactlist-content(${contactId})`);
+
+  document.querySelectorAll('[id^="contactlist-content"]').forEach((contact) => {
+    contact.classList.remove("bg-color-dg");
+  });
+
+  if (
+    contactSection.classList.contains("d-none") ||
+    !selectedContact.classList.contains("bg-color-dg")
+  ) {
+    selectedContact.classList.add("bg-color-dg");
+    contactSection.classList.remove("d-none");
+    await renderContactSection(contactId);
+  }
+}
+
+function showUpdateBar() {
+  let updateBar = document.getElementById("update-bar");
+  updateBar.classList.remove("d-none");
+  updateBar.addEventListener("animationend", function (event) {
+    if (event.animationName === "moveIn") {
+      setTimeout(function () {
+        updateBar.classList.add("move-out");
+        updateBar.addEventListener("animationend", function (event) {
+          if (event.animationName === "moveOut") {
+            updateBar.classList.add("d-none");
+          }
+        });
+      }, 200);
+    }
+  });
+}
+
+function generateProfileImage(name) {
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#FF33A1",
+    "#F3FF33",
+    "#33FFF3",
+  ];
+  let randomColor = colors[Math.floor(Math.random() * colors.length)];
+  let initials = name
+    .split(" ")
+    .filter((word) => word.length > 0)
+    .map((word) => word.charAt(0).toUpperCase())
+    .join("");
+  let newContactImg = `
+    <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="50" fill="${randomColor}" />
+      <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
+    </svg>
+  `;
+  return `data:image/svg+xml;base64,${btoa(newContactImg)}`;
+}
+
+function sortContacts(contacts) {
+  return Object.entries(contacts)
+    .sort(([idA, contactA], [idB, contactB]) => contactA.name.localeCompare(contactB.name));
+}
+
+function outsideForm(event) {
+  let section = document.getElementById("add-form-section");
+  if (
+    !section.contains(event.target) &&
+    !event.target.closest("#add-contact-btn")
+  ) {
+    closeFormfield();
+  }
+}
+
+
+
+
+function showEditForm(contactId) { // hier ebenfalls eine schattierung oder dirtekt hiulfsfunktion
+  let editField = document.getElementById("edit-contact-section");
+  editField.classList.remove("d-none");
+  editField.classList.remove("hidden");
+  editField.style.visibility = "visible";
+  editField.style.transform = "translateX(100vw)";
+  editField.style.animation = "moveIn 200ms ease-in forwards";
+  document.addEventListener("click", outsideForm);
+
+
+  let editForm = document.getElementById("edit-contact-form");
+  editForm.setAttribute("data-id", contactId);
+  loadEditFormData(contactId);
 }
 
 function closeEditfield() {
@@ -309,14 +312,30 @@ async function editFormSubmit(event) {
     ])
   );
 
-  await fetch(
-    `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`,
-    {
-      method: "PATCH",
-      body: JSON.stringify(updatedContact),
-    }
-  );
+  const editProfileImg = document.getElementById("prof2-img").querySelector("img");
+  if (editProfileImg) {
+    updatedContact.img = editProfileImg.src;
+  }
 
-  await updateContactList();
-  closeEditfield();
+  try {
+    const response = await fetch(
+      `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedContact),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    await updateContactList();
+    closeEditfield();
+  } catch (error) {
+    console.error("Fehler beim Aktualisieren des Kontakts:", error);
+  }
 }
