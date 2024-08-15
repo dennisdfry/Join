@@ -204,9 +204,80 @@ function updateCategoryCounts(counts) {
 }
 
 /**
+ * Formats a given date string (YYYY-MM-DD) into German date format (DD. Month YYYY).
+ * @param {string} dateStr - The date string in YYYY-MM-DD format.
+ * @returns {string} The formatted date string in DD. Month YYYY format.
+ */
+function formatDateGerman(dateStr) {
+  const months = [
+    "Januar", "Februar", "März", "April", "Mai", "Juni",
+    "Juli", "August", "September", "Oktober", "November", "Dezember"
+  ];
+
+  const [year, month, day] = dateStr.split('-');
+  const monthIndex = parseInt(month, 10) - 1; // Months are 1-based
+  return `${parseInt(day, 10)}. ${months[monthIndex]} ${year}`;
+}
+
+/**
+ * Finds the closest dueDate to the current date.
+ * @param {Object} taskData - The task data loaded from the database.
+ * @returns {string} The dueDate that is closest to the current date.
+ */
+function findClosestDueDate(taskData) {
+  const now = new Date();
+  let closestDate = null;
+  let minDiff = Infinity;
+
+  for (const taskId in taskData) {
+    if (taskData.hasOwnProperty(taskId)) {
+      const tasks = taskData[taskId];
+
+      tasks.forEach((task) => {
+        if (task.dueDate) {
+          const taskDate = new Date(task.dueDate);
+          const diff = Math.abs(taskDate - now);
+
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestDate = task.dueDate;
+          }
+        }
+      });
+    }
+  }
+
+  return closestDate ? formatDateGerman(closestDate) : "No due date available";
+}
+
+/**
+ * Loads tasks and finds the closest due date.
+ * @async
+ * @function
+ */
+async function loadTasksAndFindClosestDueDate() {
+  try {
+    const taskData = await loadTasks();
+    const closestDueDate = findClosestDueDate(taskData);
+
+    // Update the span element with the closest due date
+    const dateSpan = document.querySelector('.summary-tasks-mid-right-date');
+    if (dateSpan) {
+      dateSpan.innerHTML = closestDueDate;
+    } else {
+      console.error("Date span element not found.");
+    }
+  } catch (error) {
+    console.error("Error loading tasks and finding closest due date:", error);
+  }
+}
+
+
+/**
  * Initializes the summary when the DOM content is loaded.
  * @event DOMContentLoaded
  */
 document.addEventListener("DOMContentLoaded", () => {
   initSmry();
+  loadTasksAndFindClosestDueDate();
 });
