@@ -1,11 +1,29 @@
+/**
+ * Reference to the Firebase Realtime Database.
+ * @type {firebase.database.Database}
+ */
 var database = firebase.database();
+
+/**
+ * Reference to the "tasks" collection in the Firebase Realtime Database.
+ * @type {firebase.database.Reference}
+ */
 var tasksRef = database.ref("tasks");
 
+/**
+ * Initializes the summary by setting the greeting and loading tasks to count categories.
+ * @function
+ */
 function initSmry() {
   summaryGreeting();
   loadTasksAndCountCategories();
 }
 
+/**
+ * Displays a personalized greeting based on the time of day and the user's status.
+ * @async
+ * @function
+ */
 async function summaryGreeting() {
   const hour = new Date().getHours();
   const greetingElement = document.querySelector(".summary-user-greeting");
@@ -21,6 +39,16 @@ async function summaryGreeting() {
   }
 }
 
+/**
+ * Generates a greeting for a logged-in user based on the time of day.
+ * Handles errors during the authentication check and greeting process.
+ * @async
+ * @function
+ * @param {number} hour - The current hour of the day.
+ * @param {HTMLElement} greetingElement - The HTML element to display the greeting.
+ * @param {HTMLElement} greetingElementName - The HTML element to display the user's name.
+ * @throws {Error} Throws an error if there is an issue during the authentication check or greeting.
+ */
 async function greetingUser(hour, greetingElement, greetingElementName) {
   let greetingMessage = "";
   if (hour > 6 && hour < 12) {
@@ -32,13 +60,19 @@ async function greetingUser(hour, greetingElement, greetingElementName) {
   }
 
   try {
-    await checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName
-    );
+    await checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName);
   } catch (error) {
     console.error("Error during authentication check and greeting:", error);
   }
 }
 
+
+/**
+ * Generates a greeting for a guest user based on the time of day.
+ * @function
+ * @param {number} hour - The current hour of the day.
+ * @param {HTMLElement} greetingElement - The HTML element to display the greeting.
+ */
 function greetingGuest(hour, greetingElement) {
   let greetingMessage = "";
   if (hour > 6 && hour < 12) {
@@ -52,6 +86,14 @@ function greetingGuest(hour, greetingElement) {
   greetingElement.textContent = greetingMessage;
 }
 
+/**
+ * Checks user authentication status and updates the greeting with the user's name.
+ * @async
+ * @function
+ * @param {string} greetingMessage - The greeting message based on the time of day.
+ * @param {HTMLElement} greetingElement - The HTML element to display the greeting.
+ * @param {HTMLElement} greetingElementName - The HTML element to display the user's name.
+ */
 async function checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName) {
   const user = firebase.auth().currentUser;
   if (user) {
@@ -69,17 +111,29 @@ async function checkAuthAndGreet(greetingMessage, greetingElement, greetingEleme
   }
 }
 
+/**
+ * Loads tasks from the database.
+ * @async
+ * @function
+ * @returns {Promise<Object>} The task data.
+ */
 async function loadTasks() {
   try {
     const taskSnapshot = await tasksRef.once("value");
     const taskData = taskSnapshot.val();
-
     return taskData;
   } catch (error) {
     console.error("Error loading task data", error);
   }
 }
 
+/**
+ * Counts tasks in different categories by utilizing a helper function to iterate through tasks.
+ * @function
+ * @param {Object} taskData - The task data loaded from the database.
+ * @returns {Object} An object containing the count of tasks in each category.
+ * @see iterateTasks
+ */
 function countTasks(taskData) {
   const categoryCounts = {
     ToDo: 0,
@@ -88,6 +142,19 @@ function countTasks(taskData) {
     feedback: 0,
   };
 
+  iterateTasks(taskData, categoryCounts);
+
+  return categoryCounts;
+}
+
+/**
+ * Iterates over tasks and updates the counts for each category.
+ * This function is used as a helper for the `countTasks` function.
+ * @function
+ * @param {Object} taskData - The task data loaded from the database.
+ * @param {Object} categoryCounts - An object to store the count of tasks in each category.
+ */
+function iterateTasks(taskData, categoryCounts) {
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
@@ -102,10 +169,13 @@ function countTasks(taskData) {
       });
     }
   }
-
-  return categoryCounts;
 }
 
+/**
+ * Loads tasks and counts the number of tasks in each category.
+ * @async
+ * @function
+ */
 async function loadTasksAndCountCategories() {
   try {
     const taskData = await loadTasks();
@@ -117,6 +187,11 @@ async function loadTasksAndCountCategories() {
   }
 }
 
+/**
+ * Updates the UI with the counts of tasks in each category.
+ * @function
+ * @param {Object} counts - An object containing the count of tasks in each category.
+ */
 function updateCategoryCounts(counts) {
   document.getElementById("smry-to-do-val").innerText = counts.ToDo || 0;
   document.getElementById("smry-done-val").innerText = counts.done || 0;
@@ -128,6 +203,10 @@ function updateCategoryCounts(counts) {
   document.getElementById("smry-board-val").innerText = totalTasks;
 }
 
+/**
+ * Initializes the summary when the DOM content is loaded.
+ * @event DOMContentLoaded
+ */
 document.addEventListener("DOMContentLoaded", () => {
   initSmry();
 });
