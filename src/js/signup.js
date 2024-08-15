@@ -108,20 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  const passwordInput = document.getElementById('password');
-  const confirmPasswordInput = document.getElementById('confirm-password');
-  const togglePassword = document.getElementById('toggle-password');
-  const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+  updateIconVisibility();
 
-  updateIconVisibility(passwordInput, confirmPasswordInput, togglePassword, toggleConfirmPassword);
-
-  passwordInput.addEventListener('input', function() {
-    updateIconVisibility(passwordInput, confirmPasswordInput, togglePassword, toggleConfirmPassword);
-  });
-  
-  confirmPasswordInput.addEventListener('input', function() {
-    updateIconVisibility(passwordInput, confirmPasswordInput, togglePassword, toggleConfirmPassword);
-  });
+  passwordInput.addEventListener('input', updateIconVisibility);
+  confirmPasswordInput.addEventListener('input', updateIconVisibility);
 
   togglePassword.addEventListener('click', function() {
     updatePasswordVisibility(passwordInput, togglePassword);
@@ -142,7 +132,7 @@ function updatePasswordVisibility(input, toggle) {
   }
 }
 
-function updateIconVisibility(passwordInput, confirmPasswordInput, togglePassword, toggleConfirmPassword) {
+function updateIconVisibility() {
   if (passwordInput.value.length > 0) {
     togglePassword.src = '/public/img/password-hidden.png';
   } else {
