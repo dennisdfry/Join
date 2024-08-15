@@ -298,7 +298,7 @@ async function updateContact(contactId, updatedContact) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    await updateContactList(); // Aktualisiere die Kontaktliste nach der Bearbeitung
+    await updateContactList();
     closeEditField();
   } catch (error) {
     console.error("Error updating contact:", error);
@@ -308,18 +308,14 @@ async function updateContact(contactId, updatedContact) {
 function handleEditFormSubmit(event) {
   event.preventDefault();
 
-  // Hole die ID des zu bearbeitenden Kontakts aus dem Datenattribut des Formulars
   const contactId = event.target.getAttribute("data-id");
 
-  // Holt die aktualisierten Daten aus dem Formular
   const updatedContact = {
     name: document.getElementById("edit-name").value,
     mail: document.getElementById("edit-mail").value,
     phone: document.getElementById("edit-phone").value,
     img: document.getElementById("prof2-img").querySelector("img")?.src
   };
-
-  // Aktualisiere den Kontakt mit der spezifischen ID
   updateContact(contactId, updatedContact);
 }
 
