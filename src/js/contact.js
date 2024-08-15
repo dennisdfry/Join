@@ -334,6 +334,11 @@ function deselectAllContacts() {
   document.querySelectorAll('[id^="contactlist-item"]').forEach((contact) => {
     contact.classList.remove("bg-color-dg", ACTIVE_CLASS);
     contact.style.pointerEvents = "auto";
+    
+    let contactNameElement = contact.querySelector(".contactlist-databox .fw-400");
+    if (contactNameElement) {
+      contactNameElement.classList.remove("selected-contact-name");
+    }
   });
 }
 
@@ -341,6 +346,11 @@ function highlightContact(selectedContact) {
   if (!selectedContact.classList.contains("bg-color-dg")) {
     selectedContact.classList.add("bg-color-dg", ACTIVE_CLASS);
     selectedContact.style.pointerEvents = "none";
+    
+    let contactNameElement = selectedContact.querySelector(".contactlist-databox .fw-400");
+    if (contactNameElement) {
+      contactNameElement.classList.add("selected-contact-name");
+    }
   }
 }
 

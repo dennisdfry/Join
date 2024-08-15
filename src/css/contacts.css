@@ -412,3 +412,7 @@ body {
     transform: translateX(100vw);
   }
 }
+
+.selected-contact-name {
+  color: white;
+}
