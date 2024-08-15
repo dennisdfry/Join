@@ -58,7 +58,7 @@ async function addContact(contact) {
 function renderContactSeparator(contactList, letter) {
   contactList.innerHTML += `
     <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
-    <div class="contactlist-separator"></div>
+    <div class="contactlist-seperator"></div>
   `;
 }
 
@@ -69,7 +69,8 @@ async function renderContactList(contactList, sortedContacts) {
     const firstLetter = contact.name.charAt(0).toUpperCase();
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
-      renderContactSeparator(contactList, currentLetter);
+      console.log(`Rendering separator for letter: ${currentLetter}`);
+      renderContactSeparator(contactList, currentLetter);  // Füge den Separator hinzu
     }
 
     const imageSrc = contact.img || generateProfileImage(contact.name);
@@ -97,6 +98,7 @@ async function renderContactDetails(contactId) {
     console.error("Error loading contact details:", error);
   }
 }
+
 
 function renderContactImageAndButtons(contactSection, contact, contactId) {
   const contactImageHtml = `
@@ -234,6 +236,12 @@ function handleOutsideFormClick(event) {
     closeFormField();
   }
 }
+function handleOutsideEditFormClick(event) {
+  const section = document.getElementById("edit-contact-section");
+  if (!section.contains(event.target) && !event.target.closest("#edit-btn")) {
+    closeEditField();
+  }
+}
 
 function showEditForm(contactId) {
   const editField = document.getElementById("edit-contact-section");
@@ -241,7 +249,7 @@ function showEditForm(contactId) {
   editField.style.visibility = "visible";
   editField.style.transform = "translateX(100vw)";
   editField.style.animation = "moveIn 200ms ease-in forwards";
-  document.addEventListener("click", handleOutsideFormClick);
+  document.addEventListener("click", handleOutsideEditFormClick);
 
   const editForm = document.getElementById("edit-contact-form");
   editForm.setAttribute("data-id", contactId);
@@ -278,17 +286,7 @@ async function loadEditFormData(contactId) {
   }
 }
 
-async function handleEditFormSubmit(event) {
-  event.preventDefault();
-  const contactId = event.target.getAttribute("data-id");
-
-  const updatedContact = {
-    name: document.getElementById("edit-name").value,
-    mail: document.getElementById("edit-mail").value,
-    phone: document.getElementById("edit-phone").value,
-    img: document.getElementById("prof2-img").querySelector("img")?.src
-  };
-
+async function updateContact(contactId, updatedContact) {
   try {
     const response = await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`, {
       method: "PATCH",
@@ -300,9 +298,28 @@ async function handleEditFormSubmit(event) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    await updateContactList();
+    await updateContactList(); // Aktualisiere die Kontaktliste nach der Bearbeitung
     closeEditField();
   } catch (error) {
     console.error("Error updating contact:", error);
   }
 }
+
+function handleEditFormSubmit(event) {
+  event.preventDefault();
+
+  // Hole die ID des zu bearbeitenden Kontakts aus dem Datenattribut des Formulars
+  const contactId = event.target.getAttribute("data-id");
+
+  // Holt die aktualisierten Daten aus dem Formular
+  const updatedContact = {
+    name: document.getElementById("edit-name").value,
+    mail: document.getElementById("edit-mail").value,
+    phone: document.getElementById("edit-phone").value,
+    img: document.getElementById("prof2-img").querySelector("img")?.src
+  };
+
+  // Aktualisiere den Kontakt mit der spezifischen ID
+  updateContact(contactId, updatedContact);
+}
+

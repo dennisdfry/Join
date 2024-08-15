@@ -30,54 +30,56 @@
 
     <div id="contact-section" class="pos-abs d-flex flex-d-col gap-21 vis-hidden"></div>
     
-    <div id="add-form-section" class="d-none pos-abs bg-color-ww bradius30 vis-hidden">
-      <div class="add-contact-content-left-box gap-12 bg-color-dg d-flex-center flex-d-col bradius-lb-30">
-        <div class="formfield-logo d-flex item-start pos-abs gap-16">
-          <img src="./img/join_logo.svg">
+    <!--<div class="overlay d-none">--> 
+      <div id="add-form-section" class="d-none pos-abs bg-color-ww bradius30 vis-hidden">
+        <div class="add-contact-content-left-box gap-12 bg-color-dg d-flex-center flex-d-col bradius-lb-30">
+          <div class="formfield-logo d-flex item-start pos-abs gap-16">
+            <img src="./img/join_logo.svg">
+          </div>
+          <h2 class="f-weight-700 color-wh mg-block-inline fs-61 l-height-73">Add contact</h2>
+          <p class="fw-400 fs-27 mg-block-inline color-wh l-height-32">Tasks are better with a team!</p>
+          <div class="add-contact-seperator"></div>
         </div>
-        <h2 class="f-weight-700 color-wh mg-block-inline fs-61 l-height-73">Add contact</h2>
-        <p class="fw-400 fs-27 mg-block-inline color-wh l-height-32">Tasks are better with a team!</p>
-        <div class="add-contact-seperator"></div>
-      </div>
 
-      <div class="d-flex item-center content-even">
-        <div class="exitBtn pointer pos-abs" onclick="closeFormField()">
-          <img src="./img/Close.png">
+        <div class="d-flex item-center content-even">
+          <div class="exitBtn pointer pos-abs" onclick="closeFormField()">
+            <img src="./img/Close.png">
+          </div>
+          <div id="prof-img" class="form-prof-img bradius70 d-flex-center">
+            <img src="./img/Group 13.png">
+          </div>
+          <form id="contact-form" class="pos-abs d-flex flex-d-col gap-32">
+            <div class="input-img-div d-flex-center gap-10 pos-rel">
+              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="text" id="name" name="name" placeholder="Name"  required></input>
+              <img class="pos-abs img-24" src="./img/person.png">
+            </div>
+            <div class="input-img-div d-flex-center gap-10 pos-rel">
+              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="email" id="mail" name="mail" placeholder="Email" required/></input>
+              <img class="pos-abs img-24" src="./img/mail.png">
+            </div>
+            <div class="input-img-div d-flex-center gap-10 pos-rel">
+              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="text" id="phone" name="phone" placeholder="Phone" pattern="^[0-9]{10,15}$" required/></input>
+              <img class="pos-abs img-24" src="./img/call.png"> 
+            </div>
+         </form>
+
+          <div class="formfield-btn-box pos-abs d-flex flex-d-row gap-24">
+            <button id="formfield-cancel-btn" class="bradius10 gap-4 d-flex content-even item-center shadow-none bg-color-ww pointer " onclick="closeFormField()">
+              <p class="fw-400 fs-20 l-height-24 mg-block-inline">
+                Cancel
+              </p>
+              <img class="img-24" src="./img/iconoir_cancel.png">
+            </button>
+            <button id="formfield-create-btn" class="bradius10 gap-4 d-flex content-even item-center b-unset shadow-none pointer " onclick="handleFormSubmit(event)">
+              <p class="f-weight-700 fs-21 color-wh l-height-24 mg-block-inline">
+                Create contact
+              </p>
+              <img class="img-24" src="./img/check2.png">
+            </button>
+          </div> 
         </div>
-        <div id="prof-img" class="form-prof-img bradius70 d-flex-center">
-          <img src="./img/Group 13.png">
-        </div>
-        <form id="contact-form" class="pos-abs d-flex flex-d-col gap-32">
-          <div class="input-img-div d-flex-center gap-10 pos-rel">
-            <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="text" id="name" name="name" placeholder="Name"  required></input>
-            <img class="pos-abs img-24" src="./img/person.png">
-          </div>
-          <div class="input-img-div d-flex-center gap-10 pos-rel">
-            <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="email" id="mail" name="mail" placeholder="Email" required/></input>
-            <img class="pos-abs img-24" src="./img/mail.png">
-          </div>
-          <div class="input-img-div d-flex-center gap-10 pos-rel">
-            <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="text" id="phone" name="phone" placeholder="Phone" pattern="^[0-9]{10,15}$" required/></input>
-            <img class="pos-abs img-24" src="./img/call.png"> 
-          </div>
-        </form>
-          
-        <div class="formfield-btn-box pos-abs d-flex flex-d-row gap-24">
-          <button id="formfield-cancel-btn" class="bradius10 gap-4 d-flex content-even item-center shadow-none bg-color-ww pointer " onclick="closeFormField()">
-            <p class="fw-400 fs-20 l-height-24 mg-block-inline">
-              Cancel
-            </p>
-            <img class="img-24" src="./img/iconoir_cancel.png">
-          </button>
-          <button id="formfield-create-btn" class="bradius10 gap-4 d-flex content-even item-center b-unset shadow-none pointer " onclick="handleFormSubmit(event)">
-            <p class="f-weight-700 fs-21 color-wh l-height-24 mg-block-inline">
-              Create contact
-            </p>
-            <img class="img-24" src="./img/check2.png">
-          </button>
-        </div> 
       </div>
-    </div>
+    <!--</div> -->
 
     <div id="edit-contact-section" class="d-none pos-abs bg-color-ww bradius30 vis-hidden">
       <div class="add-contact-content-left-box gap-12 bg-color-dg d-flex-center flex-d-col bradius-lb-30">
