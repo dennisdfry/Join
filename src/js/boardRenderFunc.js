@@ -80,7 +80,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           </div>
           <div>  
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Description:</p>
-              <textarea minlength="2" class="add-task-textarea" placeholder="${description}"
+              <textarea minlength="2" class="edit-task-textarea" placeholder="${description}"
                         name="description" id="description"></textarea>
           </div> 
           <div class="d-flex item-center mg-btt25" id="dateTask${index}">
