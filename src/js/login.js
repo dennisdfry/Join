@@ -66,10 +66,19 @@ document
     goToSummary();
   });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const passwordInput = document.getElementById("password-login");
-  const togglePassword = document.getElementById("toggle-password-login");
-
+  document.addEventListener("DOMContentLoaded", function () {
+    const passwordInput = document.getElementById("password-login");
+    const togglePassword = document.getElementById("toggle-password-login");
+  
+    updateIconVisibility();
+  
+    passwordInput.addEventListener("input", updateIconVisibility);
+  
+    togglePassword.addEventListener("click", function () {
+      updatePasswordVisibility(passwordInput, togglePassword);
+    });
+  });
+  
   function updatePasswordVisibility(input, toggle) {
     if (input.type === "password") {
       input.type = "text";
@@ -79,20 +88,15 @@ document.addEventListener("DOMContentLoaded", function () {
       toggle.src = "/public/img/password-hidden.png";
     }
   }
-
+  
   function updateIconVisibility() {
+    const passwordInput = document.getElementById("password-login");
+    const togglePassword = document.getElementById("toggle-password-login");
+  
     if (passwordInput.value.length > 0) {
       togglePassword.src = "/public/img/password-hidden.png";
     } else {
       togglePassword.src = "/public/img/lock.png";
     }
   }
-
-  updateIconVisibility();
-
-  passwordInput.addEventListener("input", updateIconVisibility);
-
-  togglePassword.addEventListener("click", function () {
-    updatePasswordVisibility(passwordInput, togglePassword);
-  });
-});
+  
