@@ -113,34 +113,15 @@ document.addEventListener('DOMContentLoaded', function() {
   const togglePassword = document.getElementById('toggle-password');
   const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
 
-  function updatePasswordVisibility(input, toggle) {
-    if (input.type === 'password') {
-      input.type = 'text';
-      toggle.src = '/public/img/password-show.png';
-    } else {
-      input.type = 'password';
-      toggle.src = '/public/img/password-hidden.png';
-    }
-  }
+  updateIconVisibility(passwordInput, confirmPasswordInput, togglePassword, toggleConfirmPassword);
 
-  function updateIconVisibility() {
-    if (passwordInput.value.length > 0) {
-      togglePassword.src = '/public/img/password-hidden.png';
-    } else {
-      togglePassword.src = '/public/img/lock.png';
-    }
-
-    if (confirmPasswordInput.value.length > 0) {
-      toggleConfirmPassword.src = '/public/img/password-hidden.png';
-    } else {
-      toggleConfirmPassword.src = '/public/img/lock.png';
-    }
-  }
-
-  updateIconVisibility();
-
-  passwordInput.addEventListener('input', updateIconVisibility);
-  confirmPasswordInput.addEventListener('input', updateIconVisibility);
+  passwordInput.addEventListener('input', function() {
+    updateIconVisibility(passwordInput, confirmPasswordInput, togglePassword, toggleConfirmPassword);
+  });
+  
+  confirmPasswordInput.addEventListener('input', function() {
+    updateIconVisibility(passwordInput, confirmPasswordInput, togglePassword, toggleConfirmPassword);
+  });
 
   togglePassword.addEventListener('click', function() {
     updatePasswordVisibility(passwordInput, togglePassword);
@@ -150,3 +131,27 @@ document.addEventListener('DOMContentLoaded', function() {
     updatePasswordVisibility(confirmPasswordInput, toggleConfirmPassword);
   });
 });
+
+function updatePasswordVisibility(input, toggle) {
+  if (input.type === 'password') {
+    input.type = 'text';
+    toggle.src = '/public/img/password-show.png';
+  } else {
+    input.type = 'password';
+    toggle.src = '/public/img/password-hidden.png';
+  }
+}
+
+function updateIconVisibility(passwordInput, confirmPasswordInput, togglePassword, toggleConfirmPassword) {
+  if (passwordInput.value.length > 0) {
+    togglePassword.src = '/public/img/password-hidden.png';
+  } else {
+    togglePassword.src = '/public/img/lock.png';
+  }
+
+  if (confirmPasswordInput.value.length > 0) {
+    toggleConfirmPassword.src = '/public/img/password-hidden.png';
+  } else {
+    toggleConfirmPassword.src = '/public/img/lock.png';
+  }
+}
