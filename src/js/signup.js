@@ -107,6 +107,12 @@ document.addEventListener('DOMContentLoaded', function () {
   validateForm();
 });
 
+/**
+ * Initializes event listeners for password and confirm password input fields.
+ * Utilizes global variables defined in `variables.js`.
+ * 
+ * @listens DOMContentLoaded
+ */
 document.addEventListener('DOMContentLoaded', function() {
   updateIconVisibility();
 
@@ -122,6 +128,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+/**
+ * Toggles the visibility of a password input field between text and password.
+ * 
+ * @param {HTMLInputElement} input - The password input field.
+ * @param {HTMLImageElement} toggle - The image element used to toggle visibility.
+ * 
+ * Variables `passwordInput`, `confirmPasswordInput`, `togglePassword`, 
+ * and `toggleConfirmPassword` are defined globally in `variables.js`.
+ */
 function updatePasswordVisibility(input, toggle) {
   if (input.type === 'password') {
     input.type = 'text';
@@ -132,6 +147,12 @@ function updatePasswordVisibility(input, toggle) {
   }
 }
 
+/**
+ * Updates the icon visibility based on the content of the password input fields.
+ * 
+ * Variables `passwordInput`, `confirmPasswordInput`, `togglePassword`, 
+ * and `toggleConfirmPassword` are defined globally in `variables.js`.
+ */
 function updateIconVisibility() {
   if (passwordInput.value.length > 0) {
     togglePassword.src = '/public/img/password-hidden.png';
@@ -145,3 +166,4 @@ function updateIconVisibility() {
     toggleConfirmPassword.src = '/public/img/lock.png';
   }
 }
+
