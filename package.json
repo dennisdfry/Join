@@ -1,0 +1,15 @@
+{
+  "name": "da-join",
+  "version": "1.0.0",
+  "description": "Willkommen bei **Join**, einer dynamischen und intuitiven Kanban-Board-Anwendung, inspiriert von Trello. Dieses Projekt ist ein gemeinschaftliches Portfolio-Projekt, entwickelt von einem Team aus drei Studenten der Developer Akademie.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jsdoc": "^4.0.3"
+  }
+}
