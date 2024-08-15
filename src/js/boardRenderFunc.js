@@ -73,7 +73,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <h1 class="txt-center">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
-          <div>
+          <div class="full-width">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Title:</p>
               <input minlength="2" class="title-edit-input" type="text"
                         placeholder="${title}" name="title" id="title">
@@ -128,6 +128,6 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <div class="seperator-opentask"></div>
               <div onclick="editTask()" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
             </div>
-          </div>
+          </div> 
     </div>`; 
  }

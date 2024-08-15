@@ -228,13 +228,16 @@ body{
 } */
 .board-task-container-open {
     border-radius: 24px;
-    height: fit-content;
     width: 525px;
+    height:80vh;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
     padding: 48px 40px 48px 40px;
     animation: slideInFromRight 0.5s ease-out forwards; /* Animation hinzufügen */
+    overflow: auto;
 }
+
+
 .board-task-container-open h1{
     font-family: 'Inter';
     font-size: 23px;
@@ -315,9 +318,7 @@ body{
     margin: 4px;
 }
 .title-edit-input{
-    width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    width: 525px;
     border-radius: 10px;
     height: 48px;
     outline: none;
@@ -326,5 +327,7 @@ body{
     color: #000000;
     margin-bottom: 10px;
     margin-top: 10px; 
-    margin-right: 40px;
+}
+.full-width{
+    width:100%;
 }
