@@ -17,6 +17,8 @@ var tasksRef = database.ref("tasks");
 function initSmry() {
   summaryGreeting();
   loadTasksAndCountCategories();
+  loadTasksAndUpdateUrgentCount();
+  loadTasksAndFindClosestDueDate();
 }
 
 /**
@@ -65,7 +67,6 @@ async function greetingUser(hour, greetingElement, greetingElementName) {
     console.error("Error during authentication check and greeting:", error);
   }
 }
-
 
 /**
  * Generates a greeting for a guest user based on the time of day.
@@ -121,9 +122,10 @@ async function loadTasks() {
   try {
     const taskSnapshot = await tasksRef.once("value");
     const taskData = taskSnapshot.val();
-    return taskData;
+    return taskData || {}; // Return an empty object if taskData is null
   } catch (error) {
     console.error("Error loading task data", error);
+    return {}; // Return an empty object in case of an error
   }
 }
 
@@ -201,6 +203,132 @@ function updateCategoryCounts(counts) {
   const totalTasks = (counts.ToDo || 0) + (counts.done || 0) + (counts.progress || 0) + (counts.feedback || 0);
 
   document.getElementById("smry-board-val").innerText = totalTasks;
+}
+
+/**
+ * Formats a given date string (YYYY-MM-DD) into German date format (DD. Month YYYY).
+ * @param {string} dateStr - The date string in YYYY-MM-DD format.
+ * @returns {string} The formatted date string in DD. Month YYYY format.
+ */
+function formatDateGerman(dateStr) {
+  const months = [
+    "Januar", "Februar", "März", "April", "Mai", "Juni",
+    "Juli", "August", "September", "Oktober", "November", "Dezember"
+  ];
+
+  const [year, month, day] = dateStr.split('-');
+  const monthIndex = parseInt(month, 10) - 1; // Months are 1-based
+  return `${parseInt(day, 10)}. ${months[monthIndex]} ${year}`;
+}
+
+/**
+ * Finds the closest dueDate to the current date and counts the number of tasks with that dueDate.
+ * @param {Object} taskData - The task data loaded from the database.
+ * @returns {Object} An object containing the closest dueDate and the number of tasks with that dueDate.
+ */
+function findClosestDueDate(taskData) {
+  const now = new Date();
+  let closestDate = null;
+  let minDiff = Infinity;
+  let taskCount = 0;
+
+  // First, find the closest due date
+  for (const taskId in taskData) {
+    if (taskData.hasOwnProperty(taskId)) {
+      const tasks = taskData[taskId];
+
+      tasks.forEach((task) => {
+        if (task.dueDate) {
+          const taskDate = new Date(task.dueDate);
+          const diff = Math.abs(taskDate - now);
+
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestDate = task.dueDate;
+          }
+        }
+      });
+    }
+  }
+
+  // Then, count the number of tasks with the closest due date
+  if (closestDate) {
+    taskCount = countTasksWithDueDate(taskData, closestDate);
+  }
+
+  return {
+    dueDate: closestDate ? formatDateGerman(closestDate) : "No due date available",
+    count: taskCount
+  };
+}
+
+/**
+ * Counts the number of tasks with a specific dueDate.
+ * @param {Object} taskData - The task data loaded from the database.
+ * @param {string} dueDate - The dueDate to count tasks for.
+ * @returns {number} The number of tasks with the specified dueDate.
+ */
+function countTasksWithDueDate(taskData, dueDate) {
+  let count = 0;
+
+  for (const taskId in taskData) {
+    if (taskData.hasOwnProperty(taskId)) {
+      const tasks = taskData[taskId];
+
+      tasks.forEach((task) => {
+        if (task.dueDate === dueDate) {
+          count++;
+        }
+      });
+    }
+  }
+
+  return count;
+}
+
+/**
+ * Loads tasks and finds the closest due date along with the count of tasks.
+ * Updates the span element with the count of tasks with the closest due date.
+ * @async
+ * @function
+ */
+async function loadTasksAndUpdateUrgentCount() {
+  try {
+    const taskData = await loadTasks();
+    const result = findClosestDueDate(taskData);
+
+    // Update the span element with the count of tasks
+    const urgentSpan = document.getElementById('smry-urgent-val');
+    if (urgentSpan) {
+      urgentSpan.innerText = result.count; // Insert the count into the span
+    } else {
+      console.error("Urgent span element not found.");
+    }
+  } catch (error) {
+    console.error("Error loading tasks and updating urgent count:", error);
+  }
+}
+
+/**
+ * Loads tasks and finds the closest due date.
+ * @async
+ * @function
+ */
+async function loadTasksAndFindClosestDueDate() {
+  try {
+    const taskData = await loadTasks();
+    const closestDueDate = findClosestDueDate(taskData);
+
+    // Update the span element with the closest due date
+    const dateSpan = document.querySelector('.summary-tasks-mid-right-date');
+    if (dateSpan) {
+      dateSpan.innerHTML = closestDueDate.dueDate; // Display the formatted date
+    } else {
+      console.error("Date span element not found.");
+    }
+  } catch (error) {
+    console.error("Error loading tasks and finding closest due date:", error);
+  }
 }
 
 /**
