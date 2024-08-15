@@ -34,9 +34,9 @@ document
       await firebase.auth().signInWithEmailAndPassword(email, password);
       goToSummary();
     } catch (error) {
-      toggleElement('.error-message', 'd-none');
-      toggleElement('.input-password', 'input-invalid');
-      toggleElement('.input-mail', 'input-invalid');
+      toggleElement(".error-message", "d-none");
+      toggleElement(".input-password", "input-invalid");
+      toggleElement(".input-mail", "input-invalid");
     }
   });
 
@@ -66,37 +66,36 @@ document
     goToSummary();
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const passwordInput = document.getElementById("password-login");
-    const togglePassword = document.getElementById("toggle-password-login");
-  
-    updateIconVisibility();
-  
-    passwordInput.addEventListener("input", updateIconVisibility);
-  
-    togglePassword.addEventListener("click", function () {
-      updatePasswordVisibility(passwordInput, togglePassword);
-    });
+document.addEventListener("DOMContentLoaded", function () {
+  const passwordInput = document.getElementById("password-login");
+  const togglePassword = document.getElementById("toggle-password-login");
+
+  updateIconVisibility();
+
+  passwordInput.addEventListener("input", updateIconVisibility);
+
+  togglePassword.addEventListener("click", function () {
+    updatePasswordVisibility(passwordInput, togglePassword);
   });
-  
-  function updatePasswordVisibility(input, toggle) {
-    if (input.type === "password") {
-      input.type = "text";
-      toggle.src = "/public/img/password-show.png";
-    } else {
-      input.type = "password";
-      toggle.src = "/public/img/password-hidden.png";
-    }
+});
+
+function updatePasswordVisibility(input, toggle) {
+  if (input.type === "password") {
+    input.type = "text";
+    toggle.src = "/public/img/password-show.png";
+  } else {
+    input.type = "password";
+    toggle.src = "/public/img/password-hidden.png";
   }
-  
-  function updateIconVisibility() {
-    const passwordInput = document.getElementById("password-login");
-    const togglePassword = document.getElementById("toggle-password-login");
-  
-    if (passwordInput.value.length > 0) {
-      togglePassword.src = "/public/img/password-hidden.png";
-    } else {
-      togglePassword.src = "/public/img/lock.png";
-    }
+}
+
+function updateIconVisibility() {
+  const passwordInput = document.getElementById("password-login");
+  const togglePassword = document.getElementById("toggle-password-login");
+
+  if (passwordInput.value.length > 0) {
+    togglePassword.src = "/public/img/password-hidden.png";
+  } else {
+    togglePassword.src = "/public/img/lock.png";
   }
-  
+}
