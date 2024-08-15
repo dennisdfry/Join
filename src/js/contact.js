@@ -11,7 +11,9 @@ async function updateContactList() {
   contactList.innerHTML = "";
 
   try {
-    const response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts.json");
+    const response = await fetch(
+      "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
+    );
     const contacts = await response.json();
     const sortedContacts = sortContacts(contacts);
     await renderContactList(contactList, sortedContacts);
@@ -22,12 +24,15 @@ async function updateContactList() {
 
 async function updateContact(contactId, updatedContact) {
   try {
-    const response = await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedContact),
-    });
-    
+    const response = await fetch(
+      `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedContact),
+      }
+    );
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -40,15 +45,20 @@ async function updateContact(contactId, updatedContact) {
 }
 
 async function fetchContact(contactId) {
-  const response = await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`);
+  const response = await fetch(
+    `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`
+  );
   return await response.json();
 }
 
 async function deleteContact(contactId) {
   try {
-    await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`, { method: "DELETE" });
+    await fetch(
+      `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`,
+      { method: "DELETE" }
+    );
     console.log(`Contact with ID ${contactId} successfully deleted.`);
-    
+
     await updateContactList();
     await selectNextContact(contactId);
 
@@ -61,17 +71,9 @@ async function deleteContact(contactId) {
 async function addContact(contact) {
   try {
     contact.img = contact.img || generateProfileImage(contact.name);
-    const response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts.json", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(contact),
-    });
-    const newContact = await response.json();
-    console.log("Contact uploaded successfully:", newContact);
+    await postContactToDatabase(contact);
     await updateContactList();
-    const responseForId = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts.json");
-    const contacts = await responseForId.json();
-    const newContactId = Object.keys(contacts).find(id => contacts[id].name === contact.name && contacts[id].mail === contact.mail);
+    const newContactId = await getNewContactId(contact);
     if (newContactId) {
       await renderContactDetails(newContactId);
     }
@@ -80,6 +82,31 @@ async function addContact(contact) {
     console.error("Error uploading contact:", error);
   }
 }
+
+async function postContactToDatabase(contact) {
+  const response = await fetch(
+    "https://join-19628-default-rtdb.firebaseio.com/contacts.json",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(contact),
+    }
+  );
+  const newContact = await response.json();
+  console.log("Contact uploaded successfully:", newContact);
+}
+
+async function getNewContactId(contact) {
+  const response = await fetch(
+    "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
+  );
+  const contacts = await response.json();
+  return Object.keys(contacts).find(
+    (id) =>
+      contacts[id].name === contact.name && contacts[id].mail === contact.mail
+  );
+}
+
 
 function renderContactSeparator(contactList, letter) {
   contactList.innerHTML += `
@@ -93,23 +120,28 @@ async function renderContactList(contactList, sortedContacts) {
 
   sortedContacts.forEach(([id, contact]) => {
     const firstLetter = contact.name.charAt(0).toUpperCase();
+
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
       console.log(`Rendering separator for letter: ${currentLetter}`);
-      renderContactSeparator(contactList, currentLetter);  // Füge den Separator hinzu
+      renderContactSeparator(contactList, currentLetter);
     }
 
-    const imageSrc = contact.img || generateProfileImage(contact.name);
-    contactList.innerHTML += `
-      <div id="contactlist-item-${id}" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="selectContact('${id}')">
-        <img class="d-flex pointer" src="${imageSrc}"/>
-        <div class="contactlist-databox flex-d-col">
-          <div class="pointer no-wrap-text fw-400 fs-20 pointer">${contact.name}</div>
-          <a class="pointer color-lb fs-16 text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
-        </div>
-      </div>
-    `;
+    const imageSrc = getImageSrc(contact);
+    renderContactItem(contactList, id, contact, imageSrc);
   });
+}
+
+function renderContactItem(contactList, id, contact, imageSrc) {
+  contactList.innerHTML += `
+    <div id="contactlist-item-${id}" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="selectContact('${id}')">
+      <img class="d-flex pointer" src="${imageSrc}"/>
+      <div class="contactlist-databox flex-d-col">
+        <div class="pointer no-wrap-text fw-400 fs-20 pointer">${contact.name}</div>
+        <a class="pointer color-lb fs-16 text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
+      </div>
+    </div>
+  `;
 }
 
 async function renderContactDetails(contactId) {
@@ -125,14 +157,17 @@ async function renderContactDetails(contactId) {
   }
 }
 
-
 function renderContactImageAndButtons(contactSection, contact, contactId) {
   const contactImageHtml = `
     <div class="animation-100">
       <div class="contact-information item-center d-flex">
-        <img src="${contact.img || generateProfileImage(contact.name)}" class="d-flex gap-10 obj-cover bradius70"/>
+        <img src="${
+          contact.img || generateProfileImage(contact.name)
+        }" class="d-flex gap-10 obj-cover bradius70"/>
         <div class="d-flex flex-d-col gap-8 item-start flex-grow">
-          <p class="mg-block-inline fw-500 no-wrap-text fs-47">${contact.name}</p>
+          <p class="mg-block-inline fw-500 no-wrap-text fs-47">${
+            contact.name
+          }</p>
           <div class="contact-section-btn-box fw-400 d-flex-between l-height-19">
             <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="showEditForm('${contactId}')" id="edit-btn">
               <img class="obj-cover img-24" src="./img/edit.png">Edit
@@ -170,8 +205,12 @@ function renderContactInfo(contactSection, contact) {
 }
 
 function setupForms() {
-  document.getElementById("contact-form").addEventListener("submit", handleFormSubmit);
-  document.getElementById("edit-contact-form").addEventListener("submit", handleEditFormSubmit);
+  document
+    .getElementById("contact-form")
+    .addEventListener("submit", handleFormSubmit);
+  document
+    .getElementById("edit-contact-form")
+    .addEventListener("submit", handleEditFormSubmit);
 }
 
 function handleFormSubmit(event) {
@@ -187,7 +226,7 @@ function handleFormSubmit(event) {
 }
 
 function showFormField() {
-  document.getElementById('overlay').classList.remove('d-none');
+  document.getElementById("overlay").classList.remove("d-none");
 
   const formField = document.getElementById("add-form-section");
   formField.classList.remove("d-none", "hidden");
@@ -198,10 +237,12 @@ function showFormField() {
 }
 
 function closeFormField() {
-  document.getElementById('overlay').classList.add('d-none');
+  document.getElementById("overlay").classList.add("d-none");
 
   const formField = document.getElementById("add-form-section");
-  ["name", "mail", "phone"].forEach(id => document.getElementById(id).value = "");
+  ["name", "mail", "phone"].forEach(
+    (id) => (document.getElementById(id).value = "")
+  );
   formField.style.animation = "moveOut 200ms ease-out forwards";
 
   setTimeout(() => {
@@ -211,23 +252,32 @@ function closeFormField() {
   }, 200);
 }
 
+const ACTIVE_CLASS = "active-contact";
+
 async function selectContact(contactId) {
   const contactSection = document.getElementById("contact-section");
-  const selectedContact = document.getElementById(`contactlist-item-${contactId}`);
-  const activeClass = "active-contact";
+  const selectedContact = document.getElementById(
+    `contactlist-item-${contactId}`
+  );
 
-  document.querySelectorAll('[id^="contactlist-item"]').forEach(contact => {
-     contact.classList.remove("bg-color-dg");
-     contact.classList.remove(activeClass);  
-     contact.style.pointerEvents = "auto";  
+  deselectAllContacts();
+  highlightContact(selectedContact);
+
+  contactSection.classList.remove("d-none");
+  await renderContactDetails(contactId);
+}
+
+function deselectAllContacts() {
+  document.querySelectorAll('[id^="contactlist-item"]').forEach((contact) => {
+    contact.classList.remove("bg-color-dg", ACTIVE_CLASS);
+    contact.style.pointerEvents = "auto";
   });
-  
+}
+
+function highlightContact(selectedContact) {
   if (!selectedContact.classList.contains("bg-color-dg")) {
-     selectedContact.classList.add("bg-color-dg");
-     selectedContact.classList.add(activeClass); 
-     selectedContact.style.pointerEvents = "none"; 
-     contactSection.classList.remove("d-none");
-     await renderContactDetails(contactId);
+    selectedContact.classList.add("bg-color-dg", ACTIVE_CLASS);
+    selectedContact.style.pointerEvents = "none";
   }
 }
 
@@ -235,11 +285,11 @@ function showUpdateBar() {
   const updateBar = document.getElementById("update-bar");
   updateBar.classList.remove("d-none");
 
-  updateBar.addEventListener("animationend", function(event) {
+  updateBar.addEventListener("animationend", function (event) {
     if (event.animationName === "moveIn") {
       setTimeout(() => {
         updateBar.classList.add("move-out");
-        updateBar.addEventListener("animationend", function(event) {
+        updateBar.addEventListener("animationend", function (event) {
           if (event.animationName === "moveOut") {
             updateBar.classList.add("d-none");
           }
@@ -251,19 +301,22 @@ function showUpdateBar() {
 
 async function selectNextContact(deletedContactId) {
   try {
-
-    const response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts.json");
+    const response = await fetch(
+      "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
+    );
     const contacts = await response.json();
     const sortedContacts = sortContacts(contacts);
 
-    const currentIndex = sortedContacts.findIndex(([id]) => id === deletedContactId);
-    const nextContact = sortedContacts[currentIndex + 1] || sortedContacts[currentIndex - 1];
-    
+    const currentIndex = sortedContacts.findIndex(
+      ([id]) => id === deletedContactId
+    );
+    const nextContact =
+      sortedContacts[currentIndex + 1] || sortedContacts[currentIndex - 1];
+
     if (nextContact) {
       const nextContactId = nextContact[0];
       await selectContact(nextContactId);
     } else {
-
       document.getElementById("contact-section").innerHTML = "";
     }
   } catch (error) {
@@ -272,29 +325,42 @@ async function selectNextContact(deletedContactId) {
 }
 
 function generateProfileImage(name) {
-  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F3FF33", "#33FFF3"];
+  const colors = ["#FF5733","#33FF57","#3357FF","#FF33A1","#F3FF33","#33FFF3",];
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
-  const initials = name.split(" ").map(word => word.charAt(0).toUpperCase()).join("");
-  
+  const initials = name
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase())
+    .join("");
+
   const svgImage = `
     <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
       <circle cx="50" cy="50" r="50" fill="${randomColor}" />
       <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
     </svg>`;
-  
+
   return `data:image/svg+xml;base64,${btoa(svgImage)}`;
 }
 
 function sortContacts(contacts) {
-  return Object.entries(contacts).sort(([, a], [, b]) => a.name.localeCompare(b.name));
+  return Object.entries(contacts).sort(([, a], [, b]) =>
+    a.name.localeCompare(b.name)
+  );
+}
+
+function getImageSrc(contact) {
+  return contact.img || generateProfileImage(contact.name);
 }
 
 function handleOutsideFormClick(event) {
   const section = document.getElementById("add-form-section");
-  if (!section.contains(event.target) && !event.target.closest("#add-contact-btn")) {
+  if (
+    !section.contains(event.target) &&
+    !event.target.closest("#add-contact-btn")
+  ) {
     closeFormField();
   }
 }
+
 function handleOutsideEditFormClick(event) {
   const section = document.getElementById("edit-contact-section");
   if (!section.contains(event.target) && !event.target.closest("#edit-btn")) {
@@ -303,7 +369,7 @@ function handleOutsideEditFormClick(event) {
 }
 
 function showEditForm(contactId) {
-  document.getElementById('edit-overlay').classList.remove('d-none');
+  document.getElementById("edit-overlay").classList.remove("d-none");
   const editField = document.getElementById("edit-contact-section");
   editField.classList.remove("d-none", "hidden");
   editField.style.visibility = "visible";
@@ -317,11 +383,13 @@ function showEditForm(contactId) {
 }
 
 function closeEditField() {
-  document.getElementById('edit-overlay').classList.add('d-none');
+  document.getElementById("edit-overlay").classList.add("d-none");
   const editField = document.getElementById("edit-contact-section");
-  ["edit-name", "edit-mail", "edit-phone"].forEach(id => document.getElementById(id).value = "");
+  ["edit-name", "edit-mail", "edit-phone"].forEach(
+    (id) => (document.getElementById(id).value = "")
+  );
   editField.style.animation = "moveOut 200ms ease-out forwards";
-  
+
   setTimeout(() => {
     editField.classList.add("hidden", "d-none");
     editField.style.visibility = "hidden";
@@ -331,16 +399,20 @@ function closeEditField() {
 
 async function loadEditFormData(contactId) {
   try {
-    const response = await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`);
+    const response = await fetch(
+      `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`
+    );
     const contact = await response.json();
-    
+
     document.getElementById("edit-name").value = contact.name;
     document.getElementById("edit-mail").value = contact.mail;
     document.getElementById("edit-phone").value = contact.phone;
 
     const editImageContainer = document.getElementById("prof2-img");
     if (editImageContainer) {
-      editImageContainer.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}" alt="Contact Image">`;
+      editImageContainer.innerHTML = `<img src="${
+        contact.img || generateProfileImage(contact.name)
+      }" alt="Contact Image">`;
     }
   } catch (error) {
     console.error("Error loading edit form data:", error);
@@ -356,8 +428,7 @@ function handleEditFormSubmit(event) {
     name: document.getElementById("edit-name").value,
     mail: document.getElementById("edit-mail").value,
     phone: document.getElementById("edit-phone").value,
-    img: document.getElementById("prof2-img").querySelector("img")?.src
+    img: document.getElementById("prof2-img").querySelector("img")?.src,
   };
   updateContact(contactId, updatedContact);
 }
-
