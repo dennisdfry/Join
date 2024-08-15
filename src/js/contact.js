@@ -27,7 +27,7 @@ async function updateContact(contactId, updatedContact) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedContact),
     });
-
+    
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -48,9 +48,11 @@ async function deleteContact(contactId) {
   try {
     await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`, { method: "DELETE" });
     console.log(`Contact with ID ${contactId} successfully deleted.`);
+    
     await updateContactList();
+    await selectNextContact(contactId);
+
     closeEditField();
-    await renderContactDetails(contactId);
   } catch (error) {
     console.error("Error deleting contact:", error);
   }
@@ -64,10 +66,15 @@ async function addContact(contact) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(contact),
     });
-
     const newContact = await response.json();
     console.log("Contact uploaded successfully:", newContact);
     await updateContactList();
+    const responseForId = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts.json");
+    const contacts = await responseForId.json();
+    const newContactId = Object.keys(contacts).find(id => contacts[id].name === contact.name && contacts[id].mail === contact.mail);
+    if (newContactId) {
+      await renderContactDetails(newContactId);
+    }
     showUpdateBar();
   } catch (error) {
     console.error("Error uploading contact:", error);
@@ -207,13 +214,20 @@ function closeFormField() {
 async function selectContact(contactId) {
   const contactSection = document.getElementById("contact-section");
   const selectedContact = document.getElementById(`contactlist-item-${contactId}`);
+  const activeClass = "active-contact";
 
-  document.querySelectorAll('[id^="contactlist-item"]').forEach(contact => contact.classList.remove("bg-color-dg"));
-
+  document.querySelectorAll('[id^="contactlist-item"]').forEach(contact => {
+     contact.classList.remove("bg-color-dg");
+     contact.classList.remove(activeClass);  
+     contact.style.pointerEvents = "auto";  
+  });
+  
   if (!selectedContact.classList.contains("bg-color-dg")) {
-    selectedContact.classList.add("bg-color-dg");
-    contactSection.classList.remove("d-none");
-    await renderContactDetails(contactId);
+     selectedContact.classList.add("bg-color-dg");
+     selectedContact.classList.add(activeClass); 
+     selectedContact.style.pointerEvents = "none"; 
+     contactSection.classList.remove("d-none");
+     await renderContactDetails(contactId);
   }
 }
 
@@ -233,6 +247,28 @@ function showUpdateBar() {
       }, 200);
     }
   });
+}
+
+async function selectNextContact(deletedContactId) {
+  try {
+
+    const response = await fetch("https://join-19628-default-rtdb.firebaseio.com/contacts.json");
+    const contacts = await response.json();
+    const sortedContacts = sortContacts(contacts);
+
+    const currentIndex = sortedContacts.findIndex(([id]) => id === deletedContactId);
+    const nextContact = sortedContacts[currentIndex + 1] || sortedContacts[currentIndex - 1];
+    
+    if (nextContact) {
+      const nextContactId = nextContact[0];
+      await selectContact(nextContactId);
+    } else {
+
+      document.getElementById("contact-section").innerHTML = "";
+    }
+  } catch (error) {
+    console.error("Error selecting next contact:", error);
+  }
 }
 
 function generateProfileImage(name) {

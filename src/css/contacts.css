@@ -84,6 +84,7 @@ body {
   height: 78px;
   gap: 35px;
   margin: 4px;
+  transition: background-color 0.3s ease;
 }
 
 .contactlist-content img {
@@ -97,6 +98,10 @@ body {
 
 .contactlist-content:hover {
   background-color: #eeecec;
+}
+
+.contactlist-content.active-contact:hover {
+  background-color: inherit; 
 }
 
 .contactlist-databox {
