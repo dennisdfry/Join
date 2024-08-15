@@ -17,6 +17,8 @@ var tasksRef = database.ref("tasks");
 function initSmry() {
   summaryGreeting();
   loadTasksAndCountCategories();
+  loadTasksAndUpdateUrgentCount();
+  loadTasksAndFindClosestDueDate();
 }
 
 /**
@@ -335,6 +337,4 @@ async function loadTasksAndFindClosestDueDate() {
  */
 document.addEventListener("DOMContentLoaded", () => {
   initSmry();
-  loadTasksAndUpdateUrgentCount();
-  loadTasksAndFindClosestDueDate();
 });
