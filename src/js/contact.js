@@ -161,6 +161,8 @@ function handleFormSubmit(event) {
 }
 
 function showFormField() {
+  document.getElementById('overlay').classList.remove('d-none');
+
   const formField = document.getElementById("add-form-section");
   formField.classList.remove("d-none", "hidden");
   formField.style.visibility = "visible";
@@ -170,6 +172,8 @@ function showFormField() {
 }
 
 function closeFormField() {
+  document.getElementById('overlay').classList.add('d-none');
+  
   const formField = document.getElementById("add-form-section");
   ["name", "mail", "phone"].forEach(id => document.getElementById(id).value = "");
   formField.style.animation = "moveOut 200ms ease-out forwards";
