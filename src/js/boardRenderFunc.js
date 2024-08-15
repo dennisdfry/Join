@@ -83,9 +83,9 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <textarea minlength="2" class="edit-task-textarea" placeholder="${description}"
                         name="description" id="description"></textarea>
           </div> 
-          <div class="d-flex item-center mg-btt25" id="dateTask${index}">
+          <div class="d-flex full-width flex-d-col mg-btt25" id="dateTask${index}">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
-                    <input required placeholder="${date}" class="add-task-select" type="date" id="dueDate${index}" name="dueDate">
+                    <input required placeholder="${date}" class="edit-task-date" type="date" id="dueDate${index}" name="dueDate">
               <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task"></p>
           </div>
           <div class="d-flex item-center mg-btt25" id="prioTask${index}">
