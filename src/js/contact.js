@@ -20,6 +20,25 @@ async function updateContactList() {
   }
 }
 
+async function updateContact(contactId, updatedContact) {
+  try {
+    const response = await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedContact),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    await updateContactList();
+    closeEditField();
+  } catch (error) {
+    console.error("Error updating contact:", error);
+  }
+}
+
 async function fetchContact(contactId) {
   const response = await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`);
   return await response.json();
@@ -173,7 +192,7 @@ function showFormField() {
 
 function closeFormField() {
   document.getElementById('overlay').classList.add('d-none');
-  
+
   const formField = document.getElementById("add-form-section");
   ["name", "mail", "phone"].forEach(id => document.getElementById(id).value = "");
   formField.style.animation = "moveOut 200ms ease-out forwards";
@@ -248,6 +267,7 @@ function handleOutsideEditFormClick(event) {
 }
 
 function showEditForm(contactId) {
+  document.getElementById('edit-overlay').classList.remove('d-none');
   const editField = document.getElementById("edit-contact-section");
   editField.classList.remove("d-none", "hidden");
   editField.style.visibility = "visible";
@@ -261,6 +281,7 @@ function showEditForm(contactId) {
 }
 
 function closeEditField() {
+  document.getElementById('edit-overlay').classList.add('d-none');
   const editField = document.getElementById("edit-contact-section");
   ["edit-name", "edit-mail", "edit-phone"].forEach(id => document.getElementById(id).value = "");
   editField.style.animation = "moveOut 200ms ease-out forwards";
@@ -287,25 +308,6 @@ async function loadEditFormData(contactId) {
     }
   } catch (error) {
     console.error("Error loading edit form data:", error);
-  }
-}
-
-async function updateContact(contactId, updatedContact) {
-  try {
-    const response = await fetch(`https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedContact),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    await updateContactList();
-    closeEditField();
-  } catch (error) {
-    console.error("Error updating contact:", error);
   }
 }
 

@@ -227,6 +227,7 @@ body {
   animation: moveIn 200ms ease-in 100ms forwards;
   top: 100px;
   left: 240px;
+  z-index: 1000;
 }
 @keyframes moveIn {
   0% {
