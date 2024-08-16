@@ -189,14 +189,11 @@ function renderContactInfo(contactSection, contact) {
 }
 
 function checkFormFields() {
-  const name = document.getElementById("name").value.trim();
-  const mail = document.getElementById("mail").value.trim();
-  const phone = document.getElementById("phone").value.trim();
+  let name = document.getElementById("name").value.trim();
+  let mail = document.getElementById("mail").value.trim();
+  let phone = document.getElementById("phone").value.trim();
 
-  // Überprüfe, ob alle Felder ausgefüllt sind
-  const allFieldsFilled = name && mail && phone;
-
-  // Aktiviere oder deaktiviere die Schaltfläche basierend auf der Überprüfung
+  let allFieldsFilled = name && mail && phone;
   document.getElementById("formfield-create-btn").disabled = !allFieldsFilled;
 }
 
@@ -217,20 +214,16 @@ document.addEventListener("DOMContentLoaded", setupForms);
 function handleFormSubmit(event) {
   event.preventDefault();
 
-  // Holen Sie sich die Eingabefelder
-  const nameInput = document.getElementById("name");
-  const mailInput = document.getElementById("mail");
-  const phoneInput = document.getElementById("phone");
+  let mailInput = document.getElementById("mail");
+  let phoneInput = document.getElementById("phone");
+  let nameInput = document.getElementById("name");
 
-  // Initialisieren Sie Variablen, um Fehler zu verfolgen
   let hasError = false;
 
-  // Entfernen Sie vorherige Fehlerklassen
   nameInput.classList.remove("input-error");
   mailInput.classList.remove("input-error");
   phoneInput.classList.remove("input-error");
 
-  // Validieren Sie die Eingaben
   if (!nameInput.value.trim()) {
     nameInput.classList.add("input-error");
     hasError = true;
@@ -245,10 +238,9 @@ function handleFormSubmit(event) {
   }
 
   if (hasError) {
-    return; // Verhindert das Absenden des Formulars bei Fehlern
+    return; 
   }
 
-  // Bereiten Sie die Daten für das neue Kontaktobjekt vor
   let name = nameInput.value.trim().charAt(0).toUpperCase() + nameInput.value.trim().slice(1);
   let newContact = {
     name: name,
@@ -261,14 +253,13 @@ function handleFormSubmit(event) {
   closeFormField();
 }
 
-// Hilfsfunktionen zur Validierung von E-Mail und Telefonnummer
 function validateEmail(email) {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailPattern.test(email);
 }
 
 function validatePhone(phone) {
-  const phonePattern = /^[0-9]{10,15}$/;
+  let phonePattern = /^[0-9]{10,15}$/;
   return phonePattern.test(phone);
 }
 
