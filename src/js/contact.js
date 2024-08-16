@@ -71,7 +71,7 @@ async function addContact(contact) {
   }
 }
 
-async function getNewContactId(contact) {
+async function getContactId(contact) {
   let contacts = await fetchData(`${CONTACTS_URL}.json`);
   return Object.keys(contacts).find(id => 
     contacts[id].name === contact.name && contacts[id].mail === contact.mail
@@ -444,8 +444,8 @@ async function selectNextContact(deletedContactId) {
     const response = await fetch(
       "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
     );
-    const contacts = await response.json();
-    const sortedContacts = sortContacts(contacts);
+    let contacts = await response.json();
+    let sortedContacts = sortContacts(contacts);
 
     const currentIndex = sortedContacts.findIndex(
       ([id]) => id === deletedContactId
