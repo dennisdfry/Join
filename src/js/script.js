@@ -205,6 +205,18 @@ async function searchIndexUrl(index, users, fetchImage){
     let imageUrl = fetchImage[element];
     position.innerHTML += await htmlBoardImage(imageUrl, index);
   }
+  const container = document.getElementById(`userImageBoard${index}`);
+  const images = container.getElementsByClassName('image-div'); 
+  const containerWidth = 80; 
+  console.log(containerWidth);
+  const imageWidth = 32;
+  console.log(imageWidth)
+  const totalImages = images.length; 
+  console.log(totalImages);
+  const maxOverlap = (totalImages * imageWidth - containerWidth) / (totalImages - 1);
+  for (let i = 1; i < totalImages; i++) {
+      images[i].style.transform = `translateX(${i * -maxOverlap}px)`;
+  }
 }
 
 async function userNamesRender(index){
@@ -226,9 +238,9 @@ async function searchIndexUrlOpen(index, users, fetchImage, userNames){
   }
 }
 
-async function htmlBoardImage(imageUrl){
+async function htmlBoardImage(imageUrl, index){
   return `
-  <div>
+  <div class="image-div">
     <img class="user-image-board" src="${imageUrl}">
   </div>  `;
 }

@@ -12,6 +12,7 @@
 body{
     font-family: 'Inter';
     font-weight: 400;
+    margin: 0px;
 }
 .background-main {
     background-color: rgb(246, 247, 248);
@@ -198,12 +199,23 @@ body{
 }
 .user-image-bord-container{
     max-width: 80px;
+    width:100%;
     display: flex;
+    position: relative ;
+    
 }
 .user-image-board{
     width:32px;
     height:32px;
+    border-radius: 50%;
 }
+.image-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+}
+ 
 .prio-board-image-container{
     width:32px;
     height:32px;
@@ -223,9 +235,7 @@ body{
         opacity: 1;
     }
 }
-/* .user-image-bord-container-open{
 
-} */
 .board-task-container-open {
     border-radius: 24px;
     width: 525px;
