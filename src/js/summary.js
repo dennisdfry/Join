@@ -222,9 +222,11 @@ function formatDateGerman(dateStr) {
 }
 
 /**
- * Finds the closest dueDate to the current date and counts the number of tasks with that dueDate.
+ * Finds the closest due date among tasks with priority 'Urgent' that are not in the 'done' category.
+ * Also counts the number of such tasks with the closest due date.
+ *
  * @param {Object} taskData - The task data loaded from the database.
- * @returns {Object} An object containing the closest dueDate and the number of tasks with that dueDate.
+ * @returns {Object} An object with the closest due date (formatted) and the count of tasks with that due date.
  */
 function findClosestDueDate(taskData) {
   const now = new Date();
@@ -232,13 +234,12 @@ function findClosestDueDate(taskData) {
   let minDiff = Infinity;
   let taskCount = 0;
 
-  // First, find the closest due date
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
 
       tasks.forEach((task) => {
-        if (task.dueDate) {
+        if (task.prio === 'Urgent' && task.boardCategory !== 'done' && task.dueDate) {
           const taskDate = new Date(task.dueDate);
           const diff = Math.abs(taskDate - now);
 
@@ -251,22 +252,22 @@ function findClosestDueDate(taskData) {
     }
   }
 
-  // Then, count the number of tasks with the closest due date
   if (closestDate) {
     taskCount = countTasksWithDueDate(taskData, closestDate);
   }
 
   return {
-    dueDate: closestDate ? formatDateGerman(closestDate) : "No due date available",
+    dueDate: closestDate ? formatDateGerman(closestDate) : "No upcoming<br>urgent tasks",
     count: taskCount
   };
 }
 
 /**
- * Counts the number of tasks with a specific dueDate.
+ * Counts the number of tasks with priority 'Urgent' and a specific due date, excluding those in the 'done' category.
+ *
  * @param {Object} taskData - The task data loaded from the database.
- * @param {string} dueDate - The dueDate to count tasks for.
- * @returns {number} The number of tasks with the specified dueDate.
+ * @param {string} dueDate - The due date to count tasks for.
+ * @returns {number} The number of matching tasks.
  */
 function countTasksWithDueDate(taskData, dueDate) {
   let count = 0;
@@ -276,7 +277,7 @@ function countTasksWithDueDate(taskData, dueDate) {
       const tasks = taskData[taskId];
 
       tasks.forEach((task) => {
-        if (task.dueDate === dueDate) {
+        if (task.prio === 'Urgent' && task.boardCategory !== 'done' && task.dueDate === dueDate) {
           count++;
         }
       });
