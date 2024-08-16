@@ -164,6 +164,10 @@
   padding: 7px 16px;
 }
 
+.p-40 {
+  padding: 40px;
+}
+
 /** Line -heights **/
 .l-height-19 {
   line-height: 19.2px;
@@ -357,4 +361,8 @@
 .mg-block-none{
   margin-block-start: 0;
   margin-block-end: 0;
+}
+
+.width-232 {
+  width: 232px;
 }
