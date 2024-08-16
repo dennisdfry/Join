@@ -1,19 +1,6 @@
-/**
- * Reference to the Firebase Realtime Database.
- * @type {firebase.database.Database}
- */
 var database = firebase.database();
-
-/**
- * Reference to the "tasks" collection in the Firebase Realtime Database.
- * @type {firebase.database.Reference}
- */
 var tasksRef = database.ref("tasks");
 
-/**
- * Initializes the summary by setting the greeting and loading tasks to count categories.
- * @function
- */
 function initSmry() {
   summaryGreeting();
   loadTasksAndCountCategories();
@@ -298,10 +285,9 @@ async function loadTasksAndUpdateUrgentCount() {
     const taskData = await loadTasks();
     const result = findClosestDueDate(taskData);
 
-    // Update the span element with the count of tasks
     const urgentSpan = document.getElementById('smry-urgent-val');
     if (urgentSpan) {
-      urgentSpan.innerText = result.count; // Insert the count into the span
+      urgentSpan.innerText = result.count;
     } else {
       console.error("Urgent span element not found.");
     }
@@ -320,10 +306,9 @@ async function loadTasksAndFindClosestDueDate() {
     const taskData = await loadTasks();
     const closestDueDate = findClosestDueDate(taskData);
 
-    // Update the span element with the closest due date
     const dateSpan = document.querySelector('.summary-tasks-mid-right-date');
     if (dateSpan) {
-      dateSpan.innerHTML = closestDueDate.dueDate; // Display the formatted date
+      dateSpan.innerHTML = closestDueDate.dueDate;
     } else {
       console.error("Date span element not found.");
     }
@@ -332,10 +317,6 @@ async function loadTasksAndFindClosestDueDate() {
   }
 }
 
-/**
- * Initializes the summary when the DOM content is loaded.
- * @event DOMContentLoaded
- */
 document.addEventListener("DOMContentLoaded", () => {
   initSmry();
 });
