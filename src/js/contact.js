@@ -1,4 +1,6 @@
 let ACTIVE_CLASS = "active-contact";
+let CONTACTS_URL = "https://join-19628-default-rtdb.firebaseio.com/contacts";
+let HEADERS = { "Content-Type": "application/json" };
 
 async function initContacts() {
   try {
@@ -8,54 +10,45 @@ async function initContacts() {
   }
 }
 
+async function fetchData(url, options = {}) {
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    const errorMessage = `Fehler! Status: ${response.status} (${response.statusText})`;
+    throw new Error(errorMessage);
+  }
+  return response.json();
+}
+
 async function getContact(contactId) {
-  let response = await fetch(
-    `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`
-  );
-  return await response.json();
+  return await fetchData(`${CONTACTS_URL}/${contactId}.json`);
 }
 
 async function deleteContact(contactId) {
   try {
-    await fetch(
-      `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`,
-      { method: "DELETE" }
-    );
+    await fetchData(`${CONTACTS_URL}/${contactId}.json`, { method: "DELETE" });
     console.log(`Kontakt ${contactId} erfolgreich gelöscht.`);
-    await updateContactList();
-    await selectNextContact(contactId);
-    closeEditField();
+    await handlePostDeleteOperations(contactId);
   } catch (error) {
-    console.error("Fehler während Löschvorgangs:", error);
+    console.error("Fehler während des Löschvorgangs:", error);
   }
 }
 
 async function postContact(contact) {
-  let response = await fetch(
-    "https://join-19628-default-rtdb.firebaseio.com/contacts.json",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(contact),
-    }
-  );
-  let newContact = await response.json();
+  let newContact = await fetchData(`${CONTACTS_URL}.json`, {
+    method: "POST",
+    headers: HEADERS,
+    body: JSON.stringify(contact),
+  });
   console.log("Kontakt erfolgreich hochgeladen:", newContact);
 }
 
-async function updateContact(contactId, updatedContact) {
+async function patchContact(contactId, updatedContact) {
   try {
-    let response = await fetch(
-      `https://join-19628-default-rtdb.firebaseio.com/contacts/${contactId}.json`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedContact),
-      }
-    );
-
-    if (!response.ok) throw new Error(`Fehler! Status: ${response.status}`);
-
+    await fetchData(`${CONTACTS_URL}/${contactId}.json`, {
+      method: "PATCH",
+      headers: HEADERS,
+      body: JSON.stringify(updatedContact),
+    });
     await updateContactList();
     closeEditField();
   } catch (error) {
@@ -78,6 +71,13 @@ async function addContact(contact) {
   }
 }
 
+async function getNewContactId(contact) {
+  let contacts = await fetchData(`${CONTACTS_URL}.json`);
+  return Object.keys(contacts).find(id => 
+    contacts[id].name === contact.name && contacts[id].mail === contact.mail
+  );
+}
+
 async function updateContactList() {
   let contactList = document.getElementById("contactlist-content");
   contactList.innerHTML = "";
@@ -88,44 +88,10 @@ async function updateContactList() {
     );
     let contacts = await response.json();
     let sortedContacts = sortContacts(contacts);
-    await renderContactListLetter(contactList, sortedContacts);
+    await initLetterArea(contactList, sortedContacts);
   } catch (error) {
     console.error("Fehler beim Updaten der Kontaktliste:", error);
   }
-}
-
-function renderContactSeparator(contactList, letter) {
-  contactList.innerHTML += `
-    <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
-    <div class="contactlist-seperator"></div>
-  `;
-}
-
-async function renderContactListLetter(contactList, sortedContacts) {
-  let currentLetter = "";
-
-  sortedContacts.forEach(([id, contact]) => {
-    let firstLetter = contact.name.charAt(0).toUpperCase();
-
-    if (firstLetter !== currentLetter) {
-      currentLetter = firstLetter;
-      renderContactSeparator(contactList, currentLetter);
-    }
-    const imageSrc = getImageSrc(contact);
-    renderContactItem(contactList, id, contact, imageSrc);
-  });
-}
-
-function renderContactItem(contactList, id, contact, imageSrc) {
-  contactList.innerHTML += `
-    <div id="contactlist-item-${id}" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="selectContact('${id}')">
-      <img class="d-flex pointer" src="${imageSrc}"/>
-      <div class="contactlist-databox flex-d-col">
-        <div class="pointer no-wrap-text fw-400 fs-20 pointer">${contact.name}</div>
-        <a class="pointer color-lb fs-16 text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
-      </div>
-    </div>
-  `;
 }
 
 async function initContactDetails(contactId) {
@@ -139,6 +105,40 @@ async function initContactDetails(contactId) {
   } catch (error) {
     console.error("Fehler beim Laden der Kontaktdetails:", error);
   }
+}
+
+async function initLetterArea(contactList, sortedContacts) {
+  let currentLetter = "";
+
+  sortedContacts.forEach(([id, contact]) => {
+    let letter = contact.name.charAt(0).toUpperCase();
+
+    if (letter !== currentLetter) {
+      currentLetter = letter;
+      renderLetterArea(contactList, currentLetter);
+    }
+    const imageSrc = getImageSrc(contact);
+    renderContactItem(contactList, id, contact, imageSrc);
+  });
+}
+
+function renderLetterArea(contactList, letter) {
+  contactList.innerHTML += `
+    <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
+    <div class="contactlist-seperator"></div>
+  `;
+}
+
+function renderContactItem(contactList, id, contact, imageSrc) {
+  contactList.innerHTML += `
+    <div id="contactlist-item-${id}" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="selectContact('${id}')">
+      <img class="d-flex pointer" src="${imageSrc}"/>
+      <div class="contactlist-databox flex-d-col">
+        <div class="pointer no-wrap-text fw-400 fs-20 pointer">${contact.name}</div>
+        <a class="pointer color-lb fs-16 text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
+      </div>
+    </div>
+  `;
 }
 
 function renderContactHead(contactSection, contact, contactId) {
@@ -363,12 +363,23 @@ function handleEditFormSubmit(event) {
   let contactId = event.target.getAttribute("data-id");
 
   let updatedContact = {
-    name: document.getElementById("edit-name").value,
-    mail: document.getElementById("edit-mail").value,
-    phone: document.getElementById("edit-phone").value,
-    img: document.getElementById("prof2-img").querySelector("img")?.src,
+    name: document.getElementById("edit-name").value.trim(),
+    mail: document.getElementById("edit-mail").value.trim(),
+    phone: document.getElementById("edit-phone").value.trim(),
+    img: document.getElementById("prof2-img").querySelector("img")?.src || generateProfileImage(document.getElementById("edit-name").value),
   };
-  updateContact(contactId, updatedContact);
+
+  if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) {
+    console.error("Invalid email or phone number.");
+    return;
+  }
+
+  patchContact(contactId, updatedContact).then(() => {
+    showUpdateBar();
+    closeEditField();
+  }).catch(error => {
+    console.error("Error updating contact:", error);
+  });
 }
 
 async function selectContact(contactId) {
@@ -478,13 +489,8 @@ function getImageSrc(contact) {
   return contact.img || generateProfileImage(contact.name);
 }
 
-async function getNewContactId(contact) {
-  let response = await fetch(
-    "https://join-19628-default-rtdb.firebaseio.com/contacts.json"
-  );
-  let contacts = await response.json();
-  return Object.keys(contacts).find(
-    (id) =>
-      contacts[id].name === contact.name && contacts[id].mail === contact.mail
-  );
+async function handlePostDeleteOperations(contactId) {
+  await updateContactList();
+  await selectNextContact(contactId);
+  closeEditField();
 }

@@ -296,6 +296,16 @@ body {
   height: 57px;
 }
 
+.editfield-btn-box {
+width: 249px;
+height: 57px;
+top: 400px;
+left: 742px;
+gap: 25px;
+
+}
+
+
 #formfield-cancel-btn,
 #editfield-cancel-btn {
   width: 126px;
