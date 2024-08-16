@@ -188,25 +188,88 @@ function renderContactInfo(contactSection, contact) {
   contactSection.innerHTML += contactInfo;
 }
 
+function checkFormFields() {
+  const name = document.getElementById("name").value.trim();
+  const mail = document.getElementById("mail").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+
+  // Überprüfe, ob alle Felder ausgefüllt sind
+  const allFieldsFilled = name && mail && phone;
+
+  // Aktiviere oder deaktiviere die Schaltfläche basierend auf der Überprüfung
+  document.getElementById("formfield-create-btn").disabled = !allFieldsFilled;
+}
+
 function setupForms() {
   document
     .getElementById("contact-form")
     .addEventListener("submit", handleFormSubmit);
-  document
-    .getElementById("edit-contact-form")
-    .addEventListener("submit", handleEditFormSubmit);
+
+  document.getElementById("name").addEventListener("input", checkFormFields);
+  document.getElementById("mail").addEventListener("input", checkFormFields);
+  document.getElementById("phone").addEventListener("input", checkFormFields);
+
+  checkFormFields();
 }
+
+document.addEventListener("DOMContentLoaded", setupForms);
 
 function handleFormSubmit(event) {
   event.preventDefault();
+
+  // Holen Sie sich die Eingabefelder
+  const nameInput = document.getElementById("name");
+  const mailInput = document.getElementById("mail");
+  const phoneInput = document.getElementById("phone");
+
+  // Initialisieren Sie Variablen, um Fehler zu verfolgen
+  let hasError = false;
+
+  // Entfernen Sie vorherige Fehlerklassen
+  nameInput.classList.remove("input-error");
+  mailInput.classList.remove("input-error");
+  phoneInput.classList.remove("input-error");
+
+  // Validieren Sie die Eingaben
+  if (!nameInput.value.trim()) {
+    nameInput.classList.add("input-error");
+    hasError = true;
+  }
+  if (!mailInput.value.trim() || !validateEmail(mailInput.value.trim())) {
+    mailInput.classList.add("input-error");
+    hasError = true;
+  }
+  if (!phoneInput.value.trim() || !validatePhone(phoneInput.value.trim())) {
+    phoneInput.classList.add("input-error");
+    hasError = true;
+  }
+
+  if (hasError) {
+    return; // Verhindert das Absenden des Formulars bei Fehlern
+  }
+
+  // Bereiten Sie die Daten für das neue Kontaktobjekt vor
+  let name = nameInput.value.trim().charAt(0).toUpperCase() + nameInput.value.trim().slice(1);
   let newContact = {
-    name: document.getElementById("name").value,
-    mail: document.getElementById("mail").value,
-    phone: document.getElementById("phone").value,
+    name: name,
+    mail: mailInput.value.trim(),
+    phone: phoneInput.value.trim(),
     img: document.getElementById("prof-img").value,
   };
+
   addContact(newContact);
   closeFormField();
+}
+
+// Hilfsfunktionen zur Validierung von E-Mail und Telefonnummer
+function validateEmail(email) {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(email);
+}
+
+function validatePhone(phone) {
+  const phonePattern = /^[0-9]{10,15}$/;
+  return phonePattern.test(phone);
 }
 
 function showFormField() {

@@ -294,8 +294,6 @@ body {
 .formfield-btn-box {
   width: 364px;
   height: 57px;
-  top: 400px;
-  left: 742px;
 }
 
 #formfield-cancel-btn,
@@ -415,4 +413,13 @@ body {
 
 .selected-contact-name {
   color: white;
+}
+
+.input-error {
+  border: 2px solid red;
+}
+
+.input-error:focus {
+  outline: none;
+  border-color: red;
 }
