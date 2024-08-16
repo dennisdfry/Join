@@ -202,9 +202,10 @@ function setupForms() {
     .getElementById("contact-form")
     .addEventListener("submit", handleFormSubmit);
 
-  document.getElementById("name").addEventListener("input", checkFormFields);
-  document.getElementById("mail").addEventListener("input", checkFormFields);
-  document.getElementById("phone").addEventListener("input", checkFormFields);
+  const fields = ["name", "mail", "phone"];
+  fields.forEach(id => 
+    document.getElementById(id).addEventListener("input", checkFormFields)
+  );
 
   checkFormFields();
 }
@@ -220,28 +221,25 @@ function handleFormSubmit(event) {
 
   let hasError = false;
 
-  nameInput.classList.remove("input-error");
-  mailInput.classList.remove("input-error");
-  phoneInput.classList.remove("input-error");
+  const inputs = [
+    { element: nameInput, validator: (value) => !!value, errorClass: "input-error" },
+    { element: mailInput, validator: validateEmail, errorClass: "input-error" },
+    { element: phoneInput, validator: validatePhone, errorClass: "input-error" },
+  ];
 
-  if (!nameInput.value.trim()) {
-    nameInput.classList.add("input-error");
-    hasError = true;
-  }
-  if (!mailInput.value.trim() || !validateEmail(mailInput.value.trim())) {
-    mailInput.classList.add("input-error");
-    hasError = true;
-  }
-  if (!phoneInput.value.trim() || !validatePhone(phoneInput.value.trim())) {
-    phoneInput.classList.add("input-error");
-    hasError = true;
-  }
+  inputs.forEach(({ element, validator, errorClass }) => {
+    const value = element.value.trim();
+    if (!validator(value)) {
+      element.classList.add(errorClass);
+      hasError = true;
+    } else {
+      element.classList.remove(errorClass);
+    }
+  });
 
-  if (hasError) {
-    return; 
-  }
+  if (hasError) return;
 
-  let name = nameInput.value.trim().charAt(0).toUpperCase() + nameInput.value.trim().slice(1);
+  let name = capitalizeFirstLetter(nameInput.value.trim());
   let newContact = {
     name: name,
     mail: mailInput.value.trim(),
@@ -251,6 +249,10 @@ function handleFormSubmit(event) {
 
   addContact(newContact);
   closeFormField();
+}
+
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
 function validateEmail(email) {
