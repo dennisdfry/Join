@@ -199,9 +199,11 @@ body{
 }
 .user-image-bord-container{
     max-width: 80px;
+    height: 32px;
     width:100%;
     display: flex;
     position: relative ;
+    right: 0;
     
 }
 .user-image-board{

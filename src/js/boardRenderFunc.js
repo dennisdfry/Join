@@ -10,7 +10,7 @@ window.htmlboard = async function(index, category, title, description, date, pri
             <h2>${title}</h2> 
         </div>
         <div>  
-            <p>${description}</p>
+            <p id="limitTextDesciption${index}">${description}</p>
         </div> 
         <div class="progress-container d-flex-between">
             <div class="progress-bar" style="width: 50%;"></div><div id="subtasksLength${index}"></div>

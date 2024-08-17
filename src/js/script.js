@@ -84,7 +84,7 @@ async function loadingBoard() {
       // await assignedToBoard(contacts,fetchImage);
       await generateHTMLObjects(taskkeys, task);
       await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
-  } catch (error) {
+    } catch (error) {
       console.error('Error loading tasks:', error);
   }
 }
@@ -116,15 +116,23 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
     taskData[index] = { users, userNames, prio, subtasks, fetchImage };
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
-      searchprio(index, prio)
+      searchprio(index, prio),
     ]);
+  }
+}
+function limitTextTo50Chars(id) {
+  const element = document.getElementById(id);
+  const text = element.innerText;
+
+  if (text.length > 50) {
+      element.innerText = text.substring(0, 50) + '...';
   }
 }
 
 async function positionOfHTMLBlock(index, category, title, description, date, prio){
   let position = document.getElementById('todo');
  position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);  
- 
+ limitTextTo50Chars(`limitTextDesciption${index}`)
 }
 
 async function searchprio(index, prio){
@@ -205,20 +213,20 @@ async function searchIndexUrl(index, users, fetchImage){
     let imageUrl = fetchImage[element];
     position.innerHTML += await htmlBoardImage(imageUrl, index);
   }
+  setTimeout(() => tileUserImage(index), 50);
+
+}
+function tileUserImage(index){
   const container = document.getElementById(`userImageBoard${index}`);
   const images = container.getElementsByClassName('image-div'); 
   const containerWidth = 80; 
-  console.log(containerWidth);
   const imageWidth = 32;
-  console.log(imageWidth)
   const totalImages = images.length; 
-  console.log(totalImages);
   const maxOverlap = (totalImages * imageWidth - containerWidth) / (totalImages - 1);
-  for (let i = 1; i < totalImages; i++) {
-      images[i].style.transform = `translateX(${i * -maxOverlap}px)`;
+  for (let i = 0; i < totalImages; i++) {
+      images[i].style.transform = `translateX(${i * maxOverlap}px)`;
   }
 }
-
 async function userNamesRender(index){
   let position = document.getElementById(`userNames${index}`)
   for (let index = 0; index < userNames.length; index++) {
