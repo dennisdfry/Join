@@ -122,10 +122,10 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
     
   }
 }
+
 function limitTextTo50Chars(id) {
   const element = document.getElementById(id);
   const text = element.innerText;
-
   if (text.length > 50) {
       element.innerText = text.substring(0, 50) + '...';
   }
@@ -178,8 +178,7 @@ async function openTaskToBoardRender(index, category, title, description, date, 
   position.classList.remove('d-none');
   position.innerHTML = window.openTaskToBoardHtml(index, category, title, description, date, prio); 
 }
-promiseSecondInfoOpenTask(index)
-
+promiseSecondInfoOpenTask(index);
 }
 
 async function promiseSecondInfoOpenTask(index){
@@ -218,15 +217,17 @@ async function searchIndexUrl(index, users, fetchImage){
   setTimeout(() => tileUserImage(index), 50);
 
 }
-function tileUserImage(index){
+
+function tileUserImage(index) {
   const container = document.getElementById(`userImageBoard${index}`);
   const images = container.getElementsByClassName('image-div'); 
-  const containerWidth = 80; 
-  const imageWidth = 32;
-  const totalImages = images.length; 
-  const maxOverlap = (totalImages * imageWidth - containerWidth) / (totalImages - 1);
-  for (let i = 0; i < totalImages; i++) {
-      images[i].style.transform = `translateX(${i * maxOverlap}px)`;
+  const imageWidth = 32; 
+  const overlap = 8;     
+//   const maxOverlap = (totalImages * imageWidth - containerWidth) / (totalImages - 1);
+  for (let i = 0; i < images.length; i++) {
+      const imagePosition = images[i];
+      imagePosition.style.position = 'absolute';
+      imagePosition.style.left = `${i * overlap}px`;  
   }
 }
 async function userNamesRender(index){
@@ -264,12 +265,10 @@ async function htmlBoardImageOpen(imageUrl, index, names){
 }
 
 async function subtasksRender(indexHtml, subtasks) {
-    console.log(subtasks)
     subtasksLengthArray.push({
         position: indexHtml,
         subs: subtasks
     });
-
     let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
     if (Array.isArray(subtasks)) {
         for (let index = 0; index < subtasks.length; index++) {
