@@ -117,7 +117,9 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
       searchprio(index, prio),
+      subtasksRender(index, subtasks)
     ]);
+    
   }
 }
 function limitTextTo50Chars(id) {
@@ -262,8 +264,7 @@ async function htmlBoardImageOpen(imageUrl, index, names){
 }
 
 async function subtasksRender(indexHtml, subtasks) {
-    let position = document.getElementById(`subtasksBoard${indexHtml}`);
-    position.innerHTML = '';
+    console.log(subtasks)
     subtasksLengthArray.push({
         position: indexHtml,
         subs: subtasks
@@ -273,7 +274,6 @@ async function subtasksRender(indexHtml, subtasks) {
     if (Array.isArray(subtasks)) {
         for (let index = 0; index < subtasks.length; index++) {
             const element = subtasks[index];
-            position.innerHTML += `<p>${element}</p>`;
         }
         positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
     } else {
