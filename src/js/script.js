@@ -190,13 +190,25 @@ async function promiseSecondInfoOpenTask(index){
         searchIndexUrlOpen(index, users, fetchImage, userNames),
         subtasksRenderOpen(index, subtasks),
         searchprio(index, prio),
-        searchprioOpenTask(index, prio)
+        searchprioOpenTask(index, prio),
+        loadSubtaskStatus(index)
     ]);
 }else {
 console.error("Keine Daten für den angegebenen Index gefunden.");
 }
 }
-
+async function loadSubtaskStatus(indexHtml) {
+  for (let index = 0; index < taskkeysGlobal.length; index++) {
+    const element = taskkeysGlobal[index];
+    console.log(element);
+    const taskKeyId = element[indexHtml]
+    console.log(taskKeyId);
+    let data = await onloadDataBoard(`/tasks/${taskKeyId}/subtasksStatus`);
+    console.log(data);
+    const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+    checkbox.checked = data;
+  }
+}
 function closeOpenTask(event, index) {
   event.stopPropagation(); 
   let openPosition = document.getElementById('openTask');
@@ -312,15 +324,15 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml){
     const taskKeyId = element[indexHtml]
     const path = `/tasks/${taskKeyId}/subtasksStatus`;
     let response = await fetch(BASE_URL + path + ".json",{
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(isChecked),
     });
   }
-  
 }
+
 async function editOpenTask(index, category, title, description, date, prio){
   let position = document.getElementById('openTask');
   position.innerHTML = '';
