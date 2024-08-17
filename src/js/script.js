@@ -195,20 +195,25 @@ async function promiseSecondInfoOpenTask(index){
     ]);
 }else {
 console.error("Keine Daten für den angegebenen Index gefunden.");
-}
-}
+}}
+
 async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     const element = taskkeysGlobal[index];
-    console.log(element);
-    const taskKeyId = element[indexHtml]
-    console.log(taskKeyId);
-    let data = await onloadDataBoard(`/tasks/${taskKeyId}/subtasksStatus`);
-    console.log(data);
-    const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
-    checkbox.checked = data;
+    const taskKeyId = element[indexHtml];
+    
+    try {
+      let data = await onloadDataBoard(`/tasks/${taskKeyId}/subtasksStatus/${index}`);
+      if (data !== null) {
+        const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+        checkbox.checked = data;
+      }
+    } catch (error) {
+      console.error(`Fehler beim Laden des Status der Subtask-Checkbox ${index}: `, error);
+    }
   }
 }
+
 function closeOpenTask(event, index) {
   event.stopPropagation(); 
   let openPosition = document.getElementById('openTask');
@@ -235,13 +240,13 @@ function tileUserImage(index) {
   const images = container.getElementsByClassName('image-div'); 
   const imageWidth = 32; 
   const overlap = 8;     
-//   const maxOverlap = (totalImages * imageWidth - containerWidth) / (totalImages - 1);
   for (let i = 0; i < images.length; i++) {
       const imagePosition = images[i];
       imagePosition.style.position = 'absolute';
       imagePosition.style.left = `${i * overlap}px`;  
   }
 }
+
 async function userNamesRender(index){
   let position = document.getElementById(`userNames${index}`)
   for (let index = 0; index < userNames.length; index++) {
@@ -311,25 +316,35 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
     }
 }
 }
+
 async function subtaskStatus(indexHtml, index){
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+  console.log(checkbox);
   const isChecked = checkbox.checked;
   console.log(isChecked);
-  await statusSubtaskSaveToFirebase(isChecked, indexHtml );
+  await statusSubtaskSaveToFirebase(isChecked, indexHtml, index );
 }
 
-async function statusSubtaskSaveToFirebase(isChecked, indexHtml){
-  for (let index = 0; index < taskkeysGlobal.length; index++) {
-    const element = taskkeysGlobal[index];
-    const taskKeyId = element[indexHtml]
-    const path = `/tasks/${taskKeyId}/subtasksStatus`;
-    let response = await fetch(BASE_URL + path + ".json",{
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(isChecked),
-    });
+async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
+  for (let i = 0; i < taskkeysGlobal.length; i++) {
+    const taskKeyId = taskkeysGlobal[i][indexHtml];
+    const path = `/tasks/${taskKeyId}/subtasksStatus/${index}`;
+    try {
+      let response = await fetch(BASE_URL + path + ".json", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(isChecked),
+      });
+      if (response.ok) {
+        console.log(`Status der Subtask-Checkbox ${index} wurde erfolgreich aktualisiert.`);
+      } else {
+        console.error(`Fehler beim Aktualisieren des Status der Subtask-Checkbox ${index}: `, response.statusText);
+      }
+    } catch (error) {
+      console.error(`Fehler beim Speichern des Status der Subtask-Checkbox ${index}: `, error);
+    }
   }
 }
 
