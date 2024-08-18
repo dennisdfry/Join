@@ -33,6 +33,7 @@ async function fetchData(url, options = {}) {
   }
   return response.json();
 }
+
 /**
  * Ruft die Daten eines spezifischen Kontakts von der Datenbank ab.
  * @async
@@ -112,6 +113,25 @@ async function addContact(contact) {
   } catch (error) {
     console.error("Fehler beim Hochladen des Kontakes:", error);
   }
+}
+
+/**
+ * Sucht nach der ID eines Kontakts basierend auf dem Namen und der E-Mail.
+ * 
+ * Diese Funktion durchsucht die Liste der Kontakte nach einem Kontakt,
+ * dessen Name und E-Mail mit den angegebenen Werten übereinstimmen.
+ * 
+ * @async
+ * @param {Object} contact - Das Kontaktobjekt mit den Eigenschaften `name` und `mail`.
+ * @param {string} contact.name - Der Name des Kontakts.
+ * @param {string} contact.mail - Die E-Mail des Kontakts.
+ * @returns {Promise<string|undefined>} - Gibt die ID des Kontakts zurück, falls gefunden, andernfalls `undefined`.
+ * 
+ * @throws {Error} - Wenn ein Fehler bei der Datenabfrage auftritt.
+ */
+async function getContactId(contact) {
+  let contacts = await fetchData(`${CONTACTS_URL}.json`);
+  return Object.keys(contacts).find(id => contacts[id].name === contact.name && contacts[id].mail === contact.mail);
 }
 
 
@@ -256,13 +276,12 @@ function renderContactInfo(contactSection, contact) {
  * - Fügt Input-Listener hinzu, um die Felder auf Vollständigkeit zu überprüfen.
  * - Überprüft, ob alle erforderlichen Felder ausgefüllt sind und aktiviert oder deaktiviert den Senden-Button.
  */
+function setupForms() {
+  document.getElementById("contact-form").addEventListener("submit", handleFormSubmit);
+  ["name", "mail", "phone"].forEach(id => document.getElementById(id).addEventListener("input", checkFormFields));
+  checkFormFields();
+}
 
-
-
-/**
- * Initialisiert die Formulare und setzt Event-Listener nach dem Laden des Dokuments.
- */
-document.addEventListener("DOMContentLoaded", setupForms);
 
 /**
  * Überprüft ob alle erforderlichen Felder ausgefüllt wurden und aktiviert bzw. deaktiviert den Submit-Button
@@ -602,3 +621,7 @@ async function handlePostDeleteOperations(contactId) {
   closeEditField();
 }
 
+/**
+ * Initialisiert die Formulare und setzt Event-Listener nach dem Laden des Dokuments.
+ */
+document.addEventListener("DOMContentLoaded", setupForms);
