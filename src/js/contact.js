@@ -257,11 +257,7 @@ function renderContactInfo(contactSection, contact) {
  * - Überprüft, ob alle erforderlichen Felder ausgefüllt sind und aktiviert oder deaktiviert den Senden-Button.
  */
 
-function setupForms() {
-  document.getElementById("contact-form").addEventListener("submit", handleFormSubmit);
-  ["name", "mail", "phone"].forEach(id => document.getElementById(id).addEventListener("input", checkFormFields));
-  checkFormFields();
-}
+
 
 /**
  * Initialisiert die Formulare und setzt Event-Listener nach dem Laden des Dokuments.
