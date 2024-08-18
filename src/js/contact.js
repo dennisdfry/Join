@@ -73,24 +73,24 @@ async function postContact(contact) {
   console.log("Kontakt erfolgreich hochgeladen:", newContact);
 }
 
+
 /**
- * Aktualisiert die Daten eines bestehenden Kontakts in der Datenbank.
- * Nach erfolgreicher Aktualisierung wird die Kontaktliste neu geladen und das Bearbeitungsformular geschlossen.
- * @async
- * @param {string} contactId - Die ID des zu aktualisierenden Kontakts.
- * @param {object} updatedContact - Die aktualisierten Kontaktdaten.
+ * 
+ * @param {*} contactId 
+ * @param {*} updatedContact 
  */
-async function patchContact(contactId, updatedContact) {
+async function replaceContact(contactId, updatedContact) {
   try {
-    await fetchData(`${CONTACTS_URL}/${contactId}.json`, {
-      method: "PATCH",
-      headers: HEADERS,
-      body: JSON.stringify(updatedContact),
-    });
+    if (!contactId) {
+      throw new Error("Ungültige Kontakt-ID. Kontakt kann nicht ersetzt werden.");
+    }
+    console.log(`Versuche Kontakt mit ID ${contactId} zu löschen.`);
+    await deleteContact(contactId);
+    console.log(`Erstelle neuen Kontakt: `, updatedContact);
+    await postContact(updatedContact);
     await updateContactList();
-    closeEditField();
   } catch (error) {
-    console.error("Fehler beim Editiervorgang:", error);
+    console.error("Fehler beim Ersetzen des Kontakts:", error);
   }
 }
 
@@ -444,9 +444,8 @@ function closeEditField() {
 }
 
 /**
- * Lädt die aktuellen Daten eines Kontakts in das Bearbeitungsformular.
- * @param {string} contactId - Die ID des zu bearbeitenden Kontakts.
- * @returns {Promise<void>}
+ * 
+ * @param {*} contactId 
  */
 async function loadEditFormData(contactId) {
   try {
@@ -464,14 +463,18 @@ async function loadEditFormData(contactId) {
 }
 
 /**
- * Behandelt das Absenden des Bearbeitungsformulars und aktualisiert die Daten des Kontakts.
- * @param {Event} event - Das Event-Objekt des Formulars.
- * @returns {void}
+ * 
+ * @param {*} event 
+ * @returns 
  */
-function handleEditFormSubmit(event) {
+async function handleEditFormSubmit(event) {
   event.preventDefault();
+  let contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
+  if (!contactId) {
+    console.error("Keine Kontakt-ID gefunden.");
+    return;
+  }
 
-  let contactId = event.target.getAttribute("data-id");
   let updatedContact = {
     name: document.getElementById("edit-name").value.trim(),
     mail: document.getElementById("edit-mail").value.trim(),
@@ -480,16 +483,17 @@ function handleEditFormSubmit(event) {
   };
 
   if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) {
-    console.error("Üngultige E-Mail oder Telefonnummer.");
+    console.error("Ungültige E-Mail oder Telefonnummer.");
     return;
   }
 
-  patchContact(contactId, updatedContact).then(() => {
+  try {
+    await replaceContact(contactId, updatedContact);
     showUpdateBar();
     closeEditField();
-  }).catch(error => {
+  } catch (error) {
     console.error("Fehler beim Hochladen", error);
-  });
+  }
 }
 
 /**
