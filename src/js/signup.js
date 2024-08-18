@@ -13,6 +13,12 @@ async function signUp(event) {
     const user = userCredential.user;
     const userId = user.uid;
     await saveUserData(userId, { name: formData.name, mail: formData.mail });
+    try {
+      await addContact({ name: nameInput.value, mail: mailInput.value, phone: '-'});
+    } catch (error) {
+      console.error("Error adding contact:", error);
+      alert("There was an issue creating the contact.");
+    }
     showSuccessMessage();
     clearInput();
   } catch (error) {
