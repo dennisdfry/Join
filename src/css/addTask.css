@@ -144,7 +144,6 @@ body {
   outline: none;
   border: 1px solid #a8a8a8;
   font-size: 20px;
-
   margin-top: 10px;
   font-family: "Inter";
   font-weight: 400;
@@ -158,6 +157,17 @@ body {
   /* Verschiebt das Symbol 16px nach links und zentriert es vertikal */
   background-size: 24px;
   /* Größe des benutzerdefinierten Symbols */
+}
+
+label[for=taskCategory] {
+    margin-top: 4px;
+}
+label[for=subtasks] {
+    margin-top: 4px;
+}
+
+label[for=""] {
+    margin-top: 4px;
 }
 
 .add-task-select:hover {
@@ -283,6 +293,9 @@ body {
   height: 56px;
   gap: 16px;
   display: flex;
+  position: absolute;
+  top: 700px;
+  left: 707px;
 }
 
 .add-task-create-button {
@@ -302,7 +315,7 @@ body {
 
 .add-task-create-button:hover {
   cursor: pointer;
-  background-color: #007cee;
+  background-color: #29abe2;
   color: #ffffff;
   transform: scale(1.1);
 }
@@ -324,7 +337,7 @@ body {
 
 .add-task-cancel-button:hover {
   cursor: pointer;
-  border: 1px solid #007cee;
+  border: 1px solid #29abe2;;
   color: #007cee;
   transform: scale(1.1);
 }
@@ -454,7 +467,7 @@ body {
   font-size: 20px;
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-width: thin;
+  scrollbar-width: none;
   scrollbar-color: #2a3647 #e0e0e0;
   -ms-overflow-style: none;
 }
@@ -469,7 +482,7 @@ body {
 }
 
 .subtasksList::-webkit-scrollbar {
-  width: 24px;
+  display: none;
 }
 .subtasksList::-webkit-scrollbar-thumb {
   background-color: #2a3647;
