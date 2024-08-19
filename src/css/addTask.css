@@ -1,514 +1,548 @@
 @font-face {
-    font-family: 'Inter';
-    src: url("/src/fonts/inter/inter-v13-latin-regular.woff2") format("woff2");
-    font-weight: 600;
+  font-family: "Inter";
+  src: url("/src/fonts/inter/inter-v13-latin-regular.woff2") format("woff2");
+  font-weight: 600;
 }
 
 @font-face {
-    font-family: 'Inter700';
-    src: url("/src/fonts/inter/inter-v13-latin-700.woff2") format("woff2");
-    font-weight: 700;
+  font-family: "Inter700";
+  src: url("/src/fonts/inter/inter-v13-latin-700.woff2") format("woff2");
+  font-weight: 700;
 }
 
-body{
-    height: 100vh;
-    overflow: hidden;
-    margin: 0;
+body {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
 }
 
 .background-main {
-    background-color: rgb(246, 247, 248);
+  background-color: rgb(246, 247, 248);
 }
 
 .add-Task-Container {
-    padding-right: 64px;
-    padding-bottom: 64px;
-    padding-left: 272px;
-    background-color: #f6f7f8;
-    max-width: 1440px;
-
+  padding-right: 64px;
+  padding-bottom: 64px;
+  padding-left: 272px;
+  background-color: #f6f7f8;
+  max-width: 1440px;
 }
 
 .add-task-head {
-    margin-top: 64px;
-    height: 78px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Inter700';
-    font-size: 61px;
+  margin-top: 64px;
+  height: 78px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Inter700";
+  font-size: 61px;
 }
 
-.add-task-head h1 {}
+.add-task-head h1 {
+}
 
 .add-task-head img {
-    height: 32px;
-    width: 32px;
-    border-radius: 56px;
+  height: 32px;
+  width: 32px;
+  border-radius: 56px;
 }
 
 .add-task-close-button {
-    display: flex;
-    align-items: last baseline;
+  display: flex;
+  align-items: last baseline;
 }
 
 .add-task-close-button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .add-task-form-left-section {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-task-form-right-section {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.add-task-form-right-section p {
+  margin-right: 8px;
 }
 
 .add-task-middle-section {
-    display: flex;
-    margin-top: 48px;
+  display: flex;
+  margin-top: 48px;
 }
 
 .add-task-seperator {
-    width: 0px;
-    border: 1px solid #D1D1D1;
-    height: 424px;
-    margin-left: 48px;
-    margin-right: 48px;
+  width: 0px;
+  border: 1px solid #d1d1d1;
+  height: 424px;
+  margin-left: 48px;
+  margin-right: 48px;
 }
 
 .red-star {
-    color: rgb(245, 124, 139)
+  color: rgb(245, 124, 139);
 }
 
 .add-task-form-left-section label {
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 20px;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 20px;
 }
 
 .add-task-form-right-section label {
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 20px;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 20px;
 }
 
 .add-task-title-inputfield {
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 10px;
-    height: 48px;
-    outline: none;
-    border: 1px solid #A8A8A8;
-    font-size: 20px;
-    color: #000000;
-    margin-bottom: 10px;
-    margin-top: 10px;
+  width: 440px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 10px;
+  height: 48px;
+  outline: none;
+  border: 1px solid #a8a8a8;
+  font-size: 20px;
+  color: #000000;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .add-task-textarea {
-    Padding: 8px 16px 8px 16px;
-    min-height: 120px;
-    border-radius: 10px;
-    outline: none;
-    border: 1px solid #A8A8A8;
-    font-size: 20px;
-    color: #000000;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    resize: vertical;
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 20px;
-    box-sizing: border-box;
-    position: relative;
+  padding: 8px 16px 8px 16px;
+  min-height: 120px;
+  width: 475px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #a8a8a8;
+  font-size: 20px;
+  color: #000000;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  resize: vertical;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 20px;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .add-task-select {
-    padding-left: 16px;
-    padding-right: 16px;
-    height: 48px;
-    border-radius: 10px;
-    outline: none;
-    border: 1px solid #A8A8A8;
-    font-size: 20px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 20px;
-    appearance: none;
-    /* Entfernt das Standard-Dropdown-Symbol */
-    background-image: url('/public/img/arrow_drop_downaa.png');
-    /* Pfad zu deinem Bild */
-    background-repeat: no-repeat;
-    background-position: calc(100% - 16px) center;
-    /* Verschiebt das Symbol 16px nach links und zentriert es vertikal */
-    background-size: 24px;
-    /* Größe des benutzerdefinierten Symbols */
+  padding: 12px, 16px;
+  width: 440px;
+  height: 48px;
+  height: 48px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #a8a8a8;
+  font-size: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 20px;
+  appearance: none;
+  /* Entfernt das Standard-Dropdown-Symbol */
+  background-image: url("/public/img/arrow_drop_downaa.png");
+  /* Pfad zu deinem Bild */
+  background-repeat: no-repeat;
+  background-position: calc(100% - 16px) center;
+  /* Verschiebt das Symbol 16px nach links und zentriert es vertikal */
+  background-size: 24px;
+  /* Größe des benutzerdefinierten Symbols */
 }
 
 .add-task-select:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .add-task-input {
-    padding-left: 16px;
-    border-radius: 10px;
-    outline: none;
-    border: 1px solid #A8A8A8;
-    height:48px;
-    font-size: 20px;
-    font-family: 'Inter';
-    font-weight: 400;
-    flex-grow: 1;
+  padding-left: 16px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #a8a8a8;
+  height: 48px;
+  font-size: 20px;
+  font-family: "Inter";
+  font-weight: 400;
+  flex-grow: 1;
 }
 
 .add-task-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 20px;
-    border-radius: 0 10px 10px 0;
-    outline: none;
-    border-left: none;
-    background-color: #ffffff;
-    font-size: 24px;
-    font-family: 'Inter';
-    font-weight: 400;
-    cursor: pointer;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 20px;
+  border-radius: 0 10px 10px 0;
+  outline: none;
+  border-left: none;
+  background-color: #ffffff;
+  font-size: 24px;
+  font-family: "Inter";
+  font-weight: 400;
+  cursor: pointer;
 }
 
 .input-with-button {
-    width: 440px;
-    height: 48px;
-    display: flex;
-    margin-top: 10px;
-    border: 1px solid #f6f7f8;
-
+  width: 440px;
+  height: 48px;
+  display: flex;
+  margin-top: 10px;
+  border: 1px solid #f6f7f8;
 }
 
 .add-task-prio-button {
-    height: 56px;
-    width: 136px;
-    border-radius: 10px;
-    margin: 8px;
-    border: 1px solid #F0F0F0;
-    background-color: #FFFFFF;
-    font-family: 'Inter700';
-    font-size: 21px;
-    transition: transform 0.2s;
+  height: 56px;
+  width: 136px;
+  border-radius: 10px;
+  margin: 8px;
+  border: 1px solid #f0f0f0;
+  background-color: #ffffff;
+  font-family: "Inter700";
+  font-size: 21px;
+  transition: transform 0.2s;
 }
-.add-task-prio-button-medium{
-    height: 56px;
-    width: 136px;
-    border-radius: 10px;
-    margin: 8px;
-    border: 1px solid #F0F0F0;
-    background-color: rgb(255, 168, 0);
-    color: #FFFFFF;
-    font-family: 'Inter700';
-    font-size: 21px;
-    transition: transform 0.2s;
+.add-task-prio-button-medium {
+  height: 56px;
+  width: 136px;
+  border-radius: 10px;
+  margin: 8px;
+  border: 1px solid #f0f0f0;
+  background-color: rgb(255, 168, 0);
+  color: #ffffff;
+  font-family: "Inter700";
+  font-size: 21px;
+  transition: transform 0.2s;
 }
-.add-task-prio-button-urgent{
-    height: 56px;
-    width: 136px;
-    border-radius: 10px;
-    margin: 8px;
-    border: 1px solid #F0F0F0;
-    background-color: rgb(255, 93, 0);
-    color: #FFFFFF;
-    font-family: 'Inter700';
-    font-size: 21px;
-    transition: transform 0.2s;
+.add-task-prio-button-urgent {
+  height: 56px;
+  width: 136px;
+  border-radius: 10px;
+  margin: 8px;
+  border: 1px solid #f0f0f0;
+  background-color: rgb(255, 93, 0);
+  color: #ffffff;
+  font-family: "Inter700";
+  font-size: 21px;
+  transition: transform 0.2s;
 }
-.add-task-prio-button-low{
-    height: 56px;
-    width: 136px;
-    border-radius: 10px;
-    margin: 8px;
-    border: 1px solid #F0F0F0;
-    background-color: rgb(122, 226, 41);
-    color: #FFFFFF;
-    font-family: 'Inter700';
-    font-size: 21px;
-    transition: transform 0.2s;
+.add-task-prio-button-low {
+  height: 56px;
+  width: 136px;
+  border-radius: 10px;
+  margin: 8px;
+  border: 1px solid #f0f0f0;
+  background-color: rgb(122, 226, 41);
+  color: #ffffff;
+  font-family: "Inter700";
+  font-size: 21px;
+  transition: transform 0.2s;
 }
 .add-task-prio-button:hover {
-    cursor: pointer;
-    background-color: rgb(255, 168, 0);
-    color: #FFFFFF;
-    transform: scale(1.1);
+  cursor: pointer;
+  background-color: rgb(255, 168, 0);
+  color: #ffffff;
+  transform: scale(1.1);
 }
 
 .add-task-prio-button-click {
-    background-color: rgb(255, 168, 0);
-    color: #FFFFFF;
-    transform: scale(1.1);
+  background-color: rgb(255, 168, 0);
+  color: #ffffff;
+  transform: scale(1.1);
 }
 
 .add-task-prio-button-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  width: 440px;
+  height: 88px;
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .add-task-finish-section {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 64px;
-    padding-left: 272px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 64px;
+  padding-left: 272px;
 }
 
 .add-task-finish-button-container {
-    display: flex;
-
+  width: 309px;
+  height: 56px;
+  gap: 16px;
+  display: flex;
 }
 
 .add-task-create-button {
-    background-color: rgb(42, 54, 71);
-    color: #FFFFFF;
-    height: 56px;
-    width: 183px;
-    border-radius: 10px;
-    font-family: 'Inter700';
-    font-size: 21px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    transition: transform 0.2s;
+  background-color: rgb(42, 54, 71);
+  color: #ffffff;
+  height: 56px;
+  width: 183px;
+  border-radius: 10px;
+  font-family: "Inter700";
+  font-size: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  transition: transform 0.2s;
 }
 
 .add-task-create-button:hover {
-    cursor: pointer;
-    background-color: #007cee;
-    color: #FFFFFF;
-    transform: scale(1.1);
+  cursor: pointer;
+  background-color: #007cee;
+  color: #ffffff;
+  transform: scale(1.1);
 }
 
 .add-task-cancel-button {
-    background-color: #FFFFFF;
-    height: 56px;
-    width: 126px;
-    border: 1px solid rgb(42, 54, 71);
-    border-radius: 10px;
-    color: rgb(42, 54, 71);
-    font-family: 'Inter';
-    font-size: 21px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 25px;
-    transition: transform 0.2s;
+  background-color: #ffffff;
+  height: 56px;
+  width: 126px;
+  border: 1px solid rgb(42, 54, 71);
+  border-radius: 10px;
+  color: rgb(42, 54, 71);
+  font-family: "Inter";
+  font-size: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s;
 }
 
 .add-task-cancel-button:hover {
-    cursor: pointer;
-    border: 1px solid #007cee;
-    color: #007cee;
-    transform: scale(1.1);
+  cursor: pointer;
+  border: 1px solid #007cee;
+  color: #007cee;
+  transform: scale(1.1);
 }
-
-
 
 /* select section */
 .checkBoxFlex {
-    display: flex;
-    justify-content: space-between;
-    border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
 }
 
+
 .checkBoxFlex:hover {
-    background-color: #A8A8A8;
-    cursor: pointer;
+  background-color: #a8a8a8;
+  cursor: pointer;
 }
 
 .flexBoxContainer {
-    width: 100%;
+  width: 100%;
 }
 
 .multiselect {
-    position: relative;
+  position: relative;
 }
 
 .selectBox {
-    position: relative;
+  position: relative;
 }
 
 .selectBox select {
-    overflow: hidden;
-    /* Hide scrollbar */
-    -webkit-appearance: none;
-    /* Remove default arrow in Webkit browsers */
-    -moz-appearance: none;
-    /* Remove default arrow in Firefox */
-    appearance: none;
-    /* Remove default arrow */
-    width: 100%;
-    padding: 5px;
-    /* Adjust padding as needed */
-    box-sizing: border-box;
-    /* Ensure padding is included in the element's width */
+  overflow: hidden;
+  /* Hide scrollbar */
+  -webkit-appearance: none;
+  /* Remove default arrow in Webkit browsers */
+  -moz-appearance: none;
+  /* Remove default arrow in Firefox */
+  appearance: none;
+  /* Remove default arrow */
+  width: 475px;
+  padding: 5px;
+  /* Adjust padding as needed */
+  box-sizing: border-box;
+  /* Ensure padding is included in the element's width */
 }
 
 .selectBox option {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .overSelect {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 #checkboxes {
-    display: none;
-    border: 1px #dadada solid;
-    position: absolute;
-    background-color: white;
-    z-index: 1;
-    width: 100%
+  display: none;
+  border: none;
+  position: absolute;
+  background-color: transparent;
+  z-index: 1;
+  width: 100%;
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
 }
 
+#checkboxes img {
+    height: 42px;
+    width: 42px;
+}
+
+#checkboxes::-webkit-scrollbar {
+  display: none;
+}
+#checkboxes::-webkit-scrollbar-thumb {
+  background-color: #2a3647;
+  border-radius: 8px;
+}
+#checkboxes::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+#checkboxes::-webkit-scrollbar-thumb {
+  height: 53px;
+}
+
+
 #checkboxes label {
-    padding: 5px;
+  padding: 5px;
 }
 
 #checkboxes label img {
-    vertical-align: middle;
-    margin-right: 8px;
+  vertical-align: middle;
+  margin-right: 8px;
 }
 
 /* checkbox ende */
 
 /* subtasks */
 .input-with-button {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 .no-border {
-    border: none;
+  border: none;
 }
 
 #subtasksPlus {
-    position: absolute;
-    right: 10px;
+  position: absolute;
+  right: 10px;
 }
 .subtasksList {
-    height: 120px;
-    display: flex;
-    gap: 8px;
-    flex-direction: column;
-    flex-grow: 1;
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 20px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #2a3647 #e0e0e0;
-    -ms-overflow-style: none;
-  }
+  height: 120px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  flex-grow: 1;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
+}
 
-  .subtasksList ul {
-    display: inline-block;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    unicode-bidi: isolate;
-  }
- 
-  
-  .subtasksList::-webkit-scrollbar {
-    width: 24px;
-  }
-  .subtasksList::-webkit-scrollbar-thumb {
-    background-color: #2a3647;
-    border-radius: 8px;
-  }
-  .subtasksList::-webkit-scrollbar-track {
-    background-color: #e0e0e0;
-    border-radius: 8px;
-  }
-  .subtasksList::-webkit-scrollbar-thumb {
-    height: 53px;
-  }
+.subtasksList ul {
+  display: inline-block;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
+
+.subtasksList::-webkit-scrollbar {
+  width: 24px;
+}
+.subtasksList::-webkit-scrollbar-thumb {
+  background-color: #2a3647;
+  border-radius: 8px;
+}
+.subtasksList::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+.subtasksList::-webkit-scrollbar-thumb {
+  height: 53px;
+}
 
 .d-none {
-    display: none;
+  display: none;
 }
 
 .subtasks-control {
-    display: flex;
-    align-items: center;
-    border: 1px solid #A8A8A8;
-    background-color: #FFFFFF;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-left: none;
+  display: flex;
+  align-items: center;
+  border: 1px solid #a8a8a8;
+  background-color: #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: none;
 }
 
 .subtasks-control img {
-    height: 16px;
-    width: 16px;
-    padding: 4px;
+  height: 16px;
+  width: 16px;
+  padding: 4px;
 }
 
 .subtasks-control img:hover {
-    border-radius: 100%;
-    background-color: #A8A8A8;
-    padding: 4px;
+  border-radius: 100%;
+  background-color: #a8a8a8;
+  padding: 4px;
 }
 
 .seperator-subtasks {
-    height: 14px;
-    margin-left: 4px;
-    margin-right: 4px;
-    border: 1px solid #D1D1D1;
+  height: 14px;
+  margin-left: 4px;
+  margin-right: 4px;
+  border: 1px solid #d1d1d1;
 }
-.subtask-button{
-    height: 52px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-radius: 0 10px 10px 0;
-    outline: none;
-    border-left: none;
-    background-color: #ffffff;
-    font-size: 24px;
-    font-family: 'Inter';
-    font-weight: 400;
-    cursor: pointer;
+.subtask-button {
+  height: 52px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 0 10px 10px 0;
+  outline: none;
+  border-left: none;
+  background-color: #ffffff;
+  font-size: 24px;
+  font-family: "Inter";
+  font-weight: 400;
+  cursor: pointer;
 }
-.subtasks-input{
-    height:50px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    outline: none;
-    border: 1px solid #A8A8A8;
-    border-right: none;
-    font-size: 20px;
-    font-family: 'Inter';
-    font-weight: 400;
-    flex-grow: 1;
-    padding-left: 16px;
+.subtasks-input {
+  height: 50px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  outline: none;
+  border: 1px solid #a8a8a8;
+  border-right: none;
+  font-size: 20px;
+  font-family: "Inter";
+  font-weight: 400;
+  flex-grow: 1;
+  padding-left: 16px;
 }
