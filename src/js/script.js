@@ -260,7 +260,7 @@ function tileUserImage(index) {
   const container = document.getElementById(`userImageBoard${index}`);
   const images = container.getElementsByClassName('image-div'); 
   const imageWidth = 32; 
-  const overlap = 8;     
+  const overlap = 24;     
   for (let i = 0; i < images.length; i++) {
       const imagePosition = images[i];
       imagePosition.style.position = 'absolute';
