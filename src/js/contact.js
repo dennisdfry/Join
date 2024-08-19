@@ -95,10 +95,9 @@ async function replaceContact(contactId, updatedContact) {
       throw new Error("Ungültige Kontakt-ID. Kontakt kann nicht ersetzt werden.");
     }
     console.log(`Versuche Kontakt mit ID ${contactId} zu löschen.`);
-    await deleteContact(contactId); 
+    await postContact(updatedContact);
     console.log("Erstelle neuen Kontakt: ", updatedContact);
-    await postContact(updatedContact); 
-    await updateContactList(); 
+    await deleteContact(contactId);  
     await selectNextContact(contactId);
   } catch (error) {
     console.error("Fehler beim Ersetzen des Kontakts:", error);
@@ -282,10 +281,6 @@ function renderContactInfo(contactSection, contact) {
     </div>`;
 }
 
-/**
- * Initialisiert die Formulare und setzt Event-Listener nach dem Laden des Dokuments.
- */
-document.addEventListener("DOMContentLoaded", setupForms);
 
 /**
  * Initialisiert die Event-Listener für das Kontaktformular.
@@ -293,7 +288,7 @@ document.addEventListener("DOMContentLoaded", setupForms);
  * - Fügt Input-Listener hinzu, um die Felder auf Vollständigkeit zu überprüfen.
  * - Überprüft, ob alle erforderlichen Felder ausgefüllt sind und aktiviert oder deaktiviert den Senden-Button.
  */
-function setupForms() {
+function setupForm() {
   document.getElementById("contact-form").addEventListener("submit", handleFormSubmit);
   ["name", "mail", "phone"].forEach(id => document.getElementById(id).addEventListener("input", checkFormFields));
   checkFormFields();
@@ -341,6 +336,25 @@ function handleFormSubmit(event) {
 }
 
 /**
+ * Validiert eine E-Mail adresse
+ * @param {string} email - Die E-Mail des zu Überprüfen ist
+ * @returns Boolean (true/false)
+ */
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/**
+ * Validiert eine Telefonnummer
+ * @param {string} phone - Die Telefonnummer, die Überprüft werden soll
+ * @returns Boolean (True/False)
+ */
+function validatePhone(phone) {
+  return /^[0-9]{10,15}$/.test(phone);
+}
+
+
+/**
  * schreibt den ersten Buchstaben des Namen groß
  * @param {string} name - Der Name des Kontaktes
  * @returns Name in konsistenter Form als string
@@ -365,44 +379,35 @@ function capitalizeSecondLetter(words) {
 }
 
 /**
- * Validiert eine E-Mail adresse
- * @param {string} email - Die E-Mail des zu Überprüfen ist
- * @returns Boolean (true/false)
- */
-function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-/**
- * Validiert eine Telefonnummer
- * @param {string} phone - Die Telefonnummer, die Überprüft werden soll
- * @returns Boolean (True/False)
- */
-function validatePhone(phone) {
-  return /^[0-9]{10,15}$/.test(phone);
-}
-
-/**
  * Zeigt das Formular zum Hinzufügen eines Kontaktes an mit einer Animation
  */
-function showFormField() {
-  const formField = document.getElementById("add-form-section");
-  document.getElementById("overlay").classList.remove("d-none");
+/**
+ * Zeigt ein Formular an, indem es das entsprechende Element sichtbar macht und eine Animation hinzufügt.
+ * @param {string} formId - Die ID des Formulars, das angezeigt werden soll.
+ * @param {string} overlayId - Die ID des Overlays, das angezeigt werden soll.
+ * @param {Function} outsideClickHandler - Die Funktion, die auf Klicks außerhalb des Formulars reagiert.
+ */
+function showForm(formId, overlayId, outsideClickHandler) {
+  const formField = document.getElementById(formId);
+  document.getElementById(overlayId).classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  document.addEventListener("click", handleOutsideFormClick);
+  document.addEventListener("click", outsideClickHandler);
 }
 
 /**
- * Schließt das Formular zum Hinzufügen eines Kontakes mit einer Animation
+ * Schließt ein Formular, indem es das entsprechende Element ausblendet und eine Animation hinzufügt.
+ * @param {string} formId - Die ID des Formulars, das geschlossen werden soll.
+ * @param {string} overlayId - Die ID des Overlays, das ausgeblendet werden soll.
+ * @param {Array<string>} fieldIds - Ein Array der IDs der Formularfelder, die zurückgesetzt werden sollen.
  */
-function closeFormField() {
-  document.getElementById("overlay").classList.add("d-none");
+function closeForm(formId, overlayId, fieldIds) {
+  document.getElementById(overlayId).classList.add("d-none");
 
-  let formField = document.getElementById("add-form-section");
-  ["name", "mail", "phone"].forEach(id => document.getElementById(id).value = "");
+  const formField = document.getElementById(formId);
+  fieldIds.forEach(id => document.getElementById(id).value = "");
   formField.style.animation = "moveOut 200ms ease-out forwards";
-  
+
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
@@ -410,54 +415,35 @@ function closeFormField() {
 }
 
 /**
- * Schließt das Formular, wenn ausßerhalb des Formulars geklickt wird
- * @param {Event} event - Das Klick-Event
+ * Zeigt das Formular zum Hinzufügen eines Kontaktes an.
  */
-function handleOutsideFormClick(event) {
-  if (!document.getElementById("add-form-section").contains(event.target) && !event.target.closest("#add-contact-btn")) {
-    closeFormField();
-  }
+function showFormField() {
+  showForm("add-form-section", "overlay", handleOutsideFormClick);
+  document.addEventListener("click", setupForm);
 }
 
 /**
- * Schließt das Bearbeitungsformular wenn außerhalb geklickt wird
- * @param {Event} event - DaS Klickevent
+ * Schließt das Formular zum Hinzufügen eines Kontaktes.
  */
-function handleOutsideEditFormClick(event) {
-  let section = document.getElementById("edit-contact-section");
-  if (!section.contains(event.target) && !event.target.closest("#edit-btn")) {
-    closeEditField();
-  }
+ function closeFormField() {
+  closeForm("add-form-section", "overlay", ["name", "mail", "phone"]);
 }
 
 /**
- * Zeigt das Bearbeitungsfenster zum Bearbeiten eines bestehenden Kontakes an
- * @param {string} contactId - Die ID des zu bearbeitenden Kontaktes
+ * Zeigt das Bearbeitungsformular für einen bestehenden Kontakt an.
+ * @param {string} contactId - Die ID des zu bearbeitenden Kontakts.
  */
 function showEditForm(contactId) {
-  let editField = document.getElementById("edit-contact-section");
-  document.getElementById("edit-overlay").classList.remove("d-none");
-  editField.classList.remove("d-none", "hidden");
-  editField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  document.addEventListener("click", handleOutsideEditFormClick);
+  showForm("edit-contact-section", "edit-overlay", handleOutsideEditFormClick);
   document.getElementById("edit-contact-form").setAttribute("data-id", contactId);
   loadEditFormData(contactId);
 }
 
 /**
- * Schließt das Bearbeitungsformular durch Animation
+ * Schließt das Bearbeitungsformular.
  */
 function closeEditField() {
-  document.getElementById("edit-overlay").classList.add("d-none");
-
-  let editField = document.getElementById("edit-contact-section");
-  ["edit-name", "edit-mail", "edit-phone"].forEach(id => document.getElementById(id).value = "");
-  editField.style.animation = "moveOut 200ms ease-out forwards";
-
-  setTimeout(() => {
-    editField.classList.add("hidden", "d-none");
-    editField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 200);
+  closeForm("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
 }
 
 /**
@@ -487,6 +473,27 @@ async function loadEditFormData(contactId) {
     }
   } catch (error) {
     console.error("Fehler beim Laden des Edit-Formulars:", error);
+  }
+}
+
+/**
+ * Schließt das Formular, wenn ausßerhalb des Formulars geklickt wird
+ * @param {Event} event - Das Klick-Event
+ */
+function handleOutsideFormClick(event) {
+  if (!document.getElementById("add-form-section").contains(event.target) && !event.target.closest("#add-contact-btn")) {
+    closeFormField();
+  }
+}
+
+/**
+ * Schließt das Bearbeitungsformular wenn außerhalb geklickt wird
+ * @param {Event} event - DaS Klickevent
+ */
+function handleOutsideEditFormClick(event) {
+  let section = document.getElementById("edit-contact-section");
+  if (!section.contains(event.target) && !event.target.closest("#edit-btn")) {
+    closeEditField();
   }
 }
 
@@ -547,7 +554,7 @@ async function selectContact(contactId) {
   let selectedContact = document.getElementById(`contactlist-item-${contactId}`);
 
   deselectAllContacts();
-  highlightContact(selectedContact);
+  await highlightContact(selectedContact);
 
   contactSection.classList.remove("d-none");
   await initContactDetails(contactId);
@@ -568,7 +575,7 @@ function deselectAllContacts() {
  * Hebt den ausgewählten Kontakt in der Kontaktliste hervor.
  * @param {HTMLElement} selectedContact - Das HTML-Element des ausgewählten Kontakts.
  */
-function highlightContact(selectedContact) {
+async function highlightContact(selectedContact) {
   if (!selectedContact.classList.contains("bg-color-dg")) {
     selectedContact.classList.add("bg-color-dg", ACTIVE_CLASS);
     selectedContact.style.pointerEvents = "none";
