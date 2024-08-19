@@ -33,6 +33,7 @@ async function fetchData(url, options = {}) {
   }
   return response.json();
 }
+
 /**
  * Ruft die Daten eines spezifischen Kontakts von der Datenbank ab.
  * @async
@@ -72,24 +73,34 @@ async function postContact(contact) {
   console.log("Kontakt erfolgreich hochgeladen:", newContact);
 }
 
+
 /**
- * Aktualisiert die Daten eines bestehenden Kontakts in der Datenbank.
- * Nach erfolgreicher Aktualisierung wird die Kontaktliste neu geladen und das Bearbeitungsformular geschlossen.
+ * Ersetzt einen Kontakt durch Löschen des alten und Erstellen eines neuen Kontakts.
+ *
+ * Diese Funktion löscht den Kontakt mit der angegebenen ID und erstellt anschließend einen
+ * neuen Kontakt mit den bereitgestellten aktualisierten Daten. Nach dem Ersetzen des Kontakts
+ * wird die Kontaktliste aktualisiert. Tritt ein Fehler auf, wird dieser in der Konsole protokolliert.
+ *
  * @async
- * @param {string} contactId - Die ID des zu aktualisierenden Kontakts.
- * @param {object} updatedContact - Die aktualisierten Kontaktdaten.
+ * @function replaceContact
+ * @param {*} contactId - Die eindeutige Kennung des Kontakts, der ersetzt werden soll.
+ * @param {*} updatedContact - Ein Objekt mit den neuen Kontaktdaten, die den alten Kontakt ersetzen sollen.
+ * @returns {Promise<void>} Wird aufgelöst, wenn der Kontakt erfolgreich ersetzt und die Kontaktliste aktualisiert wurde.
+ *
+ * @throws {Error} Protokolliert einen Fehler, wenn die Kontakt-ID ungültig ist oder ein Problem beim Ersetzen des Kontakts auftritt.
  */
-async function patchContact(contactId, updatedContact) {
+async function replaceContact(contactId, updatedContact) {
   try {
-    await fetchData(`${CONTACTS_URL}/${contactId}.json`, {
-      method: "PATCH",
-      headers: HEADERS,
-      body: JSON.stringify(updatedContact),
-    });
-    await updateContactList();
-    closeEditField();
+    if (!contactId) {
+      throw new Error("Ungültige Kontakt-ID. Kontakt kann nicht ersetzt werden.");
+    }
+    console.log(`Versuche Kontakt mit ID ${contactId} zu löschen.`);
+    await postContact(updatedContact);
+    console.log("Erstelle neuen Kontakt: ", updatedContact);
+    await deleteContact(contactId);  
+    await selectNextContact(contactId);
   } catch (error) {
-    console.error("Fehler beim Editiervorgang:", error);
+    console.error("Fehler beim Ersetzen des Kontakts:", error);
   }
 }
 
@@ -109,9 +120,29 @@ async function addContact(contact) {
       await initContactDetails(ContactId);
     }
     showUpdateBar();
+
   } catch (error) {
     console.error("Fehler beim Hochladen des Kontakes:", error);
   }
+}
+
+/**
+ * Sucht nach der ID eines Kontakts basierend auf dem Namen und der E-Mail.
+ * 
+ * Diese Funktion durchsucht die Liste der Kontakte nach einem Kontakt,
+ * dessen Name und E-Mail mit den angegebenen Werten übereinstimmen.
+ * 
+ * @async
+ * @param {Object} contact - Das Kontaktobjekt mit den Eigenschaften `name` und `mail`.
+ * @param {string} contact.name - Der Name des Kontakts.
+ * @param {string} contact.mail - Die E-Mail des Kontakts.
+ * @returns {Promise<string|undefined>} - Gibt die ID des Kontakts zurück, falls gefunden, andernfalls `undefined`.
+ * 
+ * @throws {Error} - Wenn ein Fehler bei der Datenabfrage auftritt.
+ */
+async function getContactId(contact) {
+  let contacts = await fetchData(`${CONTACTS_URL}.json`);
+  return Object.keys(contacts).find(id => contacts[id].name === contact.name && contacts[id].mail === contact.mail);
 }
 
 
@@ -250,23 +281,19 @@ function renderContactInfo(contactSection, contact) {
     </div>`;
 }
 
+
 /**
  * Initialisiert die Event-Listener für das Kontaktformular.
  * - Fügt einen Submit-Listener hinzu, um das Formular zu verarbeiten.
  * - Fügt Input-Listener hinzu, um die Felder auf Vollständigkeit zu überprüfen.
  * - Überprüft, ob alle erforderlichen Felder ausgefüllt sind und aktiviert oder deaktiviert den Senden-Button.
  */
-
-function setupForms() {
+function setupForm() {
   document.getElementById("contact-form").addEventListener("submit", handleFormSubmit);
   ["name", "mail", "phone"].forEach(id => document.getElementById(id).addEventListener("input", checkFormFields));
   checkFormFields();
 }
 
-/**
- * Initialisiert die Formulare und setzt Event-Listener nach dem Laden des Dokuments.
- */
-document.addEventListener("DOMContentLoaded", setupForms);
 
 /**
  * Überprüft ob alle erforderlichen Felder ausgefüllt wurden und aktiviert bzw. deaktiviert den Submit-Button
@@ -309,6 +336,25 @@ function handleFormSubmit(event) {
 }
 
 /**
+ * Validiert eine E-Mail adresse
+ * @param {string} email - Die E-Mail des zu Überprüfen ist
+ * @returns Boolean (true/false)
+ */
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/**
+ * Validiert eine Telefonnummer
+ * @param {string} phone - Die Telefonnummer, die Überprüft werden soll
+ * @returns Boolean (True/False)
+ */
+function validatePhone(phone) {
+  return /^[0-9]{10,15}$/.test(phone);
+}
+
+
+/**
  * schreibt den ersten Buchstaben des Namen groß
  * @param {string} name - Der Name des Kontaktes
  * @returns Name in konsistenter Form als string
@@ -333,48 +379,101 @@ function capitalizeSecondLetter(words) {
 }
 
 /**
- * Validiert eine E-Mail adresse
- * @param {string} email - Die E-Mail des zu Überprüfen ist
- * @returns Boolean (true/false)
- */
-function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-/**
- * Validiert eine Telefonnummer
- * @param {string} phone - Die Telefonnummer, die Überprüft werden soll
- * @returns Boolean (True/False)
- */
-function validatePhone(phone) {
-  return /^[0-9]{10,15}$/.test(phone);
-}
-
-/**
  * Zeigt das Formular zum Hinzufügen eines Kontaktes an mit einer Animation
  */
-function showFormField() {
-  const formField = document.getElementById("add-form-section");
-  document.getElementById("overlay").classList.remove("d-none");
+/**
+ * Zeigt ein Formular an, indem es das entsprechende Element sichtbar macht und eine Animation hinzufügt.
+ * @param {string} formId - Die ID des Formulars, das angezeigt werden soll.
+ * @param {string} overlayId - Die ID des Overlays, das angezeigt werden soll.
+ * @param {Function} outsideClickHandler - Die Funktion, die auf Klicks außerhalb des Formulars reagiert.
+ */
+function showForm(formId, overlayId, outsideClickHandler) {
+  const formField = document.getElementById(formId);
+  document.getElementById(overlayId).classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  document.addEventListener("click", handleOutsideFormClick);
+  document.addEventListener("click", outsideClickHandler);
 }
 
 /**
- * Schließt das Formular zum Hinzufügen eines Kontakes mit einer Animation
+ * Schließt ein Formular, indem es das entsprechende Element ausblendet und eine Animation hinzufügt.
+ * @param {string} formId - Die ID des Formulars, das geschlossen werden soll.
+ * @param {string} overlayId - Die ID des Overlays, das ausgeblendet werden soll.
+ * @param {Array<string>} fieldIds - Ein Array der IDs der Formularfelder, die zurückgesetzt werden sollen.
  */
-function closeFormField() {
-  document.getElementById("overlay").classList.add("d-none");
+function closeForm(formId, overlayId, fieldIds) {
+  document.getElementById(overlayId).classList.add("d-none");
 
-  let formField = document.getElementById("add-form-section");
-  ["name", "mail", "phone"].forEach(id => document.getElementById(id).value = "");
+  const formField = document.getElementById(formId);
+  fieldIds.forEach(id => document.getElementById(id).value = "");
   formField.style.animation = "moveOut 200ms ease-out forwards";
-  
+
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
   }, 200);
+}
+
+/**
+ * Zeigt das Formular zum Hinzufügen eines Kontaktes an.
+ */
+function showFormField() {
+  showForm("add-form-section", "overlay", handleOutsideFormClick);
+  document.addEventListener("click", setupForm);
+}
+
+/**
+ * Schließt das Formular zum Hinzufügen eines Kontaktes.
+ */
+ function closeFormField() {
+  closeForm("add-form-section", "overlay", ["name", "mail", "phone"]);
+}
+
+/**
+ * Zeigt das Bearbeitungsformular für einen bestehenden Kontakt an.
+ * @param {string} contactId - Die ID des zu bearbeitenden Kontakts.
+ */
+function showEditForm(contactId) {
+  showForm("edit-contact-section", "edit-overlay", handleOutsideEditFormClick);
+  document.getElementById("edit-contact-form").setAttribute("data-id", contactId);
+  loadEditFormData(contactId);
+}
+
+/**
+ * Schließt das Bearbeitungsformular.
+ */
+function closeEditField() {
+  closeForm("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
+}
+
+/**
+ * Lädt die Kontaktdaten in die Bearbeitungsformularfelder.
+ *
+ * Diese Funktion ruft die Kontaktdaten basierend auf der angegebenen Kontakt-ID ab
+ * und füllt die Bearbeitungsformularfelder mit den Informationen des Kontakts aus. Falls
+ * der Kontakt ein Bild hat, wird dieses im entsprechenden Container angezeigt; andernfalls
+ * wird ein generiertes Profilbild basierend auf dem Namen des Kontakts verwendet.
+ *
+ * @async
+ * @function loadEditFormData
+ * @param {string} contactId - Die eindeutige Kennung des Kontakts, dessen Daten geladen werden sollen.
+ * @returns {Promise<void>} Wird aufgelöst, wenn die Kontaktdaten erfolgreich in das Formular geladen wurden.
+ *
+ * @throws {Error} Protokolliert einen Fehler, wenn ein Problem beim Abrufen der Kontaktdaten auftritt.
+ */
+async function loadEditFormData(contactId) {
+  try {
+    let contact = await getContact(contactId);
+    document.getElementById("edit-name").value = contact.name;
+    document.getElementById("edit-mail").value = contact.mail;
+    document.getElementById("edit-phone").value = contact.phone;
+    let editImageContainer = document.getElementById("prof2-img");
+    if (editImageContainer) {
+      editImageContainer.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}">`;
+    }
+  } catch (error) {
+    console.error("Fehler beim Laden des Edit-Formulars:", error);
+  }
 }
 
 /**
@@ -399,64 +498,30 @@ function handleOutsideEditFormClick(event) {
 }
 
 /**
- * Zeigt das Bearbeitungsfenster zum Bearbeiten eines bestehenden Kontakes an
- * @param {string} contactId - Die ID des zu bearbeitenden Kontaktes
- */
-function showEditForm(contactId) {
-  let editField = document.getElementById("edit-contact-section");
-  document.getElementById("edit-overlay").classList.remove("d-none");
-  editField.classList.remove("d-none", "hidden");
-  editField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  document.addEventListener("click", handleOutsideEditFormClick);
-  document.getElementById("edit-contact-form").setAttribute("data-id", contactId);
-  loadEditFormData(contactId);
-}
-
-/**
- * Schließt das Bearbeitungsformular durch Animation
- */
-function closeEditField() {
-  document.getElementById("edit-overlay").classList.add("d-none");
-
-  let editField = document.getElementById("edit-contact-section");
-  ["edit-name", "edit-mail", "edit-phone"].forEach(id => document.getElementById(id).value = "");
-  editField.style.animation = "moveOut 200ms ease-out forwards";
-
-  setTimeout(() => {
-    editField.classList.add("hidden", "d-none");
-    editField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 200);
-}
-
-/**
- * Lädt die aktuellen Daten eines Kontakts in das Bearbeitungsformular.
- * @param {string} contactId - Die ID des zu bearbeitenden Kontakts.
- * @returns {Promise<void>}
- */
-async function loadEditFormData(contactId) {
-  try {
-    let contact = await getContact(contactId);
-    document.getElementById("edit-name").value = contact.name;
-    document.getElementById("edit-mail").value = contact.mail;
-    document.getElementById("edit-phone").value = contact.phone;
-    let editImageContainer = document.getElementById("prof2-img");
-    if (editImageContainer) {
-      editImageContainer.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}">`;
-    }
-  } catch (error) {
-    console.error("Fehler beim Laden des Edit-Formulars:", error);
-  }
-}
-
-/**
- * Behandelt das Absenden des Bearbeitungsformulars und aktualisiert die Daten des Kontakts.
- * @param {Event} event - Das Event-Objekt des Formulars.
+ * Behandelt das Absenden des Bearbeitungsformulars für Kontakte.
+ *
+ * Diese Funktion wird ausgelöst, wenn das Bearbeitungsformular für Kontakte abgesendet wird.
+ * Sie verhindert das Standardverhalten beim Absenden des Formulars, ruft die Kontakt-ID aus den
+ * Datenattributen des Formulars ab, validiert die Eingabefelder und versucht dann, den Kontakt
+ * zu aktualisieren. Tritt ein Fehler während dieses Prozesses auf, wird der Fehler in der Konsole
+ * protokolliert.
+ *
+ * @async
+ * @function handleEditFormSubmit
+ * @param {Event} event - Das Ereignisobjekt, das das Absenden des Formulars darstellt.
  * @returns {void}
+ *
+ * @throws {Error} Protokolliert einen Fehler, wenn die Kontakt-ID nicht gefunden wird oder ein Problem
+ *                  beim Aktualisieren des Kontakts auftritt.
  */
-function handleEditFormSubmit(event) {
+async function handleEditFormSubmit(event) {
   event.preventDefault();
+  let contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
+  if (!contactId) {
+    console.error("Keine Kontakt-ID gefunden.");
+    return;
+  }
 
-  let contactId = event.target.getAttribute("data-id");
   let updatedContact = {
     name: document.getElementById("edit-name").value.trim(),
     mail: document.getElementById("edit-mail").value.trim(),
@@ -465,16 +530,17 @@ function handleEditFormSubmit(event) {
   };
 
   if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) {
-    console.error("Üngultige E-Mail oder Telefonnummer.");
+    console.error("Ungültige E-Mail oder Telefonnummer.");
     return;
   }
 
-  patchContact(contactId, updatedContact).then(() => {
+  try {
+    await replaceContact(contactId, updatedContact);
     showUpdateBar();
     closeEditField();
-  }).catch(error => {
+  } catch (error) {
     console.error("Fehler beim Hochladen", error);
-  });
+  }
 }
 
 /**
@@ -488,14 +554,14 @@ async function selectContact(contactId) {
   let selectedContact = document.getElementById(`contactlist-item-${contactId}`);
 
   deselectAllContacts();
-  highlightContact(selectedContact);
+  await highlightContact(selectedContact);
 
   contactSection.classList.remove("d-none");
   await initContactDetails(contactId);
 }
 
 /**
- * Deselektiert alle Kontakte in der Kontaktliste.
+ * Wählt alle Kontakte in der Kontaktliste ab.
  */
 function deselectAllContacts() {
   document.querySelectorAll('[id^="contactlist-item"]').forEach(contact => {
@@ -509,7 +575,7 @@ function deselectAllContacts() {
  * Hebt den ausgewählten Kontakt in der Kontaktliste hervor.
  * @param {HTMLElement} selectedContact - Das HTML-Element des ausgewählten Kontakts.
  */
-function highlightContact(selectedContact) {
+async function highlightContact(selectedContact) {
   if (!selectedContact.classList.contains("bg-color-dg")) {
     selectedContact.classList.add("bg-color-dg", ACTIVE_CLASS);
     selectedContact.style.pointerEvents = "none";
