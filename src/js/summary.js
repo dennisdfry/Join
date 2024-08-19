@@ -18,11 +18,12 @@ async function summaryGreeting() {
   const hour = new Date().getHours();
   const greetingElement = document.querySelector(".summary-user-greeting");
   const greetingElementName = document.querySelector(".summary-user-greeting-name");
+  const userImageElement = document.querySelector('.user-icon');
   const user = localStorage.getItem('user');
 
   if (greetingElement) {
     if (user === 'Guest') {
-      greetingGuest(hour, greetingElement);
+      greetingGuest(hour, greetingElement, user, userImageElement);
     } else {
       await greetingUser(hour, greetingElement, greetingElementName);
     }
@@ -61,8 +62,10 @@ async function greetingUser(hour, greetingElement, greetingElementName) {
  * @function
  * @param {number} hour - The current hour of the day.
  * @param {HTMLElement} greetingElement - The HTML element to display the greeting.
+ * @param {string} user - The name of the guest user.
+ * @param {HTMLElement} userImgElement - The img element to display the profile image.
  */
-function greetingGuest(hour, greetingElement) {
+function greetingGuest(hour, greetingElement, user, userImgElement) {
   let greetingMessage = "";
   if (hour > 6 && hour < 12) {
     greetingMessage = "Good morning";
@@ -73,6 +76,9 @@ function greetingGuest(hour, greetingElement) {
   }
 
   greetingElement.textContent = greetingMessage;
+
+  let userImage = generateProfileImage(user);
+  userImgElement.src = userImage;
 }
 
 /**
