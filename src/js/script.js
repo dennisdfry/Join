@@ -111,13 +111,32 @@ async function generateHTMLObjects(taskkeys, task) {
 }
 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
+  console.log(taskkeys);
+  console.log(task);
+  console.log(fetchImage);
   for (let index = 0; index < taskkeys.length; index++) {
-    const { assignedTo: users, assignedToNames: userNames, prio, subtasks } = task[taskkeys[index]][0];
+    const tasksID = taskkeys[index];
+    const taskFolder = task[tasksID]
+    console.log(taskFolder)
+    let users = taskFolder[0].assignedTo;
+    let subtasks = taskFolder[0].subtasks;
+    let prio = taskFolder[0].prio;
+    let userNames = taskFolder[0].assignedToNames;
+    // let users = task.tasksID[0].assignedTo;
+    // const taskID = task[taskkeys[index]];
+    // console.log(tasks)
+    // const { assignedTo: userss, assignedToNames: userNames, prio, subtasks } = task[taskkeys[index]][0];
     taskData[index] = { users, userNames, prio, subtasks, fetchImage };
+    console.log(userNames)
+    console.log(users)
+    console.log(subtasks)
+    console.log(prio);
+
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
       searchprio(index, prio),
-      subtasksRender(index, subtasks)
+      subtasksRender(index, subtasks),
+      loadSubtaskStatus(index)
     ]);
     
   }
@@ -201,7 +220,6 @@ async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     const element = taskkeysGlobal[index];
     const taskKeyId = element[indexHtml];
-    
     try {
       let data = await onloadDataBoard(`/tasks/${taskKeyId}/subtasksStatus/${index}`);
       if (data !== null) {
@@ -223,6 +241,9 @@ function closeOpenTask(event, index) {
 }
 
 async function searchIndexUrl(index, users, fetchImage){
+  console.log(fetchImage);
+  console.log(users);
+  console.log(index);
   let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
   
@@ -282,6 +303,7 @@ async function htmlBoardImageOpen(imageUrl, index, names){
 }
 
 async function subtasksRender(indexHtml, subtasks) {
+  console.log(subtasks)
     subtasksLengthArray.push({
         position: indexHtml,
         subs: subtasks
@@ -328,7 +350,7 @@ async function subtaskStatus(indexHtml, index){
 async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
   for (let i = 0; i < taskkeysGlobal.length; i++) {
     const taskKeyId = taskkeysGlobal[i][indexHtml];
-    const path = `/tasks/${taskKeyId}/subtasksStatus/${index}`;
+    const path = `/tasks/${taskKeyId}/0/${index}`;
     try {
       let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
