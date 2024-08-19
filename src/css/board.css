@@ -25,9 +25,9 @@ body {
 .board-head-section {
   max-width: 1208px;
   max-height: 232px;
-  padding-left: 272px;
-  padding-right: 76px;
-  padding-top: 40px;
+  position: absolute;
+  top: 96px;
+  left: 232px;
 }
 
 .board-head-section-top {
@@ -39,6 +39,7 @@ body {
 .board-headline {
   font-family: "Inter700";
   font-size: 61px;
+  margin-left: 32px;
 }
 
 .search-task-container {
@@ -104,6 +105,11 @@ body {
 
 .board-head-section-bottom {
   display: flex;
+  width: 1, 208px;
+  height: 24px;
+  position: absolute;
+  top: 200.5px;
+  margin-bottom: 4px;
 }
 
 .add-task {
@@ -302,17 +308,17 @@ body {
 }
 
 .board-render-status-container {
-  height: 50vh;
+  height: 65vh;
   width: 252px;
   overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-width: thin;
+  overflow-y: auto;
+  scrollbar-width: none;
   scrollbar-color: #2a3647 #e0e0e0;
   -ms-overflow-style: none;
 }
 
 .board-render-status-container::-webkit-scrollbar {
-  width: 24px;
+  display: none;
 }
 .board-render-status-container::-webkit-scrollbar-thumb {
   background-color: #2a3647;
