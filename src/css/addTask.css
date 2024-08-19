@@ -14,6 +14,7 @@ body {
   height: 100vh;
   overflow: hidden;
   margin: 0;
+  max-width: 1440px;
 }
 
 .background-main {
@@ -21,11 +22,10 @@ body {
 }
 
 .add-Task-Container {
-  padding-right: 64px;
-  padding-bottom: 64px;
-  padding-left: 272px;
-  background-color: #f6f7f8;
-  max-width: 1440px;
+  width: 976.25px;
+  height: 424px;
+  position: absolute;
+  left: 328px;
 }
 
 .add-task-head {
@@ -34,11 +34,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: "Inter700";
-  font-size: 61px;
 }
 
 .add-task-head h1 {
+  width: 278px;
+  height: 73px;
+  font-family: "Inter700";
+  font-size: 61px;
 }
 
 .add-task-head img {
@@ -142,7 +144,7 @@ body {
   outline: none;
   border: 1px solid #a8a8a8;
   font-size: 20px;
-  margin-bottom: 10px;
+
   margin-top: 10px;
   font-family: "Inter";
   font-weight: 400;
@@ -334,7 +336,6 @@ body {
   border-radius: 10px;
 }
 
-
 .checkBoxFlex:hover {
   background-color: #a8a8a8;
   cursor: pointer;
@@ -384,10 +385,11 @@ body {
 #checkboxes {
   display: none;
   border: none;
+  background-color: #ffffff;
   position: absolute;
-  background-color: transparent;
+  border-radius: 10px;
   z-index: 1;
-  width: 100%;
+  width: 475px;
   height: 200px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -397,8 +399,8 @@ body {
 }
 
 #checkboxes img {
-    height: 42px;
-    width: 42px;
+  height: 42px;
+  width: 42px;
 }
 
 #checkboxes::-webkit-scrollbar {
@@ -415,7 +417,6 @@ body {
 #checkboxes::-webkit-scrollbar-thumb {
   height: 53px;
 }
-
 
 #checkboxes label {
   padding: 5px;
