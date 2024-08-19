@@ -14,22 +14,16 @@ function goToSummary() {
   location.replace("/public/index.html");
 }
 
-document
-  .getElementById("login-form")
-  .addEventListener("submit", async function (e) {
+document.getElementById("login-form").addEventListener("submit", async function (e) {
     e.preventDefault();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password-login").value;
     const rememberMe = document.getElementById("remember-me").checked;
     try {
       if (rememberMe) {
-        await firebase
-          .auth()
-          .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
       } else {
-        await firebase
-          .auth()
-          .setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
       }
       await firebase.auth().signInWithEmailAndPassword(email, password);
       goToSummary();
@@ -58,9 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 500);
 });
 
-document
-  .querySelector(".submit-guest-login-btn")
-  .addEventListener("click", function (e) {
+document.querySelector(".submit-guest-login-btn").addEventListener("click", function (e) {
     e.preventDefault();
     localStorage.setItem("user", "Guest");
     goToSummary();
