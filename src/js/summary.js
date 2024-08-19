@@ -1,5 +1,6 @@
 var database = firebase.database();
 var tasksRef = database.ref("tasks");
+var contactsRef = database.ref("contacts");
 
 function initSmry() {
   summaryGreeting();
@@ -75,23 +76,80 @@ function greetingGuest(hour, greetingElement) {
 }
 
 /**
- * Checks user authentication status and updates the greeting with the user's name.
- * @async
- * @function
- * @param {string} greetingMessage - The greeting message based on the time of day.
- * @param {HTMLElement} greetingElement - The HTML element to display the greeting.
- * @param {HTMLElement} greetingElementName - The HTML element to display the user's name.
+ * Function to retrieve user data from the 'users' reference.
+ * @param {string} userId - The unique ID of the user.
+ * @returns {Promise<Object>} A promise that resolves to the user data object.
+ */
+async function getUserData(userId) {
+  const userSnapshot = await database.ref("users/" + userId).once("value");
+  return userSnapshot.val();
+}
+
+/**
+ * Function to set the username in the greeting element.
+ * @param {string} greetingMessage - The greeting message to display.
+ * @param {Object} userData - The data object containing user information.
+ * @param {HTMLElement} greetingElement - The HTML element for the greeting message.
+ * @param {HTMLElement} greetingElementName - The HTML element for displaying the user's name.
+ */
+function setGreeting(greetingMessage, userData, greetingElement, greetingElementName) {
+  if (userData && userData.name) {
+    greetingElement.textContent = greetingMessage;
+    greetingElementName.textContent = userData.name;
+  } else {
+    greetingElement.textContent = greetingMessage;
+  }
+}
+
+/**
+ * Function to retrieve contact data based on the email address.
+ * @param {string} email - The email address to search for.
+ * @returns {Promise<Object>} A promise that resolves to the contact data object.
+ */
+async function getContactDataByEmail(email) {
+  const contactSnapshot = await contactsRef.orderByChild('mail').equalTo(email).once("value");
+  return contactSnapshot.val();
+}
+
+/**
+ * Function to set the profile image.
+ * @param {Object} contactData - The data object containing contact information.
+ * @param {string} userId - The unique ID of the user.
+ * @param {HTMLImageElement} imgElement - The HTML image element where the profile image will be displayed.
+ */
+function setProfileImage(contactData, userId, imgElement) {
+  if (contactData) {
+    const contactKey = Object.keys(contactData)[0];
+    const contactInfo = contactData[contactKey];
+    if (contactInfo.img) {
+      imgElement.src = contactInfo.img;
+    } else {
+      imgElement.src = generateProfileImage(userId);
+    }
+  } else {
+    imgElement.src = generateProfileImage(userId);
+  }
+}
+
+/**
+ * Main function to check authentication and set greeting.
+ * @param {string} greetingMessage - The greeting message to display.
+ * @param {HTMLElement} greetingElement - The HTML element for the greeting message.
+ * @param {HTMLElement} greetingElementName - The HTML element for displaying the user's name.
  */
 async function checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName) {
   const user = firebase.auth().currentUser;
   if (user) {
     const userId = user.uid;
-    const userSnapshot = await database.ref("users/" + userId).once("value");
-    const userData = userSnapshot.val();
-    if (userData && userData.name) {
-      greetingElement.textContent = `${greetingMessage}`;
-      greetingElementName.textContent = `${userData.name}`;
-    } else {
+    try {
+      const userData = await getUserData(userId);
+      setGreeting(greetingMessage, userData, greetingElement, greetingElementName);
+
+      const contactData = await getContactDataByEmail(userData.mail);
+      const imgElement = document.querySelector('.user-icon');
+      setProfileImage(contactData, userId, imgElement);
+    } catch (error) {
+      console.error("Error retrieving user data or profile image:", error);
       greetingElement.textContent = greetingMessage;
     }
   } else {
