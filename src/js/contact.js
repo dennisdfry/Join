@@ -75,9 +75,19 @@ async function postContact(contact) {
 
 
 /**
- * 
- * @param {*} contactId 
- * @param {*} updatedContact 
+ * Ersetzt einen Kontakt durch Löschen des alten und Erstellen eines neuen Kontakts.
+ *
+ * Diese Funktion löscht den Kontakt mit der angegebenen ID und erstellt anschließend einen
+ * neuen Kontakt mit den bereitgestellten aktualisierten Daten. Nach dem Ersetzen des Kontakts
+ * wird die Kontaktliste aktualisiert. Tritt ein Fehler auf, wird dieser in der Konsole protokolliert.
+ *
+ * @async
+ * @function replaceContact
+ * @param {*} contactId - Die eindeutige Kennung des Kontakts, der ersetzt werden soll.
+ * @param {*} updatedContact - Ein Objekt mit den neuen Kontaktdaten, die den alten Kontakt ersetzen sollen.
+ * @returns {Promise<void>} Wird aufgelöst, wenn der Kontakt erfolgreich ersetzt und die Kontaktliste aktualisiert wurde.
+ *
+ * @throws {Error} Protokolliert einen Fehler, wenn die Kontakt-ID ungültig ist oder ein Problem beim Ersetzen des Kontakts auftritt.
  */
 async function replaceContact(contactId, updatedContact) {
   try {
@@ -85,10 +95,11 @@ async function replaceContact(contactId, updatedContact) {
       throw new Error("Ungültige Kontakt-ID. Kontakt kann nicht ersetzt werden.");
     }
     console.log(`Versuche Kontakt mit ID ${contactId} zu löschen.`);
-    await deleteContact(contactId);
-    console.log(`Erstelle neuen Kontakt: `, updatedContact);
-    await postContact(updatedContact);
-    await updateContactList();
+    await deleteContact(contactId); 
+    console.log("Erstelle neuen Kontakt: ", updatedContact);
+    await postContact(updatedContact); 
+    await updateContactList(); 
+    await selectNextContact(contactId);
   } catch (error) {
     console.error("Fehler beim Ersetzen des Kontakts:", error);
   }
@@ -110,6 +121,7 @@ async function addContact(contact) {
       await initContactDetails(ContactId);
     }
     showUpdateBar();
+
   } catch (error) {
     console.error("Fehler beim Hochladen des Kontakes:", error);
   }
@@ -269,6 +281,11 @@ function renderContactInfo(contactSection, contact) {
       </div>
     </div>`;
 }
+
+/**
+ * Initialisiert die Formulare und setzt Event-Listener nach dem Laden des Dokuments.
+ */
+document.addEventListener("DOMContentLoaded", setupForms);
 
 /**
  * Initialisiert die Event-Listener für das Kontaktformular.
@@ -444,8 +461,19 @@ function closeEditField() {
 }
 
 /**
- * 
- * @param {*} contactId 
+ * Lädt die Kontaktdaten in die Bearbeitungsformularfelder.
+ *
+ * Diese Funktion ruft die Kontaktdaten basierend auf der angegebenen Kontakt-ID ab
+ * und füllt die Bearbeitungsformularfelder mit den Informationen des Kontakts aus. Falls
+ * der Kontakt ein Bild hat, wird dieses im entsprechenden Container angezeigt; andernfalls
+ * wird ein generiertes Profilbild basierend auf dem Namen des Kontakts verwendet.
+ *
+ * @async
+ * @function loadEditFormData
+ * @param {string} contactId - Die eindeutige Kennung des Kontakts, dessen Daten geladen werden sollen.
+ * @returns {Promise<void>} Wird aufgelöst, wenn die Kontaktdaten erfolgreich in das Formular geladen wurden.
+ *
+ * @throws {Error} Protokolliert einen Fehler, wenn ein Problem beim Abrufen der Kontaktdaten auftritt.
  */
 async function loadEditFormData(contactId) {
   try {
@@ -463,9 +491,21 @@ async function loadEditFormData(contactId) {
 }
 
 /**
- * 
- * @param {*} event 
- * @returns 
+ * Behandelt das Absenden des Bearbeitungsformulars für Kontakte.
+ *
+ * Diese Funktion wird ausgelöst, wenn das Bearbeitungsformular für Kontakte abgesendet wird.
+ * Sie verhindert das Standardverhalten beim Absenden des Formulars, ruft die Kontakt-ID aus den
+ * Datenattributen des Formulars ab, validiert die Eingabefelder und versucht dann, den Kontakt
+ * zu aktualisieren. Tritt ein Fehler während dieses Prozesses auf, wird der Fehler in der Konsole
+ * protokolliert.
+ *
+ * @async
+ * @function handleEditFormSubmit
+ * @param {Event} event - Das Ereignisobjekt, das das Absenden des Formulars darstellt.
+ * @returns {void}
+ *
+ * @throws {Error} Protokolliert einen Fehler, wenn die Kontakt-ID nicht gefunden wird oder ein Problem
+ *                  beim Aktualisieren des Kontakts auftritt.
  */
 async function handleEditFormSubmit(event) {
   event.preventDefault();
@@ -514,7 +554,7 @@ async function selectContact(contactId) {
 }
 
 /**
- * Deselektiert alle Kontakte in der Kontaktliste.
+ * Wählt alle Kontakte in der Kontaktliste ab.
  */
 function deselectAllContacts() {
   document.querySelectorAll('[id^="contactlist-item"]').forEach(contact => {
@@ -625,7 +665,3 @@ async function handlePostDeleteOperations(contactId) {
   closeEditField();
 }
 
-/**
- * Initialisiert die Formulare und setzt Event-Listener nach dem Laden des Dokuments.
- */
-document.addEventListener("DOMContentLoaded", setupForms);
