@@ -195,7 +195,8 @@ async function openTaskToBoardRender(index, category, title, description, date, 
   }else{
   position.classList.add('modal-overlay');
   position.classList.remove('d-none');
-  position.innerHTML = window.openTaskToBoardHtml(index, category, title, description, date, prio); 
+  position.innerHTML = window.openTaskToBoardHtml(index, category, title, description, date, prio);
+  
 }
 promiseSecondInfoOpenTask(index);
 }
@@ -233,11 +234,12 @@ async function loadSubtaskStatus(indexHtml) {
 }
 
 function closeOpenTask(event, index) {
-  event.stopPropagation(); 
+  event.stopPropagation();
   let openPosition = document.getElementById('openTask');
   openPosition.classList.remove('modal-overlay');
   openPosition.classList.add('d-none');
   openPosition.innerHTML = '';
+
 }
 
 async function searchIndexUrl(index, users, fetchImage){
