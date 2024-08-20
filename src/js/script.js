@@ -205,9 +205,10 @@ async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     const element = taskkeysGlobal[index];
     const taskKeyId = element[indexHtml];
+    console.log(taskKeyId);
     try {
-      console.log(index);
-      let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/${index}/`);
+      console.log(indexHtml);
+      let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/${indexHtml}/`);
       console.log(data);
       if (data !== null) {
         const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
