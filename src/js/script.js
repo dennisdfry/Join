@@ -118,7 +118,7 @@ function updateHTML() {
   ['todo', 'progress', 'feedback', 'done'].forEach(category => {
       document.getElementById(category).innerHTML = '';
       todos.filter(t => t.boardCategory.toLowerCase() === category).forEach(task => {
-          document.getElementById(category).innerHTML += generateTodoHTML(task);
+          document.getElementById(category).innerHTML += generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
       });
   });
 }
