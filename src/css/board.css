@@ -46,16 +46,18 @@ body {
   height: 48px;
   display: flex;
   gap: 10px;
-  margin-right: 100px;
+  margin-right: 110px;
 }
 
 .add-task-button {
   color: #ffffff;
+  width: 164px;
   height: 48px;
   background-color: #2a3647 !important;
   font-family: "Inter700";
-  font-size: 21px;
+  font-size: 20px;
   display: flex;
+  gap: 8px;
   justify-content: center;
   align-items: center;
   border: none;
@@ -68,6 +70,15 @@ body {
   background-color: #007cee;
   color: #ffffff;
   transform: scale(1.1);
+}
+
+.add-task-button img {
+  height: 20px;
+  width: 20px;
+}
+
+.add-task-button span {
+  margin-left: 4px;
 }
 
 .search-task-section {
@@ -84,13 +95,13 @@ body {
   border-bottom-left-radius: 10px;
   outline: none;
   border: none;
-  font-size: 34px;
+  font-size: 20px;
   color: rgba(209, 209, 209, 0.8);
 }
 .search-task-web:focus {
   color: #000000;
-  border: unset;
 }
+
 
 .search-task-section img {
   background-color: #ffffff;
