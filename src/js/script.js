@@ -122,9 +122,7 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
       searchIndexUrl(index, users, fetchImage),
       searchprio(index, prio),
       subtasksRender(index, subtasks),
-      
     ]);
-    
   }
 }
 
@@ -204,28 +202,22 @@ console.error("Keine Daten für den angegebenen Index gefunden.");
 
 async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
-    const element = taskkeysGlobal[index];
-    const taskKeyId = element[indexHtml];
-    let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
-    for (let i = 0; i < data.length; i++) {
-      const element = data[i];
-      try {
-         let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
-      if (element == true) {
+    const taskKeyId = taskkeysGlobal[index][indexHtml];
+    try {
+      let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
+      data.forEach((status, i) => {
+        let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
         if (checkbox) {
-          checkbox.checked = element;
+          checkbox.checked = status;
         } else {
-          console.error(`Checkbox mit ID subtask-${indexHtml}-${index} nicht gefunden.`);
+          console.error(`Checkbox mit ID subtask-${indexHtml}-${i} nicht gefunden.`);
         }
-        checkbox.checked = data;
-      }
+      });
     } catch (error) {
-      console.error(`Fehler beim Laden des Status der Subtask-Checkbox ${index}: `, error);
-    }
+      console.error(`Fehler beim Laden des Status der Subtask-Checkbox ${index}:`, error);
     }
   }
 }
-
 
 function closeOpenTask(event, index) {
   event.stopPropagation();
@@ -310,16 +302,14 @@ async function subtasksRender(indexHtml, subtasks) {
         positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
     } else {
         positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
-    }
-}
+    }}
 
 async function subtasksRenderOpen(indexHtml, subtasks) {
   let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
   position.innerHTML = '';
   subtasksLengthArray.push({
       position: indexHtml,
-      subs: subtasks
-  });
+      subs: subtasks});
   if (Array.isArray(subtasks)) {
     for (let index = 0; index < subtasks.length; index++) {
         const element = subtasks[index];
@@ -328,9 +318,7 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
                 <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task" type="checkbox" id="subtask-${indexHtml}-${index}">
                 <label class="" for="subtask-${indexHtml}-${index}">${element}</label>
             </div>`;
-    }
-}
-}
+    }}}
 
 async function subtaskStatus(indexHtml, index){
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
@@ -339,23 +327,19 @@ async function subtaskStatus(indexHtml, index){
 }
 
 async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
-  for (let i = 0; i < taskkeysGlobal.length; i++) {
-    const taskKeyId = taskkeysGlobal[i][indexHtml];
+  for (const taskKeyId of taskkeysGlobal.map(el => el[indexHtml])) {
     const path = `/tasks/${taskKeyId}/0/subtaskStatus/${index}`;
     try {
-      let response = await fetch(BASE_URL + path + ".json", {
+      const response = await fetch(`${BASE_URL}${path}.json`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(isChecked),
       });
-      if (response.ok) {
-      } else {
-        console.error(`Fehler beim Aktualisieren des Status der Subtask-Checkbox ${index}: `, response.statusText);
+      if (!response.ok) {
+        console.error(`Fehler beim Aktualisieren des Status der Subtask-Checkbox ${index}:`, response.statusText);
       }
     } catch (error) {
-      console.error(`Fehler beim Speichern des Status der Subtask-Checkbox ${index}: `, error);
+      console.error(`Fehler beim Speichern des Status der Subtask-Checkbox ${index}:`, error);
     }
   }
 }
