@@ -250,12 +250,15 @@ async function searchIndexUrl(index, users, fetchImage){
 function tileUserImage(index) {
   const container = document.getElementById(`userImageBoard${index}`);
   const images = container.getElementsByClassName('image-div'); 
+  const containerWidth = 80; 
   const imageWidth = 32; 
-  const overlap = 24;     
+  const imagelength = images.length;
+  const totalImagesWidth = imageWidth * imagelength;
+  const overlap = (totalImagesWidth > containerWidth) ? (totalImagesWidth - containerWidth) / (imagelength - 1) : 0;
   for (let i = 0; i < images.length; i++) {
-      const imagePosition = images[i];
-      imagePosition.style.position = 'absolute';
-      imagePosition.style.left = `${i * overlap}px`;  
+    const imagePosition = images[i];
+    imagePosition.style.position = 'absolute';
+    imagePosition.style.left = `${i * (imageWidth - overlap)}px`;
   }
 }
 
