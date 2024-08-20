@@ -191,12 +191,11 @@ async function promiseSecondInfoOpenTask(index){
   let taskInfo = taskData[index];
   if (taskInfo) {
       let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
+      await subtasksRenderOpen(index, subtasks);
       await Promise.all([
         searchIndexUrlOpen(index, users, fetchImage, userNames),
-        subtasksRenderOpen(index, subtasks),
         searchprio(index, prio),
         searchprioOpenTask(index, prio),
-        
     ]);
     await loadSubtaskStatus(index);
 }else {
@@ -207,12 +206,14 @@ async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     const element = taskkeysGlobal[index];
     const taskKeyId = element[indexHtml];
-    try {
-      let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/${index}`);
-      if (data === true) {
-        const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+    let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      try {
+         let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
+      if (element == true) {
         if (checkbox) {
-          checkbox.checked = data;
+          checkbox.checked = element;
         } else {
           console.error(`Checkbox mit ID subtask-${indexHtml}-${index} nicht gefunden.`);
         }
@@ -221,8 +222,10 @@ async function loadSubtaskStatus(indexHtml) {
     } catch (error) {
       console.error(`Fehler beim Laden des Status der Subtask-Checkbox ${index}: `, error);
     }
+    }
   }
 }
+
 
 function closeOpenTask(event, index) {
   event.stopPropagation();
