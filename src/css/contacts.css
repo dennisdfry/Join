@@ -36,13 +36,13 @@ body {
   box-shadow: 4px 0px 6px 0px #00000014;
   overflow-x: hidden;
   overflow-y: scroll;
-  scrollbar-width: thin;
+  scrollbar-width: none;
   scrollbar-color: #2a3647 #e0e0e0;
   -ms-overflow-style: none;
 }
 
 #contactlist-section::-webkit-scrollbar {
-  width: 24px;
+  display: none;
 }
 #contactlist-section::-webkit-scrollbar-thumb {
   background-color: #2a3647;
