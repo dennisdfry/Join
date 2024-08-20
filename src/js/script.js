@@ -110,6 +110,50 @@ async function generateHTMLObjects(taskkeys, task) {
   }
 }
 
+// //
+
+let currentDraggedElement;
+
+function updateHTML() {
+  ['todo', 'progress', 'feedback', 'done'].forEach(category => {
+      document.getElementById(category).innerHTML = '';
+      todos.filter(t => t.boardCategory.toLowerCase() === category).forEach(task => {
+          document.getElementById(category).innerHTML += generateTodoHTML(task);
+      });
+  });
+}
+
+function startDragging(id) {
+  currentDraggedElement = id;
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+async function moveTo(category) {
+let task = todos.find(t => t.id == currentDraggedElement);
+if (task) {
+    task.boardCategory = category.charAt(0).toUpperCase() + category.slice(1);
+    await updateTaskInFirebase(task);
+    updateHTML();
+}
+}
+
+async function updateTaskInFirebase(task) {
+  try {
+      await fetch(`${BASE_URL}/tasks/${task.id}/0.json`, {
+          method: 'PATCH',
+          body: JSON.stringify({ boardCategory: task.boardCategory }),
+          headers: { 'Content-Type': 'application/json' }
+      });
+  } catch (error) {
+      console.error('Error updating task in Firebase:', error);
+  }
+}
+
+// //
+
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
   console.log(taskkeys);
   console.log(task);
