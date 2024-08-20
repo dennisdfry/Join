@@ -122,8 +122,9 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
       searchIndexUrl(index, users, fetchImage),
       searchprio(index, prio),
       subtasksRender(index, subtasks),
-      loadSubtaskStatus(index)
+      
     ]);
+    
   }
 }
 
@@ -195,8 +196,9 @@ async function promiseSecondInfoOpenTask(index){
         subtasksRenderOpen(index, subtasks),
         searchprio(index, prio),
         searchprioOpenTask(index, prio),
-        loadSubtaskStatus(index)
+        
     ]);
+    await loadSubtaskStatus(index);
 }else {
 console.error("Keine Daten für den angegebenen Index gefunden.");
 }}
@@ -205,14 +207,15 @@ async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     const element = taskkeysGlobal[index];
     const taskKeyId = element[indexHtml];
-    console.log(taskKeyId);
     try {
-      console.log(indexHtml);
-      let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/${indexHtml}/`);
-      console.log(data);
-      if (data !== null) {
+      let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/${index}`);
+      if (data === true) {
         const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
-        console.log(checkbox);
+        if (checkbox) {
+          checkbox.checked = data;
+        } else {
+          console.error(`Checkbox mit ID subtask-${indexHtml}-${index} nicht gefunden.`);
+        }
         checkbox.checked = data;
       }
     } catch (error) {
@@ -342,7 +345,6 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
         body: JSON.stringify(isChecked),
       });
       if (response.ok) {
-        console.log(`Status der Subtask-Checkbox ${index} wurde erfolgreich aktualisiert.`);
       } else {
         console.error(`Fehler beim Aktualisieren des Status der Subtask-Checkbox ${index}: `, response.statusText);
       }
