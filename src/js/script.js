@@ -80,7 +80,6 @@ async function loadingBoard() {
       let task = await onloadDataBoard("/tasks");
       let taskkeys = Object.keys(task);
       taskkeysGlobal.push(taskkeys);
-      console.log(taskkeysGlobal);
       let fetchImage = await fetchImagesBoard("/");
       await generateHTMLObjects(taskkeys, task);
       await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
@@ -111,34 +110,20 @@ async function generateHTMLObjects(taskkeys, task) {
 }
 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
-  console.log(taskkeys);
-  console.log(task);
-  console.log(fetchImage);
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID]
-    console.log(taskFolder)
     let users = taskFolder[0].assignedTo;
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
     let userNames = taskFolder[0].assignedToNames;
-    // let users = task.tasksID[0].assignedTo;
-    // const taskID = task[taskkeys[index]];
-    // console.log(tasks)
-    // const { assignedTo: userss, assignedToNames: userNames, prio, subtasks } = task[taskkeys[index]][0];
-    taskData[index] = { users, userNames, prio, subtasks, fetchImage };
-    console.log(userNames)
-    console.log(users)
-    console.log(subtasks)
-    console.log(prio);
-
+   taskData[index] = { users, userNames, prio, subtasks, fetchImage };
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
       searchprio(index, prio),
       subtasksRender(index, subtasks),
       loadSubtaskStatus(index)
     ]);
-    
   }
 }
 
@@ -205,7 +190,6 @@ async function promiseSecondInfoOpenTask(index){
   let taskInfo = taskData[index];
   if (taskInfo) {
       let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
-      console.log(prio)
       await Promise.all([
         searchIndexUrlOpen(index, users, fetchImage, userNames),
         subtasksRenderOpen(index, subtasks),
@@ -222,9 +206,12 @@ async function loadSubtaskStatus(indexHtml) {
     const element = taskkeysGlobal[index];
     const taskKeyId = element[indexHtml];
     try {
-      let data = await onloadDataBoard(`/tasks/${taskKeyId}/subtasksStatus/${index}`);
+      console.log(index);
+      let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/${index}/`);
+      console.log(data);
       if (data !== null) {
         const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+        console.log(checkbox);
         checkbox.checked = data;
       }
     } catch (error) {
@@ -243,19 +230,14 @@ function closeOpenTask(event, index) {
 }
 
 async function searchIndexUrl(index, users, fetchImage){
-  console.log(fetchImage);
-  console.log(users);
-  console.log(index);
   let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
-  
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
     position.innerHTML += await htmlBoardImage(imageUrl, index);
   }
   setTimeout(() => tileUserImage(index), 50);
-
 }
 
 function tileUserImage(index) {
@@ -305,7 +287,6 @@ async function htmlBoardImageOpen(imageUrl, index, names){
 }
 
 async function subtasksRender(indexHtml, subtasks) {
-  console.log(subtasks)
     subtasksLengthArray.push({
         position: indexHtml,
         subs: subtasks
@@ -343,16 +324,14 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
 
 async function subtaskStatus(indexHtml, index){
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
-  console.log(checkbox);
   const isChecked = checkbox.checked;
-  console.log(isChecked);
   await statusSubtaskSaveToFirebase(isChecked, indexHtml, index );
 }
 
 async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
   for (let i = 0; i < taskkeysGlobal.length; i++) {
     const taskKeyId = taskkeysGlobal[i][indexHtml];
-    const path = `/tasks/${taskKeyId}/0/${index}`;
+    const path = `/tasks/${taskKeyId}/0/subtaskStatus/${index}`;
     try {
       let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
