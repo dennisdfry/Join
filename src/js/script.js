@@ -171,7 +171,7 @@ async function updateTaskInFirebase(task) {
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
   console.log(taskkeys);
   console.log(task);
-  console.log(fetchImage);
+  //console.log(fetchImage);
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID]
@@ -185,10 +185,10 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
     // console.log(tasks)
     // const { assignedTo: userss, assignedToNames: userNames, prio, subtasks } = task[taskkeys[index]][0];
     taskData[index] = { users, userNames, prio, subtasks, fetchImage };
-    console.log(userNames)
-    console.log(users)
-    console.log(subtasks)
-    console.log(prio);
+    //console.log(userNames)
+    //console.log(users)
+    //console.log(subtasks)
+    //console.log(prio);
 
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
@@ -301,9 +301,9 @@ function closeOpenTask(event, index) {
 }
 
 async function searchIndexUrl(index, users, fetchImage){
-  console.log(fetchImage);
-  console.log(users);
-  console.log(index);
+  //console.log(fetchImage);
+  //console.log(users);
+  //console.log(index);
   let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
   
@@ -363,7 +363,7 @@ async function htmlBoardImageOpen(imageUrl, index, names){
 }
 
 async function subtasksRender(indexHtml, subtasks) {
-  console.log(subtasks)
+  //console.log(subtasks)
     subtasksLengthArray.push({
         position: indexHtml,
         subs: subtasks
@@ -401,9 +401,9 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
 
 async function subtaskStatus(indexHtml, index){
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
-  console.log(checkbox);
+  //console.log(checkbox);
   const isChecked = checkbox.checked;
-  console.log(isChecked);
+  //console.log(isChecked);
   await statusSubtaskSaveToFirebase(isChecked, indexHtml, index );
 }
 
