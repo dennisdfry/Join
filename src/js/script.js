@@ -175,7 +175,7 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID]
-    console.log(taskFolder)
+    //console.log(taskFolder)
     let users = taskFolder[0].assignedTo;
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
