@@ -76,6 +76,7 @@ function hideDropdown() {
 }
 
 let task;
+let currentDraggedElement;
 
 async function loadingBoard() {
   try {
@@ -114,8 +115,6 @@ async function generateHTMLObjects(taskkeys, task) {
 
 // //
 
-let currentDraggedElement;
-
 async function updateHTML(task) {
   const categories = ['todo', 'progress', 'feedback', 'done'];
 
@@ -134,12 +133,10 @@ async function updateHTML(task) {
   }
 }
 
-
-function startDragging(id) {
-  currentDraggedElement = id;  // Prüfe, ob `id` den korrekten Wert hat
-  console.log('Dragging element with ID:', id);
+function startDragging(taskkey) {
+  currentDraggedElement = taskkey;  // Prüfe, ob `id` den korrekten Wert hat
+  console.log('Dragging element with taskkey:', taskkey);
 }
-
 
 function allowDrop(ev) {
   ev.preventDefault();
@@ -156,7 +153,6 @@ function moveTo(category) {
     console.error("Task oder currentDraggedElement ist nicht definiert.");
   }
 }
-
 
 async function updateTaskInFirebase(task) {
   try {
