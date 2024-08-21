@@ -50,10 +50,10 @@
             </div>
         </section>
         <section class="board-render-section" id="renderSectionBoard">
-            <div class="board-render-status-container drag-area" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container drag-area" id="progress" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container drag-area" id="feedback" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container drag-area" id="done" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="todo" ondrop="moveTo('todo')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="progress" ondrop="moveTo('progress')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="feedback" ondrop="moveTo('feedback')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
         </section>
     </div>
     <div id="openTask" class="d-none d-flex-center "></div>

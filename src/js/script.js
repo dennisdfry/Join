@@ -75,9 +75,11 @@ function hideDropdown() {
   }
 }
 
+let task;
+
 async function loadingBoard() {
   try {
-      let task = await onloadDataBoard("/tasks");
+      task = await onloadDataBoard("/tasks");
       let taskkeys = Object.keys(task);
       taskkeysGlobal.push(taskkeys);
       console.log(taskkeysGlobal);
@@ -114,31 +116,47 @@ async function generateHTMLObjects(taskkeys, task) {
 
 let currentDraggedElement;
 
-function updateHTML() {
-  ['todo', 'progress', 'feedback', 'done'].forEach(category => {
+async function updateHTML(task) {
+  const categories = ['todo', 'progress', 'feedback', 'done'];
+
+  for (const category of categories) {
       document.getElementById(category).innerHTML = '';
-      todos.filter(t => t.boardCategory.toLowerCase() === category).forEach(task => {
-          document.getElementById(category).innerHTML += generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
-      });
-  });
+
+      const filteredTasks = task.filter(t => t.boardCategory.toLowerCase() === category);
+
+      for (const task of filteredTasks) {
+          // Hier rufen wir die asynchrone htmlboard-Funktion auf und warten auf das Ergebnis.
+          const htmlContent = await window.htmlboard(task.index, task.category, task.title, task.description, task.date, task.prio);
+
+          // Füge das generierte HTML zur entsprechenden Kategorie hinzu.
+          document.getElementById(category).innerHTML += htmlContent;
+      }
+  }
 }
 
+
 function startDragging(id) {
-  currentDraggedElement = id;
+  currentDraggedElement = id;  // Prüfe, ob `id` den korrekten Wert hat
+  console.log('Dragging element with ID:', id);
 }
+
 
 function allowDrop(ev) {
   ev.preventDefault();
 }
 
-async function moveTo(category) {
-let task = todos.find(t => t.id == currentDraggedElement);
-if (task) {
-    task.boardCategory = category.charAt(0).toUpperCase() + category.slice(1);
-    await updateTaskInFirebase(task);
+function moveTo(category) {
+  console.log(task);  // Überprüfe, ob `task` richtig definiert ist
+  console.log(currentDraggedElement);  // Überprüfe, ob `currentDraggedElement` den richtigen Wert hat
+
+  if (task && task[currentDraggedElement]) {
+    task[currentDraggedElement]['category'] = category;
     updateHTML();
+  } else {
+    console.error("Task oder currentDraggedElement ist nicht definiert.");
+  }
 }
-}
+
 
 async function updateTaskInFirebase(task) {
   try {
