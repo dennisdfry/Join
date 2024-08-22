@@ -104,8 +104,8 @@ async function fetchImagesBoard(path=""){
 
 async function generateHTMLObjects(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
-    const { category, description, dueDate, prio, title } = task[taskkeys[index]][0];
-    await positionOfHTMLBlock(index, category, title, description, dueDate, prio);
+    const { category, description, dueDate, prio, title, boardCategory } = task[taskkeys[index]][0];
+    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
     
   }
 }
@@ -136,8 +136,9 @@ function limitTextTo50Chars(id) {
   }
 }
 
-async function positionOfHTMLBlock(index, category, title, description, date, prio){
-  let position = document.getElementById('todo');
+async function positionOfHTMLBlock(index, category, title, description, date, prio, boardCategory){
+  console.log(boardCategory)
+  let position = document.getElementById(`${boardCategory}`);
  position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);  
  limitTextTo50Chars(`limitTextDesciption${index}`)
 }
