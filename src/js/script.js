@@ -1,7 +1,7 @@
 let subtasksLengthArray = [];
 const taskData = {};
 const taskkeysGlobal =[];
-
+const progressSatusTrue = [];
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -106,6 +106,7 @@ async function generateHTMLObjects(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
     const { category, description, dueDate, prio, title } = task[taskkeys[index]][0];
     await positionOfHTMLBlock(index, category, title, description, dueDate, prio);
+    
   }
 }
 
@@ -123,6 +124,7 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
       searchprio(index, prio),
       subtasksRender(index, subtasks),
     ]);
+    await progressBar(index);
   }
 }
 
@@ -196,27 +198,38 @@ async function promiseSecondInfoOpenTask(index){
         searchprioOpenTask(index, prio),
     ]);
     await loadSubtaskStatus(index);
+    
 }else {
 console.error("Keine Daten für den angegebenen Index gefunden.");
 }}
 
 async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
-    const taskKeyId = taskkeysGlobal[index][indexHtml];
-    try {
-      let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
-      data.forEach((status, i) => {
-        let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
+    const element = taskkeysGlobal[index];
+    const taskKeyId = element[indexHtml];
+    let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
+    console.log(data);
+    if(data == null){
+      return
+    }
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      try {
+         let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
+      if (element == true) {
         if (checkbox) {
-          checkbox.checked = status;
+          checkbox.checked = element;
         } else {
-          console.error(`Checkbox mit ID subtask-${indexHtml}-${i} nicht gefunden.`);
+          console.error(`Checkbox mit ID subtask-${indexHtml}-${index} nicht gefunden.`);
         }
-      });
+        checkbox.checked = data;
+      }
+     
     } catch (error) {
-      console.error(`Fehler beim Laden des Status der Subtask-Checkbox ${index}:`, error);
+      console.error(`Fehler beim Laden des Status der Subtask-Checkbox ${index}: `, error);
     }
   }
+}
 }
 
 function closeOpenTask(event, index) {
@@ -229,6 +242,9 @@ function closeOpenTask(event, index) {
 }
 
 async function searchIndexUrl(index, users, fetchImage){
+  if (!users || users.length === 0) {
+    return;
+  }
   let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
   for (let index = 0; index < users.length; index++) {
@@ -265,6 +281,9 @@ async function userNamesRender(index){
 async function searchIndexUrlOpen(index, users, fetchImage, userNames){
   let position = document.getElementById(`userImageBoardOpen${index}`);
   position.innerHTML = '';
+  if (!users || users.length === 0) {
+    return;
+  }
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     const names = userNames[index];
@@ -294,7 +313,6 @@ async function subtasksRender(indexHtml, subtasks) {
         subs: subtasks
     });
     let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
-    let progressBar = document.getElementById(`progressbar${indexHtml}`);
     if (Array.isArray(subtasks)) {
         for (let index = 0; index < subtasks.length; index++) {
             const element = subtasks[index];
@@ -357,3 +375,26 @@ function dueDateEditTask(index, date){
   position.value = date;
 }
 
+async function progressBar(indexHtml) {
+  let progressBar = document.getElementById(`progressBar${indexHtml}`);
+  let trueCount = 0; 
+  let totalCount = 0; 
+  for (let index = 0; index < taskkeysGlobal.length; index++) {
+    const element = taskkeysGlobal[index];
+    const taskKeyId = element[indexHtml];
+    let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
+    if (!data || data.length === 0) {
+      return; 
+    }
+    for (let i = 0; i < data.length; i++) {
+      const statusID = data[i];
+      if(statusID == true){
+        progressSatusTrue.push({
+          id:data,
+          statusTrue:statusID
+        })
+      }
+      console.log(progressSatusTrue)
+    }
+  }
+}
