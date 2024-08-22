@@ -155,11 +155,8 @@ async function updateHTML() {
 }
 
 function startDragging(taskkey) {
-  currentDraggedElement = taskkey;  // Prüfe, ob `id` den korrekten Wert hat
-  console.log('Dragging element with taskkey:', taskkey);
-  console.log('Dragging element with taskkey:', taskkeysGlobal);
-  console.log('Dragging element with taskData:', taskData);
-  console.log('Dragging element with taskData:', task);
+  currentDraggedElement = taskkey;
+  console.log('Dragging element with taskkey:', currentDraggedElement);
 }
 
 function allowDrop(ev) {
