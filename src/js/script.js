@@ -150,7 +150,6 @@ function onDrop(event) {
   moveTo(newCategory);
 }
 
-
 async function moveTo(category) {
   if (currentDraggedElement) {
     // Update the boardCategory in the local task data

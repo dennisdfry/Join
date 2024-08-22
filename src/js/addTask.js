@@ -14,7 +14,6 @@ async function init() {
         let contacts = await fetchContacts(fireBaseData);
         let imageUrls = await fetchImages();
         await assignedTo(contacts, imageUrls);
-        await loadingBoard();
     } catch (error) {
         console.error("Fehler bei der Initialisierung:", error);
     }
