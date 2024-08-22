@@ -1,6 +1,9 @@
 let subtasksLengthArray = [];
 const taskData = {};
-const taskkeysGlobal =[];
+let taskkeys = [];
+const taskkeysGlobal = [];
+let task = [];
+let currentDraggedElement;
 
 
 async function includeHTML() {
@@ -75,13 +78,10 @@ function hideDropdown() {
   }
 }
 
-let task;
-let currentDraggedElement;
-
 async function loadingBoard() {
   try {
       task = await onloadDataBoard("/tasks");
-      let taskkeys = Object.keys(task);
+      taskkeys = Object.keys(task);
       taskkeysGlobal.push(taskkeys);
       console.log(taskkeysGlobal);
       let fetchImage = await fetchImagesBoard("/");
@@ -115,7 +115,7 @@ async function generateHTMLObjects(taskkeys, task) {
 
 // //
 
-async function updateHTML(task) {
+/*async function updateHTML(task) {
   const categories = ['todo', 'progress', 'feedback', 'done'];
 
   for (const category of categories) {
@@ -123,7 +123,7 @@ async function updateHTML(task) {
 
       const filteredTasks = task.filter(t => t.boardCategory.toLowerCase() === category);
 
-      for (const task of filteredTasks) {
+      for (task of filteredTasks) {
           // Hier rufen wir die asynchrone htmlboard-Funktion auf und warten auf das Ergebnis.
           const htmlContent = await window.htmlboard(task.index, task.category, task.title, task.description, task.date, task.prio);
 
@@ -131,11 +131,35 @@ async function updateHTML(task) {
           document.getElementById(category).innerHTML += htmlContent;
       }
   }
+}*/
+
+async function updateHTML() {
+  let todo = task.filter(t => t['boardCategory'] == 'todo');
+  const htmlContent = await window.htmlboard(task.index, task.category, task.title, task.description, task.date, task.prio);
+
+  document.getElementById('todo').innerHTML = '';
+
+  for (let index = 0; index < todo.length; index++) {
+      const element = todo[index];
+      document.getElementById('todo').innerHTML += htmlContent(element);
+  }
+
+  let progress = task.filter(t => t['boardCategory'] == 'progress');
+
+  document.getElementById('progress').innerHTML = '';
+
+  for (let index = 0; index < progress.length; index++) {
+      const element = progress[index];
+      document.getElementById('progress').innerHTML += htmlContent(element);
+  }
 }
 
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;  // Prüfe, ob `id` den korrekten Wert hat
   console.log('Dragging element with taskkey:', taskkey);
+  console.log('Dragging element with taskkey:', taskkeysGlobal);
+  console.log('Dragging element with taskData:', taskData);
+  console.log('Dragging element with taskData:', task);
 }
 
 function allowDrop(ev) {
@@ -144,14 +168,11 @@ function allowDrop(ev) {
 
 function moveTo(category) {
   console.log(task);  // Überprüfe, ob `task` richtig definiert ist
+  console.log(taskkeys);  // Überprüfe, ob `taskkeys` richtig definiert ist
   console.log(currentDraggedElement);  // Überprüfe, ob `currentDraggedElement` den richtigen Wert hat
 
-  if (task && task[currentDraggedElement]) {
-    task[currentDraggedElement]['category'] = category;
-    updateHTML();
-  } else {
-    console.error("Task oder currentDraggedElement ist nicht definiert.");
-  }
+  task[currentDraggedElement]['boardCategory'] = category;
+  updateHTML();
 }
 
 async function updateTaskInFirebase(task) {
