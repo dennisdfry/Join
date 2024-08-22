@@ -108,8 +108,9 @@ async function fetchImagesBoard(path=""){
 
 async function generateHTMLObjects(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
-    const { category, description, dueDate, prio, title } = task[taskkeys[index]][0];
-    await positionOfHTMLBlock(index, category, title, description, dueDate, prio);
+    const { category, description, dueDate, prio, title, boardCategory } = task[taskkeys[index]][0];
+    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
+    
   }
 }
 
@@ -117,22 +118,19 @@ async function generateHTMLObjects(taskkeys, task) {
 
 async function updateHTML() {
   const categories = ['todo', 'progress', 'feedback', 'done'];
+  
   for (const category of categories) {
     const container = document.getElementById(category);
-    container.innerHTML = ''; // Clear existing content
+    container.innerHTML = '';
+  }
 
-    // Filter tasks based on the category
-    const filteredTasks = Object.keys(task).filter(taskId => task[taskId][0].boardCategory.toLowerCase() === category);
-  
-    // Generate HTML for each task
-    for (const taskId of filteredTasks) {
-      const { category, title, description, dueDate, prio } = task[taskId][0];
-      const index = taskkeys.indexOf(taskId);
-      const htmlContent = await window.htmlboard(index, category, title, description, dueDate, prio);
-      container.innerHTML += htmlContent;
-    }
+  try {
+    await loadingBoard();
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren der HTML-Inhalte:', error);
   }
 }
+
 
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
@@ -151,16 +149,13 @@ function onDrop(event) {
 
 async function moveTo(category) {
   if (currentDraggedElement) {
-    // Update der Kategorie in den lokalen Daten
     task[currentDraggedElement]['boardCategory'] = category;
 
-    // Update der Kategorie in Firebase
     await updateTaskInFirebase({
       id: currentDraggedElement,
       boardCategory: category
     });
 
-    // Sofortige HTML-Aktualisierung
     await updateHTML();
   } else {
     console.error('No task is being dragged.');
