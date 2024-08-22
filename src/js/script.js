@@ -83,7 +83,7 @@ async function loadingBoard() {
       task = await onloadDataBoard("/tasks");
       taskkeys = Object.keys(task);
       taskkeysGlobal.push(taskkeys);
-      console.log(taskkeysGlobal);
+      //console.log(taskkeysGlobal);
       let fetchImage = await fetchImagesBoard("/");
       await generateHTMLObjects(taskkeys, task);
       await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
@@ -134,25 +134,25 @@ async function generateHTMLObjects(taskkeys, task) {
 }*/
 
 async function updateHTML() {
-  let todo = task.filter(t => t['boardCategory'] == 'todo');
-  const htmlContent = await window.htmlboard(task.index, task.category, task.title, task.description, task.date, task.prio);
+  const categories = ['todo', 'progress', 'feedback', 'done'];
 
-  document.getElementById('todo').innerHTML = '';
+  for (const category of categories) {
+    const container = document.getElementById(category);
+    container.innerHTML = ''; // Clear existing content
 
-  for (let index = 0; index < todo.length; index++) {
-      const element = todo[index];
-      document.getElementById('todo').innerHTML += htmlContent(element);
-  }
+    // Filter tasks based on the category
+    const filteredTasks = Object.keys(task).filter(taskId => task[taskId][0].boardCategory.toLowerCase() === category);
 
-  let progress = task.filter(t => t['boardCategory'] == 'progress');
-
-  document.getElementById('progress').innerHTML = '';
-
-  for (let index = 0; index < progress.length; index++) {
-      const element = progress[index];
-      document.getElementById('progress').innerHTML += htmlContent(element);
+    // Generate HTML for each task
+    for (const taskId of filteredTasks) {
+      const { category, title, description, dueDate, prio } = task[taskId][0];
+      const index = taskkeys.indexOf(taskId);
+      const htmlContent = await window.htmlboard(index, category, title, description, dueDate, prio);
+      container.innerHTML += htmlContent;
+    }
   }
 }
+
 
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
@@ -163,37 +163,55 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-function moveTo(category) {
-  console.log(task);  // Überprüfe, ob `task` richtig definiert ist
-  console.log(taskkeys);  // Überprüfe, ob `taskkeys` richtig definiert ist
-  console.log(currentDraggedElement);  // Überprüfe, ob `currentDraggedElement` den richtigen Wert hat
-
-  task[currentDraggedElement]['boardCategory'] = category;
-  updateHTML();
+function onDrop(event) {
+  event.preventDefault();
+  const newCategory = event.target.dataset.category; // Assuming your drop target has a data-category attribute
+  moveTo(newCategory);
 }
+
+
+async function moveTo(category) {
+  if (currentDraggedElement) {
+    // Update the boardCategory in the local task data
+    task[currentDraggedElement]['boardCategory'] = category;
+
+    // Update the boardCategory in Firebase
+    await updateTaskInFirebase({
+      id: currentDraggedElement,
+      boardCategory: category
+    });
+
+    // Refresh the HTML content
+    await updateHTML();
+  } else {
+    console.error('No task is being dragged.');
+  }
+}
+
 
 async function updateTaskInFirebase(task) {
   try {
-      await fetch(`${BASE_URL}/tasks/${task.id}/0.json`, {
-          method: 'PATCH',
-          body: JSON.stringify({ boardCategory: task.boardCategory }),
-          headers: { 'Content-Type': 'application/json' }
-      });
+    await fetch(`${BASE_URL}/tasks/${task.id}/0.json`, {
+      method: 'PATCH',
+      body: JSON.stringify({ boardCategory: task.boardCategory }),
+      headers: { 'Content-Type': 'application/json' }
+    });
   } catch (error) {
-      console.error('Error updating task in Firebase:', error);
+    console.error('Error updating task in Firebase:', error);
   }
 }
+
 
 // //
 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
-  console.log(taskkeys);
+  //console.log(taskkeys);
   console.log(task);
   //console.log(fetchImage);
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
-    const taskFolder = task[tasksID]
-    //console.log(taskFolder)
+    const taskFolder = task[tasksID];
+    console.log(taskFolder);
     let users = taskFolder[0].assignedTo;
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
