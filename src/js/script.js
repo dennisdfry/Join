@@ -2,7 +2,7 @@ let subtasksLengthArray = [];
 const taskData = {};
 let taskkeys = [];
 const taskkeysGlobal = [];
-let task = [];
+let task = {};
 let currentDraggedElement;
 
 
@@ -184,12 +184,12 @@ async function updateTaskInFirebase(task) {
 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
   //console.log(taskkeys);
-  console.log(task);
+  //console.log(task);
   //console.log(fetchImage);
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID];
-    console.log(taskFolder);
+    //console.log(taskFolder);
     let users = taskFolder[0].assignedTo;
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
