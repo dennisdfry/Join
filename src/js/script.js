@@ -117,14 +117,13 @@ async function generateHTMLObjects(taskkeys, task) {
 
 async function updateHTML() {
   const categories = ['todo', 'progress', 'feedback', 'done'];
-
   for (const category of categories) {
     const container = document.getElementById(category);
     container.innerHTML = ''; // Clear existing content
 
     // Filter tasks based on the category
     const filteredTasks = Object.keys(task).filter(taskId => task[taskId][0].boardCategory.toLowerCase() === category);
-
+  
     // Generate HTML for each task
     for (const taskId of filteredTasks) {
       const { category, title, description, dueDate, prio } = task[taskId][0];
@@ -152,16 +151,16 @@ function onDrop(event) {
 
 async function moveTo(category) {
   if (currentDraggedElement) {
-    // Update the boardCategory in the local task data
+    // Update der Kategorie in den lokalen Daten
     task[currentDraggedElement]['boardCategory'] = category;
 
-    // Update the boardCategory in Firebase
+    // Update der Kategorie in Firebase
     await updateTaskInFirebase({
       id: currentDraggedElement,
       boardCategory: category
     });
 
-    // Refresh the HTML content
+    // Sofortige HTML-Aktualisierung
     await updateHTML();
   } else {
     console.error('No task is being dragged.');
