@@ -164,7 +164,6 @@ async function moveTo(category) {
 
     // Refresh the HTML content
     await updateHTML();
-    await loadingBoard();
   } else {
     console.error('No task is being dragged.');
   }
@@ -185,26 +184,20 @@ async function updateTaskInFirebase(task) {
 // //
 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
-  //console.log(taskkeys);
-  console.log(task);
-  //console.log(fetchImage);
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID];
-    console.log(taskFolder);
+    console.log('Task Folder:', taskFolder);
+
     let users = taskFolder[0].assignedTo;
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
     let userNames = taskFolder[0].assignedToNames;
-    // let users = task.tasksID[0].assignedTo;
-    // const taskID = task[taskkeys[index]];
-    // console.log(tasks)
-    // const { assignedTo: userss, assignedToNames: userNames, prio, subtasks } = task[taskkeys[index]][0];
+
+    console.log('Users:', users);
+    console.log('Fetch Image:', fetchImage);
+
     taskData[index] = { users, userNames, prio, subtasks, fetchImage };
-    //console.log(userNames)
-    //console.log(users)
-    //console.log(subtasks)
-    //console.log(prio);
 
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
@@ -212,9 +205,9 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
       subtasksRender(index, subtasks),
       loadSubtaskStatus(index)
     ]);
-    
   }
 }
+
 
 function limitTextTo50Chars(id) {
   const element = document.getElementById(id);
@@ -317,20 +310,30 @@ function closeOpenTask(event, index) {
 }
 
 async function searchIndexUrl(index, users, fetchImage){
-  //console.log(fetchImage);
-  //console.log(users);
-  //console.log(index);
+  console.log('Users:', users);  // Fügen Sie Debugging-Ausgaben hinzu
+  console.log('Fetch Image:', fetchImage);  // Fügen Sie Debugging-Ausgaben hinzu
+  
   let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
-  
-  for (let index = 0; index < users.length; index++) {
-    const element = users[index];
+
+  if (!Array.isArray(users)) {  // Überprüfen, ob users ein Array ist
+    console.error('Users ist kein Array:', users);
+    return;
+  }
+
+  if (!fetchImage || typeof fetchImage !== 'object') {  // Überprüfen, ob fetchImage ein Objekt ist
+    console.error('FetchImage ist kein Objekt:', fetchImage);
+    return;
+  }
+
+  for (let i = 0; i < users.length; i++) {
+    const element = users[i];
     let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImage(imageUrl, index);
+    position.innerHTML += await htmlBoardImage(imageUrl, i);
   }
   setTimeout(() => tileUserImage(index), 50);
-
 }
+
 
 function tileUserImage(index) {
   const container = document.getElementById(`userImageBoard${index}`);
