@@ -221,8 +221,9 @@ function limitTextTo50Chars(id) {
   }
 }
 
-async function positionOfHTMLBlock(index, category, title, description, date, prio){
-  let position = document.getElementById('todo');
+async function positionOfHTMLBlock(index, category, title, description, date, prio, boardCategory){
+  console.log(boardCategory)
+  let position = document.getElementById(`${boardCategory}`);
  position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);  
  limitTextTo50Chars(`limitTextDesciption${index}`)
 }
