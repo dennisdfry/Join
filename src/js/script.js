@@ -115,24 +115,6 @@ async function generateHTMLObjects(taskkeys, task) {
 
 // //
 
-/*async function updateHTML(task) {
-  const categories = ['todo', 'progress', 'feedback', 'done'];
-
-  for (const category of categories) {
-      document.getElementById(category).innerHTML = '';
-
-      const filteredTasks = task.filter(t => t.boardCategory.toLowerCase() === category);
-
-      for (task of filteredTasks) {
-          // Hier rufen wir die asynchrone htmlboard-Funktion auf und warten auf das Ergebnis.
-          const htmlContent = await window.htmlboard(task.index, task.category, task.title, task.description, task.date, task.prio);
-
-          // Füge das generierte HTML zur entsprechenden Kategorie hinzu.
-          document.getElementById(category).innerHTML += htmlContent;
-      }
-  }
-}*/
-
 async function updateHTML() {
   const categories = ['todo', 'progress', 'feedback', 'done'];
 
@@ -153,7 +135,6 @@ async function updateHTML() {
   }
 }
 
-
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
   console.log('Dragging element with taskkey:', currentDraggedElement);
@@ -165,7 +146,7 @@ function allowDrop(ev) {
 
 function onDrop(event) {
   event.preventDefault();
-  const newCategory = event.target.dataset.category; // Assuming your drop target has a data-category attribute
+  const newCategory = event.target.dataset.category;
   moveTo(newCategory);
 }
 
@@ -183,11 +164,11 @@ async function moveTo(category) {
 
     // Refresh the HTML content
     await updateHTML();
+    await loadingBoard();
   } else {
     console.error('No task is being dragged.');
   }
 }
-
 
 async function updateTaskInFirebase(task) {
   try {
@@ -200,7 +181,6 @@ async function updateTaskInFirebase(task) {
     console.error('Error updating task in Firebase:', error);
   }
 }
-
 
 // //
 

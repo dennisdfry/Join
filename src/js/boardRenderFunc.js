@@ -1,7 +1,7 @@
 
 window.htmlboard = async function(index, category, title, description, date, prio) {
     return `
-    <div id="task-<taskId>" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container">
+    <div id="task-<taskId>" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container" id="parentContainer${index}">
         <div class="d-flex-between">
             <h1 class="txt-center">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
