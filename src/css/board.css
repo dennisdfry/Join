@@ -143,6 +143,13 @@ body {
   align-items: center;
 }
 
+.board-task-column-right {
+  padding-right: 76px;
+}
+
+.board-task-column-left {
+  padding-left: 30px;
+}
 .board-task-column h4 {
   color: #42526e;
   font-family: "Inter700";
