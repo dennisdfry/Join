@@ -428,3 +428,25 @@ body {
   background-size: 24px;
   /* Größe des benutzerdefinierten Symbols */
 }
+
+.drag-area {
+  height: 2000px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px dashed black;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.drag-area-highlight {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.todo {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}

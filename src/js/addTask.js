@@ -133,7 +133,7 @@ function pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCat
         prio: lastString,
         category: taskCategory,
         subtasks: subtasksArray,
-        boardCategory: 'ToDo'
+        boardCategory: 'todo'
     });
 }
 

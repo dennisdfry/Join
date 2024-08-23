@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/board.css">
     <link rel="stylesheet" href="../src/css/utils.css">
-    <link rel="stylesheet" href="../src/css/addTask.css">
-    <script src="/src/js/boardRenderFunc.js"></script>
+    <link rel="stylesheet" href="../src/css/addTask.css">    
     <script src="/src/js/script.js"></script>
+    <script src="/src/js/boardRenderFunc.js"></script>
     
     <link rel="icon" href="./img/user_logo.png" type="image/png">
 
@@ -50,10 +50,10 @@
             </div>
         </section>
         <section class="board-render-section" id="renderSectionBoard">
-            <div class="board-render-status-container" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container" id="progress" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container" id="awaitFeedback" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container" id="done" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="todo" ondrop="moveTo('todo')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="progress" ondrop="moveTo('progress')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="feedback" ondrop="moveTo('feedback')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
         </section>
     </div>
     <div id="openTask" class="d-none d-flex-center "></div>
