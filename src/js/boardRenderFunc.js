@@ -55,7 +55,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               </div>
           </div>
           <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
-              <div class="" id="subtasksBoardOpen${index}"></div>
+              <div class="subtask-scrollbar" id="subtasksBoardOpen${index}"></div>
           <div class="d-flex-end">
             <div class="d-flex item-center">
               <div class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none" >Delete</p></div>
