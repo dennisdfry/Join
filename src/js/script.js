@@ -273,7 +273,6 @@ async function loadSubtaskStatus(indexHtml) {
     const element = taskkeysGlobal[index];
     const taskKeyId = element[indexHtml];
     let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
-    console.log(data);
     if(data == null){
       return
     }
@@ -303,7 +302,7 @@ function closeOpenTask(event, index) {
   openPosition.classList.remove('modal-overlay');
   openPosition.classList.add('d-none');
   openPosition.innerHTML = '';
-
+  loadingBoard();
 }
 
 async function searchIndexUrl(index, users, fetchImage){
@@ -427,18 +426,7 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
   }
 }
 
-async function editOpenTask(index, category, title, description, date, prio){
-  let position = document.getElementById('openTask');
-  position.innerHTML = '';
-  position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
-  promiseSecondInfoOpenTask(index);
-  dueDateEditTask(index, date);
-}
 
-function dueDateEditTask(index, date){
-  let position = document.getElementById(`dueDate${index}`);
-  position.value = date;
-}
 
 async function progressBar(indexHtml) {
   let progressBar = document.getElementById(`progressBar${indexHtml}`);

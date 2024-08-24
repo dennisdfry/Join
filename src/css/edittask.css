@@ -1,0 +1,96 @@
+.checkBoxFlex {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+  }
+  
+  .checkBoxFlex:hover {
+    background-color: #a8a8a8;
+    cursor: pointer;
+  }
+  
+  .flexBoxContainer {
+    width: 100%;
+  }
+  
+  .multiselect {
+    position: relative;
+  }
+  
+  .selectBox {
+    position: relative;
+  }
+  
+  .selectBox select {
+    overflow: hidden;
+    /* Hide scrollbar */
+    -webkit-appearance: none;
+    /* Remove default arrow in Webkit browsers */
+    -moz-appearance: none;
+    /* Remove default arrow in Firefox */
+    appearance: none;
+    /* Remove default arrow */
+    width: 475px;
+    padding: 5px;
+    /* Adjust padding as needed */
+    box-sizing: border-box;
+    /* Ensure padding is included in the element's width */
+  }
+  
+  .selectBox option {
+    display: flex;
+    align-items: center;
+  }
+  
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  #checkboxes {
+    display: none;
+    border: none;
+    background-color: #ffffff;
+    position: absolute;
+    border-radius: 10px;
+    z-index: 1;
+    width: 475px;
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
+  }
+  
+  #checkboxes img {
+    height: 42px;
+    width: 42px;
+  }
+  
+  #checkboxes::-webkit-scrollbar {
+    display: none;
+  }
+  #checkboxes::-webkit-scrollbar-thumb {
+    background-color: #2a3647;
+    border-radius: 8px;
+  }
+  #checkboxes::-webkit-scrollbar-track {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+  }
+  #checkboxes::-webkit-scrollbar-thumb {
+    height: 53px;
+  }
+  
+  #checkboxes label {
+    padding: 5px;
+  }
+  
+  #checkboxes label img {
+    vertical-align: middle;
+    margin-right: 8px;
+  }

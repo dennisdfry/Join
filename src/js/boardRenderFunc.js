@@ -78,12 +78,12 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           </div>
           <div class="full-width">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Title:</p>
-              <input minlength="2" class="title-edit-input" type="text"
-                        placeholder="${title}" name="title" id="title">
+              <input onclick="editTitle(${index})" id="inputEditTitle${index}" minlength="2" class="title-edit-input" type="text"
+                        placeholder="${title}" name="title">
           </div>
           <div>  
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Description:</p>
-              <textarea minlength="2" class="edit-task-textarea" placeholder="${description}"
+              <textarea onclick="editDescription(${index})" id="descriptionEdit${index}" minlength="2" class="edit-task-textarea" placeholder="${description}"
                         name="description" id="description"></textarea>
           </div> 
           <div class="d-flex full-width flex-d-col mg-btt25" id="dateTask${index}">
@@ -114,13 +114,13 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Assigned To:</p>
           </div>
           <div class="multiselect">
-            <div class="selectBox" onclick="showCheckboxes()">
-                <select required class="add-task-select">
+            <div class="selectBox" onclick="showCheckboxesEdit(${index})">
+                <select class="add-task-select">
                     <option>Select an option</option>
                 </select>
                 <div class="overSelect"></div>
             </div>
-            <div id="checkboxesBoard">
+            <div id="checkboxesEdit${index}">
             </div>
           </div>
           <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
