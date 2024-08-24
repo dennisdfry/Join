@@ -321,6 +321,23 @@ function closeOpenTask(event, index) {
 
 }
 
+function closeForm() {
+  const formId = 'add-task-form';
+  const overlayId = 'modal-overlay';
+  const fieldIds = ['title', 'description', 'taskCategory', 'subtasks'];
+
+  document.getElementById(overlayId).classList.add("d-none");
+
+  const formField = document.getElementById(formId);
+  fieldIds.forEach(id => document.getElementById(id).value = "");
+  formField.style.animation = "moveOut 200ms ease-out forwards";
+
+  setTimeout(() => {
+    formField.classList.add("hidden", "d-none");
+    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
+  }, 200);
+}
+
 async function searchIndexUrl(index, users, fetchImage){
   //console.log(fetchImage);
   //console.log(users);
@@ -480,4 +497,9 @@ async function progressBar(indexHtml) {
       console.log(progressSatusTrue)
     }
   }
+}
+
+function openForm() {
+  document.getElementById('add-task-form').classList.remove('vis-hidden');
+  document.getElementById('add-task-form').classList.remove('d-none');
 }

@@ -16,7 +16,6 @@ async function initContacts() {
     console.error("Error:", error);
   }
 }
-
 /**
  * Führt eine fetch-Anfrage aus und gibt die Antwort als JSON zurück.
  * Falls die Anfrage fehlschlägt, wird ein Fehler geworfen.
@@ -144,8 +143,6 @@ async function getContactId(contact) {
   let contacts = await fetchData(`${CONTACTS_URL}.json`);
   return Object.keys(contacts).find(id => contacts[id].name === contact.name && contacts[id].mail === contact.mail);
 }
-
-
 /**
  * Aktualisiert die Kontaktliste im Benutzerinterface basierend auf den Daten aus der Datenbank.
  * @async
@@ -205,6 +202,7 @@ function initLetterArea(contactList, sortedContacts) {
  * @param {HTMLElement} contactList - Das Element, in welches Separator und Buchstabe eingefügt werden.
  * @param {string} letter - Der anzuzeigende Buchstabe.
  */
+
 function renderLetterArea(contactList, letter) {
   contactList.innerHTML += `
     <div class="contactlist-order-letter d-flex fw-400 fs-20 self-baseline">${letter}</div>
@@ -280,7 +278,6 @@ function renderContactInfo(contactSection, contact) {
       </div>
     </div>`;
 }
-
 
 /**
  * Initialisiert die Event-Listener für das Kontaktformular.

@@ -475,3 +475,33 @@ body {
   padding: 10px;
   margin: 10px;
 }
+
+.add-task-form {
+  animation: moveIn 200ms ease-in 100ms forwards;
+  z-index: 999;
+}
+
+@keyframes moveIn {
+  0% {
+    visibility: visible;
+    transform: translateX(100vw);
+  }
+  100% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveOut {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
