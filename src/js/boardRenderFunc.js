@@ -125,7 +125,19 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           </div>
           <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
               </div>
-          <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
+          <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>  
+                    <div class="input-with-button-edit bradius10">
+                        <input type="text" minlength="2" class="add-task-input-edit" placeholder="Add item" id="subtasks${index}"
+                            name="subtasks">
+                        <div id="subtasksControl${index}" class="subtasks-control-edit">
+                            <button onclick="showSubtaskControlsEdit(${index})" type="button" id="subtasksPlus${index}"
+                                class="add-task-button-edit">
+                                +
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="subtasksList" id="subtasksPosition${index}"></div>  
               <div class="" id="subtasksBoardOpen${index}"></div>
           <div class="d-flex-end">
             <div class="d-flex item-center">

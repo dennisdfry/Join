@@ -169,3 +169,48 @@ function prioIdCheck(id, position){
     }
     position.classList.remove('add-task-prio-button');
 }
+function showSubtaskControlsEdit(index) {
+            document.getElementById(`subtasks${index}`).classList.remove('add-task-input-edit');
+    document.getElementById(`subtasks${index}`).classList.add('subtasks-input-edit');
+   let position = document.getElementById(`subtasksControl${index}`);
+   position.innerHTML = `<button onclick="resetSubtaskInputEdit(${index})" type="button" class="subtask-button-edit">
+                                <img src="../public/img/closeAddTask.png" alt="Reset">
+                            </button>
+                            <div class="seperator-subtasks"></div>
+                            <button onclick="addSubtaskEdit(${index})" type="button" class="subtask-button-edit">
+                                <img src="../public/img/checkAddTask.png" alt="Add">
+                            </button>`;
+}
+function addSubtaskEdit(index) {
+    let input = document.getElementById(`subtasks${index}`);
+    if (input.value.trim() !== "") {
+        subtasksArray.push(input.value.trim());
+        input.value = '';
+        subtasksStatusArray.push(false)
+        updateSubtasksListEdit(index);
+        resetSubtaskInputEdit(index);
+    }
+}
+
+function resetSubtaskInputEdit(index) {
+    let input = document.getElementById(`subtasks${index}`);
+    input.value = '';
+    document.getElementById(`subtasks${index}`).classList.add('add-task-input-edit');
+    document.getElementById(`subtasks${index}`).classList.remove('subtasks-input-edit');
+    let position = document.getElementById(`subtasksControl${index}`);
+    position.innerHTML =` <button onclick="showSubtaskControlsEdit(${index})" type="button" id="subtasksPlus${index}" class="add-task-button-edit">
+                                +
+                            </button>`;
+}
+
+function updateSubtasksListEdit(index) {
+    let subtasksPosition = document.getElementById(`subtasksPosition${index}`);
+    subtasksPosition.innerHTML = '';
+    for (let index = 0; index < subtasksArray.length; index++) {
+        const element = subtasksArray[index];
+        subtasksPosition.innerHTML += `
+            <ul>
+                <li>${element}</li>
+            </ul>`;
+    }
+}
