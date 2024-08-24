@@ -112,7 +112,9 @@ async function createTask(event) {
     form.reset();
     addTaskArray = [];
     clearSubtasks();
+    await loadingBoard();
     await changeSite('board.html');
+    
 }
 
 function defineTaskObjects(){
