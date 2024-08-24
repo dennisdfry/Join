@@ -1,3 +1,5 @@
+let addTaskArrayEdit = [];
+
 function editTitle(index){
     let position = document.getElementById(`inputEditTitle${index}`);
     position.placeholder = '';
@@ -13,7 +15,7 @@ async function editOpenTask(index, category, title, description, date, prio){
     position.innerHTML = '';
     position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
     dueDateEditTask(index, date);
-    initEdit(index);
+    // initEdit(index);
   }
   
   function dueDateEditTask(index, date){
@@ -26,7 +28,7 @@ async function editOpenTask(index, category, title, description, date, prio){
         let fireBaseData = await onloadData("/");
         let contacts = await fetchContacts(fireBaseData);
         let imageUrls = await fetchImages();
-        await assignedTo(contacts, imageUrls, index);
+        await assignedToEdit(contacts, imageUrls, index);
     } catch (error) {
         console.error("Fehler bei der Initialisierung:", error);
     }
@@ -54,34 +56,34 @@ async function fetchContacts(responseToJson) {
     return contacts;
 }
 
-async function assignedTo(contacts, imageUrls, index) {
+async function assignedToEdit(contacts, imageUrls, index) {
     try {
         const extractNames = (contacts) => {
             return Object.values(contacts).map(entry => ({ name: entry.name }));
         };
         const names = extractNames(contacts);
-        checkboxInit(names,imageUrls, index)
+        checkboxInitEdit(names,imageUrls, index)
     } catch (error) {
         console.error(error);
     }
 }
 
-function checkboxInit(names,imageUrls, indexHTML){
+function checkboxInitEdit(names,imageUrls, indexHTML){
     let position = document.getElementById(`checkboxesEdit${indexHTML}`);
         position.innerHTML = '';
         let list = ''; // Initialisierung des Strings
         for (let index = 0; index < names.length; index++) {
             const element = names[index].name;
             const imgSrc = imageUrls[index]; // Bild-URL holen
-            list += checkBoxRender(index, imgSrc,element )
+            list += checkBoxRenderEdit(index, imgSrc,element )
                
         }
         position.innerHTML = list; // HTML-Inhalt setzen
 }
 
-function checkBoxRender(index, imgSrc,element ){
+function checkBoxRenderEdit(index, imgSrc,element ){
     return  `<label class="checkBoxFlex" for="checkbox-${index}">
-                    <div class=checkBoxImg>
+                    <div class="checkBoxImg">
                         <img src="${imgSrc}" alt="" />
                         ${element}
                     </div>
@@ -89,7 +91,7 @@ function checkBoxRender(index, imgSrc,element ){
                 </label>`;
 }
 
-async function assignedToUser(index, element) {
+async function assignedToUserEdit(index, element) {
     const image = imageUrlsGlobal[index];
     const arrayIndex = assignedToUserArray.indexOf(index);
     if (arrayIndex !== -1) {
@@ -110,4 +112,52 @@ function showCheckboxesEdit(index) {
         checkboxes.style.display = "none";
         expanded = false;
     }
+}
+function defineTaskObjectsEdit(index){
+    let taskTitle = document.getElementById(`inputEditTitle${index}`).value;
+    let taskDescription = document.getElementById(`descriptionEdit${index}`).value;
+    let dueDateTask = document.getElementById(`dueDate${index}`).value;
+    let lastString = prioArray.pop();
+    let taskCategory = 'todo';
+    pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString)
+}
+
+function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString){
+    addTaskArrayEdit.push({
+        title: taskTitle,
+        description: taskDescription,
+        assignedTo: assignedToUserArray,
+        assignedToNames: assignedToUserArrayNamesGlobal,
+        dueDate: dueDateTask,
+        prio: lastString,
+        category: taskCategory,
+        subtasks: subtasksArray,
+        subtaskStatus: subtasksStatusArray,
+        boardCategory: 'todo'
+    });
+    console.log(addTaskArrayEdit);
+}
+function prioEdit(id) {
+    const buttons = document.querySelectorAll('.add-task-prio-button-container button');
+    
+    buttons.forEach(button => {
+        button.classList.remove('add-task-prio-button-urgent', 'add-task-prio-button-medium', 'add-task-prio-button-low');
+        button.classList.add('add-task-prio-button');
+    });
+    let position = document.getElementById(`prioButton${id}`);
+    prioIdCheck(id, position);  
+}
+
+function prioIdCheck(id, position){
+    if (id == 1) {
+        prioArray.push('Urgent');
+        position.classList.add('add-task-prio-button-urgent');
+    } else if (id == 2) {
+        prioArray.push('Medium');
+        position.classList.add('add-task-prio-button-medium');
+    } else if (id == 3) {
+        prioArray.push('Low');
+        position.classList.add('add-task-prio-button-low');
+    }
+    position.classList.remove('add-task-prio-button');
 }

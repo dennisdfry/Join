@@ -94,16 +94,16 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           <div class="d-flex item-center mg-btt25" id="prioTask${index}">
               <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Priority:</p>
               <div class="add-task-prio-button-container">
-                        <button onclick="prio(1)" id="prioButton1" value="1" data-prio="urgent" type="button"
+                        <button onclick="prioEdit(1)" id="prioButton1" value="1" data-prio="urgent" type="button"
                             class="add-task-prio-button">
                             <span>Urgent</span>
                             <img src="../public/img/Prio alta.png" alt="">
                         </button>
-                        <button onclick="prio(2)" id="prioButton2" value="2" data-prio="medium" type="button"
+                        <button onclick="prioEdit(2)" id="prioButton2" value="2" data-prio="medium" type="button"
                             class="add-task-prio-button">
                             <span>Medium =</span>
                         </button>
-                        <button onclick="prio(3)" id="prioButton3" value="3" data-prio="low" type="button"
+                        <button onclick="prioEdit(3)" id="prioButton3" value="3" data-prio="low" type="button"
                             class="add-task-prio-button">
                             <span>Low</span>
                             <img src="../public/img/Prio baja.png" alt="">
@@ -114,7 +114,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Assigned To:</p>
           </div>
           <div class="multiselect">
-            <div class="selectBox" onclick="showCheckboxesEdit(${index})">
+            <div class="selectBox" onclick="initEdit(${index})">
                 <select class="add-task-select">
                     <option>Select an option</option>
                 </select>
@@ -129,7 +129,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
             <div class="d-flex item-center">
               <div class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none" >Delete</p></div>
               <div class="seperator-opentask"></div>
-              <div onclick="editTask()" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
+              <div onclick="defineTaskObjectsEdit(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
             </div>
           </div> 
     </div>`; 

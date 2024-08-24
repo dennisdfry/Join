@@ -302,7 +302,7 @@ function closeOpenTask(event, index) {
   openPosition.classList.remove('modal-overlay');
   openPosition.classList.add('d-none');
   openPosition.innerHTML = '';
-  loadingBoard();
+  // loadingBoard();
 }
 
 async function searchIndexUrl(index, users, fetchImage){
