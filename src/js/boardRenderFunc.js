@@ -123,6 +123,8 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
             <div id="checkboxesEdit${index}">
             </div>
           </div>
+          <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
+              </div>
           <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
               <div class="" id="subtasksBoardOpen${index}"></div>
           <div class="d-flex-end">

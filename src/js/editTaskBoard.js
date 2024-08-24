@@ -18,6 +18,7 @@ async function editOpenTask(index, category, title, description, date, prio){
     dueDateEditTask(index, date);
     initEdit(index);
     checkboxIndexFalse(index);
+    promiseSecondInfoOpenTask(index);
   }
   
   function dueDateEditTask(index, date){
