@@ -13,7 +13,10 @@ window.htmlboard = async function(index, category, title, description, date, pri
             <p id="limitTextDesciption${index}">${description}</p>
         </div> 
         <div class="progress-container d-flex-between">
-            <div id="progressBar${index}" class="progress-bar"></div><div id="subtasksLength${index}"></div>
+            <div class="width128">
+            <div id="progressBar${index}" class="progress-bar"></div>
+            </div>
+            <div id="subtasksLength${index}" class="subtasksLength"></div>
         </div>
         <div class="d-flex-between">
             <div class="user-image-bord-container" id="userImageBoard${index}">

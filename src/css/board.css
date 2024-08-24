@@ -199,6 +199,7 @@ body {
   font-size: 16px;
 }
 .progress-container {
+  width:220px;
   height: 8px;
   padding-top: 24px;
   padding-bottom: 24px;
@@ -208,11 +209,17 @@ body {
 
 .progress-bar {
   height: 100%;
-  max-width: 128px;
+ 
   background-color: rgb(69, 137, 255);
   border-radius: 4px 0 0 4px;
 }
-
+.width128{
+  width:128px;
+  height:8px;
+}
+.subtasksLength{
+  font-size: 12px;
+}
 .subtasks-board-task-text {
   font-family: "Inter";
   font-weight: 400;

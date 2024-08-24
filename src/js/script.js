@@ -4,7 +4,7 @@ let taskkeys = [];
 const taskkeysGlobal = [];
 let task = {};
 let currentDraggedElement;
-
+let progressStatusTrue = [];
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -83,7 +83,6 @@ async function loadingBoard() {
       task = await onloadDataBoard("/tasks");
       taskkeys = Object.keys(task);
       taskkeysGlobal.push(taskkeys);
-      //console.log(taskkeysGlobal);
       let fetchImage = await fetchImagesBoard("/");
       await generateHTMLObjects(taskkeys, task);
       await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
@@ -177,27 +176,14 @@ async function updateTaskInFirebase(task) {
 // //
 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
-  //console.log(taskkeys);
-  //console.log(task);
-  //console.log(fetchImage);
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID];
-    //console.log(taskFolder);
     let users = taskFolder[0].assignedTo;
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
     let userNames = taskFolder[0].assignedToNames;
-    // let users = task.tasksID[0].assignedTo;
-    // const taskID = task[taskkeys[index]];
-    // console.log(tasks)
-    // const { assignedTo: userss, assignedToNames: userNames, prio, subtasks } = task[taskkeys[index]][0];
     taskData[index] = { users, userNames, prio, subtasks, fetchImage };
-    //console.log(userNames)
-    //console.log(users)
-    //console.log(subtasks)
-    //console.log(prio);
-
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
       searchprio(index, prio),
@@ -216,7 +202,6 @@ function limitTextTo50Chars(id) {
 }
 
 async function positionOfHTMLBlock(index, category, title, description, date, prio, boardCategory){
-  console.log(boardCategory)
   let position = document.getElementById(`${boardCategory}`);
  position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);  
  limitTextTo50Chars(`limitTextDesciption${index}`)
@@ -322,11 +307,11 @@ function closeOpenTask(event, index) {
 }
 
 async function searchIndexUrl(index, users, fetchImage){
-  //console.log(fetchImage);
-  //console.log(users);
-  //console.log(index);
   let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
+  if(users == null){
+    return
+  }
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
@@ -388,7 +373,6 @@ async function htmlBoardImageOpen(imageUrl, index, names){
 }
 
 async function subtasksRender(indexHtml, subtasks) {
-  //console.log(subtasks)
     subtasksLengthArray.push({
         position: indexHtml,
         subs: subtasks
@@ -421,9 +405,7 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
 
 async function subtaskStatus(indexHtml, index){
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
-  //console.log(checkbox);
   const isChecked = checkbox.checked;
-  //console.log(isChecked);
   await statusSubtaskSaveToFirebase(isChecked, indexHtml, index );
 }
 
@@ -467,17 +449,19 @@ async function progressBar(indexHtml) {
     const taskKeyId = element[indexHtml];
     let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
     if (!data || data.length === 0) {
-      return; 
+      continue; 
     }
+    totalCount += data.length;
     for (let i = 0; i < data.length; i++) {
       const statusID = data[i];
-      if(statusID == true){
-        progressSatusTrue.push({
-          id:data,
-          statusTrue:statusID
-        })
+      if (statusID === true) {
+        trueCount++; 
+        progressStatusTrue.push({ index: i, statusTrue: statusID }); 
       }
-      console.log(progressSatusTrue)
     }
+  }
+  if (totalCount > 0) {
+    let progress = (trueCount / totalCount) * 100;
+    progressBar.style.width = `${progress}%`; 
   }
 }

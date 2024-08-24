@@ -1,5 +1,6 @@
 let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com";
 let subtasksArray = [];
+let subtasksStatusArray = [];
 let prioArray = [];
 let addTaskArray = [];
 let expanded = false;
@@ -133,6 +134,7 @@ function pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCat
         prio: lastString,
         category: taskCategory,
         subtasks: subtasksArray,
+        subtaskStatus: subtasksStatusArray,
         boardCategory: 'todo'
     });
 }
@@ -190,6 +192,7 @@ function addSubtask() {
     if (input.value.trim() !== "") {
         subtasksArray.push(input.value.trim());
         input.value = '';
+        subtasksStatusArray.push(false)
         updateSubtasksList();
         resetSubtaskInput();
     }
