@@ -1,7 +1,10 @@
 let subtasksLengthArray = [];
 const taskData = {};
-const taskkeysGlobal =[];
-const progressSatusTrue = [];
+let taskkeys = [];
+const taskkeysGlobal = [];
+let task = {};
+let currentDraggedElement;
+
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -77,9 +80,10 @@ function hideDropdown() {
 
 async function loadingBoard() {
   try {
-      let task = await onloadDataBoard("/tasks");
-      let taskkeys = Object.keys(task);
+      task = await onloadDataBoard("/tasks");
+      taskkeys = Object.keys(task);
       taskkeysGlobal.push(taskkeys);
+      //console.log(taskkeysGlobal);
       let fetchImage = await fetchImagesBoard("/");
       await generateHTMLObjects(taskkeys, task);
       await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
@@ -110,15 +114,90 @@ async function generateHTMLObjects(taskkeys, task) {
   }
 }
 
+// //
+
+async function updateHTML() {
+  const categories = ['todo', 'progress', 'feedback', 'done'];
+  
+  for (const category of categories) {
+    const container = document.getElementById(category);
+    container.innerHTML = '';
+  }
+
+  try {
+    await loadingBoard();
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren der HTML-Inhalte:', error);
+  }
+}
+
+
+function startDragging(taskkey) {
+  currentDraggedElement = taskkey;
+  console.log('Dragging element with taskkey:', currentDraggedElement);
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function onDrop(event) {
+  event.preventDefault();
+  const newCategory = event.target.dataset.category;
+  moveTo(newCategory);
+}
+
+async function moveTo(category) {
+  if (currentDraggedElement) {
+    task[currentDraggedElement]['boardCategory'] = category;
+
+    await updateTaskInFirebase({
+      id: currentDraggedElement,
+      boardCategory: category
+    });
+
+    await updateHTML();
+  } else {
+    console.error('No task is being dragged.');
+  }
+}
+
+async function updateTaskInFirebase(task) {
+  try {
+    await fetch(`${BASE_URL}/tasks/${task.id}/0.json`, {
+      method: 'PATCH',
+      body: JSON.stringify({ boardCategory: task.boardCategory }),
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error) {
+    console.error('Error updating task in Firebase:', error);
+  }
+}
+
+// //
+
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
+  //console.log(taskkeys);
+  //console.log(task);
+  //console.log(fetchImage);
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
-    const taskFolder = task[tasksID]
+    const taskFolder = task[tasksID];
+    //console.log(taskFolder);
     let users = taskFolder[0].assignedTo;
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
     let userNames = taskFolder[0].assignedToNames;
-   taskData[index] = { users, userNames, prio, subtasks, fetchImage };
+    // let users = task.tasksID[0].assignedTo;
+    // const taskID = task[taskkeys[index]];
+    // console.log(tasks)
+    // const { assignedTo: userss, assignedToNames: userNames, prio, subtasks } = task[taskkeys[index]][0];
+    taskData[index] = { users, userNames, prio, subtasks, fetchImage };
+    //console.log(userNames)
+    //console.log(users)
+    //console.log(subtasks)
+    //console.log(prio);
+
     await Promise.all([
       searchIndexUrl(index, users, fetchImage),
       searchprio(index, prio),
@@ -243,9 +322,9 @@ function closeOpenTask(event, index) {
 }
 
 async function searchIndexUrl(index, users, fetchImage){
-  if (!users || users.length === 0) {
-    return;
-  }
+  //console.log(fetchImage);
+  //console.log(users);
+  //console.log(index);
   let position = document.getElementById(`userImageBoard${index}`);
   position.innerHTML = '';
   for (let index = 0; index < users.length; index++) {
@@ -309,6 +388,7 @@ async function htmlBoardImageOpen(imageUrl, index, names){
 }
 
 async function subtasksRender(indexHtml, subtasks) {
+  //console.log(subtasks)
     subtasksLengthArray.push({
         position: indexHtml,
         subs: subtasks
@@ -341,7 +421,9 @@ async function subtasksRenderOpen(indexHtml, subtasks) {
 
 async function subtaskStatus(indexHtml, index){
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+  //console.log(checkbox);
   const isChecked = checkbox.checked;
+  //console.log(isChecked);
   await statusSubtaskSaveToFirebase(isChecked, indexHtml, index );
 }
 

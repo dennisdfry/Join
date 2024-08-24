@@ -189,7 +189,7 @@ async function loadTasks() {
  */
 function countTasks(taskData) {
   const categoryCounts = {
-    ToDo: 0,
+    todo: 0,
     done: 0,
     progress: 0,
     feedback: 0,
@@ -246,12 +246,12 @@ async function loadTasksAndCountCategories() {
  * @param {Object} counts - An object containing the count of tasks in each category.
  */
 function updateCategoryCounts(counts) {
-  document.getElementById("smry-to-do-val").innerText = counts.ToDo || 0;
+  document.getElementById("smry-to-do-val").innerText = counts.todo || 0;
   document.getElementById("smry-done-val").innerText = counts.done || 0;
   document.getElementById("smry-progress-val").innerText = counts.progress || 0;
   document.getElementById("smry-feedback-val").innerText = counts.feedback || 0;
 
-  const totalTasks = (counts.ToDo || 0) + (counts.done || 0) + (counts.progress || 0) + (counts.feedback || 0);
+  const totalTasks = (counts.todo || 0) + (counts.done || 0) + (counts.progress || 0) + (counts.feedback || 0);
 
   document.getElementById("smry-board-val").innerText = totalTasks;
 }

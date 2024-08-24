@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/board.css">
     <link rel="stylesheet" href="../src/css/utils.css">
-    <link rel="stylesheet" href="../src/css/addTask.css">
-    <script src="/src/js/boardRenderFunc.js"></script>
+    <link rel="stylesheet" href="../src/css/addTask.css">    
     <script src="/src/js/script.js"></script>
+    <script src="/src/js/boardRenderFunc.js"></script>
     
     <link rel="icon" href="./img/user_logo.png" type="image/png">
 
@@ -32,28 +32,35 @@
             </div>
 
         </section>
-        <section class="board-head-section-bottom ">
+        <section class="board-head-section-bottom">
             <div class="board-task-column board-task-column-left">
-                <h4>To do</h4>
+                <h4 class="mg-block-inline">To do</h4>
                 <img onclick="loadingBoard()" src="./img/plus button.png" alt="">
             </div>
             <div class="board-task-column">
-                <h4>in progress</h4>
-                <img src="./img/plus button.png" alt="">
+                <h4 class="mg-block-inline">In progress</h4>
+                <img src="./img/plus button.png">
             </div>
             <div class="board-task-column">
-                <h4>Await feedback</h4>
-                <img src="./img/plus button.png" alt="">
+                <h4 class="mg-block-inline">Await feedback</h4>
+                <img src="./img/plus button.png">
             </div>
             <div class="board-task-column board-task-column-right">
-                <h4>Done</h4>
+                <h4 class="mg-block-inline">Done</h4>
             </div>
         </section>
         <section class="board-render-section" id="renderSectionBoard">
+<<<<<<< HEAD
             <div class="board-render-status-container" id="todo"></div>
             <div class="board-render-status-container" id="progress"></div>
             <div class="board-render-status-container" id="feedback"></div>
             <div class="board-render-status-container" id="done"></div>
+=======
+            <div class="board-render-status-container drag-area" id="todo" ondrop="moveTo('todo')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="progress" ondrop="moveTo('progress')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="feedback" ondrop="moveTo('feedback')" ondragover="allowDrop(event)"></div>
+            <div class="board-render-status-container drag-area" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
+>>>>>>> a030e7f359e8fc82d671f3d9860228991d796315
         </section>
     </div>
     <div id="openTask" class="d-none d-flex-center "></div>

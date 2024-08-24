@@ -102,7 +102,6 @@ body {
   color: #000000;
 }
 
-
 .search-task-section img {
   background-color: #ffffff;
   border-top-right-radius: 10px;
@@ -127,7 +126,6 @@ body {
   height: 24px;
   position: absolute;
   top: 200.5px;
-  margin-bottom: 4px;
 }
 
 .add-task {
@@ -139,18 +137,17 @@ body {
 }
 
 .board-task-column {
-  width: 244px;
+  width: 1208px;
   height: 24px;
   display: flex;
   align-items: center;
-  padding: 13px;
 }
 
 .board-task-column h4 {
   color: #42526e;
   font-family: "Inter700";
   font-size: 20px;
-   display: inline-block;
+  display: inline-block;
 }
 
 .board-task-column img {
@@ -161,14 +158,6 @@ body {
 
 .board-task-column img:hover {
   cursor: pointer;
-}
-
-.board-task-column-right {
-  padding-right: 76px;
-}
-
-.board-task-column-left {
-  padding-left: 30px;
 }
 
 .board-task-container {
@@ -229,6 +218,35 @@ body {
   font-weight: 400;
   font-size: 12px;
 }
+.subtask-scrollbar {
+  width: 445px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
+}
+
+.subtask-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.subtask-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2a3647;
+  border-radius: 8px;
+}
+.subtask-scrollbar::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+.subtask-scrollbar::-webkit-scrollbar-thumb {
+  height: 53px;
+}
+
+
 .user-image-bord-container {
   max-width: 80px;
   width: 80px;
@@ -427,4 +445,26 @@ body {
   /* Verschiebt das Symbol 16px nach links und zentriert es vertikal */
   background-size: 24px;
   /* Größe des benutzerdefinierten Symbols */
+}
+
+.drag-area {
+  height: 2000px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px dashed black;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.drag-area-highlight {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.todo {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
 }

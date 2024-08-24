@@ -290,7 +290,10 @@ function renderContactInfo(contactSection, contact) {
  */
 function setupForm() {
   document.getElementById("contact-form").addEventListener("submit", handleFormSubmit);
-  ["name", "mail", "phone"].forEach(id => document.getElementById(id).addEventListener("input", checkFormFields));
+  ["name", "mail", "phone"].forEach(id => {
+    document.getElementById(id).addEventListener("input", checkFormFields);
+    document.getElementById(id).addEventListener("keydown", handleEnterPress);
+  });
   checkFormFields();
 }
 
@@ -303,7 +306,16 @@ function checkFormFields() {
   document.getElementById("formfield-create-btn").disabled = !filledFields;
 }
 
-
+/**
+ * Überprüft, ob die Entertaste gedrückt wurde und löst das Formular-Submit-Event aus
+ * @param {KeyboardEvent} event - Das Eventobjekt der Tastatureingabe
+ */
+function handleEnterPress(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    handleFormSubmit(event); 
+  }
+}
 
 /**
  * Behandelt das Absenden eines Kontakes und fügt den neuen Kontakt hinzu
@@ -351,6 +363,14 @@ function validateEmail(email) {
  */
 function validatePhone(phone) {
   return /^[0-9]{10,15}$/.test(phone);
+}
+
+document.onkeydown=function(evt){
+  var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+  if(keyCode == 13)
+  {
+      //your function call here
+  }
 }
 
 

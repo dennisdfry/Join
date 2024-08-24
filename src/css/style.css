@@ -204,6 +204,7 @@ header {
   margin-right: 80px;
   top: 11.5%;
   align-items: start !important;
+  z-index: 100;
 }
 
 .user-icon-dropdown a {
