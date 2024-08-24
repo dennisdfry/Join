@@ -114,7 +114,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Assigned To:</p>
           </div>
           <div class="multiselect">
-            <div class="selectBox" onclick="initEdit(${index})">
+            <div class="selectBox" onclick="showCheckboxesEdit(${index})">
                 <select class="add-task-select">
                     <option>Select an option</option>
                 </select>

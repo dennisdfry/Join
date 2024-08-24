@@ -1,4 +1,5 @@
 let addTaskArrayEdit = [];
+let expandedEdit = false;
 
 function editTitle(index){
     let position = document.getElementById(`inputEditTitle${index}`);
@@ -15,7 +16,8 @@ async function editOpenTask(index, category, title, description, date, prio){
     position.innerHTML = '';
     position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
     dueDateEditTask(index, date);
-    // initEdit(index);
+    initEdit(index);
+    checkboxIndexFalse(index);
   }
   
   function dueDateEditTask(index, date){
@@ -102,15 +104,20 @@ async function assignedToUserEdit(index, element) {
         assignedToUserArrayNamesGlobal.push(element);
     }
 }
-
-function showCheckboxesEdit(index) {
+function checkboxIndexFalse(index){
     let checkboxes = document.getElementById(`checkboxesEdit${index}`);
-    if (!expanded) {
+    checkboxes.style.display = "none";
+        expandedEdit = false;
+}
+function showCheckboxesEdit(index) {
+    
+    let checkboxes = document.getElementById(`checkboxesEdit${index}`);
+    if (!expandedEdit) {
         checkboxes.style.display = "block";
-        expanded = true;
+        expandedEdit = true;
     } else {
         checkboxes.style.display = "none";
-        expanded = false;
+        expandedEdit = false;
     }
 }
 function defineTaskObjectsEdit(index){

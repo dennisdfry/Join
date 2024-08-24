@@ -69,7 +69,7 @@ function checkboxInit(names,imageUrls){
 
 function checkBoxRender(index, imgSrc,element ){
     return  `<label class="checkBoxFlex" for="checkbox-${index}">
-                    <div class=checkBoxImg>
+                    <div class="checkBoxImg">
                         <img src="${imgSrc}" alt="" />
                         ${element}
                     </div>
