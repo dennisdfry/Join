@@ -455,7 +455,7 @@ body {
 }
 
 .drag-area {
-  height: 500px;
+  height: 60vh;
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px dashed black;
   margin-bottom: 50px;
