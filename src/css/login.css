@@ -262,6 +262,7 @@ input[type="password"]::-webkit-password-field {
     height: 515px;
     padding: 0px 15px;
     top: 20%;
+    z-index: 100;
   }
 
   .login-input input {
