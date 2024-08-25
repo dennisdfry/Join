@@ -431,7 +431,7 @@ function closeForm(formId, overlayId, fieldIds) {
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 200);
+  }, 100);
 }
 
 /**
@@ -619,7 +619,7 @@ function showUpdateBar() {
             updateBar.classList.add("d-none");
           }
         });
-      }, 200);
+      }, 100);
     }
   });
 }
