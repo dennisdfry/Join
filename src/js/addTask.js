@@ -98,7 +98,16 @@ function showCheckboxes() {
         expanded = false;
     }
 }
-
+function showCheckboxes2() {
+    let checkboxes = document.getElementById("checkboxes2");
+    if (!expanded) {
+        checkboxes.style.display = "block";
+        expanded = true;
+    } else {
+        checkboxes.style.display = "none";
+        expanded = false;
+    }
+}
 async function createTask(event) {
     event.preventDefault();
     let form = event.target;

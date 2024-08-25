@@ -46,7 +46,6 @@ body {
   height: 48px;
   display: flex;
   gap: 10px;
-  margin-right: 110px;
 }
 
 .add-task-button {
@@ -56,20 +55,21 @@ body {
   background-color: #2a3647 !important;
   font-family: "Inter700";
   font-size: 20px;
+  margin-left: 24px;
   display: flex;
   gap: 8px;
   justify-content: center;
   align-items: center;
-  border: none;
+  border: unset;
   transition: transform 0.2s;
   border-radius: 10px !important;
 }
 
 .add-task-button:hover {
   cursor: pointer;
-  background-color: #007cee;
+  background-color: #29abe2 !important;
   color: #ffffff;
-  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .add-task-button img {
@@ -84,6 +84,7 @@ body {
 .search-task-section {
   display: flex;
   height: 48px;
+  width: 352px;
   border-radius: 10px;
   border: 1px solid #a8a8a8;
 }
@@ -476,7 +477,15 @@ body {
   margin: 10px;
 }
 
-.add-task-form {
+
+.add-Task-Container2 {
+  height: 792px;
+  width: 1212px;
+  position: absolute;
+  top: 124px;
+  left: 328px;
+  border-radius: 30px !important;
+  background-color: #ffffff !important;
   animation: moveIn 200ms ease-in 100ms forwards;
   z-index: 999;
 }

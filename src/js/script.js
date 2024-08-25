@@ -114,7 +114,6 @@ async function generateHTMLObjects(taskkeys, task) {
   }
 }
 
-// //
 
 async function updateHTML() {
   const categories = ['todo', 'progress', 'feedback', 'done'];
@@ -321,23 +320,6 @@ function closeOpenTask(event, index) {
 
 }
 
-function closeForm() {
-  const formId = 'add-task-form';
-  const overlayId = 'modal-overlay';
-  const fieldIds = ['title', 'description', 'taskCategory', 'subtasks'];
-
-  document.getElementById(overlayId).classList.add("d-none");
-
-  const formField = document.getElementById(formId);
-  fieldIds.forEach(id => document.getElementById(id).value = "");
-  formField.style.animation = "moveOut 200ms ease-out forwards";
-
-  setTimeout(() => {
-    formField.classList.add("hidden", "d-none");
-    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 200);
-}
-
 async function searchIndexUrl(index, users, fetchImage){
   //console.log(fetchImage);
   //console.log(users);
@@ -499,7 +481,100 @@ async function progressBar(indexHtml) {
   }
 }
 
-function openForm() {
+
+function openAddForm() {
   document.getElementById('add-task-form').classList.remove('vis-hidden');
   document.getElementById('add-task-form').classList.remove('d-none');
+}
+
+
+function closeAddForm() {
+ let formField = document.getElementById('add-task-form');
+ formField.classList.remove('d-none')
+}
+
+function prio2(id) {
+  const buttons = document.querySelectorAll('.add-task-prio-button-container button');
+  
+  buttons.forEach(button => {
+      button.classList.remove('add-task-prio-button-urgent', 'add-task-prio-button-medium', 'add-task-prio-button-low');
+      button.classList.add('add-task-prio-button');
+  });
+  let position = document.getElementById(`prio2Button${id}`);
+  prioIdCheck(id, position);  
+}
+
+function defineTaskObjects2(){
+let taskTitle = document.getElementById('title2').value;
+let taskDescription = document.getElementById('description2').value;
+let dueDateTask = document.getElementById('dueDate2').value;
+let taskCategory = document.getElementById('taskCategory2').value;
+let lastString = prioArray.pop();
+pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCategory, lastString)
+}
+
+function pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCategory, lastString){
+addTaskArray.push({
+    title: taskTitle,
+    description: taskDescription,
+    assignedTo: assignedToUserArray,
+    assignedToNames: assignedToUserArrayNamesGlobal,
+    dueDate: dueDateTask,
+    prio: lastString,
+    category: taskCategory,
+    subtasks: subtasksArray,
+    boardCategory: 'todo'
+});
+}
+
+function showSubtaskControls2() {
+  document.getElementById('subtasks2').classList.remove('add-task-input');
+  document.getElementById('subtask2').classList.add('subtasks-input');
+ let position = document.getElementById('subtasksControl2');
+ position.innerHTML = `<button onclick="resetSubtaskInput()" type="button" class="subtask-button">
+                              <img src="../public/img/closeAddTask.png" alt="Reset">
+                          </button>
+                          <div class="seperator-subtasks"></div>
+                          <button onclick="addSubtask()" type="button" class="subtask-button">
+                              <img src="../public/img/checkAddTask.png" alt="Add">
+                          </button>`;
+}
+
+function addSubtask2() {
+  let input = document.getElementById('subtasks2');
+  if (input.value.trim() !== "") {
+      subtasksArray.push(input.value.trim());
+      input.value = '';
+      updateSubtasksList2();
+      resetSubtaskInput2();
+  }
+}
+async function saveToFirebase2(path="/tasks"){
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(addTaskArray),
+  });
+}
+
+function clearSubtask2(){
+  let position = document.getElementById('subtasksPosition');
+  position.innerHTML = '';
+}
+
+async function createTask(event) {
+  event.preventDefault();
+  let form = event.target;
+  if (!form.checkValidity()) {
+      form.reportValidity();
+      return false;
+  }
+  defineTaskObjects2()
+  saveToFirebase2();
+  form.reset();
+  addTaskArray = [];
+  clearSubtask2();
+  await changeSite('board.html');
 }
