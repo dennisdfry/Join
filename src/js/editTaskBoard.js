@@ -170,7 +170,7 @@ function prioIdCheck(id, position){
     position.classList.remove('add-task-prio-button');
 }
 function showSubtaskControlsEdit(index) {
-            document.getElementById(`subtasks${index}`).classList.remove('add-task-input-edit');
+    document.getElementById(`subtasks${index}`).classList.remove('add-task-input-edit');
     document.getElementById(`subtasks${index}`).classList.add('subtasks-input-edit');
    let position = document.getElementById(`subtasksControl${index}`);
    position.innerHTML = `<button onclick="resetSubtaskInputEdit(${index})" type="button" class="subtask-button-edit">
@@ -198,7 +198,7 @@ function resetSubtaskInputEdit(index) {
     document.getElementById(`subtasks${index}`).classList.add('add-task-input-edit');
     document.getElementById(`subtasks${index}`).classList.remove('subtasks-input-edit');
     let position = document.getElementById(`subtasksControl${index}`);
-    position.innerHTML =` <button onclick="showSubtaskControlsEdit(${index})" type="button" id="subtasksPlus${index}" class="add-task-button-edit">
+    position.innerHTML =` <button onclick="showSubtaskControlsEdit(${index})" type="button"  class="add-task-button-edit">
                                 +
                             </button>`;
 }

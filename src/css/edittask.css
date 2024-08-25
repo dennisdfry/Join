@@ -23,18 +23,12 @@
   
   .selectBox select {
     overflow: hidden;
-    /* Hide scrollbar */
     -webkit-appearance: none;
-    /* Remove default arrow in Webkit browsers */
     -moz-appearance: none;
-    /* Remove default arrow in Firefox */
     appearance: none;
-    /* Remove default arrow */
-    width: 475px;
+    width: 100%;
     padding: 5px;
-    /* Adjust padding as needed */
     box-sizing: border-box;
-    /* Ensure padding is included in the element's width */
   }
   
   .selectBox option {
@@ -110,6 +104,7 @@
     font-family: "Inter";
     font-weight: 400;
     cursor: pointer;
+  
 }
 .subtasks-control-edit {
   display: flex;
@@ -183,9 +178,24 @@
   flex-grow: 1;
 }
 .input-with-button-edit {
-  width: 440px;
+ width:100%;
   height: 48px;
   display: flex;
   margin-top: 10px;
   border: 1px solid #f6f7f8;
+}
+.subtasksListEdit {
+  height: 120px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  flex-grow: 1;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
 }

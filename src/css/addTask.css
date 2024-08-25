@@ -207,7 +207,6 @@ label[for=""] {
 .input-with-button {
   width: 440px;
   height: 48px;
-  display: flex;
   margin-top: 10px;
   border: 1px solid #f6f7f8;
 }
