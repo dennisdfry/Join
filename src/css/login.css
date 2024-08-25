@@ -286,11 +286,10 @@ input[type="password"]::-webkit-password-field {
   .login-signup {
     width: 100%;
     position: absolute;
-    bottom: 0%;
-    right: 23%;
+    bottom: 10%;
+    right: 0;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: center;
     z-index: 8;
   }
 
@@ -350,5 +349,10 @@ input[type="password"]::-webkit-password-field {
     to {
       background-color: rgba(246, 247, 248, 0);
     }
+  }
+
+  .login-info {
+    position: absolute;
+    bottom: 5%;
   }
 }
