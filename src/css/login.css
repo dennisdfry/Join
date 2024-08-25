@@ -141,7 +141,8 @@ body {
 
 .login-btn {
   margin-top: 20px;
-  width: 500px;
+  margin-left: 85px;
+  width: 322px;
   height: 48px;
 }
 
@@ -152,7 +153,6 @@ body {
   height: 48px;
   border-radius: 8px;
   gap: 10px;
-  margin-left: 60px;
   transition: transform 0.125s ease-in-out;
 }
 
@@ -254,4 +254,50 @@ input[type="password"]::-webkit-outer-spin-button {
 
 input[type="password"]::-webkit-password-field {
   display: none;
+}
+
+@media (max-width: 750px) {
+  .login-field {
+    width: 396px;
+    height: 515px;
+    padding: 0px 15px;
+  }
+
+  .login-input input {
+    width: 364px;
+    height: 48px;
+  }
+
+  .login-btn {
+    margin-top: 20px;
+    width: 420px;
+    height: 123px;
+    flex-direction: column;
+    gap: 21px;
+    margin-left: 0;
+  }
+
+  .submit-login-btn,
+  .login-signup-btn {
+    width: 180px;
+  }
+
+  .login-signup {
+    width: 100%;
+    position: absolute;
+    bottom: 0%;
+    right: 23%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    z-index: 8;
+  }
+
+  .login-txt {
+    font-size: 47px;
+  }
+
+  .login-headline-divider {
+    margin: 0;
+  }
 }
