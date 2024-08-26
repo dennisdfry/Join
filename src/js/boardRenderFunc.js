@@ -1,5 +1,35 @@
+async function htmlBoardImage(imageUrl, index) {
+    return `
+    <div class="image-div">
+      <img class="user-image-board" src="${imageUrl}">
+    </div>  `;
+}
 
-window.htmlboard = async function(index, category, title, description, date, prio) {
+async function subtasksRender(indexHtml, subtasks) {
+    subtasksLengthArray.push({
+        position: indexHtml,
+        subs: subtasks
+    });
+    let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
+    if (Array.isArray(subtasks)) {
+        for (let index = 0; index < subtasks.length; index++) {
+            const element = subtasks[index];
+        }
+        positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
+    } else {
+        positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
+    }
+}
+
+async function userNamesRender(index) {
+    let position = document.getElementById(`userNames${index}`)
+    for (let index = 0; index < userNames.length; index++) {
+        const element = userNames[index];
+        position.innerHTML += `<p class="d-flex item-center  fs-20 fw-400">${element}</p>`;
+    }
+}
+
+window.htmlboard = async function (index, category, title, description, date, prio) {
     return `
     <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container">
         <div class="d-flex-between">
@@ -24,10 +54,10 @@ window.htmlboard = async function(index, category, title, description, date, pri
             <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
             </div>
         </div>  
-    </div>`;  
+    </div>`;
 };
 
-window.openTaskToBoardHtml = function (index, category, title, description, date, prio){
+window.openTaskToBoardHtml = function (index, category, title, description, date, prio) {
     return `
     <div class="board-task-container-open" id="parentContainer${index}">
           <div class="d-flex-between">
@@ -66,10 +96,10 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <div onclick="editOpenTask(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
             </div>
           </div>
-    </div>`;  
+    </div>`;
 }
 
- window.editTaskHtml = function(index, category, title, description, date, prio){
+window.editTaskHtml = function (index, category, title, description, date, prio) {
     return `
     <div class="board-task-container-open" id="parentContainer${index}">
           <div class="d-flex-between">
@@ -146,5 +176,5 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <div onclick="defineTaskObjectsEdit(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
             </div>
           </div> 
-    </div>`; 
- }
+    </div>`;
+}

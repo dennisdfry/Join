@@ -113,7 +113,6 @@ async function generateHTMLObjects(taskkeys, task) {
   }
 }
 
-
 async function updateHTML() {
   const categories = ['todo', 'progress', 'feedback', 'done'];
   
@@ -128,7 +127,6 @@ async function updateHTML() {
     console.error('Fehler beim Aktualisieren der HTML-Inhalte:', error);
   }
 }
-
 
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
@@ -171,8 +169,7 @@ async function updateTaskInFirebase(task) {
     console.error('Error updating task in Firebase:', error);
   }
 }
-
-
+ 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
@@ -221,51 +218,6 @@ async function searchprio(index, prio){
   }
 }
 
-async function searchprioOpenTask(index, prio){
-  let position = document.getElementById(`prioPositionOpenTask${index}`);
-  position.innerHTML = '';
-  if(prio == 'Urgent'){
-    position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
-  }else{
-    if(prio == 'Medium'){
-      position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
-    }else{
-      if(prio == 'Low'){
-        position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
-      }
-    }
-  }
-}
-
-async function openTaskToBoardRender(index, category, title, description, date, prio ) {
-  let position = document.getElementById('openTask');
-  if (position.classList.contains('modal-overlay')){
-    return
-  }else{
-  position.classList.add('modal-overlay');
-  position.classList.remove('d-none');
-  position.innerHTML = window.openTaskToBoardHtml(index, category, title, description, date, prio);
-  
-}
-promiseSecondInfoOpenTask(index);
-}
-
-async function promiseSecondInfoOpenTask(index){
-  let taskInfo = taskData[index];
-  if (taskInfo) {
-      let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
-      await subtasksRenderOpen(index, subtasks);
-      await Promise.all([
-        searchIndexUrlOpen(index, users, fetchImage, userNames),
-        searchprio(index, prio),
-        searchprioOpenTask(index, prio),
-    ]);
-    await loadSubtaskStatus(index);
-    
-}else {
-console.error("Keine Daten für den angegebenen Index gefunden.");
-}}
-
 async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     const element = taskkeysGlobal[index];
@@ -292,15 +244,6 @@ async function loadSubtaskStatus(indexHtml) {
     }
   }
 }
-}
-
-function closeOpenTask(event, index) {
-  event.stopPropagation();
-  let openPosition = document.getElementById('openTask');
-  openPosition.classList.remove('modal-overlay');
-  openPosition.classList.add('d-none');
-  openPosition.innerHTML = '';
-  // loadingBoard();
 }
 
 async function searchIndexUrl(index, users, fetchImage){
@@ -332,74 +275,6 @@ function tileUserImage(index) {
   }
 }
 
-async function userNamesRender(index){
-  let position = document.getElementById(`userNames${index}`)
-  for (let index = 0; index < userNames.length; index++) {
-    const element = userNames[index];
-    position.innerHTML += `<p class="d-flex item-center  fs-20 fw-400">${element}</p>`;
-  }
-}
-
-async function searchIndexUrlOpen(index, users, fetchImage, userNames){
-  let position = document.getElementById(`userImageBoardOpen${index}`);
-  position.innerHTML = '';
-  if (!users || users.length === 0) {
-    return;
-  }
-  for (let index = 0; index < users.length; index++) {
-    const element = users[index];
-    const names = userNames[index];
-    let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImageOpen(imageUrl, index, names);
-  }
-}
-
-async function htmlBoardImage(imageUrl, index){
-  return `
-  <div class="image-div">
-    <img class="user-image-board" src="${imageUrl}">
-  </div>  `;
-}
-
-async function htmlBoardImageOpen(imageUrl, index, names){
-  return `
-  <div class="d-flex pa-7-16">
-    <img class="user-image-task-open" src="${imageUrl}">
-    <div class="d-flex item-center font-sf fs-19 fw-400" >${names}</div>
-  </div>  `;
-}
-
-async function subtasksRender(indexHtml, subtasks) {
-    subtasksLengthArray.push({
-        position: indexHtml,
-        subs: subtasks
-    });
-    let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
-    if (Array.isArray(subtasks)) {
-        for (let index = 0; index < subtasks.length; index++) {
-            const element = subtasks[index];
-        }
-        positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
-    } else {
-        positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
-    }}
-
-async function subtasksRenderOpen(indexHtml, subtasks) {
-  let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
-  position.innerHTML = '';
-  subtasksLengthArray.push({
-      position: indexHtml,
-      subs: subtasks});
-  if (Array.isArray(subtasks)) {
-    for (let index = 0; index < subtasks.length; index++) {
-        const element = subtasks[index];
-        position.innerHTML += `
-            <div class="d-flex item-center pa-7-16">
-                <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task" type="checkbox" id="subtask-${indexHtml}-${index}">
-                <label class="" for="subtask-${indexHtml}-${index}">${element}</label>
-            </div>`;
-    }}}
-
 async function subtaskStatus(indexHtml, index){
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
   const isChecked = checkbox.checked;
@@ -423,8 +298,6 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
     }
   }
 }
-
-
 
 async function progressBar(indexHtml) {
   let progressBar = document.getElementById(`progressBar${indexHtml}`);
@@ -452,12 +325,10 @@ async function progressBar(indexHtml) {
   }
 }
 
-
 function openAddForm() {
   document.getElementById('add-task-form').classList.remove('vis-hidden');
   document.getElementById('add-task-form').classList.remove('d-none');
 }
-
 
 function closeAddForm() {
  let formField = document.getElementById('add-task-form');
@@ -520,6 +391,7 @@ function addSubtask2() {
       resetSubtaskInput2();
   }
 }
+
 async function saveToFirebase2(path="/tasks"){
   let response = await fetch(BASE_URL + path + ".json", {
     method: "POST",
