@@ -86,6 +86,9 @@
           <h1 class="mg-block-inline">Add Task</h1>
           <div class="add-task-close-button"></div>
         </div>
+        <div class="add-task-exit-btn" onclick="closeAddForm()">   
+          	<img src="./img/Close.png">
+        </div>
         <div>
           <div class="add-task-middle-section2" action="">
             <!-- Linke Sektion -->
@@ -136,15 +139,15 @@
                 name="dueDate"
               />
 
-              <label id="prioSection2" for="">Prio</label>
-              <div class="add-task-prio-button-container">
+              <label id="prioSection2" for="prio">Prio</label>
+              <div class="add-task-prio-button2-container">
                 <button
                   onclick="prio2(1)"
                   id="prio2Button1"
                   value="1"
                   data-prio="urgent"
                   type="button"
-                  class="add-task-prio-button"
+                  class="add-task-prio-button2"
                 >
                   <span>Urgent</span>
                   <img src="../public/img/Prio alta.png" alt="" />
@@ -155,7 +158,7 @@
                   value="2"
                   data-prio="medium"
                   type="button"
-                  class="add-task-prio-button"
+                  class="add-task-prio-button2"
                 >
                   <span>Medium =</span>
                 </button>
@@ -165,7 +168,7 @@
                   value="3"
                   data-prio="low"
                   type="button"
-                  class="add-task-prio-button"
+                  class="add-task-prio-button2"
                 >
                   <span>Low</span>
                   <img src="../public/img/Prio baja.png"/>
@@ -185,7 +188,7 @@
                 <option value="Technical Task">Technical Task</option>
                 <option value="User Story">User Story</option>
               </select>
-              <label for="subtasks">Subtasks</label>
+              <label for="subtasks2">Subtasks</label>
               <div class="input-with-button2 bradius10">
                 <input
                   type="text"
@@ -195,7 +198,7 @@
                   id="subtasks2"
                   name="subtasks"
                 />
-                <div id="subtasksControl2" class="subtasks-control">
+                <div id="subtasksControl2" class="subtasks-control2">
                   <button
                     onclick="showSubtaskControls2()"
                     type="button"
@@ -222,9 +225,9 @@
               <span>Create Task</span>
               <img src="../public/img/check.svg"/>
             </button>
-            <p><span class="red-star">*</span>This field is required</p>
           </div>
         </div>
+        <div class="req-field"><p><span class="red-star">*</span>This field is required</p></div>
       </form>
     </div>
   </body>

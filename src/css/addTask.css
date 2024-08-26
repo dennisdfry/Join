@@ -167,7 +167,7 @@ label[for=subtasks] {
 }
 
 label[for=""] {
-    margin-top: 4px;
+  margin-top: 4px;
 }
 
 .add-task-select:hover {
