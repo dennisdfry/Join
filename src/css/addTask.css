@@ -167,7 +167,7 @@ label[for=subtasks] {
 }
 
 label[for=""] {
-    margin-top: 4px;
+  margin-top: 4px;
 }
 
 .add-task-select:hover {
@@ -394,7 +394,8 @@ label[for=""] {
   bottom: 0;
 }
 
-#checkboxes {
+#checkboxes,
+#checkboxes2 {
   display: none;
   border: none;
   background-color: #ffffff;
@@ -410,15 +411,18 @@ label[for=""] {
   -ms-overflow-style: none;
 }
 
-#checkboxes img {
+#checkboxes img,
+#checkboxes2 img {
   height: 42px;
   width: 42px;
 }
 
-#checkboxes::-webkit-scrollbar {
+#checkboxes::-webkit-scrollbar,
+#checkboxes2::-webkit-scrollbar  {
   display: none;
 }
-#checkboxes::-webkit-scrollbar-thumb {
+#checkboxes::-webkit-scrollbar-thumb,
+#checkboxes2::-webkit-scrollbar-thumb {
   background-color: #2a3647;
   border-radius: 8px;
 }
@@ -426,15 +430,18 @@ label[for=""] {
   background-color: #e0e0e0;
   border-radius: 8px;
 }
-#checkboxes::-webkit-scrollbar-thumb {
+#checkboxes::-webkit-scrollbar-thumb,
+#checkboxes2::-webkit-scrollbar-thumb {
   height: 53px;
 }
 
-#checkboxes label {
+#checkboxes label,
+#checkboxes2 label {
   padding: 5px;
 }
 
-#checkboxes label img {
+#checkboxes label img,
+#checkboxes2 label img {
   vertical-align: middle;
   margin-right: 8px;
 }

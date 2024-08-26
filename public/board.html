@@ -15,50 +15,223 @@
     <link rel="icon" href="./img/user_logo.png" type="image/png">
 
     <title>Board</title>
-</head>
+  </head>
 
-<body class="background-main">
+  <body class="background-main">
     <div class="board-head-section">
-        <section class="board-head-section-top">
-            <h1 class="board-headline">Board</h1>
-            <div class="search-task-container">
-                <form class="search-task-section" action="">
-                    <input class="search-task-web" type="text" placeholder="Find Task">
-                    <div class="search-task-seperator"></div>
-                    <img src="./img/search.png" alt="">
-                </form>
-                <button onclick="changeSite('addTask.html')" class="add-task-button">
-                    <span>Add Task</span>
-                    <img src="../public/img/add.png">
-                </button>
-            </div>
-
-        </section>
-        <section class="board-head-section-bottom">
-            <div class="board-task-column board-task-column-left">
-                <h4 class="mg-block-inline">To do</h4>
-                <img onclick="loadingBoard()" src="./img/plus button.png" alt="">
-            </div>
-            <div class="board-task-column">
-                <h4 class="mg-block-inline">In progress</h4>
-                <img src="./img/plus button.png">
-            </div>
-            <div class="board-task-column">
-                <h4 class="mg-block-inline">Await feedback</h4>
-                <img src="./img/plus button.png">
-            </div>
-            <div class="board-task-column board-task-column-right">
-                <h4 class="mg-block-inline">Done</h4>
-            </div>
-        </section>
-        <section class="board-render-section" id="renderSectionBoard">
-            <div class="board-render-status-container drag-area" id="todo" ondrop="moveTo('todo')" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container drag-area" id="progress" ondrop="moveTo('progress')" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container drag-area" id="feedback" ondrop="moveTo('feedback')" ondragover="allowDrop(event)"></div>
-            <div class="board-render-status-container drag-area" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
-        </section>
+      <section class="board-head-section-top">
+        <h1 class="board-headline">Board</h1>
+        <div class="search-task-container">
+          <form class="search-task-section" action="">
+            <input
+              class="search-task-web"
+              type="text"
+              placeholder="Find Task"
+            />
+            <div class="search-task-seperator"></div>
+            <img src="./img/search.png" alt="" />
+          </form>
+          <button onclick="openAddForm()" class="add-task-button">
+            <span>Add Task</span>
+            <img src="../public/img/add.png" />
+          </button>
+        </div>
+      </section>
+      <section class="board-head-section-bottom">
+        <div class="board-task-column board-task-column-left">
+          <h4 class="mg-block-inline">To do</h4>
+          <img onclick="loadingBoard()" src="./img/plus button.png" alt="" />
+        </div>
+        <div class="board-task-column">
+          <h4 class="mg-block-inline">In progress</h4>
+          <img src="./img/plus button.png" />
+        </div>
+        <div class="board-task-column">
+          <h4 class="mg-block-inline">Await feedback</h4>
+          <img src="./img/plus button.png" />
+        </div>
+        <div class="board-task-column board-task-column-right">
+          <h4 class="mg-block-inline">Done</h4>
+        </div>
+      </section>
+      <section class="board-render-section" id="renderSectionBoard">
+        <div
+          class="board-render-status-container drag-area"
+          id="todo"
+          ondrop="moveTo('todo')"
+          ondragover="allowDrop(event)"
+        ></div>
+        <div
+          class="board-render-status-container drag-area"
+          id="progress"
+          ondrop="moveTo('progress')"
+          ondragover="allowDrop(event)"
+        ></div>
+        <div
+          class="board-render-status-container drag-area"
+          id="feedback"
+          ondrop="moveTo('feedback')"
+          ondragover="allowDrop(event)"
+        ></div>
+        <div
+          class="board-render-status-container drag-area"
+          id="done"
+          ondrop="moveTo('done')"
+          ondragover="allowDrop(event)"
+        ></div>
+      </section>
     </div>
-    <div id="openTask" class="d-none d-flex-center "></div>
-</body>
+    <div id="openTask" class="d-none d-flex-center"></div>
 
+
+      <form onsubmit=" return createTask(event)" id="add-task-form" class="add-Task-Container2 vis-hidden d-none">
+        <div class="add-task-head2">
+          <h1 class="mg-block-inline">Add Task</h1>
+          <div class="add-task-close-button"></div>
+        </div>
+        <div class="add-task-exit-btn" onclick="closeAddForm()">   
+          	<img src="./img/Close.png">
+        </div>
+        <div>
+          <div class="add-task-middle-section2" action="">
+            <!-- Linke Sektion -->
+            <div class="add-task-form-left-section2">
+              <label for="title">Title <span class="red-star">*</span></label>
+              <input
+                required
+                minlength="2"
+                class="add-task-title-inputfield2"
+                type="text"
+                placeholder="Enter a title"
+                name="title"
+                id="title2"
+              />
+
+              <label for="description">Description</label>
+              <textarea
+                required
+                minlength="2"
+                class="add-task-textarea2"
+                placeholder="Enter a description"
+                name="description"
+                id="description2"
+              ></textarea>
+              <label for="assignedTo">Assigned to</label>
+              <div class="multiselect2">
+                <div class="selectBox2" onclick="showCheckboxes2()">
+                  <select required class="add-task-select2">
+                    <option>Select an option</option>
+                  </select>
+                  <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes2"></div>
+              </div>
+            </div>
+            <div class="add-task-seperator2"></div>
+            <!-- Rechte Sektion -->
+            <div class="add-task-form-right-section2">
+              <label for="dueDate"
+                >Due date <span class="red-star">*</span></label
+                  id="prio2Button1"
+              >
+              <input
+                required
+                class="add-task-select2"
+                type="date"
+                id="dueDate2"
+                name="dueDate"
+              />
+
+              <label id="prioSection2" for="prio">Prio</label>
+              <div class="add-task-prio-button2-container">
+                <button
+                  onclick="prio2(1)"
+                  id="prio2Button1"
+                  value="1"
+                  data-prio="urgent"
+                  type="button"
+                  class="add-task-prio-button2"
+                >
+                  <span>Urgent</span>
+                  <img src="../public/img/Prio alta.png" alt="" />
+                </button>
+                <button
+                  onclick="prio2(2)"
+                  id="prio2Button2"
+                  value="2"
+                  data-prio="medium"
+                  type="button"
+                  class="add-task-prio-button2"
+                >
+                  <span>Medium =</span>
+                </button>
+                <button
+                  onclick="prio2(3)"
+                  id="prio2Button3"
+                  value="3"
+                  data-prio="low"
+                  type="button"
+                  class="add-task-prio-button2"
+                >
+                  <span>Low</span>
+                  <img src="../public/img/Prio baja.png"/>
+                </button>
+              </div>
+
+              <label for="taskCategory"
+                >Category <span class="red-star">*</span></label
+              >
+              <select
+                required
+                class="add-task-select2"
+                name="taskCategory"
+                id="taskCategory2"
+              >
+                <option value="" selected hidden>Select task category</option>
+                <option value="Technical Task">Technical Task</option>
+                <option value="User Story">User Story</option>
+              </select>
+              <label for="subtasks2">Subtasks</label>
+              <div class="input-with-button2 bradius10">
+                <input
+                  type="text"
+                  minlength="2"
+                  class="add-task-input2"
+                  placeholder="Add item"
+                  id="subtasks2"
+                  name="subtasks"
+                />
+                <div id="subtasksControl2" class="subtasks-control2">
+                  <button
+                    onclick="showSubtaskControls2()"
+                    type="button"
+                    id="subtasksPlus2"
+                    class="add-task-button2"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="subtasksList2" id="subtasksPosition2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="add-task-finish-section">
+          <div class="add-task-finish-button-container">
+            <button
+              onclick="closeAddForm()"
+              class="add-task-cancel-button"
+            >
+              <span>Clear <span>x</span></span>
+            </button>
+            <button class="add-task-create-button">
+              <span>Create Task</span>
+              <img src="../public/img/check.svg"/>
+            </button>
+          </div>
+        </div>
+        <div class="req-field"><p><span class="red-star">*</span>This field is required</p></div>
+      </form>
+    </div>
+  </body>
 </html>
