@@ -173,7 +173,6 @@ async function updateTaskInFirebase(task) {
   }
 }
 
-// //
 
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
   for (let index = 0; index < taskkeys.length; index++) {
