@@ -178,11 +178,31 @@
   flex-grow: 1;
 }
 .input-with-button-edit {
- width:100%;
+  width: 460px;
   height: 48px;
   display: flex;
   margin-top: 10px;
   border: 1px solid #f6f7f8;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
+}
+
+.input-with-button-edit::-webkit-scrollbar {
+  display: none;
+}
+.input-with-button-edit::-webkit-scrollbar-thumb {
+  background-color: #2a3647;
+  border-radius: 8px;
+}
+.input-with-button-edit::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+.input-with-button-edit::-webkit-scrollbar-thumb {
+  height: 53px;
 }
 .subtasksListEdit {
   height: 120px;

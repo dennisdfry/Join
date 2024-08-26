@@ -549,3 +549,52 @@ async function createTask(event) {
   clearSubtask2();
   await changeSite('board.html');
 }
+
+
+
+function searchTasks(query) {
+  let lowerCaseQuery = query.toLowerCase();
+  let minQueryLength = 3;
+
+  // Wenn die Suchanfrage kurz ist, zeige alle Aufgaben an
+  if (lowerCaseQuery.length < minQueryLength) {
+    resetTaskVisibility();
+    return;
+  }
+
+  let taskContainers = document.querySelectorAll('.board-render-status-container');
+
+  taskContainers.forEach(container => {
+    let tasks = container.querySelectorAll('.board-task-container');
+    
+    let taskFound = false;
+
+    tasks.forEach(task => {
+      let taskTitle = task.querySelector('.task-title').textContent.toLowerCase();
+      
+      if (taskTitle.includes(lowerCaseQuery)) {
+        task.style.display = ''; // Aufgabe anzeigen
+        taskFound = true;
+      } else {
+        task.style.display = 'none'; // Aufgabe ausblenden
+      }
+    });
+
+    // Wenn keine Aufgabe gefunden wurde, den Container ausblenden
+    container.style.display = taskFound ? '' : 'none';
+  });
+}
+
+function resetTaskVisibility() {
+  let taskContainers = document.querySelectorAll('.board-render-status-container');
+  
+  taskContainers.forEach(container => {
+    let tasks = container.querySelectorAll('.board-task-container');
+    
+    tasks.forEach(task => {
+      task.style.display = ''; // Alle Aufgaben wieder anzeigen
+    });
+
+    container.style.display = ''; // Alle Container wieder anzeigen
+  });
+}

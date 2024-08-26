@@ -35,7 +35,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
           <div>
-              <h2>${title}</h2> 
+                <h2 class="task-title">${title}</h2>
           </div>
           <div>  
               <p class="description-open-task">${description}</p>
