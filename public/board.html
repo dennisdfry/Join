@@ -82,19 +82,19 @@
 
 
       <form onsubmit=" return createTask(event)" id="add-task-form" class="add-Task-Container2 vis-hidden d-none">
-        <div class="add-task-head">
-          <h1>Add Task</h1>
+        <div class="add-task-head2">
+          <h1 class="mg-block-inline">Add Task</h1>
           <div class="add-task-close-button"></div>
         </div>
         <div>
-          <div class="add-task-middle-section" action="">
+          <div class="add-task-middle-section2" action="">
             <!-- Linke Sektion -->
-            <div class="add-task-form-left-section">
+            <div class="add-task-form-left-section2">
               <label for="title">Title <span class="red-star">*</span></label>
               <input
                 required
                 minlength="2"
-                class="add-task-title-inputfield"
+                class="add-task-title-inputfield2"
                 type="text"
                 placeholder="Enter a title"
                 name="title"
@@ -105,15 +105,15 @@
               <textarea
                 required
                 minlength="2"
-                class="add-task-textarea"
+                class="add-task-textarea2"
                 placeholder="Enter a description"
                 name="description"
                 id="description2"
               ></textarea>
               <label for="assignedTo">Assigned to</label>
-              <div class="multiselect">
-                <div class="selectBox" onclick="showCheckboxes2()">
-                  <select required class="add-task-select">
+              <div class="multiselect2">
+                <div class="selectBox2" onclick="showCheckboxes2()">
+                  <select required class="add-task-select2">
                     <option>Select an option</option>
                   </select>
                   <div class="overSelect"></div>
@@ -121,16 +121,16 @@
                 <div id="checkboxes2"></div>
               </div>
             </div>
-            <div class="add-task-seperator"></div>
+            <div class="add-task-seperator2"></div>
             <!-- Rechte Sektion -->
-            <div class="add-task-form-right-section">
+            <div class="add-task-form-right-section2">
               <label for="dueDate"
                 >Due date <span class="red-star">*</span></label
                   id="prio2Button1"
               >
               <input
                 required
-                class="add-task-select"
+                class="add-task-select2"
                 type="date"
                 id="dueDate2"
                 name="dueDate"
@@ -177,7 +177,7 @@
               >
               <select
                 required
-                class="add-task-select"
+                class="add-task-select2"
                 name="taskCategory"
                 id="taskCategory2"
               >
@@ -186,11 +186,11 @@
                 <option value="User Story">User Story</option>
               </select>
               <label for="subtasks">Subtasks</label>
-              <div class="input-with-button bradius10">
+              <div class="input-with-button2 bradius10">
                 <input
                   type="text"
                   minlength="2"
-                  class="add-task-input"
+                  class="add-task-input2"
                   placeholder="Add item"
                   id="subtasks2"
                   name="subtasks"
@@ -200,18 +200,17 @@
                     onclick="showSubtaskControls2()"
                     type="button"
                     id="subtasksPlus2"
-                    class="add-task-button"
+                    class="add-task-button2"
                   >
                     +
                   </button>
                 </div>
               </div>
-              <div class="subtasksList" id="subtasksPosition2"></div>
+              <div class="subtasksList2" id="subtasksPosition2"></div>
             </div>
           </div>
         </div>
         <div class="add-task-finish-section">
-          <p><span class="red-star">*</span>This field is required</p>
           <div class="add-task-finish-button-container">
             <button
               onclick="closeAddForm()"
@@ -223,6 +222,7 @@
               <span>Create Task</span>
               <img src="../public/img/check.svg"/>
             </button>
+            <p><span class="red-star">*</span>This field is required</p>
           </div>
         </div>
       </form>
