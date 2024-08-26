@@ -138,7 +138,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
 
                     </div>
                     <div class="subtasksListEdit" id="subtasksPosition${index}"></div>  
-              <div class="" id="subtasksBoardOpen${index}"></div>
+              <div class="" id="subtasksBoardEdit${index}"></div>
           <div class="d-flex-end">
             <div class="d-flex item-center">
               <div class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none" >Delete</p></div>

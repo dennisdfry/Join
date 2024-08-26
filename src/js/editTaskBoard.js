@@ -19,6 +19,7 @@ async function editOpenTask(index, category, title, description, date, prio){
     initEdit(index);
     checkboxIndexFalse(index);
     promiseSecondInfoOpenTask(index);
+    subtasksRenderEdit(index);
   }
   
   function dueDateEditTask(index, date){
@@ -181,6 +182,7 @@ function showSubtaskControlsEdit(index) {
                                 <img src="../public/img/checkAddTask.png" alt="Add">
                             </button>`;
 }
+
 function addSubtaskEdit(index) {
     let input = document.getElementById(`subtasks${index}`);
     if (input.value.trim() !== "") {
@@ -210,7 +212,23 @@ function updateSubtasksListEdit(index) {
         const element = subtasksArray[index];
         subtasksPosition.innerHTML += `
             <ul>
-                <li>${element}</li>
+                <li><span>${element}</span><div><img src="../public/img/delete.png"><img src="../public/img/edit.png"></div></li>
             </ul>`;
     }
+}
+
+function subtasksRenderEdit(indexHTML){
+    let arrayPosition = subtasksLengthArray[indexHTML];
+    let subs = arrayPosition.subs;
+    let position = document.getElementById(`subtasksBoardEdit${indexHTML}`)
+    for (let index = 0; index < subs.length; index++) {
+        const element = subs[index];
+        console.log(element);
+
+        position.innerHTML += `
+            <ul>
+                <li><span>${element}</span><div><img src="../public/img/delete.png"><img src="../public/img/edit.png"></div></li>
+            </ul>`
+    }
+    
 }
