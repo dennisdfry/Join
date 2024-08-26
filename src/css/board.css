@@ -569,7 +569,8 @@ body {
 
 .add-task-textarea2 {
   padding: 8px 16px 8px 16px;
-  height: 120px;
+  min-height: 124px;
+  max-height: 240px;
   width: 460px;
   border-radius: 10px;
   outline: none;
