@@ -171,7 +171,10 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
               <div class="" id="subtasksBoardEdit${index}"></div>
           <div class="d-flex-end">
             <div class="d-flex item-center">
-              <div onclick="updateTaskBoard(${index}, '${category}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
+              <div onclick="updateTaskBoard(${index}, '${category}')" class="d-flex item-center pointer d-flex-center edit-task-button">
+                <p class="fs-16 mg-block-none fs-21 f-weight-700 img-24" >ok</p>
+                <img class="open-task-delete-edit img" src="../public/img/check2.png">
+              </div>
             </div>
           </div> 
     </div>`;

@@ -201,8 +201,8 @@ function subtasksRenderEdit(indexHTML){
         console.log(element);
 
         position.innerHTML += `
-            <ul>
-                <li><span>${element}</span><div><img src="../public/img/delete.png"><img src="../public/img/edit.png"></div></li>
+            <ul class="subtasksopenedit">
+                <li class="d-flex-between"><span>${element}</span><div><img src="../public/img/delete.png"><img src="../public/img/edit.png"></div></li>
             </ul>`
     }
     
