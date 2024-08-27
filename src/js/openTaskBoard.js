@@ -72,7 +72,7 @@ async function searchprioOpenTask(index, prio){
       promiseSecondInfoOpenTask(index);
       }
       
-      async function promiseSecondInfoOpenTask  (index){
+      async function promiseSecondInfoOpenTask(index){
         let taskInfo = taskData[index];
         if (taskInfo) {
             let { users, userNames, prio, subtasks, fetchImage } = taskInfo;

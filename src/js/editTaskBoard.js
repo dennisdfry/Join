@@ -22,7 +22,7 @@ async function editOpenTask(index, category, title, description, date, prio){
   }
   
   function dueDateEditTask(index, date){
-    let position = document.getElementById(`dueDate${index}`);
+    let position = document.getElementById(`dueDateEdit${index}`);
     position.value = date;
   }
 
@@ -121,30 +121,7 @@ function showCheckboxesEdit(index) {
         expandedEdit = false;
     }
 }
-function defineTaskObjectsEdit(index){
-    let taskTitle = document.getElementById(`inputEditTitle${index}`).value;
-    let taskDescription = document.getElementById(`descriptionEdit${index}`).value;
-    let dueDateTask = document.getElementById(`dueDate${index}`).value;
-    let lastString = prioArray.pop();
-    let taskCategory = 'todo';
-    pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString)
-}
 
-function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString){
-    addTaskArrayEdit.push({
-        title: taskTitle,
-        description: taskDescription,
-        assignedTo: assignedToUserArray,
-        assignedToNames: assignedToUserArrayNamesGlobal,
-        dueDate: dueDateTask,
-        prio: lastString,
-        category: taskCategory,
-        subtasks: subtasksArray,
-        subtaskStatus: subtasksStatusArray,
-        boardCategory: 'todo'
-    });
-    console.log(addTaskArrayEdit);
-}
 function prioEdit(id) {
     const buttons = document.querySelectorAll('.add-task-prio-button-container button');
     
@@ -210,9 +187,7 @@ function updateSubtasksListEdit(index) {
     for (let index = 0; index < subtasksArray.length; index++) {
         const element = subtasksArray[index];
         subtasksPosition.innerHTML += `
-            <ul>
-                <li><span>${element}</span><div><img src="../public/img/delete.png"><img src="../public/img/edit.png"></div></li>
-            </ul>`;
+                <li><span>${element}</span><div><img src="../public/img/delete.png"><img src="../public/img/edit.png"></div></li> `;
     }
 }
 
@@ -230,4 +205,46 @@ function subtasksRenderEdit(indexHTML){
             </ul>`
     }
     
+}
+
+async function updateTaskBoard(index){
+    defineTaskObjectsEdit(index);
+    console.log(taskkeys)
+    let position = `/tasks/${taskkeys[index]}`
+    console.log(position)
+    await saveToFirebaseEdit(position);
+}
+async function saveToFirebaseEdit(position){
+    let response = await fetch(BASE_URL + position + ".json", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(addTaskArrayEdit),
+    });
+}
+
+function defineTaskObjectsEdit(index){
+    let taskTitle = document.getElementById(`inputEditTitle${index}`).value;
+    let taskDescription = document.getElementById(`descriptionEdit${index}`).value;
+    let dueDateTask = document.getElementById(`dueDateEdit${index}`).value;
+    let lastString = prioArray.pop();
+    let taskCategory = 'todo';
+    pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString)
+}
+
+function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString){
+    addTaskArrayEdit.push({
+        title: taskTitle,
+        description: taskDescription,
+        assignedTo: assignedToUserArray,
+        assignedToNames: assignedToUserArrayNamesGlobal,
+        dueDate: dueDateTask,
+        prio: lastString,
+        category: taskCategory,
+        subtasks: subtasksArray,
+        subtaskStatus: subtasksStatusArray,
+        boardCategory: 'todo'
+    });
+    console.log(addTaskArrayEdit);
 }

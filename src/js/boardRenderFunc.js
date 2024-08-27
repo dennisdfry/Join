@@ -118,7 +118,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           </div> 
           <div class="d-flex full-width flex-d-col mg-btt25" id="dateTask${index}">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
-                    <input required placeholder="${date}" class="edit-task-date" type="date" id="dueDate${index}" name="dueDate">
+                    <input required placeholder="${date}" class="edit-task-date" type="date" id="dueDateEdit${index}" name="dueDate">
               <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task"></p>
           </div>
           <div class="d-flex item-center mg-btt25" id="prioTask${index}">
@@ -167,13 +167,11 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
                         </div>
 
                     </div>
-                    <div class="subtasksListEdit" id="subtasksPosition${index}"></div>  
+                    <ul class="subtasksListEdit" id="subtasksPosition${index}"></ul> 
               <div class="" id="subtasksBoardEdit${index}"></div>
           <div class="d-flex-end">
             <div class="d-flex item-center">
-              <div class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none" >Delete</p></div>
-              <div class="seperator-opentask"></div>
-              <div onclick="defineTaskObjectsEdit(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
+              <div onclick="updateTaskBoard(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
             </div>
           </div> 
     </div>`;
