@@ -31,22 +31,22 @@ async function userNamesRender(index) {
 
 window.htmlboard = async function (index, category, title, description, date, prio) {
     return `
-    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container">
-        <div class="d-flex-between">
-            <h1 class="txt-center">${category}</h1>
+    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container bradius24 d-flex flex-d-col content-even"> 
+        <div class="d-flex-between mg-btt25">
+            <h1 class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenid="parentContainer${index}"Task${index}" class="d-none" src="../public/img/Close.png">
         </div>
-        <div>
-            <h2>${title}</h2> 
+        <div class="width220">
+            <h2 class="mg-block-none fs-16 fw-700">${title}</h2> 
         </div>
         <div>  
-            <p id="limitTextDesciption${index}">${description}</p>
+            <p class="mg-block-none fs-16 fw-400 color-gr width220" id="limitTextDesciption${index}">${description}</p>
         </div> 
-        <div class="progress-container d-flex-between">
+        <div class="progress-container d-flex-between width220">
             <div class="width128">
             <div id="progressBar${index}" class="progress-bar"></div>
             </div>
-            <div id="subtasksLength${index}" class="subtasksLength"></div>
+            <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
         </div>
         <div class="d-flex-between">
             <div class="user-image-bord-container" id="userImageBoard${index}">
@@ -103,7 +103,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
     return `
     <div class="board-task-container-open" id="parentContainer${index}">
           <div class="d-flex-between">
-              <h1 class="txt-center">${category}</h1>
+              <h1 class="txt-center fs-16">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
           <div class="full-width">
