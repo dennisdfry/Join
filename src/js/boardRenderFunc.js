@@ -1,7 +1,7 @@
 async function htmlBoardImage(imageUrl, index) {
     return `
     <div class="image-div">
-      <img class="user-image-board" src="${imageUrl}">
+      <img class="user-image-board img-32" src="${imageUrl}">
     </div>  `;
 }
 
@@ -51,7 +51,7 @@ window.htmlboard = async function (index, category, title, description, date, pr
         <div class="d-flex-between">
             <div class="user-image-bord-container" id="userImageBoard${index}">
             </div>
-            <div class="prio-board-image-container d-flex-center" id="prioPosition${index}">
+            <div class="img-32 d-flex-center" id="prioPosition${index}">
             </div>
         </div>  
     </div>`;
