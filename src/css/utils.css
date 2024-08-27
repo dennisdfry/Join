@@ -93,7 +93,9 @@
 .fs-27 {
   font-size: 27px;
 }
-
+.fs-36 {
+  font-size: 36px;
+}
 .fs-47 {
   font-size: 47px;
 }
@@ -388,6 +390,9 @@
 }
 .width220 {
   width:220px;
+}
+.width396 {
+  width:396px;
 }
 .width-100percent{
   width:100%;

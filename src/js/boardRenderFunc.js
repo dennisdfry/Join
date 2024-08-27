@@ -31,7 +31,7 @@ async function userNamesRender(index) {
 
 window.htmlboard = async function (index, category, title, description, date, prio) {
     return `
-    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container bradius24 d-flex flex-d-col content-even"> 
+    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container bradius24 d-flex flex-d-col content-even mg-btt25"> 
         <div class="d-flex-between mg-btt25">
             <h1 class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenid="parentContainer${index}"Task${index}" class="d-none" src="../public/img/Close.png">
@@ -48,8 +48,8 @@ window.htmlboard = async function (index, category, title, description, date, pr
             </div>
             <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
         </div>
-        <div class="d-flex-between">
-            <div class="user-image-bord-container" id="userImageBoard${index}">
+        <div class="d-flex-between width220">
+            <div class="user-image-bord-container " id="userImageBoard${index}">
             </div>
             <div class="img-32 d-flex-center" id="prioPosition${index}">
             </div>
@@ -59,9 +59,9 @@ window.htmlboard = async function (index, category, title, description, date, pr
 
 window.openTaskToBoardHtml = function (index, category, title, description, date, prio) {
     return `
-    <div class="board-task-container-open" id="parentContainer${index}">
+    <div class="board-task-container-open width396 bradius24 bg-color-ww" id="parentContainer${index}">
           <div class="d-flex-between">
-              <h1 class="txt-center">${category}</h1>
+              <h1 class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
           <div>
