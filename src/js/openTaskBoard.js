@@ -42,6 +42,7 @@ async function searchprioOpenTask(index, prio){
     openPosition.classList.remove('modal-overlay');
     openPosition.classList.add('d-none');
     openPosition.innerHTML = '';
+    changeSite('board.html');
   }
 
    async function subtasksRenderOpen (indexHtml, subtasks) {

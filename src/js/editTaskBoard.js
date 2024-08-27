@@ -19,6 +19,7 @@ async function editOpenTask(index, category, title, description, date, prio){
     initEdit(index);
     checkboxIndexFalse(index);
     subtasksRenderEdit(index);
+    console.log(category)
   }
   
   function dueDateEditTask(index, date){
@@ -207,12 +208,13 @@ function subtasksRenderEdit(indexHTML){
     
 }
 
-async function updateTaskBoard(index){
-    defineTaskObjectsEdit(index);
+async function updateTaskBoard(index, category){
+    defineTaskObjectsEdit(index, category);
     console.log(taskkeys)
     let position = `/tasks/${taskkeys[index]}`
     console.log(position)
     await saveToFirebaseEdit(position);
+    changeSite('board.html');
 }
 async function saveToFirebaseEdit(position){
     let response = await fetch(BASE_URL + position + ".json", {
@@ -224,12 +226,12 @@ async function saveToFirebaseEdit(position){
     });
 }
 
-function defineTaskObjectsEdit(index){
+function defineTaskObjectsEdit(index, category){
     let taskTitle = document.getElementById(`inputEditTitle${index}`).value;
     let taskDescription = document.getElementById(`descriptionEdit${index}`).value;
     let dueDateTask = document.getElementById(`dueDateEdit${index}`).value;
     let lastString = prioArray.pop();
-    let taskCategory = 'todo';
+    let taskCategory = category;
     pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString)
 }
 
