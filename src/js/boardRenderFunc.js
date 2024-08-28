@@ -114,9 +114,9 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
               <input onclick="editTitle(${index})" id="inputEditTitle${index}" minlength="2" class="title-edit-input width445" type="text"
                         placeholder="${title}" name="title">
           </div>
-          <div class="margin-bt8">  
+          <div class="margin-bt8 width445">  
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Description:</p>
-              <textarea onclick="editDescription(${index})" id="descriptionEdit${index}" minlength="2" class="edit-task-textarea" placeholder="${description}"
+              <textarea onclick="editDescription(${index})" id="descriptionEdit${index}" minlength="2" class="edit-task-textarea full-width" placeholder="${description}"
                         name="description" id="description"></textarea>
           </div> 
           <div class="d-flex full-width flex-d-col margin-bt8" id="dateTask${index}">
@@ -124,7 +124,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
                     <input required placeholder="${date}" class="edit-task-date" type="date" id="dueDateEdit${index}" name="dueDate">
               <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task"></p>
           </div>
-          <div class="d-flex item-center margin-bt8" id="prioTask${index}">
+          <div class="d-flex flex-d-col  margin-bt8" id="prioTask${index}">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Priority:</p>
               <div class="add-task-prio-button-container">
                         <button onclick="prioEdit(1)" id="prioButton1" value="1" data-prio="urgent" type="button"
@@ -146,7 +146,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           <div class="margin-bt8">
           <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Assigned To:</p>
           </div>
-          <div class="multiselect">
+          <div class="multiselect margin-bt8">
             <div class="selectBox" onclick="showCheckboxesEdit(${index})">
                 <select class="add-task-select">
                     <option>Select an option</option>

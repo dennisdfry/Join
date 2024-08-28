@@ -14,12 +14,12 @@
   }
   
   .user-image-bord-container-open {
-    height: 80px;
+    /* height: 80px; */
     overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  scrollbar-color: #2a3647 #e0e0e0;
-  -ms-overflow-style: none;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
 }
 
 .user-image-bord-container-open ::-webkit-scrollbar {

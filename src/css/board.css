@@ -363,6 +363,7 @@ body {
 }
 .title-edit-input {
   border-radius: 10px;
+  max-width: 434px;
   height: 48px;
   outline: none;
   border: 1px solid #a8a8a8;
@@ -370,20 +371,22 @@ body {
   color: #000000;
   margin-bottom: 10px;
   margin-top: 10px;
+  padding-left: 8px;
 }
 .full-width {
   width: 100%;
 }
 .edit-task-textarea {
-  width: 100%;
   min-height: 120px;
   border-radius: 10px;
+  max-width: 434px;
   outline: none;
   border: 1px solid #a8a8a8;
   font-size: 20px;
   color: #000000;
   margin-bottom: 10px;
   margin-top: 10px;
+  padding-left: 8px;
   resize: vertical;
   font-size: 20px;
 }
@@ -593,7 +596,7 @@ body {
 
 input[type="text" i] {
   padding-block: 0px;
-  padding-inline: 0px;
+  /* padding-inline: 0px; */
 }
 
 .add-task-button2 {
