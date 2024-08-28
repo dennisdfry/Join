@@ -59,16 +59,17 @@ window.htmlboard = async function (index, category, title, description, date, pr
 
 window.openTaskToBoardHtml = function (index, category, title, description, date, prio) {
     return `
-    <div class="board-task-container-open width396 bradius24 bg-color-ww" id="parentContainer${index}">
-          <div class="d-flex-between">
+    <div class="board-task-container-open width396 bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
+        <div class="width348">  
+          <div class="d-flex-between margin-bt8">
               <h1 class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
-          <div>
-                <h2 class="task-title">${title}</h2>
+          <div class="margin-bt8">
+                <h2 class="task-title mg-block-none fw-700 fs-36">${title}</h2>
           </div>
-          <div>  
-              <p class="description-open-task">${description}</p>
+          <div class="margin-bt8">  
+              <p class="description-open-task fs-16 fw-400 mg-block-none">${description}</p>
           </div> 
           <div class="d-flex item-center mg-btt25" id="dateTask${index}">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
@@ -96,12 +97,13 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <div onclick="editOpenTask(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
             </div>
           </div>
+        </div>  
     </div>`;
 }
 
 window.editTaskHtml = function (index, category, title, description, date, prio) {
     return `
-    <div class="board-task-container-open" id="parentContainer${index}">
+    <div class="board-task-container-open width396 bradius24 bg-color-ww" id="parentContainer${index}">
           <div class="d-flex-between">
               <h1 class="txt-center fs-16">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
