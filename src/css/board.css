@@ -211,7 +211,6 @@ body {
   font-size: 12px;
 }
 .subtask-scrollbar {
-  width: 445px;
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -364,7 +363,6 @@ body {
   margin: 4px;
 }
 .title-edit-input {
-  width: 525px;
   border-radius: 10px;
   height: 48px;
   outline: none;
