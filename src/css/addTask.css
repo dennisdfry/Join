@@ -160,6 +160,8 @@ body {
   /* Größe des benutzerdefinierten Symbols */
 }
 
+
+
 label[for=taskCategory] {
     margin-top: 4px;
 }
@@ -479,14 +481,6 @@ label[for=""] {
   -ms-overflow-style: none;
 }
 
-.subtasksList ul {
-  display: inline-block;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  unicode-bidi: isolate;
-}
 
 .subtasksList::-webkit-scrollbar {
   display: none;
@@ -503,6 +497,14 @@ label[for=""] {
   height: 53px;
 }
 
+.subtasksList ul {
+  display: inline-block;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
 .d-none {
   display: none;
 }

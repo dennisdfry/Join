@@ -13,6 +13,29 @@
     width: 100%;
   }
   
+  .user-image-bord-container-open {
+    height: 80px;
+    overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
+}
+
+.user-image-bord-container-open ::-webkit-scrollbar {
+  display: none;
+}
+.user-image-bord-container-open ::-webkit-scrollbar-thumb {
+  background-color: #2a3647;
+  border-radius: 8px;
+}
+.user-image-bord-container-open ::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+.user-image-bord-container-open ::-webkit-scrollbar-thumb {
+  height: 53px;
+}
   .multiselect {
     position: relative;
   }
@@ -42,6 +65,32 @@
     right: 0;
     top: 0;
     bottom: 0;
+  }
+
+  #checkboxesEdit0 {
+    height: 136px;
+    width: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
+  }
+
+  
+  #checkboxesEdit0::-webkit-scrollbar {
+    display: none;
+  }
+  #checkboxesEdit0::-webkit-scrollbar-thumb {
+    background-color: #2a3647;
+    border-radius: 8px;
+  }
+  #checkboxesEdit0::-webkit-scrollbar-track {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+  }
+  #checkboxesEdit0::-webkit-scrollbar-thumb {
+    height: 53px;
   }
   
   #checkboxes {
