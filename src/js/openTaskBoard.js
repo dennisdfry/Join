@@ -93,12 +93,13 @@ async function searchprioOpenTask(index, prio){
         console.log(indexHTML);
         for (let index = 0; index < taskkeysGlobal.length; index++) {
           const element = taskkeysGlobal[index];
-          let keys = taskkeysGlobal[index];
-          let taskkey = keys[index]
-        console.log(taskkey);
-         await deleteOnFirebase(taskkey);
+          console.log(element);
+          let key = element[indexHTML];
+        console.log(key);
+         await deleteOnFirebase(key);
         }
         changeSite('board.html');
+        
       }
 
      async function deleteOnFirebase(taskkey){

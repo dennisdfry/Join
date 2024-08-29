@@ -31,7 +31,8 @@ async function whichChangeSite(resp, element, file){
     if (file.includes('contacts.html')) {
       initContacts();}
     if (file.includes('board.html')) {
-      loadingBoard();}
+      loadingBoard();
+    console.log(taskkeysGlobal)}
     if (file.includes('summary.html')) {
       initSmry();}
   } else {
@@ -80,6 +81,7 @@ function hideDropdown() {
 
 async function loadingBoard() {
   try {
+      taskkeysGlobal.length = 0;
       task = await onloadDataBoard("/tasks");
       taskkeys = Object.keys(task);
       taskkeysGlobal.push(taskkeys);

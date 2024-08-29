@@ -120,6 +120,9 @@ async function createTask(event) {
     saveToFirebase();
     form.reset();
     addTaskArray = [];
+    subtasksArray = [];
+    assignedToUserArray = [];
+    assignedToUserArrayNamesGlobal = [];
     clearSubtasks();
     await changeSite('board.html');
     
