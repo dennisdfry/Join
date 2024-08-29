@@ -88,3 +88,28 @@ async function searchprioOpenTask(index, prio){
       }else {
       console.error("Keine Daten für den angegebenen Index gefunden.");
       }}
+
+      async function deleteTask(indexHTML){
+        console.log(indexHTML);
+        for (let index = 0; index < taskkeysGlobal.length; index++) {
+          const element = taskkeysGlobal[index];
+          let keys = taskkeysGlobal[index];
+          let taskkey = keys[index]
+        console.log(taskkey);
+         await deleteOnFirebase(taskkey);
+        }
+        changeSite('board.html');
+      }
+
+     async function deleteOnFirebase(taskkey){
+      try {
+        await fetch(`${BASE_URL}/tasks/${taskkey}.json`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        console.log('Task successfully deleted.');
+      } catch (error) {
+        console.error('Error deleting task in Firebase:', error);
+      }
+    }
+     
