@@ -211,7 +211,6 @@ body {
   font-size: 12px;
 }
 .subtask-scrollbar {
-  width: 445px;
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -273,30 +272,19 @@ body {
 
 .board-task-container-open {
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding: 48px 40px 48px 40px;
+  padding: 16px;
   animation: slideInFromRight 0.5s ease-out forwards; /* Animation hinzufügen */
 }
 
 .board-task-container-open h1 {
   background-color: #0038ff;
-  padding-top: 4px;
-  padding-right: 24px;
-  padding-left: 24px;
-  padding-bottom: 4px;
+  padding: 4px 24px;
   color: rgb(255, 255, 255);
 }
-
 .board-task-container-open h2 {
-  font-family: "Inter700";
-  font-size: 61px;
-  margin-block-start: 0;
-  margin-block-end: 0;
   margin-top: 10px;
 }
-.description-open-task {
-  font-family: "Inter";
-  font-size: 20px;
-}
+
 .close-open-task-img {
   width: 32px;
   height: 32px;
@@ -374,8 +362,8 @@ body {
   margin: 4px;
 }
 .title-edit-input {
-  width: 525px;
   border-radius: 10px;
+  max-width: 434px;
   height: 48px;
   outline: none;
   border: 1px solid #a8a8a8;
@@ -383,20 +371,22 @@ body {
   color: #000000;
   margin-bottom: 10px;
   margin-top: 10px;
+  padding-left: 8px;
 }
 .full-width {
   width: 100%;
 }
 .edit-task-textarea {
-  width: 100%;
   min-height: 120px;
   border-radius: 10px;
+  max-width: 434px;
   outline: none;
   border: 1px solid #a8a8a8;
   font-size: 20px;
   color: #000000;
   margin-bottom: 10px;
   margin-top: 10px;
+  padding-left: 8px;
   resize: vertical;
   font-size: 20px;
 }
@@ -606,7 +596,7 @@ body {
 
 input[type="text" i] {
   padding-block: 0px;
-  padding-inline: 0px;
+  /* padding-inline: 0px; */
 }
 
 .add-task-button2 {

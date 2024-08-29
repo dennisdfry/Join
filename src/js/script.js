@@ -438,21 +438,24 @@ function searchTasks(query) {
 
   taskContainers.forEach(container => {
     let tasks = container.querySelectorAll('.board-task-container');
-    
+
     let taskFound = false;
 
     tasks.forEach(task => {
-      let taskTitle = task.querySelector('.task-title').textContent.toLowerCase();
-      
-      if (taskTitle.includes(lowerCaseQuery)) {
-        task.style.display = ''; // Aufgabe anzeigen
-        taskFound = true;
+      let taskTitleElement = task.querySelector('.task-title');
+      if (taskTitleElement) {
+        let taskTitle = taskTitleElement.textContent.toLowerCase();
+        if (taskTitle.includes(lowerCaseQuery)) {
+          task.style.display = ''; // Aufgabe anzeigen
+          taskFound = true;
+        } else {
+          task.style.display = 'none'; // Aufgabe ausblenden
+        }
       } else {
-        task.style.display = 'none'; // Aufgabe ausblenden
+        console.error("Element '.task-title' nicht gefunden.");
       }
     });
 
-    // Wenn keine Aufgabe gefunden wurde, den Container ausblenden
     container.style.display = taskFound ? '' : 'none';
   });
 }

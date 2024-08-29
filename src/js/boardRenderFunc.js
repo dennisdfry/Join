@@ -59,35 +59,36 @@ window.htmlboard = async function (index, category, title, description, date, pr
 
 window.openTaskToBoardHtml = function (index, category, title, description, date, prio) {
     return `
-    <div class="board-task-container-open width396 bradius24 bg-color-ww" id="parentContainer${index}">
-          <div class="d-flex-between">
-              <h1 class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
+    <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
+        <div class="width445">  
+          <div class="d-flex-between margin-bt8">
+              <h1 class="txt-center fs-20 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
-          <div>
-                <h2 class="task-title">${title}</h2>
+          <div class="margin-bt8">
+                <h2 class="task-title mg-block-none fw-700 fs-61">${title}</h2>
           </div>
-          <div>  
-              <p class="description-open-task">${description}</p>
+          <div class="margin-bt8">  
+              <p class="description-open-task fs-20 fw-400 mg-block-none">${description}</p>
           </div> 
           <div class="d-flex item-center mg-btt25" id="dateTask${index}">
-              <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
+              <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Due date:</p>
               <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task">${date}</p>
           </div>
           <div class="d-flex item-center mg-btt25" id="prioTask${index}">
-              <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Priority:</p>
-              <span class="d-flex item-center  fs-20 fw-400 margin-left-open-task">${prio}</span>
+              <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Priority:</p>
+              <span class="d-flex item-center  fs-16 fw-400 margin-left-open-task">${prio}</span>
               <div class="prio-board-image-container d-flex-center" id="prioPositionOpenTask${index}">
               </div>
           </div>
           <div class="mg-btt25">
-          <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Assigned To:</p>
+          <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Assigned To:</p>
           </div>
-          <div class="user-open-Container d-flex mg-btt25">
+          <div class="d-flex mg-btt25">
               <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
               </div>
           </div>
-          <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>    
+          <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-inline">Subtasks:</p>    
               <div class="subtask-scrollbar" id="subtasksBoardOpen${index}"></div>
           <div class="d-flex-end">
             <div class="d-flex item-center">
@@ -96,33 +97,35 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
               <div onclick="editOpenTask(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none" >Edit</p></div>
             </div>
           </div>
+        </div>  
     </div>`;
 }
 
 window.editTaskHtml = function (index, category, title, description, date, prio) {
     return `
-    <div class="board-task-container-open" id="parentContainer${index}">
-          <div class="d-flex-between">
-              <h1 class="txt-center fs-16">${category}</h1>
+    <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
+        <div class="width445"> 
+          <div class="d-flex-between margin-bt8"">
+              <h1 class="txt-center fs-20 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
-          <div class="full-width">
-              <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Title:</p>
-              <input onclick="editTitle(${index})" id="inputEditTitle${index}" minlength="2" class="title-edit-input" type="text"
+          <div class="margin-bt8 width445">
+              <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Title:</p>
+              <input onclick="editTitle(${index})" id="inputEditTitle${index}" minlength="2" class="title-edit-input width445" type="text"
                         placeholder="${title}" name="title">
           </div>
-          <div>  
-              <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Description:</p>
-              <textarea onclick="editDescription(${index})" id="descriptionEdit${index}" minlength="2" class="edit-task-textarea" placeholder="${description}"
+          <div class="margin-bt8 width445">  
+              <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Description:</p>
+              <textarea onclick="editDescription(${index})" id="descriptionEdit${index}" minlength="2" class="edit-task-textarea full-width" placeholder="${description}"
                         name="description" id="description"></textarea>
           </div> 
-          <div class="d-flex full-width flex-d-col mg-btt25" id="dateTask${index}">
-              <p class="d-flex item-center fs-20 fw-400 mg-block-none color-dg">Due date:</p>
+          <div class="d-flex full-width flex-d-col margin-bt8" id="dateTask${index}">
+              <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Due date:</p>
                     <input required placeholder="${date}" class="edit-task-date" type="date" id="dueDateEdit${index}" name="dueDate">
               <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task"></p>
           </div>
-          <div class="d-flex item-center mg-btt25" id="prioTask${index}">
-              <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Priority:</p>
+          <div class="d-flex flex-d-col  margin-bt8" id="prioTask${index}">
+              <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Priority:</p>
               <div class="add-task-prio-button-container">
                         <button onclick="prioEdit(1)" id="prioButton1" value="1" data-prio="urgent" type="button"
                             class="add-task-prio-button">
@@ -140,10 +143,10 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
                         </button>
               </div>
           </div>
-          <div class="mg-btt25">
-          <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-none">Assigned To:</p>
+          <div class="margin-bt8">
+          <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Assigned To:</p>
           </div>
-          <div class="multiselect">
+          <div class="multiselect margin-bt8">
             <div class="selectBox" onclick="showCheckboxesEdit(${index})">
                 <select class="add-task-select">
                     <option>Select an option</option>
@@ -155,7 +158,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           </div>
           <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
               </div>
-          <p class="d-flex item-center fs-20 fw-400 color-dg mg-block-inline">Subtasks:</p>  
+          <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-inline">Subtasks:</p>  
                     <div class="input-with-button-edit bradius10">
                         <input type="text" minlength="2" class="add-task-input-edit" placeholder="Add item" id="subtasks${index}"
                             name="subtasks">
@@ -177,5 +180,6 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
               </div>
             </div>
           </div> 
+        </div>  
     </div>`;
 }
