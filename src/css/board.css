@@ -426,8 +426,8 @@ body {
 
 .drag-area {
   height: 60vh;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 1px dashed black;
+  background-color: rgb(246, 247, 248);
+  border: 1px dashed rgba(209, 209, 209, 0.8);
   margin-bottom: 50px;
   display: flex;
   align-items: center;
