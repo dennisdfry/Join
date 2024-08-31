@@ -19,9 +19,19 @@ async function editOpenTask(index, category, title, description, date, prio){
     initEdit(index);
     checkboxIndexFalse(index);
     subtasksRenderEdit(index);
+    CategoryColorEdit(index, category);
     console.log(category)
   }
-  
+
+  function CategoryColorEdit(index, category){
+    let position = document.getElementById(`categoryColorEdit${index}`)
+   if (category == TechnicalTask){
+    position.style.backgroundColor="#1fd7c1";
+   }else{
+    position.style.backgroundColor="#0038ff";
+   }
+  }
+
   function dueDateEditTask(index, date){
     let position = document.getElementById(`dueDateEdit${index}`);
     position.value = date;

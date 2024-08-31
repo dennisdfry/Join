@@ -5,6 +5,8 @@ const taskkeysGlobal = [];
 let task = {};
 let currentDraggedElement;
 let progressStatusTrue = [];
+let TechnicalTask = 'Technical Task';
+let UserStory = 'User Story';
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -201,6 +203,15 @@ async function positionOfHTMLBlock(index, category, title, description, date, pr
   let position = document.getElementById(`${boardCategory}`);
  position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);  
  limitTextTo50Chars(`limitTextDesciption${index}`)
+ CategoryColor(index, category);
+}
+function CategoryColor(index, category){
+  let position = document.getElementById(`categoryColor${index}`)
+ if (category == TechnicalTask){
+  position.style.backgroundColor="#1fd7c1";
+ }else{
+  position.style.backgroundColor="#0038ff";
+ }
 }
 
 async function searchprio(index, prio){

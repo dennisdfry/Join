@@ -33,7 +33,7 @@ window.htmlboard = async function (index, category, title, description, date, pr
     return `
     <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container bradius24 d-flex flex-d-col content-even mg-btt25"> 
         <div class="d-flex-between mg-btt25">
-            <h1 class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
+            <h1 id="categoryColor${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenid="parentContainer${index}"Task${index}" class="d-none" src="../public/img/Close.png">
         </div>
         <div class="width220">
@@ -62,7 +62,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
         <div class="width445">  
           <div class="d-flex-between margin-bt8">
-              <h1 class="txt-center fs-20 mg-block-none bradius8 color-wh">${category}</h1>
+              <h1 id="categoryColorOpen${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
           <div class="margin-bt8">
@@ -106,7 +106,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
         <div class="width445"> 
           <div class="d-flex-between margin-bt8"">
-              <h1 class="txt-center fs-20 mg-block-none bradius8 color-wh">${category}</h1>
+              <h1 id="categoryColorEdit${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
           <div class="margin-bt8 width445">
