@@ -1,0 +1,100 @@
+@media (max-width: 600px) {
+  body {
+    height: 100vh;
+    margin: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #contactlist-section {
+    background-color: #ffffff;
+    width: 428px;
+    height: 766px;
+    position: absolute;
+    top: 80px;
+    padding: 0px 14px 0px 14px;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .contaclist-content {
+    width: 400px;
+    height: 1, 156px;
+    position: absolute;
+    left: 14px;
+    padding: 24px 0px 0px 0px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactlist-btn-box {
+    height: 56px;
+    width: 56px;
+    background-color: transparent;
+    position: fixed;
+    top: 758px;
+    left: 356px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactlist-btn-box img {
+    padding: 0;
+    margin-left: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactlist-btn-box p {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  #add-contact-btn {
+    width: 56px;
+    height: 56px;
+    position: fixed;
+    top: 758px;
+    left: 356px;
+    border-radius: 46px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactlist-order-letter {
+    width: 352px;
+    margin-left: -8px;
+    padding: 17px 36px 17px 36px;
+    gap: 8px;
+    align-self: center;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactlist-seperator {
+    width: 352px;
+    margin-bottom: 0;
+    height: 16px;
+    margin-left: -50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactlist-content {
+    width: 352px;
+    height: 78px;
+    gap: 35px;
+    border-radius: 10px;
+    margin: 4px;
+    margin-left: -50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactlist-content img {
+    margin-left: 8px;
+  }
+}
