@@ -276,7 +276,7 @@ body {
 }
 
 .board-task-container-open h1 {
-  /* background-color: #0038ff; */
+  background-color: #0038ff; 
   padding: 4px 24px;
   color: rgb(255, 255, 255);
 }

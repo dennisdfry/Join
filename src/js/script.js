@@ -437,22 +437,23 @@ async function createTask(event) {
 
 
 
-function setTaskColor(category) {
-  let taskColor = "";
-  category = category.toLowerCase();
-
-  if (category === 'technical task') {
-      taskColor = '#FFCCCC'; 
-  } else if (category === 'user story') {
-      taskColor = '#CCFFCC';
-  }
-
+/**
+ * Setzt die Hintergrundfarbe der Aufgaben basierend auf ihrer Kategorie.
+ */
+function setTaskColor() {
+  const categoryColors = {
+    'technical task': '#1FD7C1',
+    'user story': '#0038FF',
+  };
   let elements = document.querySelectorAll('.board-task-container h1');
 
   elements.forEach(element => {
-      element.style.backgroundColor = taskColor;
+    let category = element.getAttribute('data-category')?.toLowerCase().trim();
+    let taskColor = categoryColors[category] ;
+    element.style.backgroundColor = taskColor;
   });
 }
+
 
 
 function searchTasks(query) {
