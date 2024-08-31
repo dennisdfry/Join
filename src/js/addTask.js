@@ -130,18 +130,12 @@ function showCheckboxes2() {
 async function createTask(event) {
     event.preventDefault();
     let form = event.target;
-     // Validate the form fields
     if (!form.checkValidity()) {
         form.reportValidity();
-        return false;
-    }
-    
-    
+        return false;}
     if (!selectedPrio) {
         alert('Bitte wählen Sie eine Prio aus, bevor Sie das Formular absenden.');
-        return false;
-    }
-    
+        return false;}
     defineTaskObjects(); // Prepare task data
     await saveToFirebase(); // Save task to Firebase
     form.reset(); // Reset the form fields
