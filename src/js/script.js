@@ -31,8 +31,7 @@ async function whichChangeSite(resp, element, file){
     if (file.includes('contacts.html')) {
       initContacts();}
     if (file.includes('board.html')) {
-      loadingBoard();
-    console.log(taskkeysGlobal)}
+      loadingBoard();}
     if (file.includes('summary.html')) {
       initSmry();}
   } else {
