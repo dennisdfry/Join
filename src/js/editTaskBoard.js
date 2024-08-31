@@ -210,12 +210,12 @@ function subtasksRenderEdit(indexHTML){
 
 async function updateTaskBoard(index, category){
     defineTaskObjectsEdit(index, category);
-    console.log(taskkeys)
     let position = `/tasks/${taskkeys[index]}`
-    console.log(position)
     await saveToFirebaseEdit(position);
     changeSite('board.html');
+    [addTaskArrayEdit, subtasksStatusArray, subtasksArray, assignedToUserArrayNamesGlobal, assignedToUserArray].forEach(arr => arr.length = 0);
 }
+
 async function saveToFirebaseEdit(position){
     let response = await fetch(BASE_URL + position + ".json", {
       method: "PUT",

@@ -80,6 +80,7 @@ function hideDropdown() {
 
 async function loadingBoard() {
   try {
+      taskkeysGlobal.length = 0;
       task = await onloadDataBoard("/tasks");
       taskkeys = Object.keys(task);
       taskkeysGlobal.push(taskkeys);

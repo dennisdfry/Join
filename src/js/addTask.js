@@ -1,14 +1,19 @@
+// Base URL for Firebase API requests
 let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com";
-let subtasksArray = [];
-let subtasksStatusArray = [];
-let prioArray = [];
-let addTaskArray = [];
-let expanded = false;
-let isValid = true;
-let assignedToUserArray = [];
-let assignedToUserArrayNamesGlobal = [];
-let imageUrlsGlobal = []; 
 
+// Arrays to store task-related data
+let subtasksArray = []; // Stores the names of subtasks
+let subtasksStatusArray = []; // Stores the completion status of each subtask (false by default)
+let prioArray = []; // Stores the priority level of the task
+let addTaskArray = []; // Stores the task data that will be sent to Firebase
+let expanded = false; // Tracks whether the "Assigned To" dropdown is expanded
+let isValid = true; // Used for form validation
+let assignedToUserArray = []; // Stores the indices of users assigned to the task
+let assignedToUserArrayNamesGlobal = []; // Stores the names of the users assigned to the task
+let imageUrlsGlobal = []; // Stores the image URLs of contacts
+let selectedPrio = null; // Tracks the selected priority of the task
+
+// Initializes the task form by fetching data from Firebase and setting up the "Assigned To" dropdown
 async function init() {
     try {
         let fireBaseData = await onloadData("/");
@@ -20,6 +25,7 @@ async function init() {
     }
 }
 
+// Fetches contact images from Firebase and returns an array of image URLs
 async function fetchImages() {
     try {
         let fireBaseData = await onloadData("/");
@@ -31,17 +37,20 @@ async function fetchImages() {
     }
 }
 
+// Fetches JSON data from Firebase at the given path
 async function onloadData(path = "") {
     let response = await fetch(BASE_URL + path + '.json');
     let responseToJson = await response.json();
     return responseToJson;
 }
 
+// Extracts and returns the `contacts` object from the JSON response
 async function fetchContacts(responseToJson) {
     let contacts = responseToJson.contacts;
     return contacts;
 }
 
+// Extracts names from contacts and initializes the checkboxes for assigning users to tasks
 async function assignedTo(contacts, imageUrls) {
     try {
         const extractNames = (contacts) => {
@@ -54,6 +63,7 @@ async function assignedTo(contacts, imageUrls) {
     }
 }
 
+// Renders checkboxes with contact images and names for assigning users to tasks
 function checkboxInit(names,imageUrls){
     let position = document.getElementById('checkboxes');
         position.innerHTML = '';
@@ -67,6 +77,8 @@ function checkboxInit(names,imageUrls){
         position.innerHTML = list; // HTML-Inhalt setzen
 }
 
+
+// Returns a string of HTML to render a checkbox with an image and name
 function checkBoxRender(index, imgSrc,element ){
     return  `<label class="checkBoxFlex" for="checkbox-${index}">
                     <div class="checkBoxImg">
@@ -77,6 +89,7 @@ function checkBoxRender(index, imgSrc,element ){
                 </label>`;
 }
 
+// Updates the arrays that store the indices and names of users assigned to the task
 async function assignedToUser(index, element) {
     const image = imageUrlsGlobal[index];
     const arrayIndex = assignedToUserArray.indexOf(index);
@@ -89,6 +102,7 @@ async function assignedToUser(index, element) {
     }
 }
 
+// Toggles the visibility of the "Assigned To" dropdown
 function showCheckboxes() {
     let checkboxes = document.getElementById("checkboxes");
     if (!expanded) {
@@ -99,6 +113,8 @@ function showCheckboxes() {
         expanded = false;
     }
 }
+
+
 function showCheckboxes2() {
     let checkboxes = document.getElementById("checkboxes2");
     if (!expanded) {
@@ -109,22 +125,35 @@ function showCheckboxes2() {
         expanded = false;
     }
 }
+
+// Handles the submission of the task form, including validation and saving the task data to Firebase
 async function createTask(event) {
     event.preventDefault();
     let form = event.target;
     if (!form.checkValidity()) {
         form.reportValidity();
-        return false;
-    }
-    defineTaskObjects()
-    saveToFirebase();
-    form.reset();
-    addTaskArray = [];
-    clearSubtasks();
-    await changeSite('board.html');
-    
+        return false;}
+    if (!selectedPrio) {
+        alert('Bitte wählen Sie eine Prio aus, bevor Sie das Formular absenden.');
+        return false;}
+    defineTaskObjects(); // Prepare task data
+    await saveToFirebase(); // Save task to Firebase
+    form.reset(); // Reset the form fields
+    resetFormState(); // Reset internal state
+    changeSite('board.html'); // Redirect to the board view
 }
 
+// Resets the internal state of the form and clears stored data
+function resetFormState() {
+    addTaskArray = [];
+    subtasksArray = [];
+    assignedToUserArray = [];
+    assignedToUserArrayNamesGlobal = [];
+    selectedPrio = null;
+    clearSubtasks();
+}
+
+// Gathers data from the form fields and prepares the task object to be saved
 function defineTaskObjects(){
     let taskTitle = document.getElementById('title').value;
     let taskDescription = document.getElementById('description').value;
@@ -134,6 +163,7 @@ function defineTaskObjects(){
     pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCategory, lastString)
 }
 
+// Pushes the task object to the array that will be saved to Firebase
 function pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCategory, lastString){
     addTaskArray.push({
         title: taskTitle,
@@ -149,6 +179,7 @@ function pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCat
     });
 }
 
+// Saves the task data to Firebase
 async function saveToFirebase(path="/tasks"){
         let response = await fetch(BASE_URL + path + ".json", {
           method: "POST",
@@ -159,6 +190,7 @@ async function saveToFirebase(path="/tasks"){
         });
 }
 
+// Handles the selection of a priority level and updates the button styles
 function prio(id) {
     const buttons = document.querySelectorAll('.add-task-prio-button-container button');
     
@@ -167,9 +199,11 @@ function prio(id) {
         button.classList.add('add-task-prio-button');
     });
     let position = document.getElementById(`prioButton${id}`);
-    prioIdCheck(id, position);  
+    prioIdCheck(id, position);
+    selectedPrio = id; // Prio-Status setzen
 }
 
+// Updates the priority array and button styles based on the selected priority
 function prioIdCheck(id, position){
     if (id == 1) {
         prioArray.push('Urgent');
@@ -184,6 +218,7 @@ function prioIdCheck(id, position){
     position.classList.remove('add-task-prio-button');
 }
 
+// Shows the subtask input controls when adding a new subtask
 function showSubtaskControls() {
     document.getElementById('subtasks').classList.remove('add-task-input');
     document.getElementById('subtasks').classList.add('subtasks-input');
@@ -197,6 +232,7 @@ function showSubtaskControls() {
                             </button>`;
 }
 
+// Adds a subtask to the subtask array and updates the displayed list
 function addSubtask() {
     let input = document.getElementById('subtasks');
     if (input.value.trim() !== "") {
@@ -208,6 +244,7 @@ function addSubtask() {
     }
 }
 
+// Resets the subtask input field and returns it to its initial state
 function resetSubtaskInput() {
     let input = document.getElementById('subtasks');
     input.value = '';
@@ -219,6 +256,7 @@ function resetSubtaskInput() {
                             </button>`;
 }
 
+// Updates the displayed list of subtasks based on the current contents of the subtasksArray
 function updateSubtasksList() {
     let subtasksPosition = document.getElementById('subtasksPosition');
     subtasksPosition.innerHTML = '';
@@ -231,6 +269,7 @@ function updateSubtasksList() {
     }
 }
 
+// Clears the list of displayed subtasks by resetting the innerHTML of the subtasksPosition element
 function clearSubtasks(){
     let position = document.getElementById('subtasksPosition');
     position.innerHTML = '';
