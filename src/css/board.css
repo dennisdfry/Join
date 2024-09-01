@@ -144,6 +144,28 @@ body {
   padding: 10px;
 }
 
+@keyframes wobble {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.rotate {
+  animation: wobble 0.5s ease-in-out;
+}
+
 .status-message {
   width: 250px;
   font-size: 16px;

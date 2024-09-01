@@ -73,6 +73,30 @@ function toggleElement(elementClass, className) {
     }
   }
 
+  document.addEventListener('mousedown', (event) => {
+    if (event.target.closest('.board-task-container')) {
+      event.target.closest('.board-task-container').classList.add('rotate');
+    }
+  });
+  
+  document.addEventListener('mouseup', (event) => {
+    if (event.target.closest('.board-task-container')) {
+      event.target.closest('.board-task-container').classList.remove('rotate');
+    }
+  });
+  
+  document.addEventListener('mouseleave', (event) => {
+    if (event.target.closest('.board-task-container')) {
+      event.target.closest('.board-task-container').classList.remove('rotate');
+    }
+  });
+  
+  document.addEventListener('dragend', (event) => {
+    if (event.target.closest('.board-task-container')) {
+      event.target.closest('.board-task-container').classList.remove('rotate');
+    }
+  });
+  
  function updateStatusMessages() {
     const containers = document.querySelectorAll('.board-render-status-container');
     
