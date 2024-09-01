@@ -210,7 +210,7 @@ header {
 .user-icon-dropdown a {
   font-size: 16px;
   text-decoration: none;
-  color: #CDCDCD;
+  color: #cdcdcd;
   padding: 8px 16px;
 }
 
@@ -219,4 +219,75 @@ header {
   padding-left: 232px;
   background-color: #f4f4f4;
   min-height: 100vh;
+}
+
+@media (max-width: 750px) {
+  .nav {
+    left: 0;
+    top: auto;
+    bottom: 0 !important;
+    max-width: 750px;
+    width: 100vw;
+    height: 80px;
+  }
+
+  .nav-up {
+    display: none;
+  }
+
+  .nav-mid {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 10vh;
+  }
+
+  .nav-mid a {
+    margin: 0;
+  }
+
+  .nav-mid p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .head {
+    max-width: 100vw;
+    padding: 20px 40px;
+    margin-left: 10px;
+  }
+
+  .headline,
+  .help-icon,
+  .nav-down a {
+    display: none;
+  }
+
+  .summary-field,
+  .task-field,
+  .board-field,
+  .contact-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80px;
+    height: 76px;
+    padding: 0;
+  }
+
+  .summary-field:hover,
+  .task-field:hover,
+  .board-field:hover,
+  .contact-field:hover {
+    background-color: #091931;
+    border-radius: 16px;
+  }
+
+  .nav-mid img {
+    width: 24px !important;
+    height: 24px !important;
+    margin-right: 0;
+  }
 }
