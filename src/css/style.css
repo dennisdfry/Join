@@ -221,12 +221,12 @@ header {
   min-height: 100vh;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 950px) {
   .nav {
     left: 0;
     top: auto;
     bottom: 0 !important;
-    max-width: 750px;
+    max-width: 950px;
     width: 100vw;
     height: 80px;
   }
