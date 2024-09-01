@@ -149,9 +149,122 @@ body {
   margin: 0 10px;
 }
 
+.summary-headline-divider-hor {
+  display: none;
+  width: 90px;
+  border: 3px solid #29abe2;
+}
+
 .summary-tasks-mid-divider {
   height: 102px;
   width: 0;
   border-left: 2px solid #d1d1d1;
   margin: 0 10px;
+}
+
+@media (max-width: 950px) {
+  .summary-section {
+    padding-top: 40px;
+    padding-left: 25px;
+  }
+
+  .summary-headline {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .summary-headline-divider {
+    display: none;
+  }
+
+  .summary-headline-divider-hor {
+    display: flex !important;
+  }
+
+  .summary-headline-left {
+    font-size: 47px;
+    line-height: 56px;
+  }
+
+  .summary-headline-right {
+    font-size: 20px;
+    line-height: 24px;
+    font-family: "Inter";
+  }
+
+  .greet {
+    display: none;
+  }
+
+  .summary-tasks {
+    padding-top: 20px;
+    width: 90vw;
+    height: 10vh;
+  }
+
+  .summary-to-do-left img,
+  .summary-done-left img {
+    width: 40px;
+  }
+
+  .td-num,
+  .done-num,
+  .urg-num,
+  .board-num,
+  .progress-num,
+  .feed-num {
+    font-size: 47px !important;
+  }
+  
+  .td-txt,
+  .done-txt,
+  .urg-txt,
+  .board-txt,
+  .progress-txt,
+  .feed-txt {
+    font-size: 14px !important;
+  }
+
+  .summary-to-do,
+  .summary-done {
+    width: 186px;
+    height: 110px;
+    padding: 10px 5px;
+    border-radius: 20px;
+  }
+
+  .summary-tasks-up {
+    height: 110px;
+    margin: 20px;
+    max-width: 396px;
+  }
+
+  .summary-tasks-mid {
+    height: 110px;
+    margin: 20px;
+    border-radius: 20px;
+    width: 396px;
+  }
+
+  .summary-tasks-mid-right-date {
+    font-size: 16px !important;
+  }
+
+  .summary-deadline {
+    font-size: 14px;
+  }
+
+  .summary-tasks-down {
+    max-width: 396px;
+    margin: 20px;
+  }
+  
+  .summary-tasks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
 }

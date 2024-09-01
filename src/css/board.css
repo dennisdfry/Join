@@ -137,20 +137,55 @@ body {
   cursor: pointer;
 }
 
+.board-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+@keyframes wobble {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.rotate {
+  animation: wobble 0.5s ease-in-out;
+}
+
+.status-message {
+  width: 250px;
+  font-size: 16px;
+  color: #a8a8a8;
+  margin: 10px 0px;
+  text-align: center;
+  border: 1px dashed rgba(209, 209, 209, 0.8);
+  padding: 10px 0px;
+  border-radius: 10px;
+}
+
 .board-task-column {
-  width: 1208px;
+  display: flex;
+  justify-content: space-between;
+  width: 252px;
   height: 24px;
   display: flex;
   align-items: center;
 }
 
-.board-task-column-right {
-  padding-right: 76px;
-}
-
-.board-task-column-left {
-  padding-left: 30px;
-}
 .board-task-column h4 {
   color: #42526e;
   font-family: "Inter700";
@@ -170,7 +205,7 @@ body {
 
 .board-task-container {
   flex-grow: 1;
-  padding:16px;
+  padding: 16px;
   max-width: 253px;
   max-height: 263px;
   background-color: rgb(255, 255, 255);
@@ -181,7 +216,7 @@ body {
   padding-top: 4px;
   padding-right: 16px;
   padding-left: 16px;
-  padding-bottom: 4px; 
+  padding-bottom: 4px;
 }
 .board-task-container h2 {
   padding-bottom: 8px;
@@ -197,12 +232,11 @@ body {
 .progress-bar {
   height: 8px;
   background-color: rgb(69, 137, 255);
-  border-radius:8px;
+  border-radius: 8px;
 }
 
-.subtasksLength{
-  width:73px;
-  
+.subtasksLength {
+  width: 73px;
 }
 .subtasks-board-task-text {
   font-family: "Inter";
@@ -276,7 +310,7 @@ body {
 }
 
 .board-task-container-open h1 {
-  background-color: #0038ff; 
+  background-color: #0038ff;
   padding: 4px 24px;
   color: rgb(255, 255, 255);
 }
@@ -314,6 +348,7 @@ body {
 .board-render-status-container {
   height: 65vh;
   width: 252px;
+  margin-top: 10px;
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;
@@ -415,8 +450,7 @@ body {
 
 .drag-area {
   height: 60vh;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 1px dashed black;
+  background-color: rgb(246, 247, 248);
   margin-bottom: 50px;
   display: flex;
   align-items: center;

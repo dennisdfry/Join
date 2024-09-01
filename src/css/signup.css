@@ -154,14 +154,13 @@ body {
 
 .signup-info {
   position: absolute;
-  top: 100%;
+  top: 96%;
 }
 
 .signup-info button {
   border: none;
   background-color: rgb(246, 247, 248);
   font-family: "Inter";
-  margin: 50px 0px;
   color: #a8a8a8;
   font-size: 16px;
 }
@@ -220,4 +219,27 @@ input[type="password"]::-webkit-outer-spin-button {
 
 input[type="password"]::-webkit-password-field {
   display: none;
+}
+
+@media (max-width: 750px) {
+  .signup-logo {
+    top: 2%;
+    left: -1%;
+  }
+
+  .signup-logo img {
+    height: 78px;
+    margin-left: 36px;
+    margin-bottom: 8px;
+  }
+
+  .signup-headline {
+    font-size: 47px;
+  }
+
+  .signup-field {
+    width: 396px;
+    padding: 20px 40px;
+    gap: 32px;
+  }
 }
