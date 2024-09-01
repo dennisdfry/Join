@@ -79,3 +79,20 @@ function renderLetterArea(contactList, letter) {
         </div>
       </div>`;
   }
+
+  
+/**
+ * Generiert ein Profilbild mit Initialen basierend auf dem Namen des Kontakts.
+ * @param {string} name - Der Name des Kontakts.
+ * @returns {string} - Ein Base64-encoded SVG-Bild.
+ */
+function generateProfileImage(name) {
+  let colors = ["#FF5733","#33FF57","#3357FF","#FF33A1","#F3FF33","#33FFF3"];
+  let randomColor = colors[Math.floor(Math.random() * colors.length)];
+  let initials = name.split(" ").map(word => word.charAt(0).toUpperCase()).join("");
+  const svgImage = `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="50" fill="${randomColor}" />
+    <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
+  </svg>`;
+  return `data:image/svg+xml;base64,${btoa(svgImage)}`;
+}

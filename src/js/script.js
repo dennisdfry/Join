@@ -5,6 +5,8 @@ const taskkeysGlobal = [];
 let task = {};
 let currentDraggedElement;
 let progressStatusTrue = [];
+let TechnicalTask = 'Technical Task';
+let UserStory = 'User Story';
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -197,10 +199,20 @@ function limitTextTo50Chars(id) {
   }
 }
 
-async function positionOfHTMLBlock(index, category, title, description, date, prio, boardCategory){
+async function positionOfHTMLBlock(index, category, title, description, date, prio, boardCategory) {
+  setTaskColor(category);
   let position = document.getElementById(`${boardCategory}`);
  position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);  
  limitTextTo50Chars(`limitTextDesciption${index}`)
+ CategoryColor(index, category);
+}
+function CategoryColor(index, category){
+  let position = document.getElementById(`categoryColor${index}`);
+ if (category == TechnicalTask){
+  position.style.backgroundColor="#1fd7c1";
+ }else{
+  position.style.backgroundColor="#0038ff";
+ }
 }
 
 async function searchprio(index, prio){
@@ -425,52 +437,65 @@ async function createTask(event) {
 
 
 
+/**
+ * Setzt die Hintergrundfarbe der Aufgaben basierend auf ihrer Kategorie.
+ */
+function setTaskColor() {
+  const categoryColors = {
+    'technical task': '#1FD7C1',
+    'user story': '#0038FF',
+  };
+  let elements = document.querySelectorAll('.board-task-container h1');
+
+  elements.forEach(element => {
+    let category = element.getAttribute('data-category')?.toLowerCase().trim();
+    let taskColor = categoryColors[category] ;
+    element.style.backgroundColor = taskColor;
+  });
+}
+
+
+
 function searchTasks(query) {
   let lowerCaseQuery = query.toLowerCase();
   let minQueryLength = 3;
 
-  // Wenn die Suchanfrage kurz ist, zeige alle Aufgaben an
   if (lowerCaseQuery.length < minQueryLength) {
     resetTaskVisibility();
     return;
   }
 
   let taskContainers = document.querySelectorAll('.board-render-status-container');
-
   taskContainers.forEach(container => {
     let tasks = container.querySelectorAll('.board-task-container');
-
     let taskFound = false;
-
     tasks.forEach(task => {
       let taskTitleElement = task.querySelector('.task-title');
       if (taskTitleElement) {
         let taskTitle = taskTitleElement.textContent.toLowerCase();
         if (taskTitle.includes(lowerCaseQuery)) {
-          task.style.display = ''; // Aufgabe anzeigen
+          task.style.display = ''; 
           taskFound = true;
         } else {
-          task.style.display = 'none'; // Aufgabe ausblenden
+          task.style.display = 'none';
         }
       } else {
         console.error("Element '.task-title' nicht gefunden.");
       }
     });
-
     container.style.display = taskFound ? '' : 'none';
   });
 }
 
 function resetTaskVisibility() {
   let taskContainers = document.querySelectorAll('.board-render-status-container');
-  
   taskContainers.forEach(container => {
-    let tasks = container.querySelectorAll('.board-task-container');
-    
-    tasks.forEach(task => {
-      task.style.display = ''; // Alle Aufgaben wieder anzeigen
-    });
 
-    container.style.display = ''; // Alle Container wieder anzeigen
+    let tasks = container.querySelectorAll('.board-task-container');
+    tasks.forEach(task => {
+      task.style.display = '';
+    });
+    
+    container.style.display = '';
   });
 }

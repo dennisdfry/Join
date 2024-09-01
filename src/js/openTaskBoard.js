@@ -85,10 +85,19 @@ async function openTaskToBoardRender(index, category, title, description, date, 
     position.classList.add('modal-overlay');
     position.classList.remove('d-none');
     position.innerHTML = openTaskToBoardHtml(index, category, title, description, date, prio);
+    CategoryColorOpen(index, category);
   }
   promiseSecondInfoOpenTask(index);
 }
 
+function CategoryColorOpen(index, category){
+  let position = document.getElementById(`categoryColorOpen${index}`)
+ if (category == TechnicalTask){
+  position.style.backgroundColor="#1fd7c1";
+ }else{
+  position.style.backgroundColor="#0038ff";
+ }
+}
 //Fetches and renders additional task details (like subtasks, users, etc.) in the open task view.
 async function promiseSecondInfoOpenTask(index) {
   let taskInfo = taskData[index];

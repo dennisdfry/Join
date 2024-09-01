@@ -125,3 +125,27 @@ async function fetchData(url, options = {}) {
     let contacts = await fetchData(`${CONTACTS_URL}.json`);
     return Object.keys(contacts).find(id => contacts[id].name === contact.name && contacts[id].mail === contact.mail);
   }
+
+
+  /**
+ * Wählt den nächsten Kontakt aus der Liste aus, nachdem ein Kontakt gelöscht wurde.
+ * @async
+ * @param {string} deletedContactId - Die ID des gelöschten Kontakts.
+ * @returns {Promise<void>}
+ */
+async function selectNextContact(deletedContactId) {
+  try {
+    let contacts = await fetchData(`${CONTACTS_URL}.json`);
+    let sortedContacts = sortContacts(contacts);
+    let currentIndex = sortedContacts.findIndex(([id]) => id === deletedContactId);
+    let nextContact = sortedContacts[currentIndex + 1];
+
+    if (nextContact) {
+      await selectContact(nextContact[0]);
+    } else {
+      document.getElementById("contact-section").innerHTML = "";
+    }
+  } catch (error) {
+    console.error("Error selecting next contact:", error);
+  }
+}
