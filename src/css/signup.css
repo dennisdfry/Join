@@ -234,6 +234,10 @@ input[type="password"]::-webkit-password-field {
     margin-bottom: 8px;
   }
 
+  .signup-headline {
+    font-size: 47px;
+  }
+
   .signup-field {
     width: 396px;
     height: 65vh;
