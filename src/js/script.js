@@ -73,6 +73,21 @@ function toggleElement(elementClass, className) {
     }
   }
 
+ function updateStatusMessages() {
+    const containers = document.querySelectorAll('.board-render-status-container');
+    
+    containers.forEach(container => {
+      const statusMessage = container.previousElementSibling;
+      const taskCount = container.children.length;
+      
+      if (taskCount > 0) {
+        statusMessage.classList.add('d-none');
+      } else {
+        statusMessage.classList.remove('d-none');
+      }
+    });
+  }
+
 function hideDropdown() {
   const element = document.querySelector('.user-icon-dropdown');
   if(!element.classList.contains('d-none')) {
@@ -89,6 +104,7 @@ async function loadingBoard() {
       let fetchImage = await fetchImagesBoard("/");
       await generateHTMLObjects(taskkeys, task);
       await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
+      updateStatusMessages();
     } catch (error) {
       console.error('Error loading tasks:', error);
   }
@@ -159,6 +175,7 @@ async function moveTo(category) {
   } else {
     console.error('No task is being dragged.');
   }
+  updateStatusMessages();
 }
 
 async function updateTaskInFirebase(task) {
