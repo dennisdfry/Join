@@ -245,7 +245,7 @@ body {
     height: 110px;
     margin: 20px;
     border-radius: 20px;
-    max-width: 396px;
+    width: 396px;
   }
 
   .summary-tasks-down {
@@ -253,4 +253,10 @@ body {
     margin: 20px;
   }
   
+  .summary-tasks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
 }
