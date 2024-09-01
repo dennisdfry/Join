@@ -254,7 +254,8 @@ header {
   }
 
   .head {
-    max-width: 100vw;
+    max-width: 5000px;
+    width: 100vw;
     padding: 20px 40px;
     margin-left: 10px;
   }
