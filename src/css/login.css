@@ -284,6 +284,10 @@ input[type="password"]::-webkit-password-field {
     width: 180px;
   }
 
+  .submit-guest-login-btn {
+    margin-left: 0;
+  }
+
   .login-signup {
     width: 100%;
     position: absolute;
