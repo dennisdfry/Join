@@ -155,3 +155,10 @@ body {
   border-left: 2px solid #d1d1d1;
   margin: 0 10px;
 }
+
+@media (max-width: 750px) {
+  .summary-section {
+    padding-top: 40px;
+    padding-left: 25px;
+  }
+}
