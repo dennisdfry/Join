@@ -154,14 +154,13 @@ body {
 
 .signup-info {
   position: absolute;
-  top: 100%;
+  top: 96%;
 }
 
 .signup-info button {
   border: none;
   background-color: rgb(246, 247, 248);
   font-family: "Inter";
-  margin: 50px 0px;
   color: #a8a8a8;
   font-size: 16px;
 }
@@ -240,13 +239,7 @@ input[type="password"]::-webkit-password-field {
 
   .signup-field {
     width: 396px;
-    height: 65vh;
-    background-color: white;
-    position: absolute;
-    top: 18%;
-    border-radius: 30px;
     padding: 20px 40px;
     gap: 32px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
 }
