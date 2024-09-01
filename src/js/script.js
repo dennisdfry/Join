@@ -90,9 +90,7 @@ document.addEventListener("mouseleave", toggleRotateClass);
 document.addEventListener("dragend", toggleRotateClass);
 
 function updateStatusMessages() {
-  const containers = document.querySelectorAll(
-    ".board-render-status-container"
-  );
+  const containers = document.querySelectorAll(".board-render-status-container");
 
   containers.forEach((container) => {
     const statusMessage = container.previousElementSibling;
@@ -144,17 +142,8 @@ async function fetchImagesBoard(path = "") {
 
 async function generateHTMLObjects(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
-    const { category, description, dueDate, prio, title, boardCategory } =
-      task[taskkeys[index]][0];
-    await positionOfHTMLBlock(
-      index,
-      category,
-      title,
-      description,
-      dueDate,
-      prio,
-      boardCategory
-    );
+    const { category, description, dueDate, prio, title, boardCategory } = task[taskkeys[index]][0];
+    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
   }
 }
 
@@ -216,11 +205,7 @@ async function updateTaskInFirebase(task) {
   }
 }
 
-async function generateHTMLObjectsForUserPrioSubtasks(
-  taskkeys,
-  task,
-  fetchImage
-) {
+async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID];
@@ -229,11 +214,7 @@ async function generateHTMLObjectsForUserPrioSubtasks(
     let prio = taskFolder[0].prio;
     let userNames = taskFolder[0].assignedToNames;
     taskData[index] = { users, userNames, prio, subtasks, fetchImage };
-    await Promise.all([
-      searchIndexUrl(index, users, fetchImage),
-      searchprio(index, prio),
-      subtasksRender(index, subtasks),
-    ]);
+    await Promise.all([searchIndexUrl(index, users, fetchImage), searchprio(index, prio), subtasksRender(index, subtasks)]);
     await progressBar(index);
   }
 }
@@ -246,25 +227,10 @@ function limitTextTo50Chars(id) {
   }
 }
 
-async function positionOfHTMLBlock(
-  index,
-  category,
-  title,
-  description,
-  date,
-  prio,
-  boardCategory
-) {
+async function positionOfHTMLBlock(index, category, title, description, date, prio, boardCategory) {
   setTaskColor(category);
   let position = document.getElementById(`${boardCategory}`);
-  position.innerHTML += await window.htmlboard(
-    index,
-    category,
-    title,
-    description,
-    date,
-    prio
-  );
+  position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);
   limitTextTo50Chars(`limitTextDesciption${index}`);
   CategoryColor(index, category);
 }
@@ -309,17 +275,12 @@ async function loadSubtaskStatus(indexHtml) {
           if (checkbox) {
             checkbox.checked = element;
           } else {
-            console.error(
-              `Checkbox mit ID subtask-${indexHtml}-${index} nicht gefunden.`
-            );
+            console.error(`Checkbox mit ID subtask-${indexHtml}-${index} nicht gefunden.`);
           }
           checkbox.checked = data;
         }
       } catch (error) {
-        console.error(
-          `Fehler beim Laden des Status der Subtask-Checkbox ${index}: `,
-          error
-        );
+        console.error(`Fehler beim Laden des Status der Subtask-Checkbox ${index}: `, error);
       }
     }
   }
@@ -346,10 +307,7 @@ function tileUserImage(index) {
   const imageWidth = 32;
   const imagelength = images.length;
   const totalImagesWidth = imageWidth * imagelength;
-  const overlap =
-    totalImagesWidth > containerWidth
-      ? (totalImagesWidth - containerWidth) / (imagelength - 1)
-      : 0;
+  const overlap = totalImagesWidth > containerWidth ? (totalImagesWidth - containerWidth) / (imagelength - 1) : 0;
   for (let i = 0; i < images.length; i++) {
     const imagePosition = images[i];
     imagePosition.style.position = "absolute";
@@ -373,16 +331,10 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
         body: JSON.stringify(isChecked),
       });
       if (!response.ok) {
-        console.error(
-          `Fehler beim Aktualisieren des Status der Subtask-Checkbox ${index}:`,
-          response.statusText
-        );
+        console.error(`Fehler beim Aktualisieren des Status der Subtask-Checkbox ${index}:`, response.statusText);
       }
     } catch (error) {
-      console.error(
-        `Fehler beim Speichern des Status der Subtask-Checkbox ${index}:`,
-        error
-      );
+      console.error(`Fehler beim Speichern des Status der Subtask-Checkbox ${index}:`, error);
     }
   }
 }
@@ -424,16 +376,10 @@ function closeAddForm() {
 }
 
 function prio2(id) {
-  const buttons = document.querySelectorAll(
-    ".add-task-prio-button-container button"
-  );
+  const buttons = document.querySelectorAll(".add-task-prio-button-container button");
 
   buttons.forEach((button) => {
-    button.classList.remove(
-      "add-task-prio-button-urgent",
-      "add-task-prio-button-medium",
-      "add-task-prio-button-low"
-    );
+    button.classList.remove("add-task-prio-button-urgent", "add-task-prio-button-medium", "add-task-prio-button-low");
     button.classList.add("add-task-prio-button");
   });
   let position = document.getElementById(`prio2Button${id}`);
@@ -446,22 +392,10 @@ function defineTaskObjects2() {
   let dueDateTask = document.getElementById("dueDate2").value;
   let taskCategory = document.getElementById("taskCategory2").value;
   let lastString = prioArray.pop();
-  pushTaskObjectsToArray2(
-    taskTitle,
-    taskDescription,
-    dueDateTask,
-    taskCategory,
-    lastString
-  );
+  pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCategory, lastString);
 }
 
-function pushTaskObjectsToArray2(
-  taskTitle,
-  taskDescription,
-  dueDateTask,
-  taskCategory,
-  lastString
-) {
+function pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCategory, lastString) {
   addTaskArray.push({
     title: taskTitle,
     description: taskDescription,
@@ -554,9 +488,7 @@ function searchTasks(query) {
     return;
   }
 
-  let taskContainers = document.querySelectorAll(
-    ".board-render-status-container"
-  );
+  let taskContainers = document.querySelectorAll(".board-render-status-container");
   taskContainers.forEach((container) => {
     let tasks = container.querySelectorAll(".board-task-container");
     let taskFound = false;
@@ -579,9 +511,7 @@ function searchTasks(query) {
 }
 
 function resetTaskVisibility() {
-  let taskContainers = document.querySelectorAll(
-    ".board-render-status-container"
-  );
+  let taskContainers = document.querySelectorAll(".board-render-status-container");
   taskContainers.forEach((container) => {
     let tasks = container.querySelectorAll(".board-task-container");
     tasks.forEach((task) => {
