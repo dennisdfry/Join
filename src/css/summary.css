@@ -226,4 +226,31 @@ body {
   .feed-txt {
     font-size: 14px !important;
   }
+
+  .summary-to-do,
+  .summary-done {
+    width: 186px;
+    height: 110px;
+    padding: 10px 5px;
+    border-radius: 20px;
+  }
+
+  .summary-tasks-up {
+    height: 110px;
+    margin: 20px;
+    max-width: 396px;
+  }
+
+  .summary-tasks-mid {
+    height: 110px;
+    margin: 20px;
+    border-radius: 20px;
+    max-width: 396px;
+  }
+
+  .summary-tasks-down {
+    max-width: 396px;
+    margin: 20px;
+  }
+  
 }
