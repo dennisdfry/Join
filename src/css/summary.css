@@ -248,6 +248,14 @@ body {
     width: 396px;
   }
 
+  .summary-tasks-mid-right-date {
+    font-size: 16px !important;
+  }
+
+  .summary-deadline {
+    font-size: 14px;
+  }
+
   .summary-tasks-down {
     max-width: 396px;
     margin: 20px;
