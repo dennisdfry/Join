@@ -197,4 +197,10 @@ body {
   .greet {
     display: none;
   }
+
+  .summary-tasks {
+    padding-top: 20px;
+    width: 90vw;
+    height: 20vh;
+  }
 }
