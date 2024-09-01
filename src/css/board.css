@@ -137,20 +137,33 @@ body {
   cursor: pointer;
 }
 
+.board-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.status-message {
+  width: 252px;
+  font-size: 16px;
+  color: #A8A8A8;
+  margin-bottom: 5px;
+  text-align: center;
+  border: 1px dashed rgba(209, 209, 209, 0.8);
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
 .board-task-column {
-  width: 1208px;
+  display: flex;
+  justify-content: space-between;
+  width: 252px;
   height: 24px;
   display: flex;
   align-items: center;
 }
 
-.board-task-column-right {
-  padding-right: 76px;
-}
-
-.board-task-column-left {
-  padding-left: 30px;
-}
 .board-task-column h4 {
   color: #42526e;
   font-family: "Inter700";
@@ -416,7 +429,6 @@ body {
 .drag-area {
   height: 60vh;
   background-color: rgb(246, 247, 248);
-  border: 1px dashed rgba(209, 209, 209, 0.8);
   margin-bottom: 50px;
   display: flex;
   align-items: center;
