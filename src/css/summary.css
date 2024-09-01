@@ -201,6 +201,29 @@ body {
   .summary-tasks {
     padding-top: 20px;
     width: 90vw;
-    height: 20vh;
+    height: 10vh;
+  }
+
+  .summary-to-do-left img,
+  .summary-done-left img {
+    width: 40px;
+  }
+
+  .td-num,
+  .done-num,
+  .urg-num,
+  .board-num,
+  .progress-num,
+  .feed-num {
+    font-size: 47px !important;
+  }
+  
+  .td-txt,
+  .done-txt,
+  .urg-txt,
+  .board-txt,
+  .progress-txt,
+  .feed-txt {
+    font-size: 14px !important;
   }
 }
