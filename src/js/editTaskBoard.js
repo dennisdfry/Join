@@ -40,7 +40,7 @@ async function editOpenTask(index, category, title, description, date, prio){
   async function initEdit(index) {
     try {
         let fireBaseData = await onloadData("/");
-        let contacts = await fetchContacts(fireBaseData);
+        let contacts = fetchContacts(fireBaseData);
         let imageUrls = await fetchImages();
         await assignedToEdit(contacts, imageUrls, index);
     } catch (error) {
@@ -65,12 +65,12 @@ async function onloadData(path = "") {
     return responseToJson;
 }
 
-async function fetchContacts(responseToJson) {
+ function fetchContacts(responseToJson) {
     let contacts = responseToJson.contacts;
     return contacts;
 }
 
-async function assignedToEdit(contacts, imageUrls, index) {
+ function assignedToEdit(contacts, imageUrls, index) {
     try {
         const extractNames = (contacts) => {
             return Object.values(contacts).map(entry => ({ name: entry.name }));
@@ -105,7 +105,7 @@ function checkBoxRenderEdit(index, imgSrc,element ){
                 </label>`;
 }
 
-async function assignedToUserEdit(index, element) {
+function assignedToUserEdit(index, element) {
     const image = imageUrlsGlobal[index];
     const arrayIndex = assignedToUserArray.indexOf(index);
     if (arrayIndex !== -1) {
