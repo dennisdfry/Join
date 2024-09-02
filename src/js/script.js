@@ -366,14 +366,27 @@ async function progressBar(indexHtml) {
 }
 
 function openAddForm() {
-  document.getElementById("add-task-form").classList.remove("vis-hidden");
-  document.getElementById("add-task-form").classList.remove("d-none");
+  //let overlay = document.getElementById('overlay-form');
+  //overlay.classList.remove("d-none");
+  
+  let formField = document.getElementById("add-task-form");
+  formField.classList.remove("d-none", "hidden");
+  formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+  //document.addEventListener("click", outsideClickHandler);
+
 }
 
 function closeAddForm() {
+  //document.getElementById('overlay-form').classList.add("d-none");
   let formField = document.getElementById("add-task-form");
-  formField.classList.remove("d-none");
+  formField.style.animation = "moveOut 200ms ease-out forwards";
+
+  setTimeout(() => {
+    formField.classList.add("hidden", "d-none");
+    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
+  }, 100);
 }
+
 
 function prio2(id) {
   const buttons = document.querySelectorAll(".add-task-prio-button-container button");

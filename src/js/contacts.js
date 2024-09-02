@@ -121,7 +121,7 @@ function capitalizeSecondLetter(words) {
  * @param {Function} outsideClickHandler - Die Funktion, die auf Klicks außerhalb des Formulars reagiert.
  */
 function showForm(formId, overlayId, outsideClickHandler) {
-  const formField = document.getElementById(formId);
+  let formField = document.getElementById(formId);
   document.getElementById(overlayId).classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";

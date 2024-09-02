@@ -471,7 +471,7 @@ body {
 
 .add-Task-Container2 {
   width: 1116px;
-  height: 870px;
+  height: 766px;
   position: absolute;
   top: 124px;
   left: 328px;
@@ -792,4 +792,18 @@ input[type="text" i] {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-left: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 999; 
+}
+
+#overlay-form {
+  display: none;
 }
