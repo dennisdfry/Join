@@ -243,7 +243,7 @@ function CategoryColor(index, category) {
   }
 }
 
-async function searchprio(index, prio) {
+function searchprio(index, prio) {
   let position = document.getElementById(`prioPosition${index}`);
   position.innerHTML = "";
   if (prio == "Urgent") {

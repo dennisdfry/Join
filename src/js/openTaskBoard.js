@@ -1,6 +1,6 @@
 
 
-async function searchprioOpenTask(index, prio) {
+function searchprioOpenTask(index, prio) {
   let position = document.getElementById(`prioPositionOpenTask${index}`);
   position.innerHTML = '';
   // Set the appropriate image based on the priority level
@@ -33,7 +33,7 @@ async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
 }
 
 // Generates the HTML structure for a user's image and name in an open task view.
-async function htmlBoardImageOpen(imageUrl, index, names) {
+function htmlBoardImageOpen(imageUrl, index, names) {
   return `
     <div class="d-flex pa-7-16">
       <img class="user-image-task-open" src="${imageUrl}">
@@ -52,7 +52,7 @@ function closeOpenTask(event, index) {
 }
 
 //Renders the subtasks for a specific task in an open task view.
-async function subtasksRenderOpen(indexHtml, subtasks) {
+function subtasksRenderOpen(indexHtml, subtasks) {
   let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
   position.innerHTML = '';
   subtasksLengthArray.push({
@@ -77,7 +77,7 @@ function subtasksRenderOpenHtml(indexHtml, index, element){
 }
 
 //Opens and renders the detailed view of a task on the board.
-async function openTaskToBoardRender(index, category, title, description, date, prio) {
+ function openTaskToBoardRender(index, category, title, description, date, prio) {
   let position = document.getElementById('openTask');
   if (position.classList.contains('modal-overlay')) {
     return
@@ -103,7 +103,7 @@ async function promiseSecondInfoOpenTask(index) {
   let taskInfo = taskData[index];
   if (taskInfo) {
     let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
-    await subtasksRenderOpen(index, subtasks);
+    subtasksRenderOpen(index, subtasks);
     await Promise.all([
       searchIndexUrlOpen(index, users, fetchImage, userNames),
       searchprio(index, prio),
