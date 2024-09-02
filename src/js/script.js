@@ -366,18 +366,20 @@ async function progressBar(indexHtml) {
 }
 
 function openAddForm() {
-  //let overlay = document.getElementById('overlay-form');
-  //overlay.classList.remove("d-none");
+  let overlay = document.getElementById('overlay');
+  overlay.classList.remove("d-none");
   
   let formField = document.getElementById("add-task-form");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  //document.addEventListener("click", outsideClickHandler);
 
+  document.addEventListener("click", outsideClickHandler);
 }
 
 function closeAddForm() {
-  //document.getElementById('overlay-form').classList.add("d-none");
+  let overlay = document.getElementById('overlay');
+  overlay.classList.add("d-none");
+
   let formField = document.getElementById("add-task-form");
   formField.style.animation = "moveOut 200ms ease-out forwards";
 
@@ -385,6 +387,18 @@ function closeAddForm() {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
   }, 100);
+
+
+  document.removeEventListener("click", outsideClickHandler);
+}
+
+function outsideClickHandler(event) {
+  let formField = document.getElementById("add-task-form");
+  let overlay = document.getElementById("overlay");
+
+  if (!formField.contains(event.target) && overlay.contains(event.target)) {
+    closeAddForm();
+  }
 }
 
 
