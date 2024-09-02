@@ -108,6 +108,7 @@ body {
   max-width: 232px;
   height: 100vh;
   font-family: "Inter";
+  z-index: 3;
 }
 
 .nav-up {

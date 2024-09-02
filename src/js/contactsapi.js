@@ -43,6 +43,7 @@ async function fetchData(url, options = {}) {
   /**
  * Verknüpft den Delete-Button im Bearbeitungsformular mit der deleteContact-Funktion.
  * @param {string} contactId - Die ID des Kontakts, der gelöscht werden soll.
+ * variables onclick-Event
  */
 function setupDeleteButton(contactId) {
   const deleteButton = document.getElementById("editfield-cancel-btn");

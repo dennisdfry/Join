@@ -87,6 +87,7 @@
     left: 12px;
     display: flex;
     flex-direction: column;
+    z-index: 0;
   }
 
   /**.overlay {
@@ -130,9 +131,9 @@
   }
 }
 
-#formfield-cancel-btn {
-  display: none;
-}
+/**#formfield-cancel-btn {
+  display: none;       überprüfen!!!
+}**/
 
 .formfield-btn-box {
   justify-content: center;
@@ -153,8 +154,35 @@
 }
 
 .add-contact-content-left-box p {
-font-size: 20px;
-font-weight: 400;
-line-height: 24px;
-text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.contact-section-header {
+  width: 213px;
+  height: 104px;
+  position: absolute;
+  top: 128px;
+  left: 16px;
+  gap: 16px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.contact-section-header h1 {
+  font-size: 47px;
+  font-weight: 700;
+  line-height: 56.4px;
+  text-align: left;
+}
+
+.contact-section-header p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
 }
