@@ -41,6 +41,19 @@ async function fetchData(url, options = {}) {
   }
   
   /**
+ * Verknüpft den Delete-Button im Bearbeitungsformular mit der deleteContact-Funktion.
+ * @param {string} contactId - Die ID des Kontakts, der gelöscht werden soll.
+ */
+function setupDeleteButton(contactId) {
+  const deleteButton = document.getElementById("editfield-cancel-btn");
+  if (deleteButton) {
+      deleteButton.onclick = function() {
+          deleteContact(contactId);
+      };
+  }
+}
+  
+  /**
    * Fügt einen neuen Kontakt der Datenbank hinzu.
    * @async
    * @param {object} contact - Das Kontaktobjekt, das zur Datenbank hinzugefügt werden soll.

@@ -47,6 +47,7 @@ async function updateContactList() {
     } catch (error) {
       console.error("Fehler beim Laden der Kontaktdetails:", error);
     }
+    setupDeleteButton(contactId);
   }
   
   /**

@@ -7,7 +7,7 @@
   #contactlist-section {
     background-color: #ffffff;
     width: 428px;
-    height: 80%;
+    height: 82%;
     position: absolute;
     top: 96px;
     left: 0;
@@ -83,16 +83,15 @@
     width: 396px;
     height: 760px;
     animation: moveIn 200ms ease-in 100ms forwards;
-    z-index: 3;
-    top: 60px;
+    top: 104px;
     left: 12px;
     display: flex;
     flex-direction: column;
   }
 
-  .overlay {
+  /**.overlay {
     display: none;
-  }
+  }**/
 
   .add-contact-content-left-box {
     height: 50%;
@@ -103,7 +102,7 @@
   }
 
   .add-contact-content-right-box {
-    background-color: #f6f7f8;
+    background-color: #ffffff;
     position: relative;
     height: 50%;
     width: 100%;

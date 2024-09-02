@@ -473,8 +473,8 @@ body {
   width: 1116px;
   height: 766px;
   position: absolute;
-  top: 124px;
-  left: 328px;
+  top: 88px;
+  left: 240px;
   border-radius: 30px !important;
   background-color: #ffffff !important;
   animation: moveIn 200ms ease-in 100ms forwards;
