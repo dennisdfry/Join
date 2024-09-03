@@ -1,54 +1,9 @@
 let subtasksLengthArray = [];
 const taskData = {};
 let taskkeys = [];
-const taskkeysGlobal = [];
-let task = {};
-let currentDraggedElement;
 let progressStatusTrue = [];
 let TechnicalTask = "Technical Task";
 let UserStory = "User Story";
-
-async function includeHTML() {
-  let includeElements = document.querySelectorAll("[w3-include-html]");
-  for (let element of includeElements) {
-    const file = element.getAttribute("w3-include-html");
-    try {
-      let sanitizedUrl = new URL(file, window.location.href);
-      sanitizedUrl.username = "";
-      sanitizedUrl.password = "";
-      let resp = await fetch(sanitizedUrl);
-      await whichChangeSite(resp, element, file);
-    } catch (error) {
-      console.error("Error fetching file:", file, error);
-      element.innerHTML = "Error loading page";
-    }
-  }
-}
-
-async function whichChangeSite(resp, element, file) {
-  if (resp.ok) {
-    element.innerHTML = await resp.text();
-    if (file.includes("addTask.html")) {
-      init();
-    }
-    if (file.includes("contacts.html")) {
-      initContacts();
-    }
-    if (file.includes("board.html")) {
-      loadingBoard();
-    }
-    if (file.includes("summary.html")) {
-      initSmry();
-    }
-  } else {
-    element.innerHTML = "Page not found";
-  }
-}
-
-async function changeSite(page) {
-  document.querySelector(".main-content").setAttribute("w3-include-html", page);
-  includeHTML();
-}
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
@@ -64,15 +19,6 @@ function clearLocalStorage() {
   localStorage.removeItem("user");
 }
 
-function toggleElement(elementClass, className) {
-  const element = document.querySelector(elementClass);
-  if (element.classList.contains(className)) {
-    element.classList.remove(className);
-  } else {
-    element.classList.add(className);
-  }
-}
-
 function toggleRotateClass(event) {
   const element = event.target.closest(".board-task-container");
   if (element) {
@@ -81,127 +27,6 @@ function toggleRotateClass(event) {
     } else {
       element.classList.remove("rotate");
     }
-  }
-}
-
-document.addEventListener("mousedown", toggleRotateClass);
-document.addEventListener("mouseup", toggleRotateClass);
-document.addEventListener("mouseleave", toggleRotateClass);
-document.addEventListener("dragend", toggleRotateClass);
-
-function updateStatusMessages() {
-  const containers = document.querySelectorAll(".board-render-status-container");
-
-  containers.forEach((container) => {
-    const statusMessage = container.previousElementSibling;
-    const taskCount = container.children.length;
-
-    if (taskCount > 0) {
-      statusMessage.classList.add("d-none");
-    } else {
-      statusMessage.classList.remove("d-none");
-    }
-  });
-}
-
-function hideDropdown() {
-  const element = document.querySelector(".user-icon-dropdown");
-  if (!element.classList.contains("d-none")) {
-    element.classList.add("d-none");
-  }
-}
-
-async function loadingBoard() {
-  try {
-    taskkeysGlobal.length = 0;
-    task = await onloadDataBoard("/tasks");
-    taskkeys = Object.keys(task);
-    taskkeysGlobal.push(taskkeys);
-    let fetchImage = await fetchImagesBoard("/");
-    await generateHTMLObjects(taskkeys, task);
-    await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
-    updateStatusMessages();
-  } catch (error) {
-    console.error("Error loading tasks:", error);
-  }
-}
-
-async function onloadDataBoard(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  return responseToJson;
-}
-
-async function fetchImagesBoard(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  let contacts = responseToJson.contacts;
-  let imageUrl = Object.values(contacts).map((contacts) => contacts.img);
-  return imageUrl;
-}
-
-async function generateHTMLObjects(taskkeys, task) {
-  for (let index = 0; index < taskkeys.length; index++) {
-    const { category, description, dueDate, prio, title, boardCategory } = task[taskkeys[index]][0];
-    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
-  }
-}
-
-async function updateHTML() {
-  const categories = ["todo", "progress", "feedback", "done"];
-
-  for (const category of categories) {
-    const container = document.getElementById(category);
-    container.innerHTML = "";
-  }
-
-  try {
-    await loadingBoard();
-  } catch (error) {
-    console.error("Fehler beim Aktualisieren der HTML-Inhalte:", error);
-  }
-}
-
-function startDragging(taskkey) {
-  currentDraggedElement = taskkey;
-  console.log("Dragging element with taskkey:", currentDraggedElement);
-}
-
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function onDrop(event) {
-  event.preventDefault();
-  const newCategory = event.target.dataset.category;
-  moveTo(newCategory);
-}
-
-async function moveTo(category) {
-  if (currentDraggedElement) {
-    task[currentDraggedElement]["boardCategory"] = category;
-
-    await updateTaskInFirebase({
-      id: currentDraggedElement,
-      boardCategory: category,
-    });
-
-    await updateHTML();
-  } else {
-    console.error("No task is being dragged.");
-  }
-  updateStatusMessages();
-}
-
-async function updateTaskInFirebase(task) {
-  try {
-    await fetch(`${BASE_URL}/tasks/${task.id}/0.json`, {
-      method: "PATCH",
-      body: JSON.stringify({ boardCategory: task.boardCategory }),
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    console.error("Error updating task in Firebase:", error);
   }
 }
 
@@ -219,28 +44,12 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
   }
 }
 
-function limitTextTo50Chars(id) {
-  const element = document.getElementById(id);
-  const text = element.innerText;
-  if (text.length > 50) {
-    element.innerText = text.substring(0, 50) + "...";
-  }
-}
-
 async function positionOfHTMLBlock(index, category, title, description, date, prio, boardCategory) {
   setTaskColor(category);
   let position = document.getElementById(`${boardCategory}`);
   position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);
   limitTextTo50Chars(`limitTextDesciption${index}`);
   CategoryColor(index, category);
-}
-function CategoryColor(index, category) {
-  let position = document.getElementById(`categoryColor${index}`);
-  if (category == TechnicalTask) {
-    position.style.backgroundColor = "#1fd7c1";
-  } else {
-    position.style.backgroundColor = "#0038ff";
-  }
 }
 
 function searchprio(index, prio) {
@@ -462,22 +271,6 @@ async function createTask(event) {
   await changeSite("board.html");
 }
 
-/**
- * Setzt die Hintergrundfarbe der Aufgaben basierend auf ihrer Kategorie.
- */
-function setTaskColor() {
-  const categoryColors = {
-    "technical task": "#1FD7C1",
-    "user story": "#0038FF",
-  };
-  let elements = document.querySelectorAll(".board-task-container h1");
-
-  elements.forEach((element) => {
-    let category = element.getAttribute("data-category")?.toLowerCase().trim();
-    let taskColor = categoryColors[category];
-    element.style.backgroundColor = taskColor;
-  });
-}
 
 function searchTasks(query) {
   let lowerCaseQuery = query.toLowerCase();
@@ -521,7 +314,3 @@ function resetTaskVisibility() {
     container.style.display = "";
   });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  includeHTML();
-});

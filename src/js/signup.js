@@ -2,6 +2,16 @@ function home() {
   window.location.replace("/public/login.html");
 }
 
+/**
+ * Handles the user sign-up process.
+ * Validates the form data, creates a new user with Firebase Authentication,
+ * saves the user data to the database, and adds a contact. If successful,
+ * displays a success message and clears the input fields.
+ * 
+ * @param {Event} event - The event object associated with the form submission.
+ * @returns {Promise<boolean>} A promise that resolves to `true` if sign-up is successful, or `false` if validation fails.
+ * @async
+ */
 async function signUp(event) {
   event.preventDefault();
   const formData = getFormData();
@@ -27,6 +37,11 @@ async function signUp(event) {
   return true;
 }
 
+/**
+ * Retrieves form data from the sign-up form fields.
+ * 
+ * @returns {Object} An object containing the form data (name, mail, password, confirm password, and checkbox status).
+ */
 function getFormData() {
   return {
     name: document.getElementById("name").value,
@@ -37,8 +52,18 @@ function getFormData() {
   };
 }
 
+/**
+ * Validates that the password and confirm password fields match.
+ * Displays an error message if they do not match.
+ * 
+ * @listens input
+ */
 document.getElementById('confirm-password').addEventListener('input', validatePassword);
 
+/**
+ * Validates the password and confirm password fields for equality.
+ * If the passwords do not match, displays an error message and adds an "invalid" class to the confirm password field.
+ */
 function validatePassword() {
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirm-password').value;
@@ -54,12 +79,21 @@ function validatePassword() {
   }
 }
 
+/**
+ * Validates the password and checkbox fields during sign-up.
+ * Checks if the password and confirm password match, and ensures the privacy policy checkbox is checked.
+ * 
+ * @param {string} password - The password entered by the user.
+ * @param {string} confirm - The confirmed password entered by the user.
+ * @param {boolean} checkbox - The status of the privacy policy checkbox.
+ * @returns {Promise<boolean>} A promise that resolves to `true` if the validation passes, otherwise `false`.
+ */
 function passwordValidation(password, confirm, checkbox) {
   return new Promise((resolve) => {
     if (password !== confirm) {
       resolve(false);
     } else if (!checkbox) {
-      alert("Sie müssen die Privacy Policy akzeptieren.");
+      alert("You must accept the Privacy Policy.");
       resolve(false);
     } else {
       resolve(true);
@@ -67,10 +101,21 @@ function passwordValidation(password, confirm, checkbox) {
   });
 }
 
+/**
+ * Saves the user data to the Firebase database under the user's unique ID.
+ * 
+ * @param {string} userId - The unique ID of the user.
+ * @param {Object} userData - An object containing the user's data (e.g., name, mail).
+ * @async
+ */
 async function saveUserData(userId, userData) {
   await firebase.database().ref('users/' + userId).set(userData);
 }
 
+/**
+ * Displays a success message after a successful sign-up.
+ * The message fades in, and after a short delay, the user is redirected to the login page.
+ */
 function showSuccessMessage() {
   const successBody = document.querySelector('.successBody');
   const successSignup = document.getElementById('successSignup');
@@ -84,6 +129,10 @@ function showSuccessMessage() {
   }, 1000);
 }
 
+/**
+ * Clears the input fields in the sign-up form.
+ * Resets the name, mail, password, confirm password fields, and unchecks the privacy policy checkbox.
+ */
 function clearInput() {
   document.getElementById("name").value = "";
   document.getElementById("mail").value = "";
@@ -92,6 +141,12 @@ function clearInput() {
   document.getElementById("checkbox").checked = false;
 }
 
+/**
+ * Validates the form inputs and enables or disables the submit button based on the validity of the inputs.
+ * The form is considered valid if all required fields are filled.
+ * 
+ * @listens DOMContentLoaded
+ */
 document.addEventListener('DOMContentLoaded', function () {
   function validateForm() {
     const isFormValid =
@@ -114,8 +169,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /**
- * Initializes event listeners for password and confirm password input fields.
- * Utilizes global variables defined in `variables.js`.
+ * Initializes event listeners for password visibility toggling and updates the visibility of icons.
+ * This function is executed after the DOM content is fully loaded.
  * 
  * @listens DOMContentLoaded
  */
@@ -139,9 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
  * 
  * @param {HTMLInputElement} input - The password input field.
  * @param {HTMLImageElement} toggle - The image element used to toggle visibility.
- * 
- * Variables `passwordInput`, `confirmPasswordInput`, `togglePassword`, 
- * and `toggleConfirmPassword` are defined globally in `variables.js`.
  */
 function updatePasswordVisibility(input, toggle) {
   if (input.type === 'password') {
@@ -155,9 +207,7 @@ function updatePasswordVisibility(input, toggle) {
 
 /**
  * Updates the icon visibility based on the content of the password input fields.
- * 
- * Variables `passwordInput`, `confirmPasswordInput`, `togglePassword`, 
- * and `toggleConfirmPassword` are defined globally in `variables.js`.
+ * Displays a different icon depending on whether the input field has content or is empty.
  */
 function updateIconVisibility() {
   if (passwordInput.value.length > 0) {
@@ -172,4 +222,3 @@ function updateIconVisibility() {
     toggleConfirmPassword.src = '/public/img/lock.png';
   }
 }
-
