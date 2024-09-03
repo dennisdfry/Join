@@ -341,28 +341,21 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
 
 async function progressBar(indexHtml) {
   let progressBar = document.getElementById(`progressBar${indexHtml}`);
-  let trueCount = 0;
-  let totalCount = 0;
+  let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${indexHtml}`)
+  let trueCount = 0, totalCount = 0;
   for (let index = 0; index < taskkeysGlobal.length; index++) {
-    const element = taskkeysGlobal[index];
-    const taskKeyId = element[indexHtml];
-    let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
-    if (!data || data.length === 0) {
-      continue;
-    }
+    let data = await onloadDataBoard(`/tasks/${taskkeysGlobal[index][indexHtml]}/0/subtaskStatus/`);
+    if (!data || data.length === 0) continue;
     totalCount += data.length;
-    for (let i = 0; i < data.length; i++) {
-      const statusID = data[i];
+    data.forEach((statusID, i) => {
       if (statusID === true) {
         trueCount++;
         progressStatusTrue.push({ index: i, statusTrue: statusID });
       }
-    }
+    });
   }
-  if (totalCount > 0) {
-    let progress = (trueCount / totalCount) * 100;
-    progressBar.style.width = `${progress}%`;
-  }
+  positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
+  if (totalCount > 0) progressBar.style.width = `${(trueCount / totalCount) * 100}%`;
 }
 
 function openAddForm() {
