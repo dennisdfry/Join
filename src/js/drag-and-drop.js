@@ -5,7 +5,7 @@ document.addEventListener("dragend", toggleRotateClass);
 
 /**
  * Starts the dragging process by setting the current dragged task's key.
- * 
+ *
  * @param {string} taskkey - The unique key of the task being dragged.
  */
 function startDragging(taskkey) {
@@ -14,8 +14,26 @@ function startDragging(taskkey) {
 }
 
 /**
- * Allows the dragged item to be dropped on a valid target by preventing the default behavior.
+ * Toggles the "rotate" class on the closest ".board-task-container" element based on the event type.
  * 
+ * Adds the "rotate" class when a "mousedown" event occurs and removes it on other events.
+ * 
+ * @param {Event} event - The event object from the event listener.
+ */
+function toggleRotateClass(event) {
+  const element = event.target.closest(".board-task-container");
+  if (element) {
+    if (event.type === "mousedown") {
+      element.classList.add("rotate");
+    } else {
+      element.classList.remove("rotate");
+    }
+  }
+}
+
+/**
+ * Allows the dragged item to be dropped on a valid target by preventing the default behavior.
+ *
  * @param {DragEvent} ev - The drag event.
  */
 function allowDrop(ev) {
@@ -24,7 +42,7 @@ function allowDrop(ev) {
 
 /**
  * Handles the drop event by retrieving the target category and initiating the move.
- * 
+ *
  * @param {DragEvent} event - The drop event.
  */
 function onDrop(event) {
@@ -35,7 +53,7 @@ function onDrop(event) {
 
 /**
  * Moves the dragged task to a new category and updates the task in Firebase.
- * 
+ *
  * @param {string} category - The new category to move the task to.
  * @async
  */
@@ -57,7 +75,7 @@ async function moveTo(category) {
 
 /**
  * Updates the task's category in Firebase.
- * 
+ *
  * @param {Object} task - The task object containing the ID and new category.
  * @param {string} task.id - The unique key of the task being updated.
  * @param {string} task.boardCategory - The new board category of the task.
