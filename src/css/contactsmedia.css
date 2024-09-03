@@ -7,17 +7,17 @@
   #contactlist-section {
     background-color: #ffffff;
     width: 428px;
-    height: 812px;
+    height: 82%;
     position: absolute;
     top: 96px;
     left: 0;
-   /** padding: 0px 14px;**/
+    /** padding: 0px 14px;**/
     z-index: 1;
   }
 
   .contaclist-content {
     width: 400px;
-    height: 1,156px;
+    height: 1, 156px;
     position: absolute;
     left: 14px;
     padding: 24px 0px 0px 0px;
@@ -83,80 +83,106 @@
     width: 396px;
     height: 760px;
     animation: moveIn 200ms ease-in 100ms forwards;
-    z-index: 3;
-    top: 0;
-    left: 0;
+    top: 104px;
+    left: 12px;
     display: flex;
     flex-direction: column;
+    z-index: 0;
   }
 
-  .overlay {
+  /**.overlay {
     display: none;
-  }
+  }**/
 
   .add-contact-content-left-box {
     height: 50%;
     width: 100%;
-    border-radius: 30px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
   }
 
   .add-contact-content-right-box {
+    background-color: #ffffff;
     position: relative;
     height: 50%;
     width: 100%;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
   }
 
+  #contact-form {
+    top: 72px;
+    left: 17px;
+    width: 364px;
+    height: 153px;
+    gap: 15px;
+  }
 
+  .form-prof-img {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: -62px;
+    left: 138px;
+    gap: 0px;
+    border-radius: 70px 0px 0px 0px;
+    border: 3px 0px 0px 0px;
+  }
+}
 
+/**#formfield-cancel-btn {
+  display: none;       überprüfen!!!
+}**/
 
+.formfield-btn-box {
+  justify-content: center;
+  align-items: center;
+}
 
+.formfield-logo {
+  display: none;
+}
 
+.add-contact-content-left-box h2 {
+  display: flex;
+  align-items: center;
+  font-size: 47px;
+  font-weight: 700;
+  line-height: 56.4px;
+  text-align: left;
+}
 
+.add-contact-content-left-box p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
 
+.contact-section-header {
+  width: 213px;
+  height: 104px;
+  position: absolute;
+  top: 128px;
+  left: 16px;
+  gap: 16px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
 
+.contact-section-header h1 {
+  font-size: 47px;
+  font-weight: 700;
+  line-height: 56.4px;
+  text-align: left;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.contact-section-header p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
 }
