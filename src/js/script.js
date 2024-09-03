@@ -126,6 +126,7 @@ async function loadingBoard() {
   }
 }
 
+
 async function onloadDataBoard(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();

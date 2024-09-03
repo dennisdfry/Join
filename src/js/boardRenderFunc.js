@@ -174,7 +174,6 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
 
                     </div>
                     <ul class="subtasksListEdit" id="subtasksPosition${index}"></ul> 
-              <div class="" id="subtasksBoardEdit${index}"></div>
           <div class="d-flex-end">
             <div class="d-flex item-center">
               <div onclick="updateTaskBoard(${index}, '${category}')" class="d-flex item-center pointer d-flex-center edit-task-button">
