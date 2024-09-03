@@ -5,206 +5,6 @@ let progressStatusTrue = [];
 let TechnicalTask = "Technical Task";
 let UserStory = "User Story";
 
-<<<<<<< HEAD
-async function includeHTML() {
-  let includeElements = document.querySelectorAll("[w3-include-html]");
-  for (let element of includeElements) {
-    const file = element.getAttribute("w3-include-html");
-    try {
-      let sanitizedUrl = new URL(file, window.location.href);
-      sanitizedUrl.username = "";
-      sanitizedUrl.password = "";
-      let resp = await fetch(sanitizedUrl);
-      await whichChangeSite(resp, element, file);
-    } catch (error) {
-      console.error("Error fetching file:", file, error);
-      element.innerHTML = "Error loading page";
-    }
-  }
-}
-
-async function whichChangeSite(resp, element, file) {
-  if (resp.ok) {
-    element.innerHTML = await resp.text();
-    if (file.includes("addTask.html")) {
-      init();
-    }
-    if (file.includes("contacts.html")) {
-      initContacts();
-    }
-    if (file.includes("board.html")) {
-      loadingBoard();
-    }
-    if (file.includes("summary.html")) {
-      initSmry();
-    }
-  } else {
-    element.innerHTML = "Page not found";
-  }
-}
-
-async function changeSite(page) {
-  document.querySelector(".main-content").setAttribute("w3-include-html", page);
-  includeHTML();
-}
-
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    const mainContent = document.querySelector(".main-content");
-    const currentPage = mainContent.getAttribute("w3-include-html");
-    if (currentPage && currentPage.includes("summary.html")) {
-      summaryGreeting();
-    }
-  }
-});
-
-function clearLocalStorage() {
-  localStorage.removeItem("user");
-}
-
-function toggleElement(elementClass, className) {
-  const element = document.querySelector(elementClass);
-  if (element.classList.contains(className)) {
-    element.classList.remove(className);
-  } else {
-    element.classList.add(className);
-  }
-}
-
-function toggleRotateClass(event) {
-  const element = event.target.closest(".board-task-container");
-  if (element) {
-    if (event.type === "mousedown") {
-      element.classList.add("rotate");
-    } else {
-      element.classList.remove("rotate");
-    }
-  }
-}
-
-document.addEventListener("mousedown", toggleRotateClass);
-document.addEventListener("mouseup", toggleRotateClass);
-document.addEventListener("mouseleave", toggleRotateClass);
-document.addEventListener("dragend", toggleRotateClass);
-
-function updateStatusMessages() {
-  const containers = document.querySelectorAll(".board-render-status-container");
-
-  containers.forEach((container) => {
-    const statusMessage = container.previousElementSibling;
-    const taskCount = container.children.length;
-
-    if (taskCount > 0) {
-      statusMessage.classList.add("d-none");
-    } else {
-      statusMessage.classList.remove("d-none");
-    }
-  });
-}
-
-function hideDropdown() {
-  const element = document.querySelector(".user-icon-dropdown");
-  if (!element.classList.contains("d-none")) {
-    element.classList.add("d-none");
-  }
-}
-
-async function loadingBoard() {
-  try {
-    taskkeysGlobal.length = 0;
-    task = await onloadDataBoard("/tasks");
-    taskkeys = Object.keys(task);
-    taskkeysGlobal.push(taskkeys);
-    let fetchImage = await fetchImagesBoard("/");
-    await generateHTMLObjects(taskkeys, task);
-    await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
-    updateStatusMessages();
-  } catch (error) {
-    console.error("Error loading tasks:", error);
-  }
-}
-
-
-async function onloadDataBoard(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  return responseToJson;
-}
-
-async function fetchImagesBoard(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  let contacts = responseToJson.contacts;
-  let imageUrl = Object.values(contacts).map((contacts) => contacts.img);
-  return imageUrl;
-}
-
-async function generateHTMLObjects(taskkeys, task) {
-  for (let index = 0; index < taskkeys.length; index++) {
-    const { category, description, dueDate, prio, title, boardCategory } = task[taskkeys[index]][0];
-    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
-  }
-}
-
-async function updateHTML() {
-  const categories = ["todo", "progress", "feedback", "done"];
-
-  for (const category of categories) {
-    const container = document.getElementById(category);
-    container.innerHTML = "";
-  }
-
-  try {
-    await loadingBoard();
-  } catch (error) {
-    console.error("Fehler beim Aktualisieren der HTML-Inhalte:", error);
-  }
-}
-
-function startDragging(taskkey) {
-  currentDraggedElement = taskkey;
-  console.log("Dragging element with taskkey:", currentDraggedElement);
-}
-
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function onDrop(event) {
-  event.preventDefault();
-  const newCategory = event.target.dataset.category;
-  moveTo(newCategory);
-}
-
-async function moveTo(category) {
-  if (currentDraggedElement) {
-    task[currentDraggedElement]["boardCategory"] = category;
-
-    await updateTaskInFirebase({
-      id: currentDraggedElement,
-      boardCategory: category,
-    });
-
-    await updateHTML();
-  } else {
-    console.error("No task is being dragged.");
-  }
-  updateStatusMessages();
-}
-
-async function updateTaskInFirebase(task) {
-  try {
-    await fetch(`${BASE_URL}/tasks/${task.id}/0.json`, {
-      method: "PATCH",
-      body: JSON.stringify({ boardCategory: task.boardCategory }),
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    console.error("Error updating task in Firebase:", error);
-  }
-}
-
-=======
 /**
  * Generates and populates HTML objects for tasks, including user images, priority, and subtasks.
  * 
@@ -214,7 +14,6 @@ async function updateTaskInFirebase(task) {
  * @param {Object} task - An object containing task data indexed by task IDs.
  * @param {Object} fetchImage - An object mapping user IDs to image URLs.
  */
->>>>>>> simplify
 async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage) {
   for (let index = 0; index < taskkeys.length; index++) {
     const tasksID = taskkeys[index];
@@ -398,21 +197,28 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
  */
 async function progressBar(indexHtml) {
   let progressBar = document.getElementById(`progressBar${indexHtml}`);
-  let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${indexHtml}`)
-  let trueCount = 0, totalCount = 0;
+  let trueCount = 0;
+  let totalCount = 0;
   for (let index = 0; index < taskkeysGlobal.length; index++) {
-    let data = await onloadDataBoard(`/tasks/${taskkeysGlobal[index][indexHtml]}/0/subtaskStatus/`);
-    if (!data || data.length === 0) continue;
+    const element = taskkeysGlobal[index];
+    const taskKeyId = element[indexHtml];
+    let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
+    if (!data || data.length === 0) {
+      continue;
+    }
     totalCount += data.length;
-    data.forEach((statusID, i) => {
+    for (let i = 0; i < data.length; i++) {
+      const statusID = data[i];
       if (statusID === true) {
         trueCount++;
         progressStatusTrue.push({ index: i, statusTrue: statusID });
       }
-    });
+    }
   }
-  positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
-  if (totalCount > 0) progressBar.style.width = `${(trueCount / totalCount) * 100}%`;
+  if (totalCount > 0) {
+    let progress = (trueCount / totalCount) * 100;
+    progressBar.style.width = `${progress}%`;
+  }
 }
 
 /**
@@ -421,14 +227,8 @@ async function progressBar(indexHtml) {
  * Removes the hidden and non-display classes from the add-task form to make it visible.
  */
 function openAddForm() {
-  let overlay = document.getElementById('overlay');
-  overlay.classList.remove("d-none");
-  
-  let formField = document.getElementById("add-task-form");
-  formField.classList.remove("d-none", "hidden");
-  formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-
-  document.addEventListener("click", outsideClickHandler);
+  document.getElementById("add-task-form").classList.remove("vis-hidden");
+  document.getElementById("add-task-form").classList.remove("d-none");
 }
 
 /**
@@ -437,33 +237,10 @@ function openAddForm() {
  * Removes the non-display class from the add-task form, making it visible.
  */
 function closeAddForm() {
-  let overlay = document.getElementById('overlay');
-  overlay.classList.add("d-none");
-
   let formField = document.getElementById("add-task-form");
-  formField.style.animation = "moveOut 200ms ease-out forwards";
-
-  setTimeout(() => {
-    formField.classList.add("hidden", "d-none");
-    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 100);
-
-
-  document.removeEventListener("click", outsideClickHandler);
+  formField.classList.remove("d-none");
 }
 
-<<<<<<< HEAD
-function outsideClickHandler(event) {
-  let formField = document.getElementById("add-task-form");
-  let overlay = document.getElementById("overlay");
-
-  if (!formField.contains(event.target) && overlay.contains(event.target)) {
-    closeAddForm();
-  }
-}
-
-
-=======
 /**
  * Updates the priority button styling.
  * 
@@ -471,7 +248,6 @@ function outsideClickHandler(event) {
  * 
  * @param {string} id - The ID of the button to update.
  */
->>>>>>> simplify
 function prio2(id) {
   const buttons = document.querySelectorAll(".add-task-prio-button-container button");
 
