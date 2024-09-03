@@ -1,5 +1,9 @@
-
-
+/**
+ * Updates the priority icon in the open task view based on the task's priority level.
+ * 
+ * @param {number} index - The index of the task.
+ * @param {string} prio - The priority level of the task ('Urgent', 'Medium', 'Low').
+ */
 function searchprioOpenTask(index, prio) {
   let position = document.getElementById(`prioPositionOpenTask${index}`);
   position.innerHTML = '';
@@ -17,31 +21,51 @@ function searchprioOpenTask(index, prio) {
   }
 }
 
-//Renders the user images for a specific task in an open task view.
+/**
+ * Renders the user images for a specific task in the open task view.
+ * 
+ * @param {number} index - The index of the task.
+ * @param {Array<string>} users - An array of user IDs associated with the task.
+ * @param {Array<string>} fetchImage - An array of image URLs associated with the users.
+ * @param {Array<string>} userNames - An array of user names associated with the task.
+ * @async
+ */
 async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
   let position = document.getElementById(`userImageBoardOpen${index}`);
   position.innerHTML = '';
   if (!users || users.length === 0) {
     return;
   }
-  for (let index = 0; index < users.length; index++) {
-    const element = users[index];
-    const names = userNames[index];
+  for (let i = 0; i < users.length; i++) {
+    const element = users[i];
+    const names = userNames[i];
     let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImageOpen(imageUrl, index, names);
+    position.innerHTML += await htmlBoardImageOpen(imageUrl, i, names);
   }
 }
 
-// Generates the HTML structure for a user's image and name in an open task view.
+/**
+ * Generates the HTML structure for displaying a user's image and name in the open task view.
+ * 
+ * @param {string} imageUrl - The URL of the user's image.
+ * @param {number} index - The index of the user in the list.
+ * @param {string} names - The name of the user.
+ * @returns {string} The HTML string representing the user's image and name.
+ */
 function htmlBoardImageOpen(imageUrl, index, names) {
   return `
     <div class="d-flex pa-7-16">
       <img class="user-image-task-open" src="${imageUrl}">
-      <div class="d-flex item-center font-sf fs-19 fw-400" >${names}</div>
-    </div>  `;
+      <div class="d-flex item-center font-sf fs-19 fw-400">${names}</div>
+    </div>`;
 }
 
-//Closes the open task view and returns to the main board
+/**
+ * Closes the open task view and navigates back to the main board.
+ * 
+ * @param {Event} event - The event object associated with the close action.
+ * @param {number} index - The index of the task.
+ */
 function closeOpenTask(event, index) {
   event.stopPropagation();
   let openPosition = document.getElementById('openTask');
@@ -51,7 +75,12 @@ function closeOpenTask(event, index) {
   changeSite('board.html');
 }
 
-//Renders the subtasks for a specific task in an open task view.
+/**
+ * Renders the subtasks for a specific task in the open task view.
+ * 
+ * @param {number} indexHtml - The index of the task in the HTML.
+ * @param {Array<string>} subtasks - An array of subtasks associated with the task.
+ */
 function subtasksRenderOpen(indexHtml, subtasks) {
   let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
   position.innerHTML = '';
@@ -60,27 +89,43 @@ function subtasksRenderOpen(indexHtml, subtasks) {
     subs: subtasks
   });
   if (Array.isArray(subtasks)) {
-    for (let index = 0; index < subtasks.length; index++) {
-      const element = subtasks[index];
-      position.innerHTML += subtasksRenderOpenHtml(indexHtml, index, element);
+    for (let i = 0; i < subtasks.length; i++) {
+      const element = subtasks[i];
+      position.innerHTML += subtasksRenderOpenHtml(indexHtml, i, element);
     }
   }
 }
 
-//HTML block /Renders the subtasks for a specific task in an open task view.
-function subtasksRenderOpenHtml(indexHtml, index, element){
+/**
+ * Generates the HTML structure for displaying a subtask in the open task view.
+ * 
+ * @param {number} indexHtml - The index of the task in the HTML.
+ * @param {number} index - The index of the subtask in the list.
+ * @param {string} element - The subtask description.
+ * @returns {string} The HTML string representing the subtask.
+ */
+function subtasksRenderOpenHtml(indexHtml, index, element) {
   return `
-              <div class="d-flex item-center pa-7-16">
-                  <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task" type="checkbox" id="subtask-${indexHtml}-${index}">
-                  <label class="" for="subtask-${indexHtml}-${index}">${element}</label>
-              </div>`;
+    <div class="d-flex item-center pa-7-16">
+      <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task" type="checkbox" id="subtask-${indexHtml}-${index}">
+      <label for="subtask-${indexHtml}-${index}">${element}</label>
+    </div>`;
 }
 
-//Opens and renders the detailed view of a task on the board.
- function openTaskToBoardRender(index, category, title, description, date, prio) {
+/**
+ * Opens and renders the detailed view of a task on the board, including its category, title, description, date, and priority.
+ * 
+ * @param {number} index - The index of the task.
+ * @param {string} category - The category of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} date - The due date of the task.
+ * @param {string} prio - The priority level of the task.
+ */
+function openTaskToBoardRender(index, category, title, description, date, prio) {
   let position = document.getElementById('openTask');
   if (position.classList.contains('modal-overlay')) {
-    return
+    return;
   } else {
     position.classList.add('modal-overlay');
     position.classList.remove('d-none');
@@ -90,15 +135,27 @@ function subtasksRenderOpenHtml(indexHtml, index, element){
   promiseSecondInfoOpenTask(index);
 }
 
-function CategoryColorOpen(index, category){
-  let position = document.getElementById(`categoryColorOpen${index}`)
- if (category == TechnicalTask){
-  position.style.backgroundColor="#1fd7c1";
- }else{
-  position.style.backgroundColor="#0038ff";
- }
+/**
+ * Updates the background color of the task's category label in the open task view.
+ * 
+ * @param {number} index - The index of the task.
+ * @param {string} category - The category of the task.
+ */
+function CategoryColorOpen(index, category) {
+  let position = document.getElementById(`categoryColorOpen${index}`);
+  if (category == 'TechnicalTask') {
+    position.style.backgroundColor = "#1fd7c1";
+  } else {
+    position.style.backgroundColor = "#0038ff";
+  }
 }
-//Fetches and renders additional task details (like subtasks, users, etc.) in the open task view.
+
+/**
+ * Fetches and renders additional task details (such as subtasks, users, priority) in the open task view.
+ * 
+ * @param {number} index - The index of the task.
+ * @async
+ */
 async function promiseSecondInfoOpenTask(index) {
   let taskInfo = taskData[index];
   if (taskInfo) {
@@ -110,27 +167,32 @@ async function promiseSecondInfoOpenTask(index) {
       searchprioOpenTask(index, prio),
     ]);
     await loadSubtaskStatus(index);
-
   } else {
-    console.error("Keine Daten für den angegebenen Index gefunden.");
+    console.error("No data found for the specified index.");
   }
 }
 
-//Deletes a specific task from Firebase and updates the board.
+/**
+ * Deletes a specific task from Firebase and updates the board view.
+ * 
+ * @param {number} indexHTML - The index of the task in the HTML.
+ * @async
+ */
 async function deleteTask(indexHTML) {
-  console.log(indexHTML);
-  for (let index = 0; index < taskkeysGlobal.length; index++) {
-    const element = taskkeysGlobal[index];
-    console.log(element);
+  for (let i = 0; i < taskkeysGlobal.length; i++) {
+    const element = taskkeysGlobal[i];
     let key = element[indexHTML];
-    console.log(key);
     await deleteOnFirebase(key);
   }
   changeSite('board.html');
-
 }
 
-//Deletes a task from Firebase using its unique key.
+/**
+ * Deletes a task from Firebase using its unique key.
+ * 
+ * @param {string} taskkey - The unique key of the task to delete.
+ * @async
+ */
 async function deleteOnFirebase(taskkey) {
   try {
     await fetch(`${BASE_URL}/tasks/${taskkey}.json`, {

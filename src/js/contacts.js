@@ -3,45 +3,42 @@ const CONTACTS_URL = "https://join-19628-default-rtdb.firebaseio.com/contacts";
 const HEADERS = { "Content-Type": "application/json" };
 
 /**
- * Initialisiert die Event-Listener für das Kontaktformular.
- * - Fügt einen Submit-Listener hinzu, um das Formular zu verarbeiten.
- * - Fügt Input-Listener hinzu, um die Felder auf Vollständigkeit zu überprüfen.
- * - Überprüft, ob alle erforderlichen Felder ausgefüllt sind und aktiviert oder deaktiviert den Senden-Button.
+ * Initializes event listeners for the contact form.
+ * - Adds a submit listener to process the form.
+ * - Adds input listeners to validate form fields.
+ * - Checks if all required fields are filled and enables or disables the submit button accordingly.
  */
 function setupForm() {
   document.getElementById("contact-form").addEventListener("submit", handleFormSubmit);
-  ["name", "mail", "phone"].forEach(id => {
+  ["name", "mail", "phone"].forEach((id) => {
     document.getElementById(id).addEventListener("input", checkFormFields);
     document.getElementById(id).addEventListener("keydown", handleEnterPress);
   });
   checkFormFields();
 }
 
-
 /**
- * Überprüft ob alle erforderlichen Felder ausgefüllt wurden und aktiviert bzw. deaktiviert den Submit-Button
+ * Checks if all required fields are filled and enables or disables the submit button accordingly.
  */
 function checkFormFields() {
-  let filledFields = ["name", "mail", "phone"].every(id => document.getElementById(id).value.trim());
+  let filledFields = ["name", "mail", "phone"].every((id) => document.getElementById(id).value.trim());
   document.getElementById("formfield-create-btn").disabled = !filledFields;
 }
 
 /**
- * Überprüft, ob die Entertaste gedrückt wurde und löst das Formular-Submit-Event aus
- * @param {KeyboardEvent} event - Das Eventobjekt der Tastatureingabe
+ * Checks if the Enter key is pressed and triggers the form submit event.
+ * @param {KeyboardEvent} event - The keyboard event object.
  */
 function handleEnterPress(event) {
   if (event.key === "Enter") {
     event.preventDefault();
-    handleFormSubmit(event); 
+    handleFormSubmit(event);
   }
 }
 
-
 /**
- * Behandelt das Absenden eines Kontakes und fügt den neuen Kontakt hinzu
- * @param {Event} event - Das Eventobjekt des Formulares 
- * @returns 
+ * Handles the form submission to add a new contact.
+ * @param {Event} event - The form submit event object.
  */
 function handleFormSubmit(event) {
   event.preventDefault();
@@ -51,7 +48,7 @@ function handleFormSubmit(event) {
   let phone = document.getElementById("phone").value.trim();
 
   if (![name, validateEmail(mail), validatePhone(phone)].every(Boolean)) {
-    ["name", "mail", "phone"].forEach(id => {
+    ["name", "mail", "phone"].forEach((id) => {
       let input = document.getElementById(id);
       input.classList.toggle("input-error", !input.value.trim());
     });
@@ -69,31 +66,30 @@ function handleFormSubmit(event) {
 }
 
 /**
- * Validiert eine E-Mail adresse
- * @param {string} email - Die E-Mail des zu Überprüfen ist
- * @returns Boolean (true/false)
+ * Validates an email address.
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} - Returns true if the email is valid, otherwise false.
  */
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 /**
- * Validiert eine Telefonnummer
- * @param {string} phone - Die Telefonnummer, die überprüft werden soll
- * @returns {boolean} - true, wenn die Telefonnummer gültig ist, andernfalls false
+ * Validates a phone number.
+ * @param {string} phone - The phone number to validate.
+ * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
 function validatePhone(phone) {
   return /^\+?[0-9]{10,16}$/.test(phone);
 }
 
-
 /**
- * schreibt den ersten Buchstaben des Namen groß
- * @param {string} name - Der Name des Kontaktes
- * @returns Name in konsistenter Form als string
+ * Capitalizes the first letter of a name.
+ * @param {string} name - The contact's name.
+ * @returns {string} - The name with the first letter capitalized.
  */
 function capitalizeFirstLetter(name) {
-  let words = name.split(' ');
+  let words = name.split(" ");
   if (words.length >= 2) {
     return capitalizeSecondLetter(words);
   }
@@ -101,24 +97,19 @@ function capitalizeFirstLetter(name) {
 }
 
 /**
- * schreibt bei mehr als einem Wort alle Wörter groß
- * @param {array} words - Ein Array aus Wörtern welches groß geschrieben werden soll
- * @returns großgeschriebene Wörter als string
+ * Capitalizes the first letter of each word in a name.
+ * @param {Array<string>} words - An array of words to capitalize.
+ * @returns {string} - The capitalized words as a single string.
  */
 function capitalizeSecondLetter(words) {
-  return words
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
+  return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
 }
 
 /**
- * Zeigt das Formular zum Hinzufügen eines Kontaktes an mit einer Animation
- */
-/**
- * Zeigt ein Formular an, indem es das entsprechende Element sichtbar macht und eine Animation hinzufügt.
- * @param {string} formId - Die ID des Formulars, das angezeigt werden soll.
- * @param {string} overlayId - Die ID des Overlays, das angezeigt werden soll.
- * @param {Function} outsideClickHandler - Die Funktion, die auf Klicks außerhalb des Formulars reagiert.
+ * Displays the contact form with animation.
+ * @param {string} formId - The ID of the form to display.
+ * @param {string} overlayId - The ID of the overlay to display.
+ * @param {Function} outsideClickHandler - The function to handle clicks outside the form.
  */
 function showForm(formId, overlayId, outsideClickHandler) {
   let formField = document.getElementById(formId);
@@ -129,16 +120,16 @@ function showForm(formId, overlayId, outsideClickHandler) {
 }
 
 /**
- * Schließt ein Formular, indem es das entsprechende Element ausblendet und eine Animation hinzufügt.
- * @param {string} formId - Die ID des Formulars, das geschlossen werden soll.
- * @param {string} overlayId - Die ID des Overlays, das ausgeblendet werden soll.
- * @param {Array<string>} fieldIds - Ein Array der IDs der Formularfelder, die zurückgesetzt werden sollen.
+ * Closes a form by hiding the form element and applying an animation.
+ * @param {string} formId - The ID of the form to close.
+ * @param {string} overlayId - The ID of the overlay to hide.
+ * @param {Array<string>} fieldIds - An array of field IDs to reset.
  */
 function closeForm(formId, overlayId, fieldIds) {
   document.getElementById(overlayId).classList.add("d-none");
 
   const formField = document.getElementById(formId);
-  fieldIds.forEach(id => document.getElementById(id).value = "");
+  fieldIds.forEach((id) => (document.getElementById(id).value = ""));
   formField.style.animation = "moveOut 200ms ease-out forwards";
 
   setTimeout(() => {
@@ -148,7 +139,7 @@ function closeForm(formId, overlayId, fieldIds) {
 }
 
 /**
- * Zeigt das Formular zum Hinzufügen eines Kontaktes an.
+ * Displays the form for adding a contact.
  */
 function showFormField() {
   showForm("add-form-section", "overlay", handleOutsideFormClick);
@@ -156,68 +147,64 @@ function showFormField() {
 }
 
 /**
- * Schließt das Formular zum Hinzufügen eines Kontaktes.
+ * Closes the form for adding a contact.
  */
- function closeFormField() {
+function closeFormField() {
   closeForm("add-form-section", "overlay", ["name", "mail", "phone"]);
 }
 
 /**
- * Zeigt das Bearbeitungsformular für einen bestehenden Kontakt an.
- * @param {string} contactId - Die ID des zu bearbeitenden Kontakts.
+ * Displays the edit form for an existing contact.
+ * @param {string} contactId - The ID of the contact to edit.
  */
 function showEditForm(contactId) {
   showForm("edit-contact-section", "edit-overlay", handleOutsideEditFormClick);
   document.getElementById("edit-contact-form").setAttribute("data-id", contactId);
   loadEditFormData(contactId);
 
-  // Füge den keydown Event-Handler für das Bearbeitungsformular hinzu
+  // Add keydown event handler for the edit form
   document.getElementById("edit-contact-form").addEventListener("keydown", handleEditEnterPress);
 }
 
 /**
- * Schließt das Bearbeitungsformular.
+ * Closes the edit form.
  */
 function closeEditField() {
   closeForm("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
-  
-  // Entferne den keydown Event-Handler, wenn das Formular geschlossen wird
+
+  // Remove keydown event handler when the form is closed
   document.getElementById("edit-contact-form").removeEventListener("keydown", handleEditEnterPress);
 }
 
 /**
- * Überprüft, ob die Entertaste gedrückt wurde und löst das Formular-Submit-Event aus
- * @param {KeyboardEvent} event - Das Eventobjekt der Tastatureingabe
+ * Checks if the Enter key is pressed and triggers the form submit event.
+ * @param {KeyboardEvent} event - The keyboard event object.
  */
 function handleEditEnterPress(event) {
   if (event.key === "Enter") {
     event.preventDefault();
-    handleEditFormSubmit(event); 
+    handleEditFormSubmit(event);
   }
 }
 
 /**
- * Behandelt das Absenden des Bearbeitungsformulars für Kontakte.
+ * Handles the submission of the edit form for contacts.
  *
- * Diese Funktion wird ausgelöst, wenn das Bearbeitungsformular für Kontakte abgesendet wird.
- * Sie verhindert das Standardverhalten beim Absenden des Formulars, ruft die Kontakt-ID aus den
- * Datenattributen des Formulars ab, validiert die Eingabefelder und versucht dann, den Kontakt
- * zu aktualisieren. Tritt ein Fehler während dieses Prozesses auf, wird der Fehler in der Konsole
- * protokolliert.
+ * This function is triggered when the edit form for contacts is submitted.
+ * It prevents the default form submission behavior, retrieves the contact ID from
+ * the form's data attributes, validates the input fields, and attempts to update the contact.
+ * If an error occurs during this process, it logs the error to the console.
  *
  * @async
- * @function handleEditFormSubmit
- * @param {Event} event - Das Ereignisobjekt, das das Absenden des Formulars darstellt.
+ * @param {Event} event - The event object representing the form submission.
  * @returns {void}
- *
- * @throws {Error} Protokolliert einen Fehler, wenn die Kontakt-ID nicht gefunden wird oder ein Problem
- *                  beim Aktualisieren des Kontakts auftritt.
+ * @throws {Error} - Logs an error if the contact ID is not found or if an issue occurs while updating the contact.
  */
 async function handleEditFormSubmit(event) {
   event.preventDefault();
   let contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
   if (!contactId) {
-    console.error("Keine Kontakt-ID gefunden.");
+    console.error("No contact ID found.");
     return;
   }
 
@@ -229,7 +216,7 @@ async function handleEditFormSubmit(event) {
   };
 
   if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) {
-    console.error("Ungültige E-Mail oder Telefonnummer.");
+    console.error("Invalid email or phone number.");
     return;
   }
 
@@ -238,25 +225,22 @@ async function handleEditFormSubmit(event) {
     showUpdateBar();
     closeEditField();
   } catch (error) {
-    console.error("Fehler beim Hochladen", error);
+    console.error("Error uploading contact:", error);
   }
 }
 
-
 /**
- * Lädt die Kontaktdaten in die Bearbeitungsformularfelder.
+ * Loads contact data into the edit form fields.
  *
- * Diese Funktion ruft die Kontaktdaten basierend auf der angegebenen Kontakt-ID ab
- * und füllt die Bearbeitungsformularfelder mit den Informationen des Kontakts aus. Falls
- * der Kontakt ein Bild hat, wird dieses im entsprechenden Container angezeigt; andernfalls
- * wird ein generiertes Profilbild basierend auf dem Namen des Kontakts verwendet.
+ * This function retrieves the contact data based on the provided contact ID
+ * and populates the edit form fields with the contact's information. If the
+ * contact has an image, it is displayed in the corresponding container; otherwise,
+ * a generated profile image based on the contact's name is used.
  *
  * @async
- * @function loadEditFormData
- * @param {string} contactId - Die eindeutige Kennung des Kontakts, dessen Daten geladen werden sollen.
- * @returns {Promise<void>} Wird aufgelöst, wenn die Kontaktdaten erfolgreich in das Formular geladen wurden.
- *
- * @throws {Error} Protokolliert einen Fehler, wenn ein Problem beim Abrufen der Kontaktdaten auftritt.
+ * @param {string} contactId - The unique identifier of the contact whose data should be loaded.
+ * @returns {Promise<void>} - Resolves when the contact data has been successfully loaded into the form.
+ * @throws {Error} - Logs an error if there is an issue retrieving the contact data.
  */
 async function loadEditFormData(contactId) {
   try {
@@ -269,13 +253,13 @@ async function loadEditFormData(contactId) {
       editImageContainer.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}">`;
     }
   } catch (error) {
-    console.error("Fehler beim Laden des Edit-Formulars:", error);
+    console.error("Error loading edit form:", error);
   }
 }
 
 /**
- * Schließt das Formular, wenn ausßerhalb des Formulars geklickt wird
- * @param {Event} event - Das Klick-Event
+ * Closes the form when a click outside the form occurs.
+ * @param {Event} event - The click event.
  */
 function handleOutsideFormClick(event) {
   if (!document.getElementById("add-form-section").contains(event.target) && !event.target.closest("#add-contact-btn")) {
@@ -283,10 +267,9 @@ function handleOutsideFormClick(event) {
   }
 }
 
-
 /**
- * Schließt das Bearbeitungsformular wenn außerhalb geklickt wird
- * @param {Event} event - DaS Klickevent
+ * Closes the edit form when a click outside the form occurs.
+ * @param {Event} event - The click event.
  */
 function handleOutsideEditFormClick(event) {
   let section = document.getElementById("edit-contact-section");
@@ -295,11 +278,10 @@ function handleOutsideEditFormClick(event) {
   }
 }
 
-
 /**
- * Wählt einen Kontakt aus und zeigt die Details des Kontakts an.
+ * Selects a contact and displays its details.
  * @async
- * @param {string} contactId - Die ID des auszuwählenden Kontakts.
+ * @param {string} contactId - The ID of the contact to select.
  * @returns {Promise<void>}
  */
 async function selectContact(contactId) {
@@ -314,10 +296,10 @@ async function selectContact(contactId) {
 }
 
 /**
- * Wählt alle Kontakte in der Kontaktliste ab.
+ * Deselects all contacts in the contact list.
  */
 function deselectAllContacts() {
-  document.querySelectorAll('[id^="contactlist-item"]').forEach(contact => {
+  document.querySelectorAll('[id^="contactlist-item"]').forEach((contact) => {
     contact.classList.remove("bg-color-dg", ACTIVE_CLASS);
     contact.style.pointerEvents = "auto";
     contact.querySelector(".contactlist-databox .fw-400")?.classList.remove("selected-contact-name");
@@ -325,8 +307,8 @@ function deselectAllContacts() {
 }
 
 /**
- * Hebt den ausgewählten Kontakt in der Kontaktliste hervor.
- * @param {HTMLElement} selectedContact - Das HTML-Element des ausgewählten Kontakts.
+ * Highlights the selected contact in the contact list.
+ * @param {HTMLElement} selectedContact - The HTML element of the selected contact.
  */
 async function highlightContact(selectedContact) {
   if (!selectedContact.classList.contains("bg-color-dg")) {
@@ -337,7 +319,7 @@ async function highlightContact(selectedContact) {
 }
 
 /**
- * Zeigt die Bar an, nachdem ein Kontakt erstellt wurde durch Animation.
+ * Displays the update bar after a contact has been created, with animation.
  */
 function showUpdateBar() {
   let updateBar = document.getElementById("update-bar");
@@ -357,33 +339,31 @@ function showUpdateBar() {
   });
 }
 
-
 /**
- * Sortiert die Kontakte alphabetisch basierend auf dem Namen.
- * @param {object} contacts - Ein Objekt, in dem jeder Schlüssel die ID und der Wert die Kontaktdaten enthält.
- * @returns {Array} - Ein Array von Arrays, die die ID und das Kontaktobjekt enthalten, sortiert nach Namen.
+ * Sorts contacts alphabetically based on their names.
+ * @param {object} contacts - An object where each key is the contact ID and each value is the contact data.
+ * @returns {Array} - An array of arrays, each containing the ID and contact object, sorted by name.
  */
 function sortContacts(contacts) {
   return Object.entries(contacts).sort(([, a], [, b]) => a.name.localeCompare(b.name));
 }
 
 /**
- * Gibt die Bildquelle des Kontakts zurück. Wenn kein Bild vorhanden ist, wird ein Profilbild generiert.
- * @param {object} contact - Das Kontaktobjekt.
- * @returns {string} - Die Bildquelle des Kontakts.
+ * Returns the image source of the contact. If no image is present, a profile image is generated.
+ * @param {object} contact - The contact object.
+ * @returns {string} - The image source of the contact.
  */
 function getImageSrc(contact) {
   return contact.img || generateProfileImage(contact.name);
 }
 
 /**
- * Wird nach dem Löschen eines Kontakts ausgeführt, um die Liste zu aktualisieren und die Fortschrittsleiste anzuzeigen.
+ * Executes post-deletion operations to update the contact list and show the progress bar.
  * @async
- * @param {string} contactId - Die ID des gelöschten Kontakts.
+ * @param {string} contactId - The ID of the deleted contact.
  */
 async function handlePostDeleteOperations(contactId) {
   await updateContactList();
   await selectNextContact(contactId);
   closeEditField();
 }
-

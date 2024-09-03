@@ -1,9 +1,8 @@
-
-
 /**
- * Initialisiert die Kontaktliste, indem die Funktion `updateContactList` aufgerufen wird.
- * Diese Funktion ist der Startpunkt für das Laden und Anzeigen der Kontaktliste.
- * Fehler werden im Falle eines Fehlers in der Konsole protokolliert.
+ * Initializes the contact list by calling the `updateContactList` function.
+ * This function serves as the entry point for loading and displaying the contact list.
+ * Errors are logged to the console in case of a failure.
+ * 
  * @async
  */
 async function initContacts() {
@@ -12,11 +11,11 @@ async function initContacts() {
     } catch (error) {
       console.error("Error:", error);
     }
-  }
+}
 
-
-  /**
- * Aktualisiert die Kontaktliste im Benutzerinterface basierend auf den Daten aus der Datenbank.
+/**
+ * Updates the contact list in the user interface based on data from the database.
+ * 
  * @async
  */
 async function updateContactList() {
@@ -28,15 +27,17 @@ async function updateContactList() {
       let sortedContacts = sortContacts(contacts);
       initLetterArea(contactList, sortedContacts);
     } catch (error) {
-      console.error("Fehler beim Updaten der Kontaktliste:", error);
+      console.error("Error updating the contact list:", error);
     }
-  }
-  /**
-   * Initialisiert die Details eines spezifischen Kontakts und rendert sie im Benutzerinterface.
-   * @async
-   * @param {string} contactId - Die ID des geladenen Kontakts.
-   */
-  async function initContactDetails(contactId) {
+}
+
+/**
+ * Initializes and renders the details of a specific contact in the user interface.
+ * 
+ * @async
+ * @param {string} contactId - The ID of the contact to be loaded.
+ */
+async function initContactDetails(contactId) {
     let contactSection = document.getElementById("contact-section");
     contactSection.innerHTML = "";
   
@@ -45,17 +46,17 @@ async function updateContactList() {
       renderContactHead(contactSection, contact, contactId);
       renderContactInfo(contactSection, contact);
     } catch (error) {
-      console.error("Fehler beim Laden der Kontaktdetails:", error);
+      console.error("Error loading contact details:", error);
     }
-    setupDeleteButton(contactId);
-  }
-  
-  /**
-   * Initialisiert die Anzeige der Kontakte in alphabetischer Reihenfolge und fügt Buchstabenverzeichnisse hinzu.
-   * @param {HTMLElement} contactList - Das Element, in welches die Kontakte eingefügt werden.
-   * @param {Array} sortedContacts - Ein Array der sortierten Kontakte.
-   */
-  function initLetterArea(contactList, sortedContacts) {
+}
+
+/**
+ * Initializes the display of contacts in alphabetical order and adds letter directories.
+ * 
+ * @param {HTMLElement} contactList - The element where the contacts will be inserted.
+ * @param {Array} sortedContacts - An array of sorted contacts.
+ */
+function initLetterArea(contactList, sortedContacts) {
     let currentLetter = "";
   
     sortedContacts.forEach(([id, contact]) => {
@@ -68,4 +69,4 @@ async function updateContactList() {
       let imageSrc = getImageSrc(contact);
       renderContactItem(contactList, id, contact, imageSrc);
     });
-  }
+}
