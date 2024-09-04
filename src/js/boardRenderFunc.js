@@ -30,11 +30,15 @@ async function subtasksRender(indexHtml, subtasks) {
   }
 }
 
+<<<<<<< HEAD
 /**
  * Renders the user names associated with a task.
  * @param {number} index - The index of the task for which user names are being rendered.
  * @returns {Promise<void>}
  */
+=======
+
+>>>>>>> e20505d (edit form validation)
 async function userNamesRender(index) {
   let position = document.getElementById(`userNames${index}`);
   for (let i = 0; i < userNames.length; i++) {
@@ -149,7 +153,12 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
  * @returns {string} - The HTML string for the edit task view.
  */
 window.editTaskHtml = function (index, category, title, description, date, prio) {
+<<<<<<< HEAD
   return `
+=======
+    return `
+    <form onsubmit=" return updateTaskBoard(${index}, '${category}')">
+>>>>>>> e20505d (edit form validation)
     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
         <div class="width445"> 
           <div class="d-flex-between margin-bt8">
@@ -158,18 +167,23 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           </div>
           <div class="margin-bt8 width445">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Title:</p>
-              <input onclick="editTitle(${index})" id="inputEditTitle${index}" minlength="2" class="title-edit-input width445" type="text"
-                        placeholder="${title}" name="title">
+              <input required onclick="editTitle(${index})" id="inputEditTitle${index}" minlength="2" class="title-edit-input width445" type="text"
+                        value="${title}" name="title">
           </div>
           <div class="margin-bt8 width445">  
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Description:</p>
-              <textarea onclick="editDescription(${index})" id="descriptionEdit${index}" minlength="2" class="edit-task-textarea full-width" placeholder="${description}"
-                        name="description" id="description"></textarea>
+              <textarea required onclick="editDescription(${index})" id="descriptionEdit${index}" minlength="2" class="edit-task-textarea full-width" 
+                        name="description">${description}</textarea>
           </div> 
           <div class="d-flex full-width flex-d-col margin-bt8" id="dateTask${index}">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Due date:</p>
+<<<<<<< HEAD
                     <input required placeholder="${date}" class="edit-task-date" type="date" id="dueDateEdit${index}" name="dueDate">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none margin-left-open-task"></p>
+=======
+                    <input required value="${date}" class="edit-task-date" type="date" id="dueDateEdit${index}" name="dueDate">
+              <p class="d-flex item-center  fs-20 fw-400 mg-block-none margin-left-open-task"></p>
+>>>>>>> e20505d (edit form validation)
           </div>
           <div class="d-flex flex-d-col margin-bt8" id="prioTask${index}">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Priority:</p>
@@ -230,5 +244,11 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
             </div>
           </div> 
         </div>  
+<<<<<<< HEAD
     </div>`;
 };
+=======
+    </div>
+    </form>`;
+}
+>>>>>>> e20505d (edit form validation)
