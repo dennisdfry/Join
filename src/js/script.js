@@ -73,7 +73,6 @@ function searchprio(index, prio) {
   }
 }
 
-<<<<<<< HEAD
 /**
  * Loads and updates the status of subtasks.
  * 
@@ -81,9 +80,6 @@ function searchprio(index, prio) {
  * 
  * @param {number} indexHtml - The index of the task in the HTML structure.
  */
-=======
-
->>>>>>> e20505d (edit form validation)
 async function loadSubtaskStatus(indexHtml) {
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     const element = taskkeysGlobal[index];
@@ -129,7 +125,6 @@ async function searchIndexUrl(index, users, fetchImage) {
   setTimeout(() => tileUserImage(index), 50);
 }
 
-<<<<<<< HEAD
 /**
  * Tiles user images in the display container.
  * 
@@ -137,9 +132,6 @@ async function searchIndexUrl(index, users, fetchImage) {
  * 
  * @param {number} index - The index of the task.
  */
-=======
-
->>>>>>> e20505d (edit form validation)
 function tileUserImage(index) {
   const container = document.getElementById(`userImageBoard${index}`);
   const images = container.getElementsByClassName("image-div");

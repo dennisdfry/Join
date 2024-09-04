@@ -8,7 +8,7 @@ let expandedEdit = false;
  */
 function editTitle(index) {
     let position = document.getElementById(`inputEditTitle${index}`);
-    position.placeholder = '';
+    position.value = '';
 }
 
 /**
@@ -18,7 +18,7 @@ function editTitle(index) {
  */
 function editDescription(index) {
     let position = document.getElementById(`descriptionEdit${index}`);
-    position.placeholder = '';
+    position.value = '';
 }
 
 /**
@@ -41,7 +41,6 @@ async function editOpenTask(index, category, title, description, date, prio) {
     checkboxIndexFalse(index);
     subtasksRenderEdit(index);
     CategoryColorEdit(index, category);
-    console.log(category);
 }
 
 /**
@@ -345,12 +344,13 @@ function subtasksRenderEdit(indexHTML) {
  * @param {string} category - The category of the task.
  * @async
  */
+
 async function updateTaskBoard(index, category) {
+    console.log
     defineTaskObjectsEdit(index, category);
-    let position = `/tasks/${taskkeys[index]}`;
-    await saveToFirebaseEdit(position);
+    let positionTask = `/tasks/${taskkeys[index]}`;
+    await saveToFirebaseEdit(positionTask); 
     changeSite('board.html');
-    [addTaskArrayEdit, subtasksStatusArray, subtasksArray, assignedToUserArrayNamesGlobal, assignedToUserArray].forEach(arr => arr.length = 0);
 }
 
 /**
@@ -449,3 +449,6 @@ function subtasksRenderEdit(indexHTML){
                         </div>
                 </li>`;}}
 
+  
+            
+ 
