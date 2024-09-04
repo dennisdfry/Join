@@ -70,31 +70,54 @@
   .add-task-cancel-button {
     display: none;
   }
-  .add-task-finish-button-container{
+  .add-task-finish-button-container {
     background-color: #f6f7f8;
-    position: sticky;
-    top: 871px;
-    left: 198px;
-    width: auto; 
-     height: auto; 
+    position: absolute;
+    top: 840px;
+    left: 216px;
+    width: auto;
+    height: auto;
     padding-bottom: 2px;
   }
 
   .add-task-create-button {
-  transform: scale(1.0);
+    transform: scale(1);
   }
 
   .add-task-title-inputfield {
     width: 396px;
-    height: 83px;
+    height: 40px;
     gap: 8px;
     padding-left: 0;
     padding-right: 0;
   }
 
+  .add-task-title-inputfield::placeholder,
+  .add-task-textarea::placeholder {
+    font-size: 16px;
+  }
+
+  label[for="title"],
+  label[for="description"],
+  label[for=""],
+  label[for="assignedTo"],
+  label[for="dueDate"],
+  label[for="taskCategory"],
+  label[for="subtasks"],
+  .add-task-prio-button,
+  .add-task-input,
+  .add-task-title-inputfield,
+  .add-task-textarea,
+  #prioButton1,
+  #prioButton2,
+  #prioButton3 {
+    font-size: 16px;
+  }
+
   .add-task-textarea {
     width: 396px;
-    height: 131px;
+    min-height: 80px;
+    max-height: 88px;
     gap: 8px;
   }
 
@@ -103,20 +126,33 @@
   }
 
   .selectBox select {
+    font-size: 16px;
     width: 396px;
-    height: 75px;
+    height: 48px;
     gap: 8px;
+  }
+
+  .checkBoxImg {
+    font-size: 16px;
+  }
+
+  #checkboxes img {
+    height: 32px;
+    width: 32px;
   }
 
   #checkboxes,
   #checkboxes2 {
+    font-size: 16px;
     height: 100px;
     width: 396px;
   }
 
   .add-task-finish-section {
+    font-size: 20px;
+    font-weight: 400;
     position: absolute;
-    top: 758px;
+    top: 832px;
     padding: 0;
   }
 
@@ -137,8 +173,9 @@
     transform: scale(1.0);
   }
   .add-task-select {
+    font-size: 16px;
     width: 396px;
-    height: 83px;
+    height: 48px;
     padding-right: 0;
     gap: 8px;
   }

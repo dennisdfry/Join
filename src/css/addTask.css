@@ -155,15 +155,8 @@ body {
   background-size: 24px;
 }
 
-label[for=taskCategory] {
+label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
     margin-top: 4px;
-}
-label[for=subtasks] {
-    margin-top: 4px;
-}
-
-label[for=""] {
-  margin-top: 4px;
 }
 
 .add-task-select:hover {
