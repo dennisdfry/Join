@@ -42,7 +42,6 @@ async function editOpenTask(index, category, title, description, date, prio) {
     dueDateEditTask(index, date);
     initEdit(index);
     checkboxIndexFalse(index);
-    console.log(subtasksLengthArray)
     subtasksRenderEdit(index);
     CategoryColorEdit(index, category);
 }
@@ -239,18 +238,16 @@ function showCheckboxesEdit(index) {
  */
 function prioEdit(id) {
     const buttons = document.querySelectorAll('.add-task-prio-button-container button');
-
     buttons.forEach(button => {
         button.classList.remove('add-task-prio-button-urgent', 'add-task-prio-button-medium', 'add-task-prio-button-low');
         button.classList.add('add-task-prio-button');
     });
     let position = document.getElementById(`prioButtonEdit${id}`);
     prioIdCheck(id, position);
-    console.log(selectedPrioEdit)
-    selectedPrio = id; // Set priority status
-    console.log(selectedPrioEdit)
-}
+    selectedPrioEdit = true; // Set priority status
+    console.log(selectedPrioEdit);
 
+}
 /**
  * Checks the priority ID and updates the button style accordingly.
  * 
@@ -270,6 +267,7 @@ function prioIdCheck(id, position) {
     }
     position.classList.remove('add-task-prio-button');
 }
+
 function showSubtaskControlsEdit(index) {
     document.getElementById(`subtasksEdit${index}`).classList.remove('add-task-input-edit');
     document.getElementById(`subtasksEdit${index}`).classList.add('subtasks-input-edit');
@@ -291,7 +289,6 @@ function addSubtaskEdit(index) {
         subtasksStatusArray.push(false)
         resetSubtaskInputEdit(index);
         subtasksRenderEdit(index);
-        console.log(subtasksArrayEdit)
     }
 }
 
@@ -322,10 +319,11 @@ function resetSubtaskInputEdit(index) {
 function handleFormSubmit(event, index, category) {
     event.preventDefault(); 
     let form = event.target; 
+    console.log(selectedPrioEdit);
     if (!form.checkValidity()) {
         form.reportValidity(); 
         return; }
-    if (!selectedPrio) {
+    if (!selectedPrioEdit) {
         alert("Please select a priority before submitting the form.");
         return;}
     updateTaskBoard(index, category);
@@ -400,7 +398,6 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
         subtaskStatus: subtasksStatusArray,
         boardCategory: 'todo'
     });
-    console.log(addTaskArrayEdit);
 }
 
 function deleteSubtaskEdit(indexHTML){
@@ -410,34 +407,22 @@ function deleteSubtaskEdit(indexHTML){
 }
 
 function subtasksRenderEdit(indexHTML){
-    console.log(subtasksLengthArray);
     let subtasksedit = subtasksLengthArray[0];
-    console.log(subtasksedit);
-   
-  
     let position = document.getElementById(`subtasksPosition${indexHTML}`);
     position.innerHTML = '';
     if(subtasksedit){
     for (let index = 0; index < subtasksedit.length; index++) {
         const element = subtasksedit[index];
-        console.log(element);
-        console.log(element);
         if(element){
         subtasksArrayEdit.push(element)
-        }
-        console.log(subtasksArrayEdit)
-    }
+        }}
         subtasksLengthArray = [];
-        console.log(subtasksLengthArray);
 }
  for (let i = 0; i < subtasksArrayEdit.length; i++) {
-            const element1 = subtasksArrayEdit[i];
-            console.log(element1);
-       
-
+            const updatesubtasks = subtasksArrayEdit[i];
         position.innerHTML += `
                 <li id="supplementarySubtaskEdit${i}" class="d-flex-between">
-                    <span>${element1}</span>
+                    <span>${updatesubtasks}</span>
                         <div>
                            <img onclick="deleteSubtaskEdit(${i})" src="../public/img/delete.png">
                            <img onclick="editSubtaskEdit(${i})" src="../public/img/edit.png">
