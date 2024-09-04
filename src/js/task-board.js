@@ -297,6 +297,7 @@ function closeAddForm() {
 document.removeEventListener("click", outsideClickHandler);
 }
 
+
 function outsideClickHandler(event) {
   let formField = document.getElementById("add-task-form");
   let overlay = document.getElementById("overlay-form");

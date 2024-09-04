@@ -34,6 +34,7 @@ async function init() {
     let contacts = await fetchContacts(fireBaseData);
     let imageUrls = await fetchImages();
     await assignedTo(contacts, imageUrls);
+
   } catch (error) {
     console.error("Error during initialization:", error);
   }
@@ -180,6 +181,7 @@ function showCheckboxes2() {
  */
 async function createTask(event) {
   event.preventDefault();
+  // hier eventhandeler für enter event ??? nachfragen wo das form das setup hat!!
   let form = event.target;
   if (!form.checkValidity()) {
     form.reportValidity();
