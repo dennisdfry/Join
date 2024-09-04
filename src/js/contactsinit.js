@@ -48,6 +48,7 @@ async function initContactDetails(contactId) {
     } catch (error) {
       console.error("Error loading contact details:", error);
     }
+    setupDeleteButton(contactId);
 }
 
 /**
@@ -70,3 +71,17 @@ function initLetterArea(contactList, sortedContacts) {
       renderContactItem(contactList, id, contact, imageSrc);
     });
 }
+
+  /**
+ * Verknüpft den Delete-Button im Bearbeitungsformular mit der deleteContact-Funktion.
+ * @param {string} contactId - Die ID des Kontakts, der gelöscht werden soll.
+ */
+  function setupDeleteButton(contactId) {
+    let deleteButton = document.getElementById("editfield-cancel-btn");
+    if (deleteButton) {
+        deleteButton.onclick = function() {
+            deleteContact(contactId);
+        };
+    }
+  }
+

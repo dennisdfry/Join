@@ -31,7 +31,7 @@
     border-radius: 4px;
   }
   .add-Task-Container::-webkit-scrollbar-thumb {
-    height: 12pxpx;
+    height: 12px;
   }
 
   .add-task-head {

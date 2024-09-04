@@ -1,7 +1,3 @@
-const ACTIVE_CLASS = "active-contact";
-const CONTACTS_URL = "https://join-19628-default-rtdb.firebaseio.com/contacts";
-const HEADERS = { "Content-Type": "application/json" };
-
 /**
  * Initializes event listeners for the contact form.
  * - Adds a submit listener to process the form.

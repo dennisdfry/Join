@@ -1,3 +1,7 @@
+const ACTIVE_CLASS = "active-contact";
+const CONTACTS_URL = "https://join-19628-default-rtdb.firebaseio.com/contacts";
+const HEADERS = { "Content-Type": "application/json" };
+
 /**
  * Performs a fetch request and returns the response as JSON.
  * If the request fails, an error is thrown.
