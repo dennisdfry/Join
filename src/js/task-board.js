@@ -89,40 +89,6 @@ async function updateHTML() {
 }
 
 /**
- * Opens the form to add a new task.
- * 
- * Removes the hidden and non-display classes from the add-task form to make it visible.
- */
-function openAddForm() {
-  document.getElementById("add-task-form").classList.remove("vis-hidden");
-  document.getElementById("add-task-form").classList.remove("d-none");
-  let overlay = document.getElementById('overlay-form');
-  overlay.classList.remove("d-none");
-  let formField = document.getElementById("add-task-form");
-  formField.classList.remove("d-none", "hidden");
-  formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  document.addEventListener("click", outsideClickHandler);
-
-}
-
-/**
- * Closes the form.
- * 
- * Removes the non-display class from the add-task form, making it visible.
- */
-function closeAddForm() {
-  document.getElementById('overlay-form').classList.add("d-none");
-  let formField = document.getElementById("add-task-form");
-  formField.classList.remove("d-none");
-  formField.style.animation = "moveOut 200ms ease-out forwards";
-
-  setTimeout(() => {
-    formField.classList.add("hidden", "d-none");
-    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 100);
-}
-
-/**
  * Updates the priority button styling.
  * 
  * Applies and removes priority classes from buttons based on the provided ID.
@@ -292,4 +258,50 @@ function resetTaskVisibility() {
 
     container.style.display = "";
   });
+}
+
+/**
+ * Opens the form to add a new task.
+ * 
+ * Removes the hidden and non-display classes from the add-task form to make it visible.
+ */
+function openAddForm() {
+  document.getElementById("add-task-form").classList.remove("vis-hidden");
+  document.getElementById("add-task-form").classList.remove("d-none");
+  let overlay = document.getElementById('overlay-form');
+  overlay.classList.remove("d-none");
+  let formField = document.getElementById("add-task-form");
+  formField.classList.remove("d-none", "hidden");
+  formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+  document.addEventListener("click", outsideClickHandler);
+
+}
+
+/**
+ * Closes the form.
+ * 
+ * Removes the non-display class from the add-task form, making it visible.
+ */
+function closeAddForm() {
+  document.getElementById('overlay-form').classList.add("d-none");
+  let formField = document.getElementById("add-task-form");
+  formField.classList.remove("d-none");
+  formField.style.animation = "moveOut 200ms ease-out forwards";
+
+  setTimeout(() => {
+    formField.classList.add("hidden", "d-none");
+    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
+  }, 100);
+
+
+document.removeEventListener("click", outsideClickHandler);
+}
+
+function outsideClickHandler(event) {
+  let formField = document.getElementById("add-task-form");
+  let overlay = document.getElementById("overlay-form");
+
+  if (!formField.contains(event.target) && overlay.contains(event.target)) {
+    closeAddForm();
+  }
 }

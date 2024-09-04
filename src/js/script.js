@@ -222,7 +222,6 @@ async function progressBar(indexHtml) {
 }
 
 
-
 /**
  * Creates a new task based on form input.
  * 
