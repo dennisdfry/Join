@@ -344,7 +344,10 @@ function subtasksRenderEdit(indexHTML) {
  * @param {string} category - The category of the task.
  * @async
  */
-
+function handleFormSubmit(event, index, category) {
+    event.preventDefault();
+    updateTaskBoard(index, category);
+}
 async function updateTaskBoard(index, category) {
     console.log
     defineTaskObjectsEdit(index, category);
