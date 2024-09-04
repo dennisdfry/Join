@@ -242,7 +242,9 @@ function prioEdit(id) {
     });
     let position = document.getElementById(`prioButtonEdit${id}`);
     prioIdCheck(id, position);
+    console.log(selectedPrioEdit)
     selectedPrio = id; // Set priority status
+    console.log(selectedPrioEdit)
 }
 
 /**
@@ -345,21 +347,20 @@ function subtasksRenderEdit(indexHTML) {
  * @param {string} category - The category of the task.
  * @async
  */
+
 function handleFormSubmit(event, index, category) {
-    event.preventDefault();
-    let form = event.target;
+    event.preventDefault(); 
+    let form = event.target; 
     if (!form.checkValidity()) {
-      form.reportValidity();
-      return false;
-    }
-    if (!selectedPrioEdit) {
+        form.reportValidity(); 
+        return; }
+    if (!selectedPrio) {
         alert("Please select a priority before submitting the form.");
-        return false;
-      }
+        return;}
     updateTaskBoard(index, category);
 }
+
 async function updateTaskBoard(index, category) {
-    console.log
     defineTaskObjectsEdit(index, category);
     let positionTask = `/tasks/${taskkeys[index]}`;
     await saveToFirebaseEdit(positionTask); 
