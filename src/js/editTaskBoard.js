@@ -1,6 +1,9 @@
 let addTaskArrayEdit = [];
 let expandedEdit = false;
 let selectedPrioEdit = null; // Tracks the selected priority of the task
+let subtasksArrayEdit = [];
+
+
 /**
  * Clears the placeholder of the task title input field during editing.
  * 
@@ -39,6 +42,7 @@ async function editOpenTask(index, category, title, description, date, prio) {
     dueDateEditTask(index, date);
     initEdit(index);
     checkboxIndexFalse(index);
+    console.log(subtasksLengthArray)
     subtasksRenderEdit(index);
     CategoryColorEdit(index, category);
 }
@@ -267,8 +271,8 @@ function prioIdCheck(id, position) {
     position.classList.remove('add-task-prio-button');
 }
 function showSubtaskControlsEdit(index) {
-    document.getElementById(`subtasks${index}`).classList.remove('add-task-input-edit');
-    document.getElementById(`subtasks${index}`).classList.add('subtasks-input-edit');
+    document.getElementById(`subtasksEdit${index}`).classList.remove('add-task-input-edit');
+    document.getElementById(`subtasksEdit${index}`).classList.add('subtasks-input-edit');
    let position = document.getElementById(`subtasksControl${index}`);
    position.innerHTML = `<button onclick="resetSubtaskInputEdit(${index})" type="button" class="subtask-button-edit">
                                 <img src="../public/img/closeAddTask.png" alt="Reset">
@@ -280,13 +284,14 @@ function showSubtaskControlsEdit(index) {
 }
 
 function addSubtaskEdit(index) {
-    let input = document.getElementById(`subtasks${index}`);
+    let input = document.getElementById(`subtasksEdit${index}`);
     if (input.value.trim() !== "") {
-        subtasksArray.push(input.value.trim());
+        subtasksArrayEdit.push(input.value.trim());
         input.value = '';
         subtasksStatusArray.push(false)
-        updateSubtasksListEdit(index);
         resetSubtaskInputEdit(index);
+        subtasksRenderEdit(index);
+        console.log(subtasksArrayEdit)
     }
 }
 
@@ -296,48 +301,14 @@ function addSubtaskEdit(index) {
  * @param {number} index - The index of the task being edited.
  */
 function resetSubtaskInputEdit(index) {
-    let input = document.getElementById(`subtasks${index}`);
+    let input = document.getElementById(`subtasksEdit${index}`);
     input.value = '';
-    document.getElementById(`subtasks${index}`).classList.add('add-task-input-edit');
-    document.getElementById(`subtasks${index}`).classList.remove('subtasks-input-edit');
+    document.getElementById(`subtasksEdit${index}`).classList.add('add-task-input-edit');
+    document.getElementById(`subtasksEdit${index}`).classList.remove('subtasks-input-edit');
     let position = document.getElementById(`subtasksControl${index}`);
     position.innerHTML = `<button onclick="showSubtaskControlsEdit(${index})" type="button"  class="add-task-button-edit">
                                 +
                             </button>`;
-}
-
-/**
- * Updates the list of subtasks displayed during task editing.
- * 
- * @param {number} index - The index of the task being edited.
- */
-function updateSubtasksListEdit(index) {
-    let subtasksPosition = document.getElementById(`subtasksPosition${index}`);
-    subtasksPosition.innerHTML = '';
-    for (let i = 0; i < subtasksArray.length; i++) {
-        const element = subtasksArray[i];
-        subtasksPosition.innerHTML += `
-                <li><span>${element}</span><div><img src="../public/img/delete.png"><img src="../public/img/edit.png"></div></li> `;
-    }
-}
-
-/**
- * Renders the subtasks during task editing.
- * 
- * @param {number} indexHTML - The index of the task being edited.
- */
-function subtasksRenderEdit(indexHTML) {
-    let arrayPosition = subtasksLengthArray[indexHTML];
-    let subs = arrayPosition.subs;
-    let position = document.getElementById(`subtasksBoardEdit${indexHTML}`);
-    for (let i = 0; i < subs.length; i++) {
-        const element = subs[i];
-        console.log(element);
-        position.innerHTML += `
-            <ul class="subtasksopenedit">
-                <li class="d-flex-between"><span>${element}</span><div><img src="../public/img/delete.png"><img src="../public/img/edit.png"></div></li>
-            </ul>`;
-    }
 }
 
 /**
@@ -364,9 +335,18 @@ async function updateTaskBoard(index, category) {
     defineTaskObjectsEdit(index, category);
     let positionTask = `/tasks/${taskkeys[index]}`;
     await saveToFirebaseEdit(positionTask); 
+    resetFormStateEdit()
     changeSite('board.html');
 }
-
+function resetFormStateEdit() {
+    addTaskArrayEdit = [];
+    selectedPrioEdit = null;
+    assignedToUserArrayNamesGlobal = [];
+    assignedToUserArray = [];
+    subtasksArray = [];
+    subtasksStatusArray = [];
+    subtasksArrayEdit =[];
+  }
 /**
  * Saves the edited task data to Firebase.
  * 
@@ -416,7 +396,7 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
         dueDate: dueDateTask,
         prio: lastString,
         category: taskCategory,
-        subtasks: subtasksArray,
+        subtasks: subtasksArrayEdit,
         subtaskStatus: subtasksStatusArray,
         boardCategory: 'todo'
     });
@@ -428,43 +408,41 @@ function deleteSubtaskEdit(indexHTML){
     position.innerHTML = '';
 
 }
-function updateSubtasksListEdit(index) {
-    let subtasksPosition = document.getElementById(`subtasksPosition${index}`);
-    // subtasksPosition.innerHTML = '';
-    for (let index = 0; index < subtasksArray.length; index++) {
-        const element = subtasksArray[index];
-        subtasksPosition.innerHTML += `
-                <li class="subtasksopenedit d-flex-between">
-                    <span>${element}</span>
-                    <div>
-                        <img onclick="deleteSubtaskEdit(${index})" src="../public/img/delete.png">
-                        <img onclick="editSubtaskEdit(${index})" src="../public/img/edit.png">
-                    </div>
-                </li> `;
-    }
-}
 
 function subtasksRenderEdit(indexHTML){
-    let arrayPosition = subtasksLengthArray[indexHTML];
-    let subs = arrayPosition.subs;
-    console.log(arrayPosition)
-    console.log(subs)
-    if (subs == null){
-        return
-    }else{
+    console.log(subtasksLengthArray);
+    let subtasksedit = subtasksLengthArray[0];
+    console.log(subtasksedit);
+   
+  
     let position = document.getElementById(`subtasksPosition${indexHTML}`);
-    for (let index = 0; index < subs.length; index++) {
-        const element = subs[index];
+    position.innerHTML = '';
+    if(subtasksedit){
+    for (let index = 0; index < subtasksedit.length; index++) {
+        const element = subtasksedit[index];
         console.log(element);
+        console.log(element);
+        if(element){
+        subtasksArrayEdit.push(element)
+        }
+        console.log(subtasksArrayEdit)
+    }
+        subtasksLengthArray = [];
+        console.log(subtasksLengthArray);
+}
+ for (let i = 0; i < subtasksArrayEdit.length; i++) {
+            const element1 = subtasksArrayEdit[i];
+            console.log(element1);
+       
 
         position.innerHTML += `
-                <li id="supplementarySubtaskEdit${index}" class="d-flex-between">
-                    <span>${element}</span>
+                <li id="supplementarySubtaskEdit${i}" class="d-flex-between">
+                    <span>${element1}</span>
                         <div>
-                           <img onclick="deleteSubtaskEdit(${index})" src="../public/img/delete.png">
-                           <img onclick="editSubtaskEdit(${index})" src="../public/img/edit.png">
+                           <img onclick="deleteSubtaskEdit(${i})" src="../public/img/delete.png">
+                           <img onclick="editSubtaskEdit(${i})" src="../public/img/edit.png">
                         </div>
-                </li>`;}}}
+                </li>`;}} 
 
   
             

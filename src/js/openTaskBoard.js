@@ -73,6 +73,7 @@ function closeOpenTask(event, index) {
   openPosition.classList.add('d-none');
   openPosition.innerHTML = '';
   changeSite('board.html');
+ 
 }
 
 /**
@@ -84,10 +85,9 @@ function closeOpenTask(event, index) {
 function subtasksRenderOpen(indexHtml, subtasks) {
   let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
   position.innerHTML = '';
-  subtasksLengthArray.push({
-    position: indexHtml,
-    subs: subtasks
-  });
+  subtasksLengthArray =[];
+  subtasksLengthArray.push(subtasks);
+  console.log(subtasksLengthArray)
   if (Array.isArray(subtasks)) {
     for (let i = 0; i < subtasks.length; i++) {
       const element = subtasks[i];
