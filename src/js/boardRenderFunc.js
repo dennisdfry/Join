@@ -175,16 +175,16 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           <div class="d-flex flex-d-col margin-bt8" id="prioTask${index}">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Priority:</p>
               <div class="add-task-prio-button-container">
-                        <button onclick="prioEdit(1)" id="prioButton1" value="1" data-prio="urgent" type="button"
+                        <button onclick="prioEdit(1)" id="prioButtonEdit1" value="1" data-prio="urgent" type="button"
                             class="add-task-prio-button">
                             <span>Urgent</span>
                             <img src="../public/img/Prio alta.png" alt="">
                         </button>
-                        <button onclick="prioEdit(2)" id="prioButton2" value="2" data-prio="medium" type="button"
+                        <button onclick="prioEdit(2)" id="prioButtonEdit2" value="2" data-prio="medium" type="button"
                             class="add-task-prio-button">
                             <span>Medium =</span>
                         </button>
-                        <button onclick="prioEdit(3)" id="prioButton3" value="3" data-prio="low" type="button"
+                        <button onclick="prioEdit(3)" id="prioButtonEdit3" value="3" data-prio="low" type="button"
                             class="add-task-prio-button">
                             <span>Low</span>
                             <img src="../public/img/Prio baja.png" alt="">

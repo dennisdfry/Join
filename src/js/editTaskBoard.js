@@ -1,6 +1,6 @@
 let addTaskArrayEdit = [];
 let expandedEdit = false;
-
+let selectedPrioEdit = null; // Tracks the selected priority of the task
 /**
  * Clears the placeholder of the task title input field during editing.
  * 
@@ -240,8 +240,9 @@ function prioEdit(id) {
         button.classList.remove('add-task-prio-button-urgent', 'add-task-prio-button-medium', 'add-task-prio-button-low');
         button.classList.add('add-task-prio-button');
     });
-    let position = document.getElementById(`prioButton${id}`);
+    let position = document.getElementById(`prioButtonEdit${id}`);
     prioIdCheck(id, position);
+    selectedPrio = id; // Set priority status
 }
 
 /**
@@ -346,6 +347,15 @@ function subtasksRenderEdit(indexHTML) {
  */
 function handleFormSubmit(event, index, category) {
     event.preventDefault();
+    let form = event.target;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return false;
+    }
+    if (!selectedPrioEdit) {
+        alert("Please select a priority before submitting the form.");
+        return false;
+      }
     updateTaskBoard(index, category);
 }
 async function updateTaskBoard(index, category) {
@@ -438,6 +448,9 @@ function subtasksRenderEdit(indexHTML){
     let subs = arrayPosition.subs;
     console.log(arrayPosition)
     console.log(subs)
+    if (subs == null){
+        return
+    }else{
     let position = document.getElementById(`subtasksPosition${indexHTML}`);
     for (let index = 0; index < subs.length; index++) {
         const element = subs[index];
@@ -450,7 +463,7 @@ function subtasksRenderEdit(indexHTML){
                            <img onclick="deleteSubtaskEdit(${index})" src="../public/img/delete.png">
                            <img onclick="editSubtaskEdit(${index})" src="../public/img/edit.png">
                         </div>
-                </li>`;}}
+                </li>`;}}}
 
   
             
