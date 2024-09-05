@@ -316,7 +316,7 @@ function resetSubtaskInputEdit(index) {
  * @async
  */
 
-function handleFormSubmit(event, index, category) {
+function handleFormSubmitEdit(event, index, category) {
     event.preventDefault(); 
     let form = event.target; 
     console.log(selectedPrioEdit);
