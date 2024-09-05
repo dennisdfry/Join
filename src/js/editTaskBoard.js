@@ -433,6 +433,16 @@ function subtasksRenderEdit(indexHTML){
                         </div>
                 </li>`;}} 
 
-  
+function editSubtaskEdit(indexHTML)  {
+    let position = document.getElementById(`supplementarySubtaskEdit${indexHTML}`);
+    let arrayPosition = subtasksArrayEdit[indexHTML];
+    console.log(subtasksArrayEdit[indexHTML]);
+    position.innerHTML = `
+        <input id="inputEditSubtasks${indexHTML}" value="${arrayPosition}">
+            <div>
+                <img onclick="deleteSubtaskEdit(${indexHTML})" src="../public/img/delete.png">
+                <img src="../public/img/checkAddTask.png" alt="Add">
+            </div>`;
+}
             
  
