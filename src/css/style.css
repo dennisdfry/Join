@@ -232,6 +232,10 @@ header {
 }
 
 @media (max-width: 950px) {
+  .imprint-content {
+    padding-left: 27px;
+  }
+
   .nav {
     left: 0;
     top: auto;
