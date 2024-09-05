@@ -14,7 +14,6 @@
   }
   
   .user-image-bord-container-open {
-    /* height: 80px; */
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
@@ -137,34 +136,6 @@
     vertical-align: middle;
     margin-right: 8px;
   }
-  .add-task-button-edit {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 20px;
-    border-radius: 0 10px 10px 0;
-    outline: none;
-    border-left: none;
-    background-color: #ffffff;
-    font-size: 24px;
-    font-family: "Inter";
-    font-weight: 400;
-    cursor: pointer;
-  
-}
-.subtasks-control-edit {
-  display: flex;
-  align-items: center;
-  border: 1px solid #a8a8a8;
-  background-color: #ffffff;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-left: none;
-}
-
 .subtasks-control-edit img {
   height: 16px;
   width: 16px;
@@ -184,7 +155,6 @@
   border: 1px solid #d1d1d1;
 }
 .subtask-button-edit {
-  height: 52px;
   background: none;
   border: none;
   cursor: pointer;
@@ -216,20 +186,22 @@
   padding-left: 16px;
 }
 .add-task-input-edit {
+  width:100%;
   padding-left: 16px;
   border-radius: 10px;
   outline: none;
   border: 1px solid #a8a8a8;
-  height: 48px;
+  height: 50px;
   font-size: 20px;
   font-family: "Inter";
   font-weight: 400;
   flex-grow: 1;
 }
+
 .input-with-button-edit {
-  width: 460px;
-  height: 48px;
   display: flex;
+  align-items: center; /* Vertikale Zentrierung */
+  justify-content: space-between; /* Platzierung des Plus-Symbols rechts */
   margin-top: 10px;
   border: 1px solid #f6f7f8;
   overflow-x: hidden;
@@ -237,6 +209,38 @@
   scrollbar-width: none;
   scrollbar-color: #2a3647 #e0e0e0;
   -ms-overflow-style: none;
+  padding-right: 16px; /* Abstand für das Plus-Symbol */
+}
+.add-task-button-edit {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 20px;
+  border-radius: 0 10px 10px 0;
+  outline: none;
+  border-left: none;
+  background-color: #ffffff;
+  font-size: 24px;
+  font-family: "Inter";
+  font-weight: 400;
+  cursor: pointer;
+  height: 100%; /* Vollständige Höhe des Containers */
+}
+.subtasks-control-edit {
+  display: flex;
+  align-items: center; /* Vertikale Zentrierung */
+  justify-content: center; /* Horizontale Zentrierung des Plus-Symbols */
+  position: absolute;
+  right: 21px; /* Positionierung rechts im Input-Feld */
+  border: 1px solid #a8a8a8;
+  background-color: #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: none;
+  height: 50px; /* Gleiche Höhe wie das Input-Feld */
 }
 
 .input-with-button-edit::-webkit-scrollbar {
