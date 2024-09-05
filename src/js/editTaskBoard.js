@@ -403,6 +403,9 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
 function deleteSubtaskEdit(indexHTML){
     let position = document.getElementById(`supplementarySubtaskEdit${indexHTML}`);
     position.innerHTML = '';
+    subtasksArrayEdit.splice([indexHTML], 1);
+    console.log(subtasksArrayEdit);
+    subtasksRenderEdit(indexHTML);
 
 }
 
@@ -420,6 +423,7 @@ function subtasksRenderEdit(indexHTML){
 }
  for (let i = 0; i < subtasksArrayEdit.length; i++) {
             const updatesubtasks = subtasksArrayEdit[i];
+            console.log(subtasksArrayEdit)
         position.innerHTML += `
                 <li id="supplementarySubtaskEdit${i}" class="d-flex-between">
                     <span>${updatesubtasks}</span>
