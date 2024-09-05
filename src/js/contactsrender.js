@@ -11,6 +11,7 @@ function renderLetterArea(contactList, letter) {
   `;
 }
 
+
 /**
  * Inserts a single contact into the contact list.
  *

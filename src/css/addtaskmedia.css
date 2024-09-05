@@ -203,8 +203,8 @@ select {
     gap: 8px;
   }
 
-
   .add-task-select select,.add-task-middle-section  {
     width: 396px;
   }
+  
 }
