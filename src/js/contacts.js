@@ -39,27 +39,19 @@ function handleEnterPress(event) {
 function handleFormSubmit(event) {
   event.preventDefault();
 
-  let name = document.getElementById("name").value.trim();
-  let mail = document.getElementById("mail").value.trim();
-  let phone = document.getElementById("phone").value.trim();
+  let [name, mail, phone] = ["name", "mail", "phone"].map(id => document.getElementById(id).value.trim());
 
   if (![name, validateEmail(mail), validatePhone(phone)].every(Boolean)) {
-    ["name", "mail", "phone"].forEach((id) => {
-      let input = document.getElementById(id);
-      input.classList.toggle("input-error", !input.value.trim());
-    });
+    ["name", "mail", "phone"].forEach(id => 
+      document.getElementById(id).classList.toggle("input-error", !document.getElementById(id).value.trim())
+    );
     return;
   }
 
-  addContact({
-    name: capitalizeFirstLetter(name),
-    mail,
-    phone,
-    img: document.getElementById("prof-img").value,
-  });
-
+  addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
   closeFormField();
 }
+
 
 /**
  * Validates an email address.
@@ -199,10 +191,7 @@ function handleEditEnterPress(event) {
 async function handleEditFormSubmit(event) {
   event.preventDefault();
   let contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
-  if (!contactId) {
-    console.error("No contact ID found.");
-    return;
-  }
+  if (!contactId) return console.error("No contact ID found.");
 
   let updatedContact = {
     name: document.getElementById("edit-name").value.trim(),
@@ -211,10 +200,7 @@ async function handleEditFormSubmit(event) {
     img: document.getElementById("prof2-img").querySelector("img")?.src || generateProfileImage(document.getElementById("edit-name").value),
   };
 
-  if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) {
-    console.error("Invalid email or phone number.");
-    return;
-  }
+  if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) return console.error("Invalid email or phone number.");
 
   try {
     await replaceContact(contactId, updatedContact);
@@ -351,15 +337,4 @@ function sortContacts(contacts) {
  */
 function getImageSrc(contact) {
   return contact.img || generateProfileImage(contact.name);
-}
-
-/**
- * Executes post-deletion operations to update the contact list and show the progress bar.
- * @async
- * @param {string} contactId - The ID of the deleted contact.
- */
-async function handlePostDeleteOperations(contactId) {
-  await updateContactList();
-  await selectNextContact(contactId);
-  closeEditField();
 }

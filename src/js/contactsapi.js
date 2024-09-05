@@ -90,6 +90,17 @@ async function replaceContact(contactId, updatedContact) {
 }
 
 /**
+ * Executes post-deletion operations to update the contact list and show the progress bar.
+ * @async
+ * @param {string} contactId - The ID of the deleted contact.
+ */
+async function handlePostDeleteOperations(contactId) {
+  await updateContactList();
+  await selectNextContact(contactId);
+  closeEditField();
+}
+
+/**
  * Adds a new contact, updates the contact list, and displays the details of the newly created contact.
  * If no profile image is provided, one is generated.
  * 
