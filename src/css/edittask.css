@@ -285,5 +285,7 @@
   Padding: 18px, 10px, 18px, 10px;
   width: 77px;
   border-radius: 10px;
- 
+}
+.subtasks-edit:hover{
+  background-color: #a8a8a8;
 }

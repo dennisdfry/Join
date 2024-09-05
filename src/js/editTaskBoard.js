@@ -425,11 +425,11 @@ function subtasksRenderEdit(indexHTML){
             const updatesubtasks = subtasksArrayEdit[i];
             console.log(subtasksArrayEdit)
         position.innerHTML += `
-                <li id="supplementarySubtaskEdit${i}" class="d-flex-between">
+                <li id="supplementarySubtaskEdit${i}" class="d-flex-between subtasks-edit bradius8">
                     <span>${updatesubtasks}</span>
                         <div>
-                           <img onclick="deleteSubtaskEdit(${i})" src="../public/img/delete.png">
-                           <img onclick="editSubtaskEdit('${i}','${indexHTML}')" src="../public/img/edit.png">
+                           <img class="pointer" onclick="deleteSubtaskEdit(${i})" src="../public/img/delete.png">
+                           <img class="pointer" onclick="editSubtaskEdit('${i}','${indexHTML}')" src="../public/img/edit.png">
                         </div>
                 </li>`;}} 
 
@@ -438,7 +438,7 @@ function editSubtaskEdit(i,indexHTML, )  {
     let arrayPosition = subtasksArrayEdit[i];
     console.log(subtasksArrayEdit[i]);
     position.innerHTML = `
-        <input id="inputEditSubtasks${i}" value="${arrayPosition}">
+        <input id="inputEditSubtasks${i}" class="" value="${arrayPosition}">
             <div>
                 <img class="img-24" onclick="deleteSubtaskEdit('${i}','${indexHTML}')" src="../public/img/delete.png">
                 <img class="img-24" onclick="finishSubtaskEdit('${i}','${indexHTML}')" src="../public/img/checkAddTask.png" alt="Add">
