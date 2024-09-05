@@ -429,20 +429,26 @@ function subtasksRenderEdit(indexHTML){
                     <span>${updatesubtasks}</span>
                         <div>
                            <img onclick="deleteSubtaskEdit(${i})" src="../public/img/delete.png">
-                           <img onclick="editSubtaskEdit(${i})" src="../public/img/edit.png">
+                           <img onclick="editSubtaskEdit('${i}','${indexHTML}')" src="../public/img/edit.png">
                         </div>
                 </li>`;}} 
 
-function editSubtaskEdit(indexHTML)  {
-    let position = document.getElementById(`supplementarySubtaskEdit${indexHTML}`);
-    let arrayPosition = subtasksArrayEdit[indexHTML];
-    console.log(subtasksArrayEdit[indexHTML]);
+function editSubtaskEdit(i,indexHTML, )  {
+    let position = document.getElementById(`supplementarySubtaskEdit${i}`);
+    let arrayPosition = subtasksArrayEdit[i];
+    console.log(subtasksArrayEdit[i]);
     position.innerHTML = `
-        <input id="inputEditSubtasks${indexHTML}" value="${arrayPosition}">
+        <input id="inputEditSubtasks${i}" value="${arrayPosition}">
             <div>
-                <img onclick="deleteSubtaskEdit(${indexHTML})" src="../public/img/delete.png">
-                <img src="../public/img/checkAddTask.png" alt="Add">
+                <img class="img-24" onclick="deleteSubtaskEdit('${i}','${indexHTML}')" src="../public/img/delete.png">
+                <img class="img-24" onclick="finishSubtaskEdit('${i}','${indexHTML}')" src="../public/img/checkAddTask.png" alt="Add">
             </div>`;
+}
+function finishSubtaskEdit(i, indexHTML){
+    let input = document.getElementById(`inputEditSubtasks${i}`);
+    subtasksArrayEdit[i] = input.value;
+    console.log(subtasksArrayEdit);
+    subtasksRenderEdit(indexHTML);
 }
             
  
