@@ -1,3 +1,4 @@
+let opentaskIndex;
 /**
  * Updates the priority icon in the open task view based on the task's priority level.
  * 
@@ -73,11 +74,17 @@ function closeOpenTask(event, indexHTML) {
   openPosition.classList.add('d-none');
   openPosition.innerHTML = '';
   progressBar(indexHTML);
-  // changeSite('board.html');
 }
-// function oneClickClose(event){
+function oneClickClose(event){
+  let openPosition = document.getElementById('openTask');
+      if (event.target.classList.contains('modal-overlay')) {
+        openPosition.classList.remove('modal-overlay');
+        openPosition.classList.add('d-none');
+        openPosition.innerHTML = ''; 
+        progressBar(opentaskIndex);  
+      }
+    }
 
-// }
 
 /**
  * Renders the subtasks for a specific task in the open task view.
@@ -126,6 +133,7 @@ function subtasksRenderOpenHtml(indexHtml, index, element) {
  * @param {string} prio - The priority level of the task.
  */
 function openTaskToBoardRender(index, category, title, description, date, prio) {
+  opentaskIndex = index;
   let position = document.getElementById('openTask');
   if (position.classList.contains('modal-overlay')) {
     return;
