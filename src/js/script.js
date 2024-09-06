@@ -195,33 +195,22 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
  * 
  * @param {number} indexHtml - The index of the task in the HTML structure.
  */
+
 async function progressBar(indexHtml) {
   let progressBar = document.getElementById(`progressBar${indexHtml}`);
-  let trueCount = 0;
-  let totalCount = 0;
+  let trueCount = 0, totalCount = 0;
   for (let index = 0; index < taskkeysGlobal.length; index++) {
-    const element = taskkeysGlobal[index];
-    const taskKeyId = element[indexHtml];
+    let taskKeyId = taskkeysGlobal[index][indexHtml];
     let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
-    if (!data || data.length === 0) {
-      continue;
-    }
-    totalCount += data.length;
-    for (let i = 0; i < data.length; i++) {
-      const statusID = data[i];
-      if (statusID === true) {
-        trueCount++;
-        progressStatusTrue.push({ index: i, statusTrue: statusID });
-        console.log(progressStatusTrue)
-      }
+    if (data) {
+      totalCount += data.length;
+      data.forEach((statusID, i) => {
+        if (statusID) { trueCount++; progressStatusTrue.push({ index: i, statusTrue: statusID }); }
+      });
     }
   }
-  if (totalCount > 0) {
-    let progress = (trueCount / totalCount) * 100;
-    progressBar.style.width = `${progress}%`;
-  }
+  if (totalCount > 0) progressBar.style.width = `${(trueCount / totalCount) * 100}%`;
 }
-
 /**
  * Creates a new task based on form input.
  * 
