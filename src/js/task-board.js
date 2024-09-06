@@ -6,7 +6,7 @@ let currentDraggedElement;
  * Loads the task board data, fetches images, and generates HTML elements.
  * The function resets the global task keys array, loads task data, fetches images,
  * generates HTML objects for tasks, and updates status messages on the board.
- * 
+ *
  * @async
  */
 async function loadingBoard() {
@@ -19,6 +19,7 @@ async function loadingBoard() {
     await generateHTMLObjects(taskkeys, task);
     await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
     updateStatusMessages();
+    enableEnterKeyAdd();
   } catch (error) {
     console.error("Error loading tasks:", error);
   }
@@ -26,7 +27,7 @@ async function loadingBoard() {
 
 /**
  * Fetches and loads task data from the specified path.
- * 
+ *
  * @param {string} [path=""] - The path to fetch the task data from.
  * @returns {Promise<Object>} A promise that resolves to the task data.
  * @async
@@ -39,7 +40,7 @@ async function onloadDataBoard(path = "") {
 
 /**
  * Fetches and loads images for the board from the specified path.
- * 
+ *
  * @param {string} [path=""] - The path to fetch the images from.
  * @returns {Promise<Array<string>>} A promise that resolves to an array of image URLs.
  * @async
@@ -54,15 +55,24 @@ async function fetchImagesBoard(path = "") {
 
 /**
  * Generates and positions HTML elements for each task on the board.
- * 
+ *
  * @param {Array<string>} taskkeys - Array of task keys to be processed.
  * @param {Object} task - The task data object containing details of each task.
  * @async
  */
 async function generateHTMLObjects(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
-    const { category, description, dueDate, prio, title, boardCategory } = task[taskkeys[index]][0];
-    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
+    const { category, description, dueDate, prio, title, boardCategory } =
+      task[taskkeys[index]][0];
+    await positionOfHTMLBlock(
+      index,
+      category,
+      title,
+      description,
+      dueDate,
+      prio,
+      boardCategory
+    );
   }
 }
 
@@ -70,7 +80,7 @@ async function generateHTMLObjects(taskkeys, task) {
  * Clears and updates the HTML content of task categories on the board.
  * The function clears the content of predefined task categories and then
  * reloads the board data and updates the HTML content.
- * 
+ *
  * @async
  */
 async function updateHTML() {
@@ -90,16 +100,22 @@ async function updateHTML() {
 
 /**
  * Updates the priority button styling.
- * 
+ *
  * Applies and removes priority classes from buttons based on the provided ID.
- * 
+ *
  * @param {string} id - The ID of the button to update.
  */
 function prio2(id) {
-  const buttons = document.querySelectorAll(".add-task-prio-button-container button");
+  const buttons = document.querySelectorAll(
+    ".add-task-prio-button-container button"
+  );
 
   buttons.forEach((button) => {
-    button.classList.remove("add-task-prio-button-urgent", "add-task-prio-button-medium", "add-task-prio-button-low");
+    button.classList.remove(
+      "add-task-prio-button-urgent",
+      "add-task-prio-button-medium",
+      "add-task-prio-button-low"
+    );
     button.classList.add("add-task-prio-button");
   });
   let position = document.getElementById(`prio2Button${id}`);
@@ -108,7 +124,7 @@ function prio2(id) {
 
 /**
  * Defines task objects for creation.
- * 
+ *
  * Retrieves values from input fields and pushes them into the task array.
  */
 function defineTaskObjects2() {
@@ -117,21 +133,33 @@ function defineTaskObjects2() {
   let dueDateTask = document.getElementById("dueDate2").value;
   let taskCategory = document.getElementById("taskCategory2").value;
   let lastString = prioArray.pop();
-  pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCategory, lastString);
+  pushTaskObjectsToArray2(
+    taskTitle,
+    taskDescription,
+    dueDateTask,
+    taskCategory,
+    lastString
+  );
 }
 
 /**
  * Pushes task objects into the global task array.
- * 
+ *
  * Creates a task object and adds it to `addTaskArray`.
- * 
+ *
  * @param {string} taskTitle - The title of the task.
  * @param {string} taskDescription - The description of the task.
  * @param {string} dueDateTask - The due date of the task.
  * @param {string} taskCategory - The category of the task.
  * @param {string} lastString - The priority level of the task.
  */
-function pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCategory, lastString) {
+function pushTaskObjectsToArray2(
+  taskTitle,
+  taskDescription,
+  dueDateTask,
+  taskCategory,
+  lastString
+) {
   addTaskArray.push({
     title: taskTitle,
     description: taskDescription,
@@ -147,7 +175,7 @@ function pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCa
 
 /**
  * Shows subtask controls for input and adding subtasks.
- * 
+ *
  * Updates the visibility and HTML content of subtask controls.
  */
 function showSubtaskControls2() {
@@ -165,7 +193,7 @@ function showSubtaskControls2() {
 
 /**
  * Adds a new subtask to the list.
- * 
+ *
  * Retrieves the value from the input field and updates the subtasks list.
  */
 function addSubtask2() {
@@ -180,9 +208,9 @@ function addSubtask2() {
 
 /**
  * Saves the current task data to Firebase.
- * 
+ *
  * Sends a POST request to add tasks to the Firebase database.
- * 
+ *
  * @param {string} [path="/tasks"] - The path to save the tasks.
  */
 async function saveToFirebase2(path = "/tasks") {
@@ -197,7 +225,7 @@ async function saveToFirebase2(path = "/tasks") {
 
 /**
  * Clears the subtasks display.
- * 
+ *
  * Removes all HTML content from the subtasks position element.
  */
 function clearSubtask2() {
@@ -207,9 +235,9 @@ function clearSubtask2() {
 
 /**
  * Searches and filters tasks based on the query string.
- * 
+ *
  * Hides or shows task containers based on whether the task title includes the query.
- * 
+ *
  * @param {string} query - The search query string.
  */
 function searchTasks(query) {
@@ -221,7 +249,9 @@ function searchTasks(query) {
     return;
   }
 
-  let taskContainers = document.querySelectorAll(".board-render-status-container");
+  let taskContainers = document.querySelectorAll(
+    ".board-render-status-container"
+  );
   taskContainers.forEach((container) => {
     let tasks = container.querySelectorAll(".board-task-container");
     let taskFound = false;
@@ -245,11 +275,13 @@ function searchTasks(query) {
 
 /**
  * Resets the visibility of all tasks.
- * 
+ *
  * Makes all task containers and tasks visible again.
  */
 function resetTaskVisibility() {
-  let taskContainers = document.querySelectorAll(".board-render-status-container");
+  let taskContainers = document.querySelectorAll(
+    ".board-render-status-container"
+  );
   taskContainers.forEach((container) => {
     let tasks = container.querySelectorAll(".board-task-container");
     tasks.forEach((task) => {
@@ -262,41 +294,40 @@ function resetTaskVisibility() {
 
 /**
  * Opens the form to add a new task.
- * 
+ *
  * Removes the hidden and non-display classes from the add-task form to make it visible.
  */
 function openAddForm() {
   document.getElementById("add-task-form").classList.remove("vis-hidden");
   document.getElementById("add-task-form").classList.remove("d-none");
-  let overlay = document.getElementById('overlay-form');
+  let overlay = document.getElementById("overlay-form");
   overlay.classList.remove("d-none");
   let formField = document.getElementById("add-task-form");
   formField.classList.remove("d-none", "hidden");
-  formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+  formField.style.cssText =
+    "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideClickHandler);
-
 }
 
 /**
  * Closes the form.
- * 
+ *
  * Removes the non-display class from the add-task form, making it visible.
  */
 function closeAddForm() {
-  document.getElementById('overlay-form').classList.add("d-none");
+  document.getElementById("overlay-form").classList.add("d-none");
   let formField = document.getElementById("add-task-form");
   formField.classList.remove("d-none");
   formField.style.animation = "moveOut 200ms ease-out forwards";
 
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
-    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
+    formField.style.cssText =
+      "visibility: hidden; transform: translateX(100vw)";
   }, 100);
 
-
-document.removeEventListener("click", outsideClickHandler);
+  document.removeEventListener("click", outsideClickHandler);
 }
-
 
 function outsideClickHandler(event) {
   let formField = document.getElementById("add-task-form");
@@ -305,4 +336,16 @@ function outsideClickHandler(event) {
   if (!formField.contains(event.target) && overlay.contains(event.target)) {
     closeAddForm();
   }
+}
+
+function enableEnterKeyAdd() {
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const addButton = document.querySelector(".add-task-button");
+      if (addButton) {
+        addButton.click(); 
+      }
+    }
+  });
 }
