@@ -111,6 +111,19 @@ function checkboxInit(names, imageUrls) {
   position.innerHTML = list; // Set HTML content
 }
 
+// create task verknüfen
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    document.querySelector('.add-task-create-button').click();
+    }
+  });
+
+function checkEnterKey(event) {
+  if (event.key === 'Enter') {
+    addSubtask();
+  }
+}
+
 /**
  * Returns a string of HTML to render a checkbox with an image and name.
  * @param {number} index - The index of the checkbox.
