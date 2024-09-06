@@ -37,14 +37,7 @@ function editDescription(index) {
 async function editOpenTask(index, category, title, description, date, prio) {
   let position = document.getElementById("openTask");
   position.innerHTML = "";
-  position.innerHTML = await window.editTaskHtml(
-    index,
-    category,
-    title,
-    description,
-    date,
-    prio
-  );
+  position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
   dueDateEditTask(index, date);
   initEdit(index);
   checkboxIndexFalse(index);
