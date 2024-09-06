@@ -111,19 +111,6 @@ function checkboxInit(names, imageUrls) {
   position.innerHTML = list; // Set HTML content
 }
 
-// create task verknüfen
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-    document.querySelector('.add-task-create-button').click();
-    }
-  });
-
-function checkEnterKey(event) {
-  if (event.key === 'Enter') {
-    addSubtask();
-  }
-}
-
 /**
  * Returns a string of HTML to render a checkbox with an image and name.
  * @param {number} index - The index of the checkbox.
@@ -193,8 +180,9 @@ function showCheckboxes2() {
  * @returns {Promise<void>}
  */
 async function createTask(event) {
+  //enableEnterPress();
   event.preventDefault();
-  // hier eventhandeler für enter event ??? nachfragen wo das form das setup hat!!
+
   let form = event.target;
   if (!form.checkValidity()) {
     form.reportValidity();
@@ -211,6 +199,20 @@ async function createTask(event) {
   changeSite("board.html"); // Redirect to the board view
 }
 
+//function enableEnterPress(){   // muss noch korrekt implementiert werden, ohne sich dabei mit dem anderen enter-event zu streiten
+//document.addEventListener('keydown', function(event) {
+  //if (event.key === 'Enter') {
+    //document.querySelector('.add-task-create-button').click();
+    //}
+ // });
+//}
+
+
+function checkEnterSubtasks(event) {
+  if (event.key === 'Enter') {
+    addSubtask();
+  }
+}
 
 /**
  * Resets the internal state of the form and clears stored data.

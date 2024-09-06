@@ -401,7 +401,7 @@ function closeOpenTaskEdit(event, index) {
     event.stopPropagation();
     let openPosition = document.getElementById('openTask');
     openPosition.classList.remove('modal-overlay');
-    openPosition.classList.add('d-none');
+    openPosition.classList.add('d-none animationend');
     openPosition.innerHTML = '';
     resetFormStateEdit();
     changeSite('board.html');
