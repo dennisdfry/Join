@@ -43,6 +43,7 @@ async function editOpenTask(index, category, title, description, date, prio) {
   checkboxIndexFalse(index);
   subtasksRenderEdit(index);
   CategoryColorEdit(index, category);
+  enableEnterKeyEdit();
 }
 
 /**
@@ -406,3 +407,16 @@ function closeOpenTaskEdit(event, index) {
     resetFormStateEdit();
     changeSite('board.html');
   }
+
+
+  function enableEnterKeyEdit() {
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); 
+            let editButton = document.querySelector('.edit-task-button');
+            if (editButton) {
+                editButton.click();
+            }
+        }
+    });
+}
