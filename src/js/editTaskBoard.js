@@ -451,4 +451,13 @@ function finishSubtaskEdit(i, indexHTML){
     subtasksRenderEdit(indexHTML);
 }
             
- 
+function closeOpenTaskEdit(event, index) {
+    event.stopPropagation();
+    let openPosition = document.getElementById('openTask');
+    openPosition.classList.remove('modal-overlay');
+    openPosition.classList.add('d-none');
+    openPosition.innerHTML = '';
+    resetFormStateEdit();
+    changeSite('board.html');
+   
+  }
