@@ -66,15 +66,18 @@ function htmlBoardImageOpen(imageUrl, index, names) {
  * @param {Event} event - The event object associated with the close action.
  * @param {number} index - The index of the task.
  */
-function closeOpenTask(event, index) {
+function closeOpenTask(event, indexHTML) {
   event.stopPropagation();
   let openPosition = document.getElementById('openTask');
   openPosition.classList.remove('modal-overlay');
   openPosition.classList.add('d-none');
   openPosition.innerHTML = '';
-  changeSite('board.html');
- 
+  progressBar(indexHTML);
+  // changeSite('board.html');
 }
+// function oneClickClose(event){
+
+// }
 
 /**
  * Renders the subtasks for a specific task in the open task view.

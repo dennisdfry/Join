@@ -212,6 +212,7 @@ async function progressBar(indexHtml) {
       if (statusID === true) {
         trueCount++;
         progressStatusTrue.push({ index: i, statusTrue: statusID });
+        console.log(progressStatusTrue)
       }
     }
   }
@@ -220,7 +221,6 @@ async function progressBar(indexHtml) {
     progressBar.style.width = `${progress}%`;
   }
 }
-
 
 /**
  * Creates a new task based on form input.
