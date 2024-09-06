@@ -179,6 +179,15 @@ header {
   margin-left: 232px;
 }
 
+.help-btn {
+  display: none;
+}
+
+.head-join-logo {
+  width: 30px;
+  display: none;
+}
+
 .template {
   display: flex;
   flex-direction: row;
@@ -223,6 +232,10 @@ header {
 }
 
 @media (max-width: 950px) {
+  .imprint-content {
+    padding-left: 27px;
+  }
+
   .nav {
     left: 0;
     top: auto;
@@ -257,6 +270,14 @@ header {
   .head {
     padding: 20px 40px;
     margin-left: 10px;
+  }
+
+  .help-btn {
+    display: flex;
+  }
+
+  .head-join-logo {
+    display: flex;
   }
 
   .headline,
