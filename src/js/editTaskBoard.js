@@ -2,8 +2,6 @@ let addTaskArrayEdit = [];
 let expandedEdit = false;
 let selectedPrioEdit = null; // Tracks the selected priority of the task
 let subtasksArrayEdit = [];
-
-
 /**
  * Clears the placeholder of the task title input field during editing.
  * 
@@ -35,6 +33,7 @@ function editDescription(index) {
  * @param {string} prio - The priority of the task.
  * @async
  */
+
 async function editOpenTask(index, category, title, description, date, prio) {
     let position = document.getElementById('openTask');
     position.innerHTML = '';
@@ -52,6 +51,7 @@ async function editOpenTask(index, category, title, description, date, prio) {
  * @param {number} index - The index of the task being edited.
  * @param {string} category - The category of the task.
  */
+
 function CategoryColorEdit(index, category) {
     let position = document.getElementById(`categoryColorEdit${index}`);
     if (category == TechnicalTask) {
@@ -67,6 +67,7 @@ function CategoryColorEdit(index, category) {
  * @param {number} index - The index of the task being edited.
  * @param {string} date - The due date of the task.
  */
+
 function dueDateEditTask(index, date) {
     let position = document.getElementById(`dueDateEdit${index}`);
     position.value = date;
@@ -78,6 +79,7 @@ function dueDateEditTask(index, date) {
  * @param {number} index - The index of the task being edited.
  * @async
  */
+
 async function initEdit(index) {
     try {
         let fireBaseData = await onloadData("/");
@@ -86,8 +88,7 @@ async function initEdit(index) {
         await assignedToEdit(contacts, imageUrls, index);
     } catch (error) {
         console.error("Error during initialization:", error);
-    }
-}
+    }}
 
 /**
  * Fetches images of contacts from Firebase.
@@ -103,8 +104,7 @@ async function fetchImages() {
         return imageUrls;
     } catch (error) {
         console.error("Error fetching images", error);
-    }
-}
+    }}
 
 /**
  * Fetches data from Firebase for the given path.
@@ -113,6 +113,7 @@ async function fetchImages() {
  * @returns {Promise<Object>} - The fetched data as a JSON object.
  * @async
  */
+
 async function onloadData(path = "") {
     let response = await fetch(BASE_URL + path + '.json');
     let responseToJson = await response.json();
@@ -125,6 +126,7 @@ async function onloadData(path = "") {
  * @param {Object} responseToJson - The JSON data containing contacts.
  * @returns {Object} - The contacts object.
  */
+
 function fetchContacts(responseToJson) {
     let contacts = responseToJson.contacts;
     return contacts;
@@ -137,6 +139,7 @@ function fetchContacts(responseToJson) {
  * @param {Array<string>} imageUrls - The image URLs of the contacts.
  * @param {number} index - The index of the task being edited.
  */
+
 function assignedToEdit(contacts, imageUrls, index) {
     try {
         const extractNames = (contacts) => {
@@ -156,6 +159,7 @@ function assignedToEdit(contacts, imageUrls, index) {
  * @param {Array<string>} imageUrls - The image URLs of the contacts.
  * @param {number} indexHTML - The index of the task being edited.
  */
+
 function checkboxInitEdit(names, imageUrls, indexHTML) {
     let position = document.getElementById(`checkboxesEdit${indexHTML}`);
     position.innerHTML = '';
@@ -165,26 +169,7 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
         const imgSrc = imageUrls[index];
         list += checkBoxRenderEdit(index, imgSrc, element);
     }
-    position.innerHTML = list;
-}
-
-/**
- * Generates the HTML for a checkbox to assign a user to the task during editing.
- * 
- * @param {number} index - The index of the contact.
- * @param {string} imgSrc - The image URL of the contact.
- * @param {string} element - The name of the contact.
- * @returns {string} - The HTML string for the checkbox.
- */
-function checkBoxRenderEdit(index, imgSrc, element) {
-    return `<label class="checkBoxFlex" for="checkbox-${index}">
-                <div class="checkBoxImg">
-                    <img src="${imgSrc}" alt="" />
-                    ${element}
-                </div>
-                <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${index}','${element}')" />
-            </label>`;
-}
+    position.innerHTML = list;}
 
 /**
  * Toggles the assignment of a user to the task during editing.
@@ -192,6 +177,7 @@ function checkBoxRenderEdit(index, imgSrc, element) {
  * @param {number} index - The index of the contact.
  * @param {string} element - The name of the contact.
  */
+
 function assignedToUserEdit(index, element) {
     const image = imageUrlsGlobal[index];
     const arrayIndex = assignedToUserArray.indexOf(index);
@@ -228,8 +214,7 @@ function showCheckboxesEdit(index) {
     } else {
         checkboxes.style.display = "none";
         expandedEdit = false;
-    }
-}
+    }}
 
 /**
  * Sets the priority of the task during editing based on the selected priority button.
@@ -245,8 +230,6 @@ function prioEdit(id) {
     let position = document.getElementById(`prioButtonEdit${id}`);
     prioIdCheck(id, position);
     selectedPrioEdit = true; // Set priority status
-    console.log(selectedPrioEdit);
-
 }
 /**
  * Checks the priority ID and updates the button style accordingly.
@@ -268,19 +251,6 @@ function prioIdCheck(id, position) {
     position.classList.remove('add-task-prio-button');
 }
 
-function showSubtaskControlsEdit(index) {
-    document.getElementById(`subtasksEdit${index}`).classList.remove('add-task-input-edit');
-    document.getElementById(`subtasksEdit${index}`).classList.add('subtasks-input-edit');
-   let position = document.getElementById(`subtasksControl${index}`);
-   position.innerHTML = `<button onclick="resetSubtaskInputEdit(${index})" type="button" class="subtask-button-edit">
-                                <img src="../public/img/closeAddTask.png" alt="Reset">
-                            </button>
-                            <div class="seperator-subtasks"></div>
-                            <button onclick="addSubtaskEdit(${index})" type="button" class="subtask-button-edit">
-                                <img src="../public/img/checkAddTask.png" alt="Add">
-                            </button>`;
-}
-
 function addSubtaskEdit(index) {
     let input = document.getElementById(`subtasksEdit${index}`);
     if (input.value.trim() !== "") {
@@ -290,22 +260,6 @@ function addSubtaskEdit(index) {
         resetSubtaskInputEdit(index);
         subtasksRenderEdit(index);
     }
-}
-
-/**
- * Resets the subtask input field to its original state during task editing.
- * 
- * @param {number} index - The index of the task being edited.
- */
-function resetSubtaskInputEdit(index) {
-    let input = document.getElementById(`subtasksEdit${index}`);
-    input.value = '';
-    document.getElementById(`subtasksEdit${index}`).classList.add('add-task-input-edit');
-    document.getElementById(`subtasksEdit${index}`).classList.remove('subtasks-input-edit');
-    let position = document.getElementById(`subtasksControl${index}`);
-    position.innerHTML = `<button onclick="showSubtaskControlsEdit(${index})" type="button"  class="add-task-button-edit">
-                                +
-                            </button>`;
 }
 
 /**
@@ -319,7 +273,6 @@ function resetSubtaskInputEdit(index) {
 function handleFormSubmitEdit(event, index, category) {
     event.preventDefault(); 
     let form = event.target; 
-    console.log(selectedPrioEdit);
     if (!form.checkValidity()) {
         form.reportValidity(); 
         return; }
@@ -336,6 +289,7 @@ async function updateTaskBoard(index, category) {
     resetFormStateEdit()
     changeSite('board.html');
 }
+
 function resetFormStateEdit() {
     addTaskArrayEdit = [];
     selectedPrioEdit = null;
@@ -404,9 +358,7 @@ function deleteSubtaskEdit(indexHTML){
     let position = document.getElementById(`supplementarySubtaskEdit${indexHTML}`);
     position.innerHTML = '';
     subtasksArrayEdit.splice([indexHTML], 1);
-    console.log(subtasksArrayEdit);
     subtasksRenderEdit(indexHTML);
-
 }
 
 function subtasksRenderEdit(indexHTML){
@@ -419,31 +371,15 @@ function subtasksRenderEdit(indexHTML){
         if(element){
         subtasksArrayEdit.push(element)
         }}
-        subtasksLengthArray = [];
-}
+        subtasksLengthArray = [];}
  for (let i = 0; i < subtasksArrayEdit.length; i++) {
             const updatesubtasks = subtasksArrayEdit[i];
-            console.log(subtasksArrayEdit)
-        position.innerHTML += `
-                <li id="supplementarySubtaskEdit${i}" class="d-flex-between subtasks-edit bradius8">
-                    <span>${updatesubtasks}</span>
-                        <div>
-                           <img class="pointer" onclick="deleteSubtaskEdit(${i})" src="../public/img/delete.png">
-                           <img class="pointer" onclick="editSubtaskEdit('${i}','${indexHTML}')" src="../public/img/edit.png">
-                        </div>
-                </li>`;}} 
+        position.innerHTML += supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML);
+    }} 
 
-function editSubtaskEdit(i,indexHTML, )  {
-    let position = document.getElementById(`supplementarySubtaskEdit${i}`);
-    let arrayPosition = subtasksArrayEdit[i];
-    console.log(subtasksArrayEdit[i]);
-    position.innerHTML = `
-        <input id="inputEditSubtasks${i}" class="" value="${arrayPosition}">
-            <div>
-                <img class="img-24" onclick="deleteSubtaskEdit('${i}','${indexHTML}')" src="../public/img/delete.png">
-                <img class="img-24" onclick="finishSubtaskEdit('${i}','${indexHTML}')" src="../public/img/checkAddTask.png" alt="Add">
-            </div>`;
-}
+    
+
+
 function finishSubtaskEdit(i, indexHTML){
     let input = document.getElementById(`inputEditSubtasks${i}`);
     subtasksArrayEdit[i] = input.value;
@@ -459,5 +395,4 @@ function closeOpenTaskEdit(event, index) {
     openPosition.innerHTML = '';
     resetFormStateEdit();
     changeSite('board.html');
-   
   }
