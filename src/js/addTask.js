@@ -198,6 +198,7 @@ async function createTask(event) {
   changeSite("board.html"); // Redirect to the board view
 }
 
+
 /**
  * Resets the internal state of the form and clears stored data.
  */

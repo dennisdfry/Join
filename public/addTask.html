@@ -77,7 +77,7 @@
                     <label for="subtasks">Subtasks</label>
                     <div class="input-with-button bradius10">
                         <input type="text" minlength="2" class="add-task-input" placeholder="Add item" id="subtasks"
-                            name="subtasks">
+                            name="subtasks"  onkeydown="checkEnterSubtasks(event)">
                         <div id="subtasksControl" class="subtasks-control">
                             <button onclick="showSubtaskControls()" type="button" id="subtasksPlus"
                                 class="add-task-button">
