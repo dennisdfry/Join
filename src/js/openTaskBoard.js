@@ -97,7 +97,6 @@ function subtasksRenderOpen(indexHtml, subtasks) {
   position.innerHTML = '';
   subtasksLengthArray =[];
   subtasksLengthArray.push(subtasks);
-  console.log(subtasksLengthArray)
   if (Array.isArray(subtasks)) {
     for (let i = 0; i < subtasks.length; i++) {
       const element = subtasks[i];

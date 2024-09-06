@@ -194,6 +194,7 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
 async function progressBar(indexHtml) {
   let progressBar = document.getElementById(`progressBar${indexHtml}`);
   let trueCount = 0, totalCount = 0;
+  let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${indexHtml}`)
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     let taskKeyId = taskkeysGlobal[index][indexHtml];
     let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
@@ -204,6 +205,7 @@ async function progressBar(indexHtml) {
       });
     }
   }
+  positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
   if (totalCount > 0) progressBar.style.width = `${(trueCount / totalCount) * 100}%`;
 }
 /**
