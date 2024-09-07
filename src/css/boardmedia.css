@@ -1,0 +1,21 @@
+@media (max-width: 1350px) {
+  .board-render-section {
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
+  }
+
+  .board-column {
+    flex-direction: row;
+    height: 20vh;
+  }
+
+  .board-render-status-container {
+    flex-direction: row;
+    height: 20vh;
+    width: 60vw;
+  }
+}
