@@ -50,4 +50,21 @@
     width: 60vw;
     left: 5%;
   }
+
+  .board-addtask-btn {
+    display: none;
+  }
+
+  .add-task-button {
+    margin: 0;
+    padding: 10px !important;
+    width: auto;
+  }
+
+  .add-task-button img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 }
