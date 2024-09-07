@@ -5,6 +5,7 @@
  * @returns {Promise<string>} - A promise that resolves to the HTML string.
  */
 async function htmlBoardImage(imageUrl, index) {
+  console.log(imageUrl)
   return `
     <div class="image-div">
       <img class="user-image-board img-32" src="${imageUrl}">
@@ -204,7 +205,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
             <div id="checkboxesEdit${index}">
             </div>
           </div>
-          <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
+          <div class="user-image-bord-container-open" id="userImageBoardOpenEdit${index}">
           </div>
           <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-inline">Subtasks:</p>  
                     <div class="input-with-button-edit bradius10">

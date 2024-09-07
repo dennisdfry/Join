@@ -2,6 +2,9 @@ let addTaskArrayEdit = [];
 let expandedEdit = false;
 let selectedPrioEdit = null; // Tracks the selected priority of the task
 let subtasksArrayEdit = [];
+// let taskInfoEdit;
+let usersEdit = [];
+let fetchImagesEdit = [];
 /**
  * Clears the placeholder of the task title input field during editing.
  *
@@ -44,6 +47,7 @@ async function editOpenTask(index, category, title, description, date, prio) {
   subtasksRenderEdit(index);
   CategoryColorEdit(index, category);
   enableEnterKeyEdit();
+  userImageRenderEdit(index);
 }
 
 /**
@@ -391,7 +395,7 @@ function subtasksRenderEdit(indexHTML) {
             const updatesubtasks = subtasksArrayEdit[i];
         position.innerHTML += supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML);
     }} 
-    
+
 function finishSubtaskEdit(i, indexHTML){
     let input = document.getElementById(`inputEditSubtasks${i}`);
     subtasksArrayEdit[i] = input.value;

@@ -1,4 +1,5 @@
 let opentaskIndex;
+let taskInfo;
 /**
  * Updates the priority icon in the open task view based on the task's priority level.
  * 
@@ -170,6 +171,8 @@ async function promiseSecondInfoOpenTask(index) {
   let taskInfo = taskData[index];
   if (taskInfo) {
     let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
+    usersEdit =users;
+    fetchImagesEdit= fetchImage;
     subtasksRenderOpen(index, subtasks);
     await Promise.all([
       searchIndexUrlOpen(index, users, fetchImage, userNames),
