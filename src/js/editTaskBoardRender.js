@@ -12,7 +12,7 @@ function checkBoxRenderEdit(index, imgSrc, element) {
                     <img src="${imgSrc}" alt="" />
                     ${element}
                 </div>
-                <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${index}','${element}')" />
+                <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUserEdit('${index}','${element}')" />
             </label>`;
 }
 
