@@ -5,7 +5,6 @@
  * @returns {Promise<string>} - A promise that resolves to the HTML string.
  */
 async function htmlBoardImage(imageUrl, index) {
-  console.log(imageUrl)
   return `
     <div class="image-div">
       <img class="user-image-board img-32" src="${imageUrl}">

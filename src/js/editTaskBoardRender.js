@@ -70,9 +70,12 @@ function resetSubtaskInputEdit(index) {
 }
 function userImageRenderEdit(index){
     let position = document.getElementById(`userImageBoardOpenEdit${index}`);
+    if(usersEdit == null){
+        return
+    }else{
     for (let index = 0; index < usersEdit.length; index++) {
         const usersAdd = usersEdit[index];
         const urls = fetchImagesEdit[usersAdd];
         position.innerHTML += `<img class="img-24" src="${urls}">`;
     }
-}
+}}
