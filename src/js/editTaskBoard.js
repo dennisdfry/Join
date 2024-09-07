@@ -391,6 +391,7 @@ function subtasksRenderEdit(indexHTML) {
             const updatesubtasks = subtasksArrayEdit[i];
         position.innerHTML += supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML);
     }} 
+    
 function finishSubtaskEdit(i, indexHTML){
     let input = document.getElementById(`inputEditSubtasks${i}`);
     subtasksArrayEdit[i] = input.value;

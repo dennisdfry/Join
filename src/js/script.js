@@ -201,13 +201,12 @@ async function progressBar(indexHtml) {
     if (data) {
       totalCount += data.length;
       data.forEach((statusID, i) => {
-        if (statusID) { trueCount++; progressStatusTrue.push({ index: i, statusTrue: statusID }); }
-      });
-    }
-  }
+        if (statusID) { trueCount++; progressStatusTrue.push({ index: i, statusTrue: statusID }); }});}}
   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
-  if (totalCount > 0) progressBar.style.width = `${(trueCount / totalCount) * 100}%`;
-}
+  if (totalCount > 0) {progressBar.style.width = `${(trueCount / totalCount) * 100}%`;}else{
+    progressBar.style.width = 0;}
+  }
+
 /**
  * Creates a new task based on form input.
  * 
