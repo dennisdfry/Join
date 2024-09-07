@@ -49,8 +49,6 @@ async function editOpenTask(index, category, title, description, date, prio) {
   CategoryColorEdit(index, category);
   enableEnterKeyEdit();
   userImageRenderEdit(index);
-  console.log(assignedToUserArrayNamesGlobal);
-  console.log(assignedToUserArray)
 }
 
 /**
@@ -187,9 +185,6 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
  */
 
 function assignedToUserEdit(index, element) {
-  // const image = imageUrlsGlobal[index];
-    // assignedToUserArray = [];
-    // assignedToUserArrayNamesGlobal = [];
     assignedToUserEditNull = true;
   const arrayIndex = assignedToUserArray.indexOf(index);
   if (arrayIndex !== -1) {
@@ -198,8 +193,6 @@ function assignedToUserEdit(index, element) {
   } else {
     assignedToUserArray.push(index);
     assignedToUserArrayNamesGlobal.push(element);
-    console.log(assignedToUserArrayNamesGlobal);
-    console.log(assignedToUserArray)
   }
 }
 
@@ -406,7 +399,7 @@ function subtasksRenderEdit(indexHTML) {
     for (let index = 0; index < subtasksedit.length; index++) {
         const element = subtasksedit[index];
         if(element){
-        subtasksArrayEdit.push(element)
+        subtasksArrayEdit.push(element);
         }}
         subtasksLengthArray = [];}
  for (let i = 0; i < subtasksArrayEdit.length; i++) {
