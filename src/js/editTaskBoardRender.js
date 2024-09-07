@@ -73,8 +73,6 @@ function userImageRenderEdit(index){
     for (let index = 0; index < usersEdit.length; index++) {
         const usersAdd = usersEdit[index];
         const urls = fetchImagesEdit[usersAdd];
-        console.log(urls)
-        console.log(usersAdd)
         position.innerHTML += `<img class="img-24" src="${urls}">`;
     }
 }

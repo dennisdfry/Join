@@ -120,7 +120,6 @@ async function searchIndexUrl(index, users, fetchImage) {
   for (let index = 0; index < users.length; index++) {
     const element = users[index];
     let imageUrl = fetchImage[element];
-    console.log(imageUrl)
     position.innerHTML += await htmlBoardImage(imageUrl, index);
   }
   setTimeout(() => tileUserImage(index), 50);
