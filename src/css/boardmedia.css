@@ -8,18 +8,29 @@
     -ms-overflow-style: none;
   }
 
-  .board-column {
+  .board-task-column {
     flex-direction: row;
-    height: 20vh;
+    width: 150px;
   }
 
   .board-render-status-container {
     flex-direction: row;
-    height: 20vh;
-    width: 60vw;
+  }
+
+  .board-task-container {
+    height: 160px;
+    width: 100px !important;
+  }
+
+  .board-column {
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 300px;
+    height: 300px;
   }
 
   .board-head-section {
+    position: relative;
     width: 60vw;
     left: 20%;
   }
@@ -31,5 +42,12 @@
 
   .search-task-web {
     width: 100%;
+  }
+}
+
+@media (max-width: 1050px) {
+  .board-head-section {
+    width: 60vw;
+    left: 5%;
   }
 }

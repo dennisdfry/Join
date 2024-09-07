@@ -10,6 +10,8 @@
 
   .add-task-finish-section {
     padding: 0;
+    position: absolute;
+    top: 950px;
   }
 
   .add-task-finish-button-container {
@@ -217,7 +219,7 @@
   }
 
   .add-task-finish-section {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
     position: absolute;
     top: 780px;
