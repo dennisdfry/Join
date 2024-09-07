@@ -72,7 +72,7 @@
 
   .add-Task-Container {
     width: 428px;
-    height: 720px;
+    height: 80vh;
     position: absolute;
     top: 100px;
     left: 16px;
@@ -124,7 +124,7 @@
   .add-task-finish-button-container {
     background-color: #f6f7f8;
     position: absolute;
-    top: 858px;
+    top: 780px;
     left: 216px;
     width: auto;
     height: auto;
@@ -220,13 +220,13 @@
     font-size: 20px;
     font-weight: 400;
     position: absolute;
-    top: 872px;
+    top: 780px;
     padding: 0;
   }
 
   .add-task-prio-button-container {
     width: 396px;
-    height: 88px;
+    height: 50px;
     gap: 8px;
   }
 
