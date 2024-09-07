@@ -2,9 +2,10 @@ let addTaskArrayEdit = [];
 let expandedEdit = false;
 let selectedPrioEdit = null; // Tracks the selected priority of the task
 let subtasksArrayEdit = [];
-// let taskInfoEdit;
 let usersEdit = [];
 let fetchImagesEdit = [];
+let assignedToUserArrayEdit = [];
+let assignedToUserArrayNamesGlobalEdit = [];
 /**
  * Clears the placeholder of the task title input field during editing.
  *
@@ -48,6 +49,8 @@ async function editOpenTask(index, category, title, description, date, prio) {
   CategoryColorEdit(index, category);
   enableEnterKeyEdit();
   userImageRenderEdit(index);
+  console.log(assignedToUserArrayNamesGlobal);
+  console.log(assignedToUserArray)
 }
 
 /**
@@ -184,7 +187,10 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
  */
 
 function assignedToUserEdit(index, element) {
-  const image = imageUrlsGlobal[index];
+  // const image = imageUrlsGlobal[index];
+    // assignedToUserArray = [];
+    // assignedToUserArrayNamesGlobal = [];
+    assignedToUserEditNull = true;
   const arrayIndex = assignedToUserArray.indexOf(index);
   if (arrayIndex !== -1) {
     assignedToUserArray.splice(arrayIndex, 1);
@@ -192,8 +198,11 @@ function assignedToUserEdit(index, element) {
   } else {
     assignedToUserArray.push(index);
     assignedToUserArrayNamesGlobal.push(element);
+    console.log(assignedToUserArrayNamesGlobal);
+    console.log(assignedToUserArray)
   }
 }
+
 
 /**
  * Hides the checkboxes for assigning users to the task during editing.
@@ -305,6 +314,9 @@ function resetFormStateEdit() {
   subtasksArrayEdit = [];
   usersEdit = [];
   fetchImagesEdit = [];
+  assignedToUserEditNull = null;
+  assignedToUserArrayEdit = [];
+  assignedToUserArrayNamesGlobalEdit = [];
 }
 /**
  * Saves the edited task data to Firebase.
@@ -361,6 +373,10 @@ function pushTaskObjectsToArrayEdit(
   taskCategory,
   lastString
 ) {
+  if(assignedToUserEditNull == null){
+    assignedToUserArray = assignedToUserArrayEdit;
+    assignedToUserArrayNamesGlobal = assignedToUserArrayNamesGlobalEdit;
+  }
   addTaskArrayEdit.push({
     title: taskTitle,
     description: taskDescription,

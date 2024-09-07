@@ -4,7 +4,7 @@ let taskkeys = [];
 let progressStatusTrue = [];
 let TechnicalTask = "Technical Task";
 let UserStory = "User Story";
-
+let assignedToUserEditNull = null;
 /**
  * Generates and populates HTML objects for tasks, including user images, priority, and subtasks.
  * 

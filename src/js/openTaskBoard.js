@@ -41,6 +41,8 @@ async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
   for (let i = 0; i < users.length; i++) {
     const element = users[i];
     const names = userNames[i];
+    assignedToUserArrayNamesGlobalEdit.push(names);
+    assignedToUserArrayEdit.push(element);
     let imageUrl = fetchImage[element];
     position.innerHTML += await htmlBoardImageOpen(imageUrl, i, names);
   }
