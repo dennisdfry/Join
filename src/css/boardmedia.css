@@ -6,6 +6,11 @@
     scrollbar-width: none;
     scrollbar-color: #2a3647 #e0e0e0;
     -ms-overflow-style: none;
+    width: 90vw;
+  }
+
+  .drag-area {
+    width: 90vw;
   }
 
   .board-task-column {
@@ -19,13 +24,13 @@
 
   .board-task-container {
     height: 160px;
-    width: 100px !important;
+    width: 252px !important;
   }
 
   .board-column {
     justify-content: flex-start;
     align-items: flex-start;
-    width: 300px;
+    width: 90vw;
     height: 300px;
   }
 
@@ -49,6 +54,18 @@
   .board-head-section {
     width: 60vw;
     left: 5%;
+    top: 28px;
+  }
+
+  .board-head-section-top {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .board-headline {
+    font-size: 47px;
+    margin: 0;
   }
 
   .board-addtask-btn {
@@ -66,5 +83,4 @@
     justify-content: center;
     align-items: center;
   }
-
 }
