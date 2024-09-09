@@ -50,7 +50,6 @@ async function editOpenTask(index, category, title, description, date, prio) {
   CategoryColorEdit(index, category);
   enableEnterKeyEdit();
   userImageRenderEdit(index);
-  console.log(subtasksStatusArrayEdit);
 }
 
 /**
@@ -61,7 +60,6 @@ async function editOpenTask(index, category, title, description, date, prio) {
  */
 
 function CategoryColorEdit(index, category) {
-  console.log(category)
   let position = document.getElementById(`categoryColorEdit${index}`);
   if (category == TechnicalTask) {
     position.style.backgroundColor = "#1fd7c1";
@@ -401,19 +399,15 @@ function deleteSubtaskEdit(i, indexHTML){
 
 function subtasksRenderEdit(indexHTML) {
   let subtasksedit = subtasksLengthArray[0];
-  console.log(subtasksedit);
   let position = document.getElementById(`subtasksPosition${indexHTML}`);
   if(!position){
-    return
-  }
+    return}
   position.innerHTML = "";
   if (subtasksedit) {
     for (let index = 0; index < subtasksedit.length; index++) {
         const element = subtasksedit[index];
         if(element){
-        subtasksArrayEdit.push(element);
-        console.log(subtasksArrayEdit)
-        }}
+        subtasksArrayEdit.push(element);}}
         subtasksLengthArray = [];}
  for (let i = 0; i < subtasksArrayEdit.length; i++) {
             const updatesubtasks = subtasksArrayEdit[i];
@@ -423,7 +417,6 @@ function subtasksRenderEdit(indexHTML) {
 function finishSubtaskEdit(i, indexHTML){
     let input = document.getElementById(`inputEditSubtasks${i}`);
     subtasksArrayEdit[i] = input.value;
-    console.log(subtasksArrayEdit);
     subtasksRenderEdit(indexHTML);
 }
 
