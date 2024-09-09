@@ -131,9 +131,19 @@
     width: 90vw;
     margin: 0;
     height: 48px;
+    margin-bottom: 10px;
+  }
+
+  .board-task-column,
+  .status-message {
+    width: 86vw;
   }
 
   ::placeholder {
     font-size: 20px;
+  }
+
+  .board-render-section {
+    height: 68vh;
   }
 }
