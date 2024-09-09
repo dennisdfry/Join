@@ -267,4 +267,8 @@ body {
     align-items: center;
     height: 50vh;
   }
+
+  .greet-responsive {
+    display: none;
+  }
 }
