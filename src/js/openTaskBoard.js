@@ -84,7 +84,8 @@ function oneClickClose(event){
         openPosition.classList.remove('modal-overlay');
         openPosition.classList.add('d-none');
         openPosition.innerHTML = ''; 
-        progressBar(opentaskIndex);  
+        progressBar(opentaskIndex);
+        resetFormStateEdit; 
       }
     }
 
@@ -181,6 +182,7 @@ async function promiseSecondInfoOpenTask(index) {
       searchprio(index, prio),
       searchprioOpenTask(index, prio),
     ]);
+    subtasksStatusArrayEdit = [];
     await loadSubtaskStatus(index);
   } else {
     console.error("No data found for the specified index.");

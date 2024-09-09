@@ -90,6 +90,7 @@ async function loadSubtaskStatus(indexHtml) {
     }
     for (let i = 0; i < data.length; i++) {
       const element = data[i];
+      subtasksStatusArrayEdit.push(element);
       try {
         let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
         if (element === true && checkbox) {

@@ -6,6 +6,7 @@ let usersEdit = [];
 let fetchImagesEdit = [];
 let assignedToUserArrayEdit = [];
 let assignedToUserArrayNamesGlobalEdit = [];
+let subtasksStatusArrayEdit = [];
 /**
  * Clears the placeholder of the task title input field during editing.
  *
@@ -49,6 +50,7 @@ async function editOpenTask(index, category, title, description, date, prio) {
   CategoryColorEdit(index, category);
   enableEnterKeyEdit();
   userImageRenderEdit(index);
+  console.log(subtasksStatusArrayEdit);
 }
 
 /**
@@ -263,7 +265,7 @@ function addSubtaskEdit(index) {
   if (input.value.trim() !== "") {
     subtasksArrayEdit.push(input.value.trim());
     input.value = "";
-    subtasksStatusArray.push(false);
+    subtasksStatusArrayEdit.push(false);
     resetSubtaskInputEdit(index);
     subtasksRenderEdit(index);
   }
@@ -310,6 +312,7 @@ function resetFormStateEdit() {
   assignedToUserEditNull = null;
   assignedToUserArrayEdit = [];
   assignedToUserArrayNamesGlobalEdit = [];
+  subtasksArrayEdit = [];
 }
 /**
  * Saves the edited task data to Firebase.
@@ -379,7 +382,7 @@ function pushTaskObjectsToArrayEdit(
     prio: lastString,
     category: taskCategory,
     subtasks: subtasksArrayEdit,
-    subtaskStatus: subtasksStatusArray,
+    subtaskStatus: subtasksStatusArrayEdit,
     boardCategory: "todo",
   });
 }
