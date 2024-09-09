@@ -7,6 +7,7 @@
     scrollbar-color: #2a3647 #e0e0e0;
     -ms-overflow-style: none;
     width: 90vw;
+    height: 90vh;
   }
 
   .drag-area {
@@ -38,6 +39,24 @@
     position: relative;
     width: 60vw;
     left: 20%;
+    top: 50%;
+  }
+
+  .board-head-section-top {
+    margin-bottom: 20px;
+    height: 236px;
+  }
+
+  .responsive-board-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50vw;
+  }
+
+  .add-task-button-head {
+    display: none;
   }
 
   .search-task-section {
@@ -61,6 +80,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    height: 100px;
   }
 
   .board-headline {
@@ -82,5 +102,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .add-task-button-head {
+    display: flex;
+    color: #ffffff;
+    width: 30px;
+    height: 30px;
+    background-color: #2a3647 !important;
+    font-family: "Inter700";
+    font-size: 20px;
+    margin-left: 24px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    border: unset;
+    transition: transform 0.2s;
+    border-radius: 10px !important;
+  }
+
+  .add-task-button {
+    display: none !important;
   }
 }

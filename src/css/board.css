@@ -81,6 +81,11 @@ body {
   margin-left: 4px;
 }
 
+.add-task-button-head,
+.add-task-button {
+  display: none;
+}
+
 .search-task-section {
   display: flex;
   height: 48px;
