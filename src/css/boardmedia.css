@@ -107,8 +107,8 @@
   .add-task-button-head {
     display: flex;
     color: #ffffff;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     background-color: #2a3647 !important;
     font-family: "Inter700";
     font-size: 20px;
@@ -124,5 +124,16 @@
 
   .add-task-button {
     display: none !important;
+  }
+
+  .responsive-board-head,
+  .search-task-section {
+    width: 90vw;
+    margin: 0;
+    height: 48px;
+  }
+
+  ::placeholder {
+    font-size: 20px;
   }
 }
