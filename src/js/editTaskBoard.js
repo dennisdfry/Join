@@ -370,6 +370,8 @@ function pushTaskObjectsToArrayEdit(
   lastString
 ) {
   if(assignedToUserEditNull == null){
+    assignedToUserArray = [];
+    assignedToUserArrayNamesGlobal = [];
     assignedToUserArray = assignedToUserArrayEdit;
     assignedToUserArrayNamesGlobal = assignedToUserArrayNamesGlobalEdit;
   }
