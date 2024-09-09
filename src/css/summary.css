@@ -201,13 +201,12 @@ body {
   .greet {
     display: none;
   }
-  
+
   .greet-responsive {
     background-color: #f6f7f8;
     position: fixed;
     left: 0;
     top: 0;
-    display: flex !important;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -216,10 +215,10 @@ body {
     z-index: 1000;
   }
 
- .summary-user-greeting-resp {
-  font-size: 36PX;
-  font-family: 'Inter';
- }
+  .summary-user-greeting-resp {
+    font-size: 36px;
+    font-family: "Inter";
+  }
 
   .summary-tasks {
     padding-top: 20px;
@@ -240,7 +239,7 @@ body {
   .feed-num {
     font-size: 47px !important;
   }
-  
+
   .td-txt,
   .done-txt,
   .urg-txt,
@@ -283,7 +282,7 @@ body {
     max-width: 396px;
     margin: 20px;
   }
-  
+
   .summary-tasks {
     display: flex;
     justify-content: center;
