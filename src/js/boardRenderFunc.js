@@ -218,7 +218,6 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
                         </div>
                     </div>
                     <ul class="subtasksListEdit" id="subtasksPosition${index}"></ul> 
-          <div class="" id="subtasksBoardEdit${index}"></div>
           <div class="d-flex-end">
             <div class="d-flex item-center">
              <button class="d-flex item-center pointer d-flex-center edit-task-button">

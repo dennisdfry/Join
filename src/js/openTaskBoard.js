@@ -85,7 +85,8 @@ function oneClickClose(event){
         openPosition.classList.add('d-none');
         openPosition.innerHTML = ''; 
         progressBar(opentaskIndex);
-        resetFormStateEdit; 
+        resetFormStateEdit(); 
+        console.log(subtasksArrayEdit)
       }
     }
 

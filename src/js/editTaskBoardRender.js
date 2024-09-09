@@ -34,7 +34,7 @@ function supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML){
     <li id="supplementarySubtaskEdit${i}" class="d-flex-between subtasks-edit bradius8">
         <span>${updatesubtasks}</span>
             <div>
-               <img class="pointer" onclick="deleteSubtaskEdit(${i})" src="../public/img/delete.png">
+               <img class="pointer" onclick="deleteSubtaskEdit('${i}','${indexHTML}')" src="../public/img/delete.png">
                <img class="pointer" onclick="editSubtaskEdit('${i}','${indexHTML}')" src="../public/img/edit.png">
             </div>
     </li>`;
@@ -73,6 +73,7 @@ function userImageRenderEdit(index){
     if(usersEdit == null){
         return
     }else{
+        position.innerHTML = '';
     for (let index = 0; index < usersEdit.length; index++) {
         const usersAdd = usersEdit[index];
         const urls = fetchImagesEdit[usersAdd];

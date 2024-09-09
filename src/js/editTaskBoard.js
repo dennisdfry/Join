@@ -61,6 +61,7 @@ async function editOpenTask(index, category, title, description, date, prio) {
  */
 
 function CategoryColorEdit(index, category) {
+  console.log(category)
   let position = document.getElementById(`categoryColorEdit${index}`);
   if (category == TechnicalTask) {
     position.style.backgroundColor = "#1fd7c1";
@@ -170,6 +171,7 @@ function assignedToEdit(contacts, imageUrls, index) {
 
 function checkboxInitEdit(names, imageUrls, indexHTML) {
     let position = document.getElementById(`checkboxesEdit${indexHTML}`);
+   
     position.innerHTML = '';
     let list = '';
     for (let index = 0; index < names.length; index++) {
@@ -307,12 +309,13 @@ function resetFormStateEdit() {
   subtasksArray = [];
   subtasksStatusArray = [];
   subtasksArrayEdit = [];
+  subtasksedit = [];
   usersEdit = [];
   fetchImagesEdit = [];
   assignedToUserEditNull = null;
   assignedToUserArrayEdit = [];
   assignedToUserArrayNamesGlobalEdit = [];
-  subtasksArrayEdit = [];
+ 
 }
 /**
  * Saves the edited task data to Firebase.
@@ -389,22 +392,27 @@ function pushTaskObjectsToArrayEdit(
   });
 }
 
-function deleteSubtaskEdit(indexHTML){
-    let position = document.getElementById(`supplementarySubtaskEdit${indexHTML}`);
+function deleteSubtaskEdit(i, indexHTML){
+    let position = document.getElementById(`supplementarySubtaskEdit${i}`);
     position.innerHTML = '';
-    subtasksArrayEdit.splice([indexHTML], 1);
+    subtasksArrayEdit.splice([i], 1);
     subtasksRenderEdit(indexHTML);
 }
 
 function subtasksRenderEdit(indexHTML) {
   let subtasksedit = subtasksLengthArray[0];
+  console.log(subtasksedit);
   let position = document.getElementById(`subtasksPosition${indexHTML}`);
+  if(!position){
+    return
+  }
   position.innerHTML = "";
   if (subtasksedit) {
     for (let index = 0; index < subtasksedit.length; index++) {
         const element = subtasksedit[index];
         if(element){
         subtasksArrayEdit.push(element);
+        console.log(subtasksArrayEdit)
         }}
         subtasksLengthArray = [];}
  for (let i = 0; i < subtasksArrayEdit.length; i++) {
