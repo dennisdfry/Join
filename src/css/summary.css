@@ -162,6 +162,10 @@ body {
   margin: 0 10px;
 }
 
+.greet-responsive {
+  display: none;
+}
+
 @media (max-width: 1050px) {
   .summary-section {
     padding-top: 40px;
@@ -197,6 +201,25 @@ body {
   .greet {
     display: none;
   }
+  
+  .greet-responsive {
+    background-color: #f6f7f8;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+  }
+
+ .summary-user-greeting-resp {
+  font-size: 36PX;
+  font-family: 'Inter';
+ }
 
   .summary-tasks {
     padding-top: 20px;
@@ -266,9 +289,5 @@ body {
     justify-content: center;
     align-items: center;
     height: 50vh;
-  }
-
-  .greet-responsive {
-    display: none;
   }
 }
