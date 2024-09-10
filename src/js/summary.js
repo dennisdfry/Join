@@ -8,6 +8,7 @@ function initSmry() {
   loadTasksAndCountCategories();
   loadTasksAndUpdateUrgentCount();
   loadTasksAndFindClosestDueDate();
+  addClassAfterDelay()
 }
 
 /**
@@ -19,11 +20,11 @@ async function summaryGreeting() {
   const hour = new Date().getHours();
   const greetingElement = document.querySelector(".summary-user-greeting");
   const greetingElementName = document.querySelector(".summary-user-greeting-name");
-  const userImageElement = document.querySelector('.user-icon');
-  const user = localStorage.getItem('user');
+  const userImageElement = document.querySelector(".user-icon");
+  const user = localStorage.getItem("user");
 
   if (greetingElement) {
-    if (user === 'Guest') {
+    if (user === "Guest") {
       greetingGuest(hour, greetingElement, user, userImageElement);
     } else {
       await greetingUser(hour, greetingElement, greetingElementName);
@@ -40,11 +41,11 @@ async function summaryGreetingResp() {
   const hour = new Date().getHours();
   const greetingElement = document.querySelector(".summary-user-greeting-resp");
   const greetingElementName = document.querySelector(".summary-user-greeting-name-resp");
-  const userImageElement = document.querySelector('.user-icon');
-  const user = localStorage.getItem('user');
+  const userImageElement = document.querySelector(".user-icon");
+  const user = localStorage.getItem("user");
 
   if (greetingElement) {
-    if (user === 'Guest') {
+    if (user === "Guest") {
       greetingGuest(hour, greetingElement, user, userImageElement);
     } else {
       await greetingUser(hour, greetingElement, greetingElementName);
@@ -135,7 +136,7 @@ function setGreeting(greetingMessage, userData, greetingElement, greetingElement
  * @returns {Promise<Object>} A promise that resolves to the contact data object.
  */
 async function getContactDataByEmail(email) {
-  const contactSnapshot = await contactsRef.orderByChild('mail').equalTo(email).once("value");
+  const contactSnapshot = await contactsRef.orderByChild("mail").equalTo(email).once("value");
   return contactSnapshot.val();
 }
 
@@ -174,7 +175,7 @@ async function checkAuthAndGreet(greetingMessage, greetingElement, greetingEleme
       setGreeting(greetingMessage, userData, greetingElement, greetingElementName);
 
       const contactData = await getContactDataByEmail(userData.mail);
-      const imgElement = document.querySelector('.user-icon');
+      const imgElement = document.querySelector(".user-icon");
       setProfileImage(contactData, userId, imgElement);
     } catch (error) {
       console.error("Error retrieving user data or profile image:", error);
@@ -235,10 +236,7 @@ function iterateTasks(taskData, categoryCounts) {
       const tasks = taskData[taskId];
 
       tasks.forEach((task) => {
-        if (
-          task.boardCategory &&
-          categoryCounts.hasOwnProperty(task.boardCategory)
-        ) {
+        if (task.boardCategory && categoryCounts.hasOwnProperty(task.boardCategory)) {
           categoryCounts[task.boardCategory]++;
         }
       });
@@ -284,12 +282,9 @@ function updateCategoryCounts(counts) {
  * @returns {string} The formatted date string in DD. Month YYYY format.
  */
 function formatDateGerman(dateStr) {
-  const months = [
-    "Januar", "Februar", "März", "April", "Mai", "Juni",
-    "Juli", "August", "September", "Oktober", "November", "Dezember"
-  ];
+  const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 
-  const [year, month, day] = dateStr.split('-');
+  const [year, month, day] = dateStr.split("-");
   const monthIndex = parseInt(month, 10) - 1; // Months are 1-based
   return `${parseInt(day, 10)}. ${months[monthIndex]} ${year}`;
 }
@@ -312,7 +307,7 @@ function findClosestDueDate(taskData) {
       const tasks = taskData[taskId];
 
       tasks.forEach((task) => {
-        if (task.prio === 'Urgent' && task.boardCategory !== 'done' && task.dueDate) {
+        if (task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate) {
           const taskDate = new Date(task.dueDate);
           const diff = Math.abs(taskDate - now);
 
@@ -331,7 +326,7 @@ function findClosestDueDate(taskData) {
 
   return {
     dueDate: closestDate ? formatDateGerman(closestDate) : "No upcoming<br>urgent tasks",
-    count: taskCount
+    count: taskCount,
   };
 }
 
@@ -350,7 +345,7 @@ function countTasksWithDueDate(taskData, dueDate) {
       const tasks = taskData[taskId];
 
       tasks.forEach((task) => {
-        if (task.prio === 'Urgent' && task.boardCategory !== 'done' && task.dueDate === dueDate) {
+        if (task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate === dueDate) {
           count++;
         }
       });
@@ -371,7 +366,7 @@ async function loadTasksAndUpdateUrgentCount() {
     const taskData = await loadTasks();
     const result = findClosestDueDate(taskData);
 
-    const urgentSpan = document.getElementById('smry-urgent-val');
+    const urgentSpan = document.getElementById("smry-urgent-val");
     if (urgentSpan) {
       urgentSpan.innerText = result.count;
     } else {
@@ -392,7 +387,7 @@ async function loadTasksAndFindClosestDueDate() {
     const taskData = await loadTasks();
     const closestDueDate = findClosestDueDate(taskData);
 
-    const dateSpan = document.querySelector('.summary-tasks-mid-right-date');
+    const dateSpan = document.querySelector(".summary-tasks-mid-right-date");
     if (dateSpan) {
       dateSpan.innerHTML = closestDueDate.dueDate;
     } else {
@@ -400,6 +395,23 @@ async function loadTasksAndFindClosestDueDate() {
     }
   } catch (error) {
     console.error("Error loading tasks and finding closest due date:", error);
+  }
+}
+
+function addClassAfterDelay() {
+  const element = document.querySelector('.greet-responsive');
+  if (element) {
+      // Überprüfen, ob die Klasse d-none bereits hinzugefügt wurde
+      if (!localStorage.getItem('classAdded')) {
+          setTimeout(() => {
+              element.classList.add('d-none');
+              // Speichern, dass die Klasse hinzugefügt wurde
+              localStorage.setItem('classAdded', 'true');
+          }, 2000); // 2000 Millisekunden = 2 Sekunden
+      } else {
+          // Wenn die Klasse bereits hinzugefügt wurde, sofort anwenden
+          element.classList.add('d-none');
+      }
   }
 }
 

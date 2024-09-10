@@ -39,4 +39,5 @@ firebase.auth().onAuthStateChanged((user) => {
  */
 function clearLocalStorage() {
     localStorage.removeItem("user");
+    localStorage.removeItem("classAdded");
 }
