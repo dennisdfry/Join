@@ -3,11 +3,11 @@ var tasksRef = database.ref("tasks");
 var contactsRef = database.ref("contacts");
 
 function initSmry() {
-  summaryGreeting();
-  summaryGreetingResp();
   loadTasksAndCountCategories();
   loadTasksAndUpdateUrgentCount();
   loadTasksAndFindClosestDueDate();
+  summaryGreeting();
+  summaryGreetingResp();
   addClassAfterDelay()
 }
 
@@ -401,15 +401,12 @@ async function loadTasksAndFindClosestDueDate() {
 function addClassAfterDelay() {
   const element = document.querySelector('.greet-responsive');
   if (element) {
-      // Überprüfen, ob die Klasse d-none bereits hinzugefügt wurde
       if (!localStorage.getItem('classAdded')) {
           setTimeout(() => {
               element.classList.add('d-none');
-              // Speichern, dass die Klasse hinzugefügt wurde
               localStorage.setItem('classAdded', 'true');
-          }, 2000); // 2000 Millisekunden = 2 Sekunden
+          }, 2000);
       } else {
-          // Wenn die Klasse bereits hinzugefügt wurde, sofort anwenden
           element.classList.add('d-none');
       }
   }
