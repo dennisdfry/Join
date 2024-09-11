@@ -30,30 +30,10 @@ body {
 
 #contactlist-section {
   width: 456px;
-  height: 92vh;
+  height: 928px;
   top: 96px;
   left: 215px;
   box-shadow: 4px 0px 6px 0px #00000014;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  scrollbar-color: #2a3647 #e0e0e0;
-  -ms-overflow-style: none;
-}
-
-#contactlist-section::-webkit-scrollbar {
-  display: none;
-}
-#contactlist-section::-webkit-scrollbar-thumb {
-  background-color: #2a3647;
-  border-radius: 8px;
-}
-#contactlist-section::-webkit-scrollbar-track {
-  background-color: #e0e0e0;
-  border-radius: 8px;
-}
-#contactlist-section::-webkit-scrollbar-thumb {
-  height: 53px;
 }
 
 .contactlist-btn-box {
@@ -80,6 +60,35 @@ body {
 }
 
 .contactlist-content {
+  height: 700px;
+  width: 352px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
+}
+
+.contactlist-content::-webkit-scrollbar {
+  display: none;
+}
+.contactlist-content::-webkit-scrollbar-thumb {
+  background-color: #2a3647;
+  border-radius: 8px;
+}
+.contactlist-content::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+.contactlist-content::-webkit-scrollbar-thumb {
+  height: 53px;
+}
+
+.contactlist-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 352px;
   height: 78px;
   gap: 35px;
@@ -87,7 +96,7 @@ body {
   transition: background-color 0.1s ease;
 }
 
-.contactlist-content img {
+.contactlist-item img {
   width: 42px;
   height: 42px;
   gap: 10px;
@@ -96,12 +105,12 @@ body {
   border: 2px solid #ffffff;
 }
 
-.contactlist-content:hover {
+.contactlist-item:hover {
   background-color: #eeecec;
 }
 
-.contactlist-content.active-contact:hover {
-  background-color: inherit; 
+.contactlist-item.active-contact:hover {
+  background-color: inherit;
 }
 
 .contactlist-databox {
@@ -219,7 +228,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 999; 
+  z-index: 999;
 }
 
 .hidden {
@@ -297,14 +306,12 @@ body {
 }
 
 .editfield-btn-box {
-width: 249px;
-height: 57px;
-top: 400px;
-left: 742px;
-gap: 25px;
-
+  width: 249px;
+  height: 57px;
+  top: 400px;
+  left: 742px;
+  gap: 25px;
 }
-
 
 #formfield-cancel-btn,
 #editfield-cancel-btn {

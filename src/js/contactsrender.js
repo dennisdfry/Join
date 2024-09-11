@@ -22,7 +22,7 @@ function renderLetterArea(contactList, letter) {
  */
 function renderContactItem(contactList, id, contact, imageSrc) {
   contactList.innerHTML += `
-    <div id="contactlist-item-${id}" class="contactlist-content bradius10 d-flex-start flex-d-row" onclick="selectContact('${id}')">
+    <div id="contactlist-item-${id}" class="contactlist-item bradius10 d-flex-center flex-d-row" onclick="selectContact('${id}')">
       <img class="d-flex pointer" src="${imageSrc}"/>
       <div class="contactlist-databox flex-d-col">
         <div class="pointer no-wrap-text fw-400 fs-20">${contact.name}</div>
