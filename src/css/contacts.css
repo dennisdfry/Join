@@ -30,7 +30,7 @@ body {
 
 #contactlist-section {
   width: 456px;
-  height: 928px;
+  height: 90vh;
   top: 96px;
   left: 215px;
   box-shadow: 4px 0px 6px 0px #00000014;
@@ -60,13 +60,14 @@ body {
 }
 
 .contactlist-content {
-  height: 700px;
-  width: 352px;
+  height: 73vh;
+  width: 456px;
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
   scrollbar-color: #2a3647 #e0e0e0;
   -ms-overflow-style: none;
+  scroll-margin-bottom: 0;
 }
 
 .contactlist-content::-webkit-scrollbar {
@@ -85,22 +86,20 @@ body {
 }
 
 .contactlist-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   width: 352px;
   height: 78px;
   gap: 35px;
-  margin: 4px;
+  margin-left: 48px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   transition: background-color 0.1s ease;
 }
 
 .contactlist-item img {
   width: 42px;
   height: 42px;
+  margin-left: -72px;
   gap: 10px;
-  margin-left: 16px;
   border-radius: 70px;
   border: 2px solid #ffffff;
 }
@@ -129,6 +128,7 @@ body {
   width: 352px;
   margin-bottom: 8px;
   border-bottom: 1px solid #d1d1d1;
+  margin-left: 48px;
 }
 
 .contact-section-header {
