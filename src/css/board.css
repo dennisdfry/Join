@@ -311,7 +311,7 @@ body {
 .board-task-container-open {
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  animation: slideInFromRight 0.5s ease-out forwards; /* Animation hinzufügen */
+  animation: slideInFromRight 0.5s ease-out forwards;
 }
 
 .board-task-container-open h1 {
@@ -807,4 +807,28 @@ input[type="text" i] {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
+}
+
+.assignedToScroll {
+  height: 120px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
+}
+
+.assignedToScroll::-webkit-scrollbar {
+  display: none;
+}
+.assignedToScroll::-webkit-scrollbar-thumb {
+  background-color: #2a3647;
+  border-radius: 8px;
+}
+.assignedToScroll::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+.assignedToScroll::-webkit-scrollbar-thumb {
+  height: 53px;
 }
