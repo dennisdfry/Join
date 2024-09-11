@@ -116,7 +116,7 @@ function showForm(formId, overlayId, outsideClickHandler) {
 function closeForm(formId, overlayId, fieldIds) {
   document.getElementById(overlayId).classList.add("d-none");
 
-  const formField = document.getElementById(formId);
+  let formField = document.getElementById(formId);
   fieldIds.forEach((id) => (document.getElementById(id).value = ""));
   formField.style.animation = "moveOut 200ms ease-out forwards";
 
