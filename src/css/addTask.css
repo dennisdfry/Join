@@ -354,6 +354,12 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   position: relative;
 }
 
+select,
+input[type="date"],
+select option {
+  padding-left: 16px;
+}
+
 .selectBox select {
   overflow: hidden;
   /* Hide scrollbar */
@@ -364,8 +370,10 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   appearance: none;
   /* Remove default arrow */
   width: 475px;
-  padding: 5px;
-  /* Adjust padding as needed */
+  padding-left: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
   box-sizing: border-box;
   /* Ensure padding is included in the element's width */
 }
