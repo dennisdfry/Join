@@ -17,8 +17,12 @@
   }
 
   .contact-section-responsive {
-    width: 40vw;
-    height: 80vh;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 40vw !important;
+    height: 80vh !important;
+    background-color:rgb(68, 39, 2);
   }
 }
 
