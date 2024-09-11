@@ -6,8 +6,8 @@ function initSmry() {
   loadTasksAndCountCategories();
   loadTasksAndUpdateUrgentCount();
   loadTasksAndFindClosestDueDate();
-  summaryGreeting();
   summaryGreetingResp();
+  summaryGreeting();
   addClassAfterDelay()
 }
 
@@ -32,17 +32,17 @@ async function summaryGreeting() {
   }
 }
 
-/**
- * Displays a personalized greeting based on the time of day and the user's status.
- * @async
- * @function
- */
 async function summaryGreetingResp() {
   const hour = new Date().getHours();
   const greetingElement = document.querySelector(".summary-user-greeting-resp");
   const greetingElementName = document.querySelector(".summary-user-greeting-name-resp");
   const userImageElement = document.querySelector(".user-icon");
   const user = localStorage.getItem("user");
+
+  console.log("summaryGreetingResp called");
+  console.log("greetingElement:", greetingElement);
+  console.log("greetingElementName:", greetingElementName);
+  console.log("user:", user);
 
   if (greetingElement) {
     if (user === "Guest") {
