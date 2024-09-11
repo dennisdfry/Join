@@ -121,7 +121,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
           <div class="mg-btt25">
               <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Assigned To:</p>
           </div>
-          <div class="d-flex mg-btt25">
+          <div class="d-flex mg-btt25 assignedToScroll">
               <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
               </div>
           </div>
