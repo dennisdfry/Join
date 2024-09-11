@@ -1,3 +1,19 @@
+@media (max-width: 1350px) {
+  .contact-section-seperator-hor {
+    display: flex;
+    width: 90px;
+    border: 3px solid #29abe2;
+  }
+
+  .contact-section-seperator {
+    display: none;
+  }
+
+  .contact-section-header {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 800px) {
   body {
     height: 100vh;
@@ -251,7 +267,6 @@
     gap: 30px;
     background-color: #6c7782;
   }
-  
 
   .contact-information-data {
     width: 140px;
