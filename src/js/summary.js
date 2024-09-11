@@ -6,9 +6,9 @@ function initSmry() {
   loadTasksAndCountCategories();
   loadTasksAndUpdateUrgentCount();
   loadTasksAndFindClosestDueDate();
-  summaryGreetingResp();
   summaryGreeting();
-  addClassAfterDelay()
+  summaryGreetingResp();
+  addClassAfterDelay();
 }
 
 /**
@@ -38,11 +38,6 @@ async function summaryGreetingResp() {
   const greetingElementName = document.querySelector(".summary-user-greeting-name-resp");
   const userImageElement = document.querySelector(".user-icon");
   const user = localStorage.getItem("user");
-
-  console.log("summaryGreetingResp called");
-  console.log("greetingElement:", greetingElement);
-  console.log("greetingElementName:", greetingElementName);
-  console.log("user:", user);
 
   if (greetingElement) {
     if (user === "Guest") {
@@ -121,10 +116,13 @@ async function getUserData(userId) {
  * @param {HTMLElement} greetingElement - The HTML element for the greeting message.
  * @param {HTMLElement} greetingElementName - The HTML element for displaying the user's name.
  */
-function setGreeting(greetingMessage, userData, greetingElement, greetingElementName) {
+function setGreeting(greetingMessage, userData, greetingElement, greetingElementName, greetingElementNameResp) {
   if (userData && userData.name) {
     greetingElement.textContent = greetingMessage;
     greetingElementName.textContent = userData.name;
+    if (greetingElementNameResp) {
+      greetingElementNameResp.textContent = userData.name;
+    }
   } else {
     greetingElement.textContent = greetingMessage;
   }
@@ -172,7 +170,9 @@ async function checkAuthAndGreet(greetingMessage, greetingElement, greetingEleme
     const userId = user.uid;
     try {
       const userData = await getUserData(userId);
-      setGreeting(greetingMessage, userData, greetingElement, greetingElementName);
+      const greetingElementNameResp = document.querySelector(".summary-user-greeting-name-resp"); 
+
+      setGreeting(greetingMessage, userData, greetingElement, greetingElementName, greetingElementNameResp);
 
       const contactData = await getContactDataByEmail(userData.mail);
       const imgElement = document.querySelector(".user-icon");
@@ -196,10 +196,10 @@ async function loadTasks() {
   try {
     const taskSnapshot = await tasksRef.once("value");
     const taskData = taskSnapshot.val();
-    return taskData || {}; // Return an empty object if taskData is null
+    return taskData || {};
   } catch (error) {
     console.error("Error loading task data", error);
-    return {}; // Return an empty object in case of an error
+    return {};
   }
 }
 
@@ -399,16 +399,16 @@ async function loadTasksAndFindClosestDueDate() {
 }
 
 function addClassAfterDelay() {
-  const element = document.querySelector('.greet-responsive');
+  const element = document.querySelector(".greet-responsive");
   if (element) {
-      if (!localStorage.getItem('classAdded')) {
-          setTimeout(() => {
-              element.classList.add('d-none');
-              localStorage.setItem('classAdded', 'true');
-          }, 2000);
-      } else {
-          element.classList.add('d-none');
-      }
+    if (!localStorage.getItem("classAdded")) {
+      setTimeout(() => {
+        element.classList.add("d-none");
+        localStorage.setItem("classAdded", "true");
+      }, 2000);
+    } else {
+      element.classList.add("d-none");
+    }
   }
 }
 
