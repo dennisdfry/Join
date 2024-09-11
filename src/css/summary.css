@@ -186,6 +186,7 @@ body {
 
   .summary-headline-divider-hor {
     display: flex !important;
+    border-bottom: 3px;
   }
 
   .summary-headline-left {
