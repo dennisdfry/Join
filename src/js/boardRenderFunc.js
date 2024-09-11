@@ -151,8 +151,8 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
 window.editTaskHtml = function (index, category, title, description, date, prio) {
   return `
   <form onsubmit="handleFormSubmitEdit(event, ${index}, '${category}')">
-    <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
-        <div class="width445"> 
+    <div class="board-task-container-open edit-board-form bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
+        <div class="width445 edit-board-form2"> 
           <div class="d-flex-between margin-bt8">
               <h1 id="categoryColorEdit${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTaskEdit(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
@@ -219,9 +219,9 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
                     </div>
                     <ul class="subtasksListEdit" id="subtasksPosition${index}"></ul> 
           <div class="d-flex-end">
-            <div class="d-flex item-center">
-             <button class="d-flex item-center pointer d-flex-center edit-task-button">
-                <span class="fs-16 mg-block-none fs-21 f-weight-700 img-24">ok</span>
+            <div class=" d-flex content-even edit-task-button-div">
+             <button class="pointer edit-task-button">
+                <span class="fs-16 mg-block-none fs-21 f-weight-700 img-24">Edit</span>
                 <img class="open-task-delete-edit img" src="../public/img/check2.png">
              </button> 
             </div>

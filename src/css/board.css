@@ -311,7 +311,7 @@ body {
 .board-task-container-open {
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  animation: slideInFromRight 0.5s ease-out forwards; /* Animation hinzufügen */
+  animation: slideInFromRight 0.5s ease-out forwards;
 }
 
 .board-task-container-open h1 {
