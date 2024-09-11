@@ -39,4 +39,15 @@
   .contact-section-header {
     display: none;
   }
+
+  .contactlist-btn-box {
+    display: none;
+  }
+
+  .add-contact-btn-responsive {
+    display: flex;
+    position: fixed;
+    bottom: 15%;
+    left: 80%;
+  }
 }

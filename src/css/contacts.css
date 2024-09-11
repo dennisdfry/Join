@@ -70,6 +70,10 @@ body {
   scroll-margin-bottom: 0;
 }
 
+.add-contact-btn-responsive {
+  display: none;
+}
+
 .contactlist-content::-webkit-scrollbar {
   display: none;
 }
