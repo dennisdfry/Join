@@ -274,10 +274,6 @@ body {
   height: 592px;
 }
 
-.exitBtn-resp {
-  display: none;
-}
-
 #add-contact-overlay {
   position: fixed;
   left: 0;
