@@ -244,22 +244,20 @@ function searchTasks() {
   let allTasks = document.getElementsByTagName('div'); // Holt alle div-Elemente
 
   for (let i = 0; i < allTasks.length; i++) {
-    const task = allTasks[i];
+    let task = allTasks[i];
     
-    // Überprüfen, ob die ID des Elements mit 'parentContainer' beginnt
     if (task.id.startsWith('parentContainer')) {
-      // Zugriff auf den HTML-Inhalt des Titels (h2 oder task-title Klasse)
-      const title = task.getElementsByTagName('h2')[0].innerHTML.toLowerCase();
-      
-      // Überprüfen, ob der Titel den Suchtext enthält
+      let title = task.getElementsByTagName('h2')[0].innerHTML.toLowerCase();
       if (searchInput.length < 3 || title.includes(searchInput)) {
-        task.style.display = 'block'; // Task anzeigen
+        task.style.display = 'block';
       } else {
-        task.style.display = 'none'; // Task ausblenden
+        task.style.display = 'none';
       }
     }
   }
 }
+
+
 /**
  * Opens the form to add a new task.
  *
@@ -310,7 +308,7 @@ function enableEnterKeyAdd() {
   document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
-      const addButton = document.querySelector(".add-task-button");
+      const addButton = document.querySelector("#add-task-button2");
       if (addButton) {
         addButton.click(); 
       }
