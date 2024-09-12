@@ -5,13 +5,22 @@
  * - Checks if all required fields are filled and enables or disables the submit button accordingly.
  */
 function setupForm() {
-  document.getElementById("contact-form").addEventListener("submit", handleFormSubmit);
+  let form = document.getElementById("contact-form");
+  if (!form) return;
+  form.addEventListener("submit", handleFormSubmit);
+  console.log("Submit event listener added");
+
   ["name", "mail", "phone"].forEach((id) => {
-    document.getElementById(id).addEventListener("input", checkFormFields);
-    document.getElementById(id).addEventListener("keydown", handleEnterPress);
+    let element = document.getElementById(id);
+    if (element) {
+      element.addEventListener("input", checkFormFields);
+      element.addEventListener("keydown", handleEnterPress);
+    }
   });
+
   checkFormFields();
 }
+
 
 /**
  * Checks if all required fields are filled and enables or disables the submit button accordingly.
@@ -51,7 +60,6 @@ function handleFormSubmit(event) {
   addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
   closeFormField();
 }
-
 
 /**
  * Validates an email address.
@@ -109,7 +117,7 @@ function showFormField(formId = "add-form-section", overlayId = "overlay", outsi
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideClickHandler);
-  document.addEventListener("click", setupForm);
+  setupForm();
 }
 
 /**
@@ -121,16 +129,22 @@ function showFormField(formId = "add-form-section", overlayId = "overlay", outsi
  * @param {Array<string>} fieldIds - An array of field IDs to reset.
  */
 function closeFormField(formId = "add-form-section", overlayId = "overlay", fieldIds = ["name", "mail", "phone"]) {
-
   document.getElementById(overlayId).classList.add("d-none");
   let formField = document.getElementById(formId);
   fieldIds.forEach((id) => (document.getElementById(id).value = ""));
   formField.style.animation = "moveOut 200ms ease-out forwards";
+  
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
   }, 100);
-  document.removeEventListener("click", setupForm);
+  
+  document.removeEventListener("click", handleOutsideFormClick);
+  document.querySelectorAll(["name", "mail", "phone"]).forEach(id => {
+    let element = document.getElementById(id);
+    element.removeEventListener("input", checkFormFields);
+    element.removeEventListener("keydown", handleEnterPress);
+  });
 }
 
 /**
@@ -143,7 +157,6 @@ function showEditForm(contactId) {
   loadEditFormData(contactId);
   document.getElementById("edit-contact-form").addEventListener("keydown", handleEditEnterPress);
 }
-
 
 /**
  * Closes the edit form.
@@ -166,23 +179,15 @@ function handleEditEnterPress(event) {
 
 /**
  * Handles the submission of the edit form for contacts.
- *
- * This function is triggered when the edit form for contacts is submitted.
- * It prevents the default form submission behavior, retrieves the contact ID from
- * the form's data attributes, validates the input fields, and attempts to update the contact.
- * If an error occurs during this process, it logs the error to the console.
- *
  * @async
  * @param {Event} event - The event object representing the form submission.
- * @returns {void}
- * @throws {Error} - Logs an error if the contact ID is not found or if an issue occurs while updating the contact.
  */
 async function handleEditFormSubmit(event) {
   event.preventDefault();
-  let contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
+  const contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
   if (!contactId) return console.error("No contact ID found.");
 
-  let updatedContact = {
+  const updatedContact = {
     name: document.getElementById("edit-name").value.trim(),
     mail: document.getElementById("edit-mail").value.trim(),
     phone: document.getElementById("edit-phone").value.trim(),
@@ -202,24 +207,16 @@ async function handleEditFormSubmit(event) {
 
 /**
  * Loads contact data into the edit form fields.
- *
- * This function retrieves the contact data based on the provided contact ID
- * and populates the edit form fields with the contact's information. If the
- * contact has an image, it is displayed in the corresponding container; otherwise,
- * a generated profile image based on the contact's name is used.
- *
  * @async
  * @param {string} contactId - The unique identifier of the contact whose data should be loaded.
- * @returns {Promise<void>} - Resolves when the contact data has been successfully loaded into the form.
- * @throws {Error} - Logs an error if there is an issue retrieving the contact data.
  */
 async function loadEditFormData(contactId) {
   try {
-    let contact = await getContact(contactId);
+    const contact = await getContact(contactId);
     document.getElementById("edit-name").value = contact.name;
     document.getElementById("edit-mail").value = contact.mail;
     document.getElementById("edit-phone").value = contact.phone;
-    let editImageContainer = document.getElementById("prof2-img");
+    const editImageContainer = document.getElementById("prof2-img");
     if (editImageContainer) {
       editImageContainer.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}">`;
     }
@@ -253,7 +250,6 @@ function handleOutsideEditFormClick(event) {
  * Selects a contact and displays its details.
  * @async
  * @param {string} contactId - The ID of the contact to select.
- * @returns {Promise<void>}
  */
 async function selectContact(contactId) {
   let contactSection = document.getElementById("contact-section");
@@ -291,18 +287,11 @@ async function highlightContact(selectedContact) {
 
 /**
  * Displays the update bar with animations.
- * The update bar shows with a 'moveIn' animation, and after a short delay, hides with a 'moveOut' animation.
  */
 function showUpdateBar() {
-  let updateBar = document.getElementById("update-bar");
+  const updateBar = document.getElementById("update-bar");
   updateBar.classList.remove("d-none");
 
-  /**
-   * Handles the 'moveIn' animation event.
-   * After the 'moveIn' animation ends, it starts the 'moveOut' animation after a delay.
-   *
-   * @param {AnimationEvent} event - The animation event triggered when the 'moveIn' animation ends.
-   */
   function handleMoveIn(event) {
     if (event.animationName === "moveIn") {
       setTimeout(() => {
@@ -313,12 +302,6 @@ function showUpdateBar() {
     }
   }
 
-  /**
-   * Handles the 'moveOut' animation event.
-   * After the 'moveOut' animation ends, it hides the update bar and re-adds the 'moveIn' listener.
-   *
-   * @param {AnimationEvent} event - The animation event triggered when the 'moveOut' animation ends.
-   */
   function handleMoveOut(event) {
     if (event.animationName === "moveOut") {
       setTimeout(() => {
@@ -329,10 +312,8 @@ function showUpdateBar() {
     }
   }
 
-  // Initial listener for 'moveIn' animation
   updateBar.addEventListener("animationend", handleMoveIn);
 }
-
 
 /**
  * Sorts contacts alphabetically based on their names.
