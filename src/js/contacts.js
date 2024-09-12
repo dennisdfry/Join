@@ -95,50 +95,42 @@ function capitalizeSecondLetter(words) {
 
 /**
  * Displays the contact form with animation.
+ * Shows the form and its overlay, applying animations and setting up event listeners for handling outside clicks.
+ * 
  * @param {string} formId - The ID of the form to display.
  * @param {string} overlayId - The ID of the overlay to display.
  * @param {Function} outsideClickHandler - The function to handle clicks outside the form.
  */
-function showForm(formId, overlayId, outsideClickHandler) {
+function showFormField(formId = "add-form-section", overlayId = "overlay", outsideClickHandler = handleOutsideFormClick) {
   let formField = document.getElementById(formId);
-  document.getElementById(overlayId).classList.remove("d-none");
+  let overlay = document.getElementById(overlayId);
+  
+  overlay.classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideClickHandler);
-}
-
-/**
- * Closes a form by hiding the form element and applying an animation.
- * @param {string} formId - The ID of the form to close.
- * @param {string} overlayId - The ID of the overlay to hide.
- * @param {Array<string>} fieldIds - An array of field IDs to reset.
- */
-function closeForm(formId, overlayId, fieldIds) {
-  document.getElementById(overlayId).classList.add("d-none");
-
-  let formField = document.getElementById(formId);
-  fieldIds.forEach((id) => (document.getElementById(id).value = ""));
-  formField.style.animation = "moveOut 200ms ease-out forwards";
-
-  setTimeout(() => {
-    formField.classList.add("hidden", "d-none");
-    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 100);
-}
-
-/**
- * Displays the form for adding a contact.
- */
-function showFormField() {
-  showForm("add-form-section", "overlay", handleOutsideFormClick);
   document.addEventListener("click", setupForm);
 }
 
 /**
  * Closes the form for adding a contact.
+ * Hides the form and overlay with animations and resets the input fields.
+ * 
+ * @param {string} formId - The ID of the form to close.
+ * @param {string} overlayId - The ID of the overlay to hide.
+ * @param {Array<string>} fieldIds - An array of field IDs to reset.
  */
-function closeFormField() {
-  closeForm("add-form-section", "overlay", ["name", "mail", "phone"]);
+function closeFormField(formId = "add-form-section", overlayId = "overlay", fieldIds = ["name", "mail", "phone"]) {
+
+  document.getElementById(overlayId).classList.add("d-none");
+  let formField = document.getElementById(formId);
+  fieldIds.forEach((id) => (document.getElementById(id).value = ""));
+  formField.style.animation = "moveOut 200ms ease-out forwards";
+  setTimeout(() => {
+    formField.classList.add("hidden", "d-none");
+    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
+  }, 100);
+  document.removeEventListener("click", setupForm);
 }
 
 /**
@@ -146,18 +138,18 @@ function closeFormField() {
  * @param {string} contactId - The ID of the contact to edit.
  */
 function showEditForm(contactId) {
-  showForm("edit-contact-section", "edit-overlay", handleOutsideEditFormClick);
+  showFormField("edit-contact-section", "edit-overlay", handleOutsideEditFormClick);
   document.getElementById("edit-contact-form").setAttribute("data-id", contactId);
   loadEditFormData(contactId);
-
   document.getElementById("edit-contact-form").addEventListener("keydown", handleEditEnterPress);
 }
+
 
 /**
  * Closes the edit form.
  */
 function closeEditField() {
-  closeForm("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
+  closeFormField("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
   document.getElementById("edit-contact-form").removeEventListener("keydown", handleEditEnterPress);
 }
 
