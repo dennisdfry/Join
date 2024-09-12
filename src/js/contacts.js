@@ -150,7 +150,6 @@ function showEditForm(contactId) {
   document.getElementById("edit-contact-form").setAttribute("data-id", contactId);
   loadEditFormData(contactId);
 
-  // Add keydown event handler for the edit form
   document.getElementById("edit-contact-form").addEventListener("keydown", handleEditEnterPress);
 }
 
@@ -159,8 +158,6 @@ function showEditForm(contactId) {
  */
 function closeEditField() {
   closeForm("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
-
-  // Remove keydown event handler when the form is closed
   document.getElementById("edit-contact-form").removeEventListener("keydown", handleEditEnterPress);
 }
 
@@ -301,25 +298,49 @@ async function highlightContact(selectedContact) {
 }
 
 /**
- * Displays the update bar after a contact has been created, with animation.
+ * Displays the update bar with animations.
+ * The update bar shows with a 'moveIn' animation, and after a short delay, hides with a 'moveOut' animation.
  */
 function showUpdateBar() {
   let updateBar = document.getElementById("update-bar");
   updateBar.classList.remove("d-none");
 
-  updateBar.addEventListener("animationend", function (event) {
+  /**
+   * Handles the 'moveIn' animation event.
+   * After the 'moveIn' animation ends, it starts the 'moveOut' animation after a delay.
+   *
+   * @param {AnimationEvent} event - The animation event triggered when the 'moveIn' animation ends.
+   */
+  function handleMoveIn(event) {
     if (event.animationName === "moveIn") {
       setTimeout(() => {
         updateBar.classList.add("move-out");
-        updateBar.addEventListener("animationend", function (event) {
-          if (event.animationName === "moveOut") {
-            updateBar.classList.add("d-none");
-          }
-        });
+        updateBar.addEventListener("animationend", handleMoveOut);
+      }, 100);
+      updateBar.removeEventListener("animationend", handleMoveIn);
+    }
+  }
+
+  /**
+   * Handles the 'moveOut' animation event.
+   * After the 'moveOut' animation ends, it hides the update bar and re-adds the 'moveIn' listener.
+   *
+   * @param {AnimationEvent} event - The animation event triggered when the 'moveOut' animation ends.
+   */
+  function handleMoveOut(event) {
+    if (event.animationName === "moveOut") {
+      setTimeout(() => {
+        updateBar.classList.add("d-none");
+        updateBar.removeEventListener("animationend", handleMoveOut);
+        updateBar.addEventListener("animationend", handleMoveIn); 
       }, 100);
     }
-  });
+  }
+
+  // Initial listener for 'moveIn' animation
+  updateBar.addEventListener("animationend", handleMoveIn);
 }
+
 
 /**
  * Sorts contacts alphabetically based on their names.
