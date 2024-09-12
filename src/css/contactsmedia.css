@@ -1,5 +1,5 @@
 @media (max-width: 1350px) {
-  .contact-section-seperator-hor {
+    .contact-section-seperator-hor {
     display: flex;
     width: 90px;
     border-bottom: 3px solid #29abe2;
@@ -18,18 +18,18 @@
 
   .add-form-section {
     width: 396px !important;
-    height: 352px !important;
+    height: 760px !important;
   }
 
   .add-contact-content-left-box {
     width: 396px;
     height: 352px;
-    border-radius: 30px 30px 0px 0px; 
+    border-radius: 30px 30px 0px 0px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
   }
-  
+
   .add-contact-content-left-box h2 {
     font-size: 47px;
   }
@@ -38,7 +38,8 @@
     font-size: 20px;
   }
 
-  .formfield-logo {
+  .formfield-logo,
+  #formfield-cancel-btn {
     display: none;
   }
 
@@ -56,6 +57,21 @@
     position: absolute;
     left: 138px;
     top: 300px;
+  }
+
+  #contact-form {
+    position: absolute !important;
+    width: 364px;
+    top: 450px;
+    left: 15px;
+  }
+
+  #formfield-create-btn {
+    position: absolute;
+    left: 80px;
+    top: 240px;
+    height: 51px;
+    width: 202px;
   }
 }
 
