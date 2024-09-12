@@ -41,7 +41,7 @@ function renderContactItem(contactList, id, contact, imageSrc) {
  */
 function renderContactHead(contactSection, contact, contactId) {
   contactSection.innerHTML += `
-    <div class="animation-100">
+    <div class="edit-contact-section animation-100">
       <div class="contact-information item-center d-flex">
         <img src="${contact.img || generateProfileImage(contact.name)}" class="d-flex gap-10 obj-cover bradius70"/>
         <div class="d-flex flex-d-col gap-8 item-start flex-grow">
