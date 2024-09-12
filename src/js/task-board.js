@@ -74,6 +74,7 @@ async function generateHTMLObjects(taskkeys, task) {
       boardCategory
     );
   }
+  searchTasks();
 }
 
 /**
@@ -234,64 +235,31 @@ function clearSubtask2() {
 }
 
 /**
- * Searches and filters tasks based on the query string.
- *
- * Hides or shows task containers based on whether the task title includes the query.
- *
- * @param {string} query - The search query string.
+ * Filters tasks based on the search input.
+ * Displays tasks that match the search query (starting from 3 characters).
+ * If the input is cleared, all tasks are shown again.
  */
-function searchTasks(query) {
-  let lowerCaseQuery = query.toLowerCase();
-  let minQueryLength = 3;
+function searchTasks() {
+  const searchInput = document.querySelector('.search-task-web').value.toLowerCase();
+  let allTasks = document.getElementsByTagName('div'); // Holt alle div-Elemente
 
-  if (lowerCaseQuery.length < minQueryLength) {
-    resetTaskVisibility();
-    return;
-  }
-
-  let taskContainers = document.querySelectorAll(
-    ".board-render-status-container"
-  );
-  taskContainers.forEach((container) => {
-    let tasks = container.querySelectorAll(".board-task-container");
-    let taskFound = false;
-    tasks.forEach((task) => {
-      let taskTitleElement = task.querySelector(".task-title");
-      if (taskTitleElement) {
-        let taskTitle = taskTitleElement.textContent.toLowerCase();
-        if (taskTitle.includes(lowerCaseQuery)) {
-          task.style.display = "";
-          taskFound = true;
-        } else {
-          task.style.display = "none";
-        }
+  for (let i = 0; i < allTasks.length; i++) {
+    const task = allTasks[i];
+    
+    // Überprüfen, ob die ID des Elements mit 'parentContainer' beginnt
+    if (task.id.startsWith('parentContainer')) {
+      // Zugriff auf den HTML-Inhalt des Titels (h2 oder task-title Klasse)
+      const title = task.getElementsByTagName('h2')[0].innerHTML.toLowerCase();
+      
+      // Überprüfen, ob der Titel den Suchtext enthält
+      if (searchInput.length < 3 || title.includes(searchInput)) {
+        task.style.display = 'block'; // Task anzeigen
       } else {
-        console.error("Element '.task-title' not found.");
+        task.style.display = 'none'; // Task ausblenden
       }
-    });
-    container.style.display = taskFound ? "" : "none";
-  });
+    }
+  }
 }
-
-/**
- * Resets the visibility of all tasks.
- *
- * Makes all task containers and tasks visible again.
- */
-function resetTaskVisibility() {
-  let taskContainers = document.querySelectorAll(
-    ".board-render-status-container"
-  );
-  taskContainers.forEach((container) => {
-    let tasks = container.querySelectorAll(".board-task-container");
-    tasks.forEach((task) => {
-      task.style.display = "";
-    });
-
-    container.style.display = "";
-  });
-}
-
 /**
  * Opens the form to add a new task.
  *

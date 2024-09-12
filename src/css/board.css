@@ -559,7 +559,6 @@ body {
 }
 
 .add-task-textarea2 {
-  padding: 8px 16px 8px 16px;
   min-height: 124px;
   max-height: 240px;
   width: 460px;
@@ -574,6 +573,11 @@ body {
   font-size: 20px;
   box-sizing: border-box;
   position: relative;
+}
+
+.add-task-textarea2::placeholder {
+  padding-top: 4px;
+  padding-left: 16px;
 }
 
 .add-task-select2 {
@@ -631,11 +635,16 @@ body {
   padding: 0;
   margin: 0;
 }
+.add-task-input2::placeholder{
+  padding-left: 16px;
+}
 
 input[type="text" i] {
   padding-block: 0px;
   /* padding-inline: 0px; */
 }
+
+
 
 .add-task-button2 {
   background: none;
@@ -700,6 +709,10 @@ input[type="text" i] {
 }
 .subtasksList2::-webkit-scrollbar-thumb {
   height: 53px;
+}
+
+label[for="dueDate"]{
+  margin-top: 0 !important;
 }
 
 .add-task-prio-button2 {

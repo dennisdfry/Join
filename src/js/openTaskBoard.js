@@ -74,7 +74,6 @@ function closeOpenTask(event, indexHTML) {
   event.stopPropagation();
   let openPosition = document.getElementById("openTask");
   openPosition.classList.remove("modal-overlay");
-
   openPosition.style.animation = "moveOut 200ms ease-out forwards";
   setTimeout(() => {
     openPosition.classList.add("hidden", "d-none");
