@@ -17,8 +17,8 @@
   }
 
   .add-form-section {
-    width: 90vw !important;
-    height: 90vh !important;
+    width: 396px !important;
+    height: 352px !important;
   }
 
   .add-contact-content-left-box {
@@ -50,6 +50,12 @@
   .add-contact-content-left-box p,
   .add-contact-seperator {
     margin-left: 20px;
+  }
+
+  .form-prof-img {
+    position: absolute;
+    left: 138px;
+    top: 300px;
   }
 }
 
