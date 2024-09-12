@@ -17,8 +17,9 @@
   }
 
   .add-form-section {
+    top: 11%;
     width: 396px !important;
-    height: 760px !important;
+    height: 730px !important;
   }
 
   .add-contact-content-left-box {
@@ -69,15 +70,21 @@
   #formfield-create-btn {
     position: absolute;
     left: 80px;
-    top: 240px;
+    top: 210px;
     height: 51px;
     width: 202px;
   }
 
   .exitBtn-resp {
+    display: flex;
     position: absolute;
     top: 20px;
     right: 20px;
+    cursor: pointer;
+  }
+
+  #contact-form input {
+    height: 36px;
   }
 }
 
@@ -113,5 +120,20 @@
     position: fixed;
     bottom: 15%;
     left: 300px;
+  }
+
+  #add-form-section {   
+    top: 11%; 
+    left: 2%;
+  }
+
+  .add-contact-seperator {
+    margin: 0;
+  }
+
+  .add-contact-content-left-box h2,
+  .add-contact-content-left-box p,
+  .add-contact-seperator {
+    margin-left: 20px;
   }
 }
