@@ -73,6 +73,12 @@
     height: 51px;
     width: 202px;
   }
+
+  .exitBtn-resp {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
 }
 
 @media (max-width: 1050px) {
