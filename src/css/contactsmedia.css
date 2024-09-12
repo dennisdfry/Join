@@ -1,5 +1,5 @@
 @media (max-width: 1350px) {
-    .contact-section-seperator-hor {
+  .contact-section-seperator-hor {
     display: flex;
     width: 90px;
     border-bottom: 3px solid #29abe2;
@@ -122,8 +122,8 @@
     left: 300px;
   }
 
-  #add-form-section {   
-    top: 11%; 
+  #add-form-section {
+    top: 11%;
     left: 2%;
   }
 
