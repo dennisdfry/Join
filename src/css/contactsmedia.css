@@ -197,10 +197,3 @@
     left: 480px;
   }
 }
-
-@media (max-width: 850px) {
-  .edit-contact-section,
-  #contact-section {
-    display: none;
-  }
-}
