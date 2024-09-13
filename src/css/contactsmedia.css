@@ -16,7 +16,8 @@
     gap: 16px;
   }
 
-  .add-form-section {
+  .add-form-section,
+  .edit-contact-section {
     top: 11%;
     width: 396px !important;
     height: 730px !important;
@@ -60,7 +61,8 @@
     top: 300px;
   }
 
-  #contact-form {
+  #contact-form,
+  #edit-contact-form {
     position: absolute !important;
     width: 364px;
     top: 450px;
