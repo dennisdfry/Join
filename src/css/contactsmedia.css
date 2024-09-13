@@ -77,6 +77,19 @@
     width: 202px;
   }
 
+  .editfield-btn-box {
+    position: absolute;
+    left: 80px;
+    top: 660px;
+    height: 47px;
+    width: 202px;
+  }
+
+  #editfield-cancel-btn,
+  #editfield-create-btn {
+    height: 47px;
+  }
+
   .exitBtn-resp {
     display: flex;
     position: absolute;
@@ -85,7 +98,8 @@
     cursor: pointer;
   }
 
-  #contact-form input {
+  #contact-form input,
+  #edit-contact-form input{
     height: 36px;
   }
   
