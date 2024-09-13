@@ -9,6 +9,11 @@
     display: none;
   }
 
+  #contact-section {
+    height: 50vh;
+    top: 5000px !important;
+  }
+
   .contact-section-header {
     justify-content: flex-start;
     align-items: flex-start;
