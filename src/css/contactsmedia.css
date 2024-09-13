@@ -10,8 +10,18 @@
   }
 
   #contact-section {
-    height: 50vh;
-    top: 5000px !important;
+    width: 461px;
+    height: 200px;
+    top: 400px;
+    left: 700px;
+  }
+
+  .contact-information {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 200px;
+    gap: 0;
   }
 
   .contact-section-header {
@@ -104,10 +114,10 @@
   }
 
   #contact-form input,
-  #edit-contact-form input{
+  #edit-contact-form input {
     height: 36px;
   }
-  
+
   @keyframes moveIn {
     0% {
       visibility: visible;
@@ -178,5 +188,12 @@
   .add-contact-content-left-box p,
   .add-contact-seperator {
     margin-left: 20px;
-  }  
+  }
+
+  #contact-section {
+    width: 461px;
+    height: 364px;
+    top: 200px;
+    left: 480px;
+  }
 }
