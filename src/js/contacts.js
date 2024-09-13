@@ -21,7 +21,6 @@ function setupForm() {
   checkFormFields();
 }
 
-
 /**
  * Checks if all required fields are filled and enables or disables the submit button accordingly.
  */
@@ -48,12 +47,10 @@ function handleEnterPress(event) {
 function handleFormSubmit(event) {
   event.preventDefault();
 
-  let [name, mail, phone] = ["name", "mail", "phone"].map(id => document.getElementById(id).value.trim());
+  let [name, mail, phone] = ["name", "mail", "phone"].map((id) => document.getElementById(id).value.trim());
 
   if (![name, validateEmail(mail), validatePhone(phone)].every(Boolean)) {
-    ["name", "mail", "phone"].forEach(id => 
-      document.getElementById(id).classList.toggle("input-error", !document.getElementById(id).value.trim())
-    );
+    ["name", "mail", "phone"].forEach((id) => document.getElementById(id).classList.toggle("input-error", !document.getElementById(id).value.trim()));
     return;
   }
 
@@ -104,7 +101,7 @@ function capitalizeSecondLetter(words) {
 /**
  * Displays the contact form with animation.
  * Shows the form and its overlay, applying animations and setting up event listeners for handling outside clicks.
- * 
+ *
  * @param {string} formId - The ID of the form to display.
  * @param {string} overlayId - The ID of the overlay to display.
  * @param {Function} outsideClickHandler - The function to handle clicks outside the form.
@@ -112,7 +109,7 @@ function capitalizeSecondLetter(words) {
 function showFormField(formId = "add-form-section", overlayId = "overlay", outsideClickHandler = handleOutsideFormClick) {
   let formField = document.getElementById(formId);
   let overlay = document.getElementById(overlayId);
-  
+
   overlay.classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
@@ -123,7 +120,7 @@ function showFormField(formId = "add-form-section", overlayId = "overlay", outsi
 /**
  * Closes the form for adding a contact.
  * Hides the form and overlay with animations and resets the input fields.
- * 
+ *
  * @param {string} formId - The ID of the form to close.
  * @param {string} overlayId - The ID of the overlay to hide.
  * @param {Array<string>} fieldIds - An array of field IDs to reset.
@@ -133,14 +130,14 @@ function closeFormField(formId = "add-form-section", overlayId = "overlay", fiel
   let formField = document.getElementById(formId);
   fieldIds.forEach((id) => (document.getElementById(id).value = ""));
   formField.style.animation = "moveOut 200ms ease-out forwards";
-  
+
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
   }, 100);
-  
+
   document.removeEventListener("click", handleOutsideFormClick);
-  document.querySelectorAll(["name", "mail", "phone"]).forEach(id => {
+  document.querySelectorAll(["name", "mail", "phone"]).forEach((id) => {
     let element = document.getElementById(id);
     element.removeEventListener("input", checkFormFields);
     element.removeEventListener("keydown", handleEnterPress);
@@ -307,7 +304,7 @@ function showUpdateBar() {
       setTimeout(() => {
         updateBar.classList.add("d-none");
         updateBar.removeEventListener("animationend", handleMoveOut);
-        updateBar.addEventListener("animationend", handleMoveIn); 
+        updateBar.addEventListener("animationend", handleMoveIn);
       }, 100);
     }
   }
