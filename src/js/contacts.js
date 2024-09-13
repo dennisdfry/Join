@@ -184,17 +184,26 @@ function handleEditEnterPress(event) {
  */
 async function handleEditFormSubmit(event) {
   event.preventDefault();
+  
   const contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
   if (!contactId) return console.error("No contact ID found.");
+  
 
+  const oldContact = await getContact(contactId);
+  const newName = document.getElementById("edit-name").value.trim();
+  
   const updatedContact = {
-    name: document.getElementById("edit-name").value.trim(),
+    name: newName,
     mail: document.getElementById("edit-mail").value.trim(),
     phone: document.getElementById("edit-phone").value.trim(),
-    img: document.getElementById("prof2-img").querySelector("img")?.src || generateProfileImage(document.getElementById("edit-name").value),
+    img: oldContact.name !== newName 
+         ? generateProfileImage(newName) 
+         : document.getElementById("prof2-img").querySelector("img")?.src || oldContact.img,
   };
 
-  if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) return console.error("Invalid email or phone number.");
+  if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) {
+    return console.error("Invalid email or phone number.");
+  }
 
   try {
     await replaceContact(contactId, updatedContact);
