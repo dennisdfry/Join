@@ -273,6 +273,7 @@ function openAddForm() {
   formField.style.cssText =
     "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideClickHandler);
+  document.addEventListener("keydown", handleEnterKey);
 }
 
 /**
@@ -293,6 +294,7 @@ function closeAddForm() {
   }, 100);
 
   document.removeEventListener("click", outsideClickHandler);
+  document.removeEventListener("keydown", handleEnterKey);
 }
 
 function outsideClickHandler(event) {
@@ -304,14 +306,12 @@ function outsideClickHandler(event) {
   }
 }
 
-function enableEnterKeyAdd() {
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const addButton = document.querySelector("#add-task-button2");
-      if (addButton) {
-        addButton.click(); 
-      }
+function handleEnterKey(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    let addButton = document.querySelector("#add-task-button2");
+    if (addButton) {
+      addButton.click();
     }
-  });
+  }
 }

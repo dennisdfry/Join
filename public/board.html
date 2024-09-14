@@ -54,7 +54,7 @@
         <div class="board-column">
           <div class="board-task-column">
             <h4 class="mg-block-inline">In progress</h4>
-            <img src="./img/plus button.png" />
+            <img onclick="openAddForm()" src="./img/plus button.png" />
           </div>
           <div class="status-message">No tasks in progress</div>
           <div class="board-render-status-container drag-area" id="progress" ondrop="moveTo('progress')" ondragover="allowDrop(event)"></div>
@@ -62,7 +62,7 @@
         <div class="board-column">
           <div class="board-task-column">
             <h4 class="mg-block-inline">Await feedback</h4>
-            <img src="./img/plus button.png" />
+            <img onclick="openAddForm()" src="./img/plus button.png" />
           </div>
           <div class="status-message">No tasks in feedback</div>
           <div class="board-render-status-container drag-area" id="feedback" ondrop="moveTo('feedback')" ondragover="allowDrop(event)"></div>

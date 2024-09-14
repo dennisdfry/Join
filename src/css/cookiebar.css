@@ -19,8 +19,8 @@
   }
   
   .cookie-button {
-    background-color: #4CAF50;
-    color: white;
+    background-color:#2a3647;
+    color:#29abe2;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -30,8 +30,11 @@
     margin: 5px;
     cursor: pointer;
     border-radius: 5px;
+    border: 1px solid #2a3647;
   }
   
   .cookie-button:hover {
-    background-color: #45a049;
+    background-color: #29abe2;
+    color: #2a3647;
+    cursor: pointer;   
   }

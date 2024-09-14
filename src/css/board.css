@@ -478,8 +478,8 @@ body {
   width: 1116px;
   height: 766px;
   position: absolute;
-  top: 88px;
-  left: 240px;
+  top: 8px;
+  left: 212px;
   border-radius: 30px !important;
   background-color: #ffffff !important;
   animation: moveIn 200ms ease-in 100ms forwards;

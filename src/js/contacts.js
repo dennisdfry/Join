@@ -71,12 +71,16 @@ function validateEmail(email) {
 }
 
 /**
- * Validates a phone number.
+ * Validates a phone number based on custom rules.
+ * - Must start with + and a valid country code (1-3 digits), or start with a 0.
+ * - Can only contain digits after the country code or leading zero.
+ * - Length must be between 10 and 16 digits.
  * @param {string} phone - The phone number to validate.
  * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
 function validatePhone(phone) {
-  return /^\+?[0-9]{10,16}$/.test(phone);
+  const phoneRegex = /^(?:\+?\d{1,3}|0)\d{7,14}$/; // +Country code (1-3 digits) or 0 followed by 7-14 digits
+  return phoneRegex.test(phone);
 }
 
 /**
@@ -189,8 +193,8 @@ async function handleEditFormSubmit(event) {
   if (!contactId) return console.error("No contact ID found.");
   
 
-  const oldContact = await getContact(contactId);
-  const newName = document.getElementById("edit-name").value.trim();
+  let oldContact = await getContact(contactId);
+  let newName = document.getElementById("edit-name").value.trim();
   
   const updatedContact = {
     name: newName,
@@ -225,7 +229,7 @@ async function loadEditFormData(contactId) {
     document.getElementById("edit-name").value = contact.name;
     document.getElementById("edit-mail").value = contact.mail;
     document.getElementById("edit-phone").value = contact.phone;
-    const editImageContainer = document.getElementById("prof2-img");
+    let editImageContainer = document.getElementById("prof2-img");
     if (editImageContainer) {
       editImageContainer.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}">`;
     }
@@ -298,7 +302,7 @@ async function highlightContact(selectedContact) {
  * Displays the update bar with animations.
  */
 function showUpdateBar() {
-  const updateBar = document.getElementById("update-bar");
+  let updateBar = document.getElementById("update-bar");
   updateBar.classList.remove("d-none");
 
   function handleMoveIn(event) {
