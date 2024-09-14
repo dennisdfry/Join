@@ -100,13 +100,13 @@ async function assignedTo(contacts, imageUrls) {
 function checkboxInit(names, imageUrls) {
   let position = document.getElementById("checkboxes");
   position.innerHTML = "";
-  let list = ""; // Initialize the string
+  let list = "";
   for (let index = 0; index < names.length; index++) {
     const element = names[index].name;
-    const imgSrc = imageUrls[index]; // Get image URL
+    const imgSrc = imageUrls[index];
     list += checkBoxRender(index, imgSrc, element);
   }
-  position.innerHTML = list; // Set HTML content
+  position.innerHTML = list;
 }
 
 /**
