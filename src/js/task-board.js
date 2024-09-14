@@ -1,6 +1,7 @@
 const taskkeysGlobal = [];
 let task = {};
 let currentDraggedElement;
+
 /**
  * Loads the task board data, fetches images, and generates HTML elements.
  * The function resets the global task keys array, loads task data, fetches images,
@@ -22,6 +23,7 @@ async function loadingBoard() {
     console.error("Error loading tasks:", error);
   }
 }
+
 /**
  * Fetches and loads task data from the specified path.
  *
@@ -34,6 +36,7 @@ async function onloadDataBoard(path = "") {
   let responseToJson = await response.json();
   return responseToJson;
 }
+
 /**
  * Fetches and loads images for the board from the specified path.
  *
@@ -48,6 +51,7 @@ async function fetchImagesBoard(path = "") {
   let imageUrl = Object.values(contacts).map((contact) => contact.img);
   return imageUrl;
 }
+
 /**
  * Generates and positions HTML elements for each task on the board.
  *
@@ -59,18 +63,11 @@ async function generateHTMLObjects(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
     const { category, description, dueDate, prio, title, boardCategory } =
       task[taskkeys[index]][0];
-    await positionOfHTMLBlock(
-      index,
-      category,
-      title,
-      description,
-      dueDate,
-      prio,
-      boardCategory
-    );
+    await positionOfHTMLBlock(index,category,title,description,dueDate,prio,boardCategory);
   }
   searchTasks();
 }
+
 /**
  * Clears and updates the HTML content of task categories on the board.
  * The function clears the content of predefined task categories and then
@@ -80,16 +77,19 @@ async function generateHTMLObjects(taskkeys, task) {
  */
 async function updateHTML() {
   const categories = ["todo", "progress", "feedback", "done"];
+
   for (const category of categories) {
     const container = document.getElementById(category);
     container.innerHTML = "";
   }
+
   try {
     await loadingBoard();
   } catch (error) {
     console.error("Error updating HTML content:", error);
   }
 }
+
 /**
  * Updates the priority button styling.
  *
@@ -101,6 +101,7 @@ function prio2(id) {
   const buttons = document.querySelectorAll(
     ".add-task-prio-button-container button"
   );
+
   buttons.forEach((button) => {
     button.classList.remove(
       "add-task-prio-button-urgent",
@@ -112,6 +113,7 @@ function prio2(id) {
   let position = document.getElementById(`prio2Button${id}`);
   prioIdCheck(id, position);
 }
+
 /**
  * Defines task objects for creation.
  *
@@ -131,10 +133,11 @@ function defineTaskObjects2() {
     lastString
   );
 }
+
 /**
  * Pushes task objects into the global task array.
  *
- * Creates a task object and adds it to `addTaskArray`.
+ * Creates a task object and adds it to addTaskArray.
  *
  * @param {string} taskTitle - The title of the task.
  * @param {string} taskDescription - The description of the task.
@@ -161,6 +164,7 @@ function pushTaskObjectsToArray2(
     boardCategory: "todo",
   });
 }
+
 /**
  * Shows subtask controls for input and adding subtasks.
  *
@@ -170,7 +174,7 @@ function showSubtaskControls2() {
   document.getElementById("subtasks2").classList.remove("add-task-input");
   document.getElementById("subtask2").classList.add("subtasks-input");
   let position = document.getElementById("subtasksControl2");
-  position.innerHTML = `<button onclick="resetSubtaskInput()" type="button" class="subtask-button">
+      position.innerHTML = `<button onclick="resetSubtaskInput()" type="button" class="subtask-button">
                               <img src="../public/img/closeAddTask.png" alt="Reset">
                           </button>
                           <div class="seperator-subtasks"></div>
@@ -178,6 +182,7 @@ function showSubtaskControls2() {
                               <img src="../public/img/checkAddTask.png" alt="Add">
                           </button>`;
 }
+
 /**
  * Adds a new subtask to the list.
  *
@@ -192,6 +197,7 @@ function addSubtask2() {
     resetSubtaskInput2();
   }
 }
+
 /**
  * Saves the current task data to Firebase.
  *
@@ -208,6 +214,7 @@ async function saveToFirebase2(path = "/tasks") {
     body: JSON.stringify(addTaskArray),
   });
 }
+
 /**
  * Clears the subtasks display.
  *
@@ -217,6 +224,7 @@ function clearSubtask2() {
   let position = document.getElementById("subtasksPosition");
   position.innerHTML = "";
 }
+
 /**
  * Filters tasks based on the search input.
  * Displays tasks that match the search query (starting from 3 characters).
@@ -225,6 +233,7 @@ function clearSubtask2() {
 function searchTasks() {
   const searchInput = document.querySelector('.search-task-web').value.toLowerCase();
   let allTasks = document.getElementsByTagName('div'); // Holt alle div-Elemente
+
   for (let i = 0; i < allTasks.length; i++) {
     let task = allTasks[i];
     
@@ -238,6 +247,8 @@ function searchTasks() {
     }
   }
 }
+
+
 /**
  * Opens the form to add a new task.
  *
@@ -255,6 +266,7 @@ function openAddForm() {
   document.addEventListener("click", outsideClickHandler);
   document.addEventListener("keydown", handleEnterKey);
 }
+
 /**
  * Closes the form.
  *
@@ -265,23 +277,31 @@ function closeAddForm() {
   let formField = document.getElementById("add-task-form");
   formField.classList.remove("d-none");
   formField.style.animation = "moveOut 200ms ease-out forwards";
+
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText =
       "visibility: hidden; transform: translateX(100vw)";
   }, 100);
+
   document.removeEventListener("click", outsideClickHandler);
   document.removeEventListener("keydown", handleEnterKey);
 }
+
+
 function outsideClickHandler(event) {
   let formField = document.getElementById("add-task-form");
   let overlay = document.getElementById("overlay-form");
+
   if (!formField.contains(event.target) && overlay.contains(event.target)) {
     closeAddForm();
   }
 }
+
+
 function handleEnterKey(event) {
   if (event.key === "Enter") {
+    event.preventDefault();
     let activeElement = document.activeElement;
     let subtaskInput = document.getElementById('subtasks2');
 
