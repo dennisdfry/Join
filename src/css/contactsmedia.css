@@ -13,7 +13,7 @@
     width: 461px;
     height: 200px;
     top: 400px;
-    left: 700px;
+    left: 750px;
   }
 
   .contact-information {
@@ -207,7 +207,6 @@
     position: fixed;
     left: 5%;
     z-index: 3000;
-    background-color: #29abe2;
   }
 
   .edit-contact-section {
@@ -225,5 +224,22 @@
   .contact-information {
     flex-direction: row;
     align-items: center;
+  }
+
+  .test-div {
+    position: fixed;
+    top: 10%;
+    left: 0;
+    width: 100vw;
+    height: 81.5vh;
+    background-color: aliceblue;
+    z-index: 5000;
+  }
+
+  .contact-section-header {
+    display: flex;
+    position: fixed;
+    top: 12%;
+    left: 5%;
   }
 }
