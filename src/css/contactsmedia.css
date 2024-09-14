@@ -200,8 +200,21 @@
 }
 
 @media (max-width: 850px) {
-  .contact-information,
+  #contact-section,
   #contact-information-content {
+    display: flex !important;
+    width: 300px;
+    position: fixed;
+    left: 5%;
+    z-index: 3000;
+    background-color: #29abe2;
+  }
+
+  .edit-contact-section {
+    height: 200px !important;
+  }
+
+  .contact-section-btn-box {
     display: none;
   }
 }
