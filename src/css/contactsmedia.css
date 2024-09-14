@@ -211,10 +211,19 @@
   }
 
   .edit-contact-section {
-    height: 200px !important;
+    height: 150px !important;
   }
 
   .contact-section-btn-box {
     display: none;
+  }
+
+  .contact-name-edit {
+    font-size: 36px;
+  }
+
+  .contact-information {
+    flex-direction: row;
+    align-items: center;
   }
 }
