@@ -9,7 +9,6 @@ let taskInfo;
 function searchprioOpenTask(index, prio) {
   let position = document.getElementById(`prioPositionOpenTask${index}`);
   position.innerHTML = "";
-  // Set the appropriate image based on the priority level
   if (prio == "Urgent") {
     position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
   } else {
@@ -39,8 +38,8 @@ async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
     return;
   }
   for (let i = 0; i < users.length; i++) {
-    const element = users[i];
-    const names = userNames[i];
+    let element = users[i];
+    let names = userNames[i];
     assignedToUserArrayNamesGlobalEdit.push(names);
     assignedToUserArrayEdit.push(element);
     let imageUrl = fetchImage[element];
@@ -144,14 +143,7 @@ function subtasksRenderOpenHtml(indexHtml, index, element) {
  * @param {string} date - The due date of the task.
  * @param {string} prio - The priority level of the task.
  */
-function openTaskToBoardRender(
-  index,
-  category,
-  title,
-  description,
-  date,
-  prio
-) {
+function openTaskToBoardRender(index,category,title,description,date,prio) {
   opentaskIndex = index;
   let position = document.getElementById("openTask");
   if (position.classList.contains("modal-overlay")) {
@@ -159,17 +151,8 @@ function openTaskToBoardRender(
   } else {
     position.classList.add("modal-overlay");
     position.classList.remove("d-none", "hidden");
-    position.style.cssText =
-      "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-
-    position.innerHTML = openTaskToBoardHtml(
-      index,
-      category,
-      title,
-      description,
-      date,
-      prio
-    );
+    position.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+    position.innerHTML = openTaskToBoardHtml(index,category,title,description,date,prio);
     CategoryColorOpen(index, category);
   }
   promiseSecondInfoOpenTask(index);

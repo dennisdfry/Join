@@ -1,6 +1,6 @@
 let addTaskArrayEdit = [];
 let expandedEdit = false;
-let selectedPrioEdit = null; // Tracks the selected priority of the task
+let selectedPrioEdit = null;
 let subtasksArrayEdit = [];
 let usersEdit = [];
 let fetchImagesEdit = [];
@@ -88,14 +88,15 @@ function dueDateEditTask(index, date) {
  */
 
 async function initEdit(index) {
-    try {
-        let fireBaseData = await onloadData("/");
-        let contacts = fetchContacts(fireBaseData);
-        let imageUrls = await fetchImages();
-        await assignedToEdit(contacts, imageUrls, index);
-    } catch (error) {
-        console.error("Error during initialization:", error);
-    }}
+  try {
+    let fireBaseData = await onloadData("/");
+    let contacts = fetchContacts(fireBaseData);
+    let imageUrls = await fetchImages();
+    await assignedToEdit(contacts, imageUrls, index);
+  } catch (error) {
+    console.error("Error during initialization:", error);
+  }
+}
 
 /**
  * Fetches images of contacts from Firebase.
@@ -104,14 +105,15 @@ async function initEdit(index) {
  * @async
  */
 async function fetchImages() {
-    try {
-        let fireBaseData = await onloadData("/");
-        let contacts = fireBaseData.contacts;
-        let imageUrls = Object.values(contacts).map(contact => contact.img);
-        return imageUrls;
-    } catch (error) {
-        console.error("Error fetching images", error);
-    }}
+  try {
+    let fireBaseData = await onloadData("/");
+    let contacts = fireBaseData.contacts;
+    let imageUrls = Object.values(contacts).map((contact) => contact.img);
+    return imageUrls;
+  } catch (error) {
+    console.error("Error fetching images", error);
+  }
+}
 
 /**
  * Fetches data from Firebase for the given path.
@@ -168,16 +170,17 @@ function assignedToEdit(contacts, imageUrls, index) {
  */
 
 function checkboxInitEdit(names, imageUrls, indexHTML) {
-    let position = document.getElementById(`checkboxesEdit${indexHTML}`);
-   
-    position.innerHTML = '';
-    let list = '';
-    for (let index = 0; index < names.length; index++) {
-        const element = names[index].name;
-        const imgSrc = imageUrls[index];
-        list += checkBoxRenderEdit(index, imgSrc, element);
-    }
-    position.innerHTML = list;}
+  let position = document.getElementById(`checkboxesEdit${indexHTML}`);
+
+  position.innerHTML = "";
+  let list = "";
+  for (let index = 0; index < names.length; index++) {
+    const element = names[index].name;
+    const imgSrc = imageUrls[index];
+    list += checkBoxRenderEdit(index, imgSrc, element);
+  }
+  position.innerHTML = list;
+}
 
 /**
  * Toggles the assignment of a user to the task during editing.
@@ -187,7 +190,7 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
  */
 
 function assignedToUserEdit(index, element) {
-    assignedToUserEditNull = true;
+  assignedToUserEditNull = true; // ???
   const arrayIndex = assignedToUserArray.indexOf(index);
   if (arrayIndex !== -1) {
     assignedToUserArray.splice(arrayIndex, 1);
@@ -197,7 +200,6 @@ function assignedToUserEdit(index, element) {
     assignedToUserArrayNamesGlobal.push(element);
   }
 }
-
 
 /**
  * Hides the checkboxes for assigning users to the task during editing.
@@ -216,14 +218,15 @@ function checkboxIndexFalse(index) {
  * @param {number} index - The index of the task being edited.
  */
 function showCheckboxesEdit(index) {
-    let checkboxes = document.getElementById(`checkboxesEdit${index}`);
-    if (!expandedEdit) {
-        checkboxes.style.display = "block";
-        expandedEdit = true;
-    } else {
-        checkboxes.style.display = "none";
-        expandedEdit = false;
-    }}
+  let checkboxes = document.getElementById(`checkboxesEdit${index}`);
+  if (!expandedEdit) {
+    checkboxes.style.display = "block";
+    expandedEdit = true;
+  } else {
+    checkboxes.style.display = "none";
+    expandedEdit = false;
+  }
+}
 
 /**
  * Sets the priority of the task during editing based on the selected priority button.
@@ -231,14 +234,14 @@ function showCheckboxesEdit(index) {
  * @param {number} id - The ID of the priority button clicked.
  */
 function prioEdit(id) {
-    const buttons = document.querySelectorAll('.add-task-prio-button-container button');
-    buttons.forEach(button => {
-        button.classList.remove('add-task-prio-button-urgent', 'add-task-prio-button-medium', 'add-task-prio-button-low');
-        button.classList.add('add-task-prio-button');
-    });
-    let position = document.getElementById(`prioButtonEdit${id}`);
-    prioIdCheck(id, position);
-    selectedPrioEdit = true; // Set priority status
+  const buttons = document.querySelectorAll(".add-task-prio-button-container button");
+  buttons.forEach((button) => {
+    button.classList.remove("add-task-prio-button-urgent", "add-task-prio-button-medium", "add-task-prio-button-low");
+    button.classList.add("add-task-prio-button");
+  });
+  let position = document.getElementById(`prioButtonEdit${id}`);
+  prioIdCheck(id, position);
+  selectedPrioEdit = true; // Set priority status
 }
 /**
  * Checks the priority ID and updates the button style accordingly.
@@ -280,15 +283,17 @@ function addSubtaskEdit(index) {
  */
 
 function handleFormSubmitEdit(event, index, category) {
-    event.preventDefault(); 
-    let form = event.target; 
-    if (!form.checkValidity()) {
-        form.reportValidity(); 
-        return; }
-    if (!selectedPrioEdit) {
-        alert("Please select a priority before submitting the form.");
-        return;}
-    updateTaskBoard(index, category);
+  event.preventDefault();
+  let form = event.target;
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  if (!selectedPrioEdit) {
+    alert("Please select a priority before submitting the form.");
+    return;
+  }
+  updateTaskBoard(index, category);
 }
 
 async function updateTaskBoard(index, category) {
@@ -313,7 +318,6 @@ function resetFormStateEdit() {
   assignedToUserEditNull = null;
   assignedToUserArrayEdit = [];
   assignedToUserArrayNamesGlobalEdit = [];
- 
 }
 /**
  * Saves the edited task data to Firebase.
@@ -339,19 +343,11 @@ async function saveToFirebaseEdit(position) {
  */
 function defineTaskObjectsEdit(index, category) {
   let taskTitle = document.getElementById(`inputEditTitle${index}`).value;
-  let taskDescription = document.getElementById(
-    `descriptionEdit${index}`
-  ).value;
+  let taskDescription = document.getElementById(`descriptionEdit${index}`).value;
   let dueDateTask = document.getElementById(`dueDateEdit${index}`).value;
   let lastString = prioArray.pop();
   let taskCategory = category;
-  pushTaskObjectsToArrayEdit(
-    taskTitle,
-    taskDescription,
-    dueDateTask,
-    taskCategory,
-    lastString
-  );
+  pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString);
 }
 
 /**
@@ -363,14 +359,8 @@ function defineTaskObjectsEdit(index, category) {
  * @param {string} taskCategory - The category of the task.
  * @param {string} lastString - The last priority string value.
  */
-function pushTaskObjectsToArrayEdit(
-  taskTitle,
-  taskDescription,
-  dueDateTask,
-  taskCategory,
-  lastString
-) {
-  if(assignedToUserEditNull == null){
+function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString) {
+  if (assignedToUserEditNull == null) {
     assignedToUserArray = [];
     assignedToUserArrayNamesGlobal = [];
     assignedToUserArray = assignedToUserArrayEdit;
@@ -390,53 +380,58 @@ function pushTaskObjectsToArrayEdit(
   });
 }
 
-function deleteSubtaskEdit(i, indexHTML){
-    let position = document.getElementById(`supplementarySubtaskEdit${i}`);
-    position.innerHTML = '';
-    subtasksArrayEdit.splice([i], 1);
-    subtasksRenderEdit(indexHTML);
+function deleteSubtaskEdit(i, indexHTML) {
+  let position = document.getElementById(`supplementarySubtaskEdit${i}`);
+  position.innerHTML = "";
+  subtasksArrayEdit.splice([i], 1);
+  subtasksRenderEdit(indexHTML);
 }
 
 function subtasksRenderEdit(indexHTML) {
   let subtasksedit = subtasksLengthArray[0];
   let position = document.getElementById(`subtasksPosition${indexHTML}`);
-  if(!position){
-    return}
+  if (!position) {
+    return;
+  }
   position.innerHTML = "";
   if (subtasksedit) {
     for (let index = 0; index < subtasksedit.length; index++) {
-        const element = subtasksedit[index];
-        if(element){
-        subtasksArrayEdit.push(element);}}
-        subtasksLengthArray = [];}
- for (let i = 0; i < subtasksArrayEdit.length; i++) {
-            const updatesubtasks = subtasksArrayEdit[i];
-        position.innerHTML += supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML);
-    }} 
+      const element = subtasksedit[index];
+      if (element) {
+        subtasksArrayEdit.push(element);
+      }
+    }
+    subtasksLengthArray = [];
+  }
+  for (let i = 0; i < subtasksArrayEdit.length; i++) {
+    const updatesubtasks = subtasksArrayEdit[i];
+    position.innerHTML += supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML);
+  }
+}
 
-function finishSubtaskEdit(i, indexHTML){
-    let input = document.getElementById(`inputEditSubtasks${i}`);
-    subtasksArrayEdit[i] = input.value;
-    subtasksRenderEdit(indexHTML);
+function finishSubtaskEdit(i, indexHTML) {
+  let input = document.getElementById(`inputEditSubtasks${i}`);
+  subtasksArrayEdit[i] = input.value;
+  subtasksRenderEdit(indexHTML);
 }
 
 function closeOpenTaskEdit(event, index) {
-    event.stopPropagation();
-    let openPosition = document.getElementById('openTask');
-    openPosition.classList.remove('modal-overlay');
-    openPosition.classList.add('d-none');
-    openPosition.innerHTML = '';
-    resetFormStateEdit();
-  }
+  event.stopPropagation();
+  let openPosition = document.getElementById("openTask");
+  openPosition.classList.remove("modal-overlay");
+  openPosition.classList.add("d-none");
+  openPosition.innerHTML = "";
+  resetFormStateEdit();
+}
 
-  function enableEnterKeyEdit() {
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault(); 
-            let editButton = document.querySelector('.edit-task-button');
-            if (editButton) {
-                editButton.click();
-            }
-        }
-    });
+function enableEnterKeyEdit() {
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      let editButton = document.querySelector(".edit-task-button");
+      if (editButton) {
+        editButton.click();
+      }
+    }
+  });
 }

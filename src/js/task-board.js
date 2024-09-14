@@ -4,7 +4,7 @@ let currentDraggedElement;
 
 /**
  * Loads the task board data, fetches images, and generates HTML elements.
- * The function resets the global task keys array, loads task data, fetches images,
+ * Resets the global task keys array, loads task data, fetches images,
  * generates HTML objects for tasks, and updates status messages on the board.
  *
  * @async
@@ -63,23 +63,14 @@ async function generateHTMLObjects(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
     const { category, description, dueDate, prio, title, boardCategory } =
       task[taskkeys[index]][0];
-    await positionOfHTMLBlock(
-      index,
-      category,
-      title,
-      description,
-      dueDate,
-      prio,
-      boardCategory
-    );
+    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
   }
   searchTasks();
 }
 
 /**
  * Clears and updates the HTML content of task categories on the board.
- * The function clears the content of predefined task categories and then
- * reloads the board data and updates the HTML content.
+ * Clears the content of predefined task categories and then reloads the board data and updates the HTML content.
  *
  * @async
  */
@@ -100,7 +91,6 @@ async function updateHTML() {
 
 /**
  * Updates the priority button styling.
- *
  * Applies and removes priority classes from buttons based on the provided ID.
  *
  * @param {string} id - The ID of the button to update.
@@ -124,7 +114,6 @@ function prio2(id) {
 
 /**
  * Defines task objects for creation.
- *
  * Retrieves values from input fields and pushes them into the task array.
  */
 function defineTaskObjects2() {
@@ -144,7 +133,6 @@ function defineTaskObjects2() {
 
 /**
  * Pushes task objects into the global task array.
- *
  * Creates a task object and adds it to `addTaskArray`.
  *
  * @param {string} taskTitle - The title of the task.
@@ -175,7 +163,6 @@ function pushTaskObjectsToArray2(
 
 /**
  * Shows subtask controls for input and adding subtasks.
- *
  * Updates the visibility and HTML content of subtask controls.
  */
 function showSubtaskControls2() {
@@ -193,7 +180,6 @@ function showSubtaskControls2() {
 
 /**
  * Adds a new subtask to the list.
- *
  * Retrieves the value from the input field and updates the subtasks list.
  */
 function addSubtask2() {
@@ -208,7 +194,6 @@ function addSubtask2() {
 
 /**
  * Saves the current task data to Firebase.
- *
  * Sends a POST request to add tasks to the Firebase database.
  *
  * @param {string} [path="/tasks"] - The path to save the tasks.
@@ -225,7 +210,6 @@ async function saveToFirebase2(path = "/tasks") {
 
 /**
  * Clears the subtasks display.
- *
  * Removes all HTML content from the subtasks position element.
  */
 function clearSubtask2() {
@@ -240,7 +224,7 @@ function clearSubtask2() {
  */
 function searchTasks() {
   const searchInput = document.querySelector('.search-task-web').value.toLowerCase();
-  let allTasks = document.getElementsByTagName('div'); // Holt alle div-Elemente
+  let allTasks = document.getElementsByTagName('div'); // Gets all div elements
 
   for (let i = 0; i < allTasks.length; i++) {
     let task = allTasks[i];
@@ -256,10 +240,8 @@ function searchTasks() {
   }
 }
 
-
 /**
  * Opens the form to add a new task.
- *
  * Removes the hidden and non-display classes from the add-task form to make it visible.
  */
 function openAddForm() {
@@ -277,7 +259,6 @@ function openAddForm() {
 
 /**
  * Closes the form.
- *
  * Removes the non-display class from the add-task form, making it visible.
  */
 function closeAddForm() {
@@ -296,7 +277,12 @@ function closeAddForm() {
   document.removeEventListener("keydown", handleEnterKey);
 }
 
-
+/**
+ * Handles clicks outside the form to close it.
+ * Closes the form if the click occurs outside the form area.
+ *
+ * @param {Event} event - The click event.
+ */
 function outsideClickHandler(event) {
   let formField = document.getElementById("add-task-form");
   let overlay = document.getElementById("overlay-form");
@@ -306,7 +292,12 @@ function outsideClickHandler(event) {
   }
 }
 
-
+/**
+ * Handles the Enter key press event to submit the form or add a subtask.
+ * Submits the form if the Enter key is pressed and the form is visible.
+ *
+ * @param {Event} event - The keydown event.
+ */
 function handleEnterKey(event) {
   if (event.key === "Enter") {
     event.preventDefault();

@@ -22,7 +22,6 @@ async function summaryGreeting() {
   const greetingElementName = document.querySelector(".summary-user-greeting-name");
   const userImageElement = document.querySelector(".user-icon");
   const user = localStorage.getItem("user");
-
   if (greetingElement) {
     if (user === "Guest") {
       greetingGuest(hour, greetingElement, user, userImageElement);
@@ -38,7 +37,6 @@ async function summaryGreetingResp() {
   const greetingElementName = document.querySelector(".summary-user-greeting-name-resp");
   const userImageElement = document.querySelector(".user-icon");
   const user = localStorage.getItem("user");
-
   if (greetingElement) {
     if (user === "Guest") {
       greetingGuest(hour, greetingElement, user, userImageElement);
@@ -67,7 +65,6 @@ async function greetingUser(hour, greetingElement, greetingElementName) {
   } else {
     greetingMessage = "Good evening,";
   }
-
   try {
     await checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName);
   } catch (error) {
@@ -171,9 +168,7 @@ async function checkAuthAndGreet(greetingMessage, greetingElement, greetingEleme
     try {
       const userData = await getUserData(userId);
       const greetingElementNameResp = document.querySelector(".summary-user-greeting-name-resp"); 
-
       setGreeting(greetingMessage, userData, greetingElement, greetingElementName, greetingElementNameResp);
-
       const contactData = await getContactDataByEmail(userData.mail);
       const imgElement = document.querySelector(".user-icon");
       setProfileImage(contactData, userId, imgElement);
@@ -217,9 +212,7 @@ function countTasks(taskData) {
     progress: 0,
     feedback: 0,
   };
-
   iterateTasks(taskData, categoryCounts);
-
   return categoryCounts;
 }
 
@@ -234,7 +227,6 @@ function iterateTasks(taskData, categoryCounts) {
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
-
       tasks.forEach((task) => {
         if (task.boardCategory && categoryCounts.hasOwnProperty(task.boardCategory)) {
           categoryCounts[task.boardCategory]++;
@@ -253,7 +245,6 @@ async function loadTasksAndCountCategories() {
   try {
     const taskData = await loadTasks();
     const categoryCounts = countTasks(taskData);
-
     updateCategoryCounts(categoryCounts);
   } catch (error) {
     console.error("Error loading tasks and counting categories:", error);
@@ -270,9 +261,7 @@ function updateCategoryCounts(counts) {
   document.getElementById("smry-done-val").innerText = counts.done || 0;
   document.getElementById("smry-progress-val").innerText = counts.progress || 0;
   document.getElementById("smry-feedback-val").innerText = counts.feedback || 0;
-
   const totalTasks = (counts.todo || 0) + (counts.done || 0) + (counts.progress || 0) + (counts.feedback || 0);
-
   document.getElementById("smry-board-val").innerText = totalTasks;
 }
 
@@ -283,7 +272,6 @@ function updateCategoryCounts(counts) {
  */
 function formatDateGerman(dateStr) {
   const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
-
   const [year, month, day] = dateStr.split("-");
   const monthIndex = parseInt(month, 10) - 1; // Months are 1-based
   return `${parseInt(day, 10)}. ${months[monthIndex]} ${year}`;
@@ -301,11 +289,9 @@ function findClosestDueDate(taskData) {
   let closestDate = null;
   let minDiff = Infinity;
   let taskCount = 0;
-
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
-
       tasks.forEach((task) => {
         if (task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate) {
           const taskDate = new Date(task.dueDate);
@@ -319,11 +305,9 @@ function findClosestDueDate(taskData) {
       });
     }
   }
-
   if (closestDate) {
     taskCount = countTasksWithDueDate(taskData, closestDate);
   }
-
   return {
     dueDate: closestDate ? formatDateGerman(closestDate) : "No upcoming<br>urgent tasks",
     count: taskCount,
@@ -339,7 +323,6 @@ function findClosestDueDate(taskData) {
  */
 function countTasksWithDueDate(taskData, dueDate) {
   let count = 0;
-
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
@@ -351,7 +334,6 @@ function countTasksWithDueDate(taskData, dueDate) {
       });
     }
   }
-
   return count;
 }
 
