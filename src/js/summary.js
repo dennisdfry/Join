@@ -217,9 +217,7 @@ function countTasks(taskData) {
     progress: 0,
     feedback: 0,
   };
-
   iterateTasks(taskData, categoryCounts);
-
   return categoryCounts;
 }
 
@@ -253,7 +251,6 @@ async function loadTasksAndCountCategories() {
   try {
     const taskData = await loadTasks();
     const categoryCounts = countTasks(taskData);
-
     updateCategoryCounts(categoryCounts);
   } catch (error) {
     console.error("Error loading tasks and counting categories:", error);
@@ -270,47 +267,42 @@ function updateCategoryCounts(counts) {
   document.getElementById("smry-done-val").innerText = counts.done || 0;
   document.getElementById("smry-progress-val").innerText = counts.progress || 0;
   document.getElementById("smry-feedback-val").innerText = counts.feedback || 0;
-
   const totalTasks = (counts.todo || 0) + (counts.done || 0) + (counts.progress || 0) + (counts.feedback || 0);
-
   document.getElementById("smry-board-val").innerText = totalTasks;
 }
 
 /**
- * Formats a given date string (YYYY-MM-DD) into German date format (DD. Month YYYY).
- * @param {string} dateStr - The date string in YYYY-MM-DD format.
- * @returns {string} The formatted date string in DD. Month YYYY format.
- */
-function formatDateGerman(dateStr) {
-  const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
-
-  const [year, month, day] = dateStr.split("-");
-  const monthIndex = parseInt(month, 10) - 1; // Months are 1-based
-  return `${parseInt(day, 10)}. ${months[monthIndex]} ${year}`;
-}
-
-/**
  * Finds the closest due date among tasks with priority 'Urgent' that are not in the 'done' category.
- * Also counts the number of such tasks with the closest due date.
- *
  * @param {Object} taskData - The task data loaded from the database.
  * @returns {Object} An object with the closest due date (formatted) and the count of tasks with that due date.
  */
 function findClosestDueDate(taskData) {
   const now = new Date();
+  const { closestDate, minDiff } = findClosestDate(taskData, now);
+  const taskCount = closestDate ? countTasksWithDueDate(taskData, closestDate) : 0;
+  return {
+    dueDate: closestDate ? formatDateGerman(closestDate) : "No upcoming<br>urgent tasks",
+    count: taskCount,
+  };
+}
+
+/**
+ * Finds the closest due date among urgent tasks that are not done.
+ * @param {Object} taskData - The task data loaded from the database.
+ * @param {Date} now - The current date.
+ * @returns {Object} An object with the closest due date and the minimum difference.
+ */
+function findClosestDate(taskData, now) {
   let closestDate = null;
   let minDiff = Infinity;
-  let taskCount = 0;
 
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
-
       tasks.forEach((task) => {
-        if (task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate) {
+        if (isUrgentAndNotDone(task)) {
           const taskDate = new Date(task.dueDate);
           const diff = Math.abs(taskDate - now);
-
           if (diff < minDiff) {
             minDiff = diff;
             closestDate = task.dueDate;
@@ -320,19 +312,20 @@ function findClosestDueDate(taskData) {
     }
   }
 
-  if (closestDate) {
-    taskCount = countTasksWithDueDate(taskData, closestDate);
-  }
-
-  return {
-    dueDate: closestDate ? formatDateGerman(closestDate) : "No upcoming<br>urgent tasks",
-    count: taskCount,
-  };
+  return { closestDate, minDiff };
 }
 
 /**
- * Counts the number of tasks with priority 'Urgent' and a specific due date, excluding those in the 'done' category.
- *
+ * Checks if a task is urgent and not done.
+ * @param {Object} task - The task object.
+ * @returns {boolean} True if the task is urgent and not done, otherwise false.
+ */
+function isUrgentAndNotDone(task) {
+  return task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate;
+}
+
+/**
+ * Counts the number of tasks with a specific due date.
  * @param {Object} taskData - The task data loaded from the database.
  * @param {string} dueDate - The due date to count tasks for.
  * @returns {number} The number of matching tasks.
@@ -343,9 +336,8 @@ function countTasksWithDueDate(taskData, dueDate) {
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
-
       tasks.forEach((task) => {
-        if (task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate === dueDate) {
+        if (isUrgentAndNotDone(task) && task.dueDate === dueDate) {
           count++;
         }
       });
@@ -353,6 +345,18 @@ function countTasksWithDueDate(taskData, dueDate) {
   }
 
   return count;
+}
+
+/**
+ * Formats a given date string (YYYY-MM-DD) into German date format (DD. Month YYYY).
+ * @param {string} dateStr - The date string in YYYY-MM-DD format.
+ * @returns {string} The formatted date string in DD. Month YYYY format.
+ */
+function formatDateGerman(dateStr) {
+  const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+  const [year, month, day] = dateStr.split("-");
+  const monthIndex = parseInt(month, 10) - 1; // Months are 1-based
+  return `${parseInt(day, 10)}. ${months[monthIndex]} ${year}`;
 }
 
 /**
