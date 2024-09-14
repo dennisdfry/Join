@@ -1,7 +1,20 @@
+/**
+ * Sets up event listeners and cookie management for the cookie consent banner.
+ * This function is executed once the DOM content is fully loaded.
+ * It displays the cookie consent banner if the user hasn't already accepted cookies,
+ * and sets a cookie to remember the user's choice.
+ * 
+ * @listens document#DOMContentLoaded - Executes when the DOM content is fully loaded.
+ */
 document.addEventListener("DOMContentLoaded", () => {
-  let cookieBar = document.getElementById("cookie-bar");
-  let acceptCookiesButton = document.getElementById("accept-cookies");
-
+  
+  /**
+   * Sets a cookie with the given name, value, and expiration in days.
+   * 
+   * @param {string} name - The name of the cookie.
+   * @param {string} value - The value to be set for the cookie.
+   * @param {number} [days] - The number of days until the cookie expires. If not provided, the cookie expires when the session ends.
+   */
   function setCookie(name, value, days) {
     let expires = "";
     if (days) {
@@ -12,6 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
   }
 
+  /**
+   * Retrieves the value of a cookie by its name.
+   * 
+   * @param {string} name - The name of the cookie to retrieve.
+   * @returns {string|null} - The value of the cookie if found, otherwise `null`.
+   */
   function getCookie(name) {
     const nameEQ = name + "=";
     const ca = document.cookie.split(";");
@@ -22,9 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return null;
   }
+
+  // Display the cookie consent banner if the user has not accepted cookies.
+  let cookieBar = document.getElementById("cookie-bar");
+  let acceptCookiesButton = document.getElementById("accept-cookies");
+  
   if (!getCookie("cookies-accepted")) {
     cookieBar.style.display = "block";
   }
+
+  // Set the cookie and hide the banner when the user accepts cookies.
   acceptCookiesButton.addEventListener("click", () => {
     setCookie("cookies-accepted", "true", 365);
     cookieBar.style.display = "none";
