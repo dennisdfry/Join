@@ -26,7 +26,7 @@
   }
 
   .board-task-container {
-    height: 160px;
+    max-height: 25vh;
     width: 252px !important;
   }
 

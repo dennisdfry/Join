@@ -175,7 +175,8 @@
     left: 300px;
   }
 
-  #add-form-section {
+  #add-form-section,
+  #edit-contact-section {
     top: 11%;
     left: 2%;
   }
@@ -195,5 +196,12 @@
     height: 364px;
     top: 200px;
     left: 480px;
+  }
+}
+
+@media (max-width: 850px) {
+  .contact-information,
+  #contact-information-content {
+    display: none;
   }
 }
