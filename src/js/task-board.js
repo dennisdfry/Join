@@ -296,6 +296,7 @@ function closeAddForm() {
   document.removeEventListener("keydown", handleEnterKey);
 }
 
+
 function outsideClickHandler(event) {
   let formField = document.getElementById("add-task-form");
   let overlay = document.getElementById("overlay-form");
@@ -304,6 +305,7 @@ function outsideClickHandler(event) {
     closeAddForm();
   }
 }
+
 
 function handleEnterKey(event) {
   if (event.key === "Enter") {
