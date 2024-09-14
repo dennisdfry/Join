@@ -175,7 +175,8 @@
     left: 300px;
   }
 
-  #add-form-section {
+  #add-form-section,
+  #edit-contact-section {
     top: 11%;
     left: 2%;
   }
@@ -195,5 +196,34 @@
     height: 364px;
     top: 200px;
     left: 480px;
+  }
+}
+
+@media (max-width: 850px) {
+  #contact-section,
+  #contact-information-content {
+    display: flex !important;
+    width: 300px;
+    position: fixed;
+    left: 5%;
+    z-index: 3000;
+    background-color: #29abe2;
+  }
+
+  .edit-contact-section {
+    height: 150px !important;
+  }
+
+  .contact-section-btn-box {
+    display: none;
+  }
+
+  .contact-name-edit {
+    font-size: 36px;
+  }
+
+  .contact-information {
+    flex-direction: row;
+    align-items: center;
   }
 }

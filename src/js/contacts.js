@@ -79,7 +79,7 @@ function validateEmail(email) {
  * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
 function validatePhone(phone) {
-  const phoneRegex = /^(?:\+?\d{1,3}|0)\d{7,14}$/; // +Country code (1-3 digits) or 0 followed by 7-14 digits
+  let phoneRegex = /^(?:\+?\d{1,3}|0)\d{7,14}$/; // +Country code (1-3 digits) or 0 followed by 7-14 digits
   return phoneRegex.test(phone);
 }
 

@@ -212,7 +212,7 @@ body {
   flex-grow: 1;
   padding: 16px;
   max-width: 253px;
-  max-height: 263px;
+  max-height: 25vh;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
 }
@@ -454,16 +454,11 @@ body {
 }
 
 .drag-area {
-  height: 60vh;
+  max-height: 60vh;
   background-color: rgb(246, 247, 248);
-  margin-bottom: 50px;
   display: flex;
   align-items: center;
   flex-direction: column;
-}
-
-.drag-area-highlight {
-  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .todo {
