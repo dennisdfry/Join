@@ -204,13 +204,25 @@ async function createTask(event) {
 }
 
 /**
- * Handles the Enter key press event to either add a subtask.
+ * Handles the Enter key press event to either add a subtask or submit the form.
  * @function
  * @param {KeyboardEvent} event - The keyboard event.
  */
-function checkEnterSubtasks(event) {
-  if (event.key === 'Enter') {
-    addSubtask();
+function handleEnterKeyAdd(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    
+    let activeElement = document.activeElement;
+    let subtaskInput = document.getElementById('subtasks');
+    let form = document.getElementsByClassName('add-Task-Container');
+
+    if (activeElement === subtaskInput) {
+      addSubtask(); 
+    } else {
+      if (form) {
+        createTask(event);
+      }
+    }
   }
 }
 
