@@ -22,7 +22,6 @@ async function summaryGreeting() {
   const greetingElementName = document.querySelector(".summary-user-greeting-name");
   const userImageElement = document.querySelector(".user-icon");
   const user = localStorage.getItem("user");
-
   if (greetingElement) {
     if (user === "Guest") {
       greetingGuest(hour, greetingElement, user, userImageElement);
@@ -38,7 +37,6 @@ async function summaryGreetingResp() {
   const greetingElementName = document.querySelector(".summary-user-greeting-name-resp");
   const userImageElement = document.querySelector(".user-icon");
   const user = localStorage.getItem("user");
-
   if (greetingElement) {
     if (user === "Guest") {
       greetingGuest(hour, greetingElement, user, userImageElement);
@@ -67,7 +65,6 @@ async function greetingUser(hour, greetingElement, greetingElementName) {
   } else {
     greetingMessage = "Good evening,";
   }
-
   try {
     await checkAuthAndGreet(greetingMessage, greetingElement, greetingElementName);
   } catch (error) {
@@ -171,9 +168,7 @@ async function checkAuthAndGreet(greetingMessage, greetingElement, greetingEleme
     try {
       const userData = await getUserData(userId);
       const greetingElementNameResp = document.querySelector(".summary-user-greeting-name-resp"); 
-
       setGreeting(greetingMessage, userData, greetingElement, greetingElementName, greetingElementNameResp);
-
       const contactData = await getContactDataByEmail(userData.mail);
       const imgElement = document.querySelector(".user-icon");
       setProfileImage(contactData, userId, imgElement);
@@ -232,7 +227,6 @@ function iterateTasks(taskData, categoryCounts) {
   for (const taskId in taskData) {
     if (taskData.hasOwnProperty(taskId)) {
       const tasks = taskData[taskId];
-
       tasks.forEach((task) => {
         if (task.boardCategory && categoryCounts.hasOwnProperty(task.boardCategory)) {
           categoryCounts[task.boardCategory]++;
@@ -272,82 +266,6 @@ function updateCategoryCounts(counts) {
 }
 
 /**
- * Finds the closest due date among tasks with priority 'Urgent' that are not in the 'done' category.
- * @param {Object} taskData - The task data loaded from the database.
- * @returns {Object} An object with the closest due date (formatted) and the count of tasks with that due date.
- */
-function findClosestDueDate(taskData) {
-  const now = new Date();
-  const { closestDate, minDiff } = findClosestDate(taskData, now);
-  const taskCount = closestDate ? countTasksWithDueDate(taskData, closestDate) : 0;
-  return {
-    dueDate: closestDate ? formatDateGerman(closestDate) : "No upcoming<br>urgent tasks",
-    count: taskCount,
-  };
-}
-
-/**
- * Finds the closest due date among urgent tasks that are not done.
- * @param {Object} taskData - The task data loaded from the database.
- * @param {Date} now - The current date.
- * @returns {Object} An object with the closest due date and the minimum difference.
- */
-function findClosestDate(taskData, now) {
-  let closestDate = null;
-  let minDiff = Infinity;
-
-  for (const taskId in taskData) {
-    if (taskData.hasOwnProperty(taskId)) {
-      const tasks = taskData[taskId];
-      tasks.forEach((task) => {
-        if (isUrgentAndNotDone(task)) {
-          const taskDate = new Date(task.dueDate);
-          const diff = Math.abs(taskDate - now);
-          if (diff < minDiff) {
-            minDiff = diff;
-            closestDate = task.dueDate;
-          }
-        }
-      });
-    }
-  }
-
-  return { closestDate, minDiff };
-}
-
-/**
- * Checks if a task is urgent and not done.
- * @param {Object} task - The task object.
- * @returns {boolean} True if the task is urgent and not done, otherwise false.
- */
-function isUrgentAndNotDone(task) {
-  return task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate;
-}
-
-/**
- * Counts the number of tasks with a specific due date.
- * @param {Object} taskData - The task data loaded from the database.
- * @param {string} dueDate - The due date to count tasks for.
- * @returns {number} The number of matching tasks.
- */
-function countTasksWithDueDate(taskData, dueDate) {
-  let count = 0;
-
-  for (const taskId in taskData) {
-    if (taskData.hasOwnProperty(taskId)) {
-      const tasks = taskData[taskId];
-      tasks.forEach((task) => {
-        if (isUrgentAndNotDone(task) && task.dueDate === dueDate) {
-          count++;
-        }
-      });
-    }
-  }
-
-  return count;
-}
-
-/**
  * Formats a given date string (YYYY-MM-DD) into German date format (DD. Month YYYY).
  * @param {string} dateStr - The date string in YYYY-MM-DD format.
  * @returns {string} The formatted date string in DD. Month YYYY format.
@@ -357,6 +275,66 @@ function formatDateGerman(dateStr) {
   const [year, month, day] = dateStr.split("-");
   const monthIndex = parseInt(month, 10) - 1; // Months are 1-based
   return `${parseInt(day, 10)}. ${months[monthIndex]} ${year}`;
+}
+
+/**
+ * Finds the closest due date among tasks with priority 'Urgent' that are not in the 'done' category.
+ * Also counts the number of such tasks with the closest due date.
+ *
+ * @param {Object} taskData - The task data loaded from the database.
+ * @returns {Object} An object with the closest due date (formatted) and the count of tasks with that due date.
+ */
+function findClosestDueDate(taskData) {
+  const now = new Date();
+  let closestDate = null;
+  let minDiff = Infinity;
+  let taskCount = 0;
+  for (const taskId in taskData) {
+    if (taskData.hasOwnProperty(taskId)) {
+      const tasks = taskData[taskId];
+      tasks.forEach((task) => {
+        if (task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate) {
+          const taskDate = new Date(task.dueDate);
+          const diff = Math.abs(taskDate - now);
+
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestDate = task.dueDate;
+          }
+        }
+      });
+    }
+  }
+  if (closestDate) {
+    taskCount = countTasksWithDueDate(taskData, closestDate);
+  }
+  return {
+    dueDate: closestDate ? formatDateGerman(closestDate) : "No upcoming<br>urgent tasks",
+    count: taskCount,
+  };
+}
+
+/**
+ * Counts the number of tasks with priority 'Urgent' and a specific due date, excluding those in the 'done' category.
+ *
+ * @param {Object} taskData - The task data loaded from the database.
+ * @param {string} dueDate - The due date to count tasks for.
+ * @returns {number} The number of matching tasks.
+ */
+function countTasksWithDueDate(taskData, dueDate) {
+  let count = 0;
+  for (const taskId in taskData) {
+    if (taskData.hasOwnProperty(taskId)) {
+      const tasks = taskData[taskId];
+
+      tasks.forEach((task) => {
+        if (task.prio === "Urgent" && task.boardCategory !== "done" && task.dueDate === dueDate) {
+          count++;
+        }
+      });
+    }
+  }
+  return count;
 }
 
 /**
