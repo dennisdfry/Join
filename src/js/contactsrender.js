@@ -45,7 +45,7 @@ function renderContactHead(contactSection, contact, contactId) {
       <div class="contact-information item-center d-flex">
         <img src="${contact.img || generateProfileImage(contact.name)}" class="d-flex gap-10 obj-cover bradius70"/>
         <div class="d-flex flex-d-col gap-8 item-start flex-grow">
-          <p class="mg-block-inline fw-500 no-wrap-text fs-47">${contact.name}</p>
+          <p class="contact-name-edit mg-block-inline fw-500 no-wrap-text fs-47">${contact.name}</p>
           <div class="contact-section-btn-box fw-400 d-flex-between l-height-19">
             <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="showEditForm('${contactId}')" id="edit-btn">
               <img class="obj-cover img-24" src="./img/edit.png">Edit
