@@ -19,7 +19,6 @@ async function loadingBoard() {
     await generateHTMLObjects(taskkeys, task);
     await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
     updateStatusMessages();
-    enableEnterKeyAdd();
   } catch (error) {
     console.error("Error loading tasks:", error);
   }
@@ -309,9 +308,16 @@ function outsideClickHandler(event) {
 function handleEnterKey(event) {
   if (event.key === "Enter") {
     event.preventDefault();
-    let addButton = document.querySelector("#add-task-button2");
-    if (addButton) {
-      addButton.click();
+    let activeElement = document.activeElement;
+    let subtaskInput = document.getElementById('subtasks2');
+
+    if (activeElement === subtaskInput) {
+      addSubtask2();
+    } else {
+      let addButton = document.getElementById('add-task-button2');
+      if (addButton) {
+        addButton.click();
+      }
     }
   }
 }
