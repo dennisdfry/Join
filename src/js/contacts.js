@@ -30,6 +30,7 @@ function checkFormFields() {
   document.getElementById("formfield-create-btn").disabled = !filledFields;
 }
 
+
 /**
  * Checks if the Enter key is pressed and triggers the form submit event.
  * @param {KeyboardEvent} event - The keyboard event object.
@@ -41,13 +42,13 @@ function handleEnterPress(event) {
   }
 }
 
+
 /**
  * Handles the form submission to add a new contact.
  * @param {Event} event - The form submit event object.
  */
 function handleFormSubmit(event) {
   event.preventDefault();
-
   let [name, mail, phone] = ["name", "mail", "phone"].map(id => document.getElementById(id).value.trim());
 
   if (![name, validateEmail(mail), validatePhone(phone)].every(Boolean)) {
@@ -56,10 +57,10 @@ function handleFormSubmit(event) {
     );
     return;
   }
-
   addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
   closeFormField();
 }
+
 
 /**
  * Validates an email address.
@@ -70,6 +71,7 @@ function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+
 /**
  * Validates a phone number based on custom rules.
  * - Must start with + and a valid country code (1-3 digits), or start with a 0.
@@ -79,9 +81,10 @@ function validateEmail(email) {
  * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
 function validatePhone(phone) {
-  let phoneRegex = /^(?:\+?\d{1,3}|0)\d{7,14}$/; // +Country code (1-3 digits) or 0 followed by 7-14 digits
-  return phoneRegex.test(phone);
+  let phoneReg = /^(?:\+?\d{1,3}|0)\d{7,14}$/;
+  return phoneReg.test(phone);
 }
+
 
 /**
  * Capitalizes the first letter of a name.
@@ -95,6 +98,7 @@ function capitalizeFirstLetter(name) {
   }
   return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 }
+
 
 /**
  * Capitalizes the first letter of each word in a name.
@@ -188,15 +192,45 @@ function handleEditEnterPress(event) {
  */
 async function handleEditFormSubmit(event) {
   event.preventDefault();
-  
+
   const contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
   if (!contactId) return console.error("No contact ID found.");
-  
 
-  let oldContact = await getContact(contactId);
-  let newName = document.getElementById("edit-name").value.trim();
+  let validationError = validateEditForm();
+  if (validationError) return console.error(validationError);
+
+  try {
+    const updatedContact = await getUpdatedContact(contactId);
+    await replaceContact(contactId, updatedContact);
+    handleSuccess();
+  } catch (error) {
+    console.error("Error updating contact:", error);
+  }
+}
+
+/**
+ * Validates the email and phone number in the edit form.
+ * @returns {string|null} - Returns an error message if validation fails, otherwise null.
+ */
+function validateEditForm() {
+  let email = document.getElementById("edit-mail").value.trim();
+  let phone = document.getElementById("edit-phone").value.trim();
+  if (!validateEmail(email) || !validatePhone(phone)) {
+    return "Invalid email or phone number.";
+  }
+  return null;
+}
+
+/**
+ * Retrieves updated contact details from the form.
+ * @param {string} contactId - The ID of the contact being updated.
+ * @returns {object} - The updated contact details.
+ */
+async function getUpdatedContact(contactId) {
+  const oldContact = await getContact(contactId);
+  const newName = document.getElementById("edit-name").value.trim();
   
-  const updatedContact = {
+  return {
     name: newName,
     mail: document.getElementById("edit-mail").value.trim(),
     phone: document.getElementById("edit-phone").value.trim(),
@@ -204,18 +238,14 @@ async function handleEditFormSubmit(event) {
          ? generateProfileImage(newName) 
          : document.getElementById("prof2-img").querySelector("img")?.src || oldContact.img,
   };
+}
 
-  if (!validateEmail(updatedContact.mail) || !validatePhone(updatedContact.phone)) {
-    return console.error("Invalid email or phone number.");
-  }
-
-  try {
-    await replaceContact(contactId, updatedContact);
-    showUpdateBar();
-    closeEditField();
-  } catch (error) {
-    console.error("Error uploading contact:", error);
-  }
+/**
+ * Handles successful contact update.
+ */
+function handleSuccess() {
+  showUpdateBar();
+  closeEditField();
 }
 
 /**
@@ -267,10 +297,8 @@ function handleOutsideEditFormClick(event) {
 async function selectContact(contactId) {
   let contactSection = document.getElementById("contact-section");
   let selectedContact = document.getElementById(`contactlist-item-${contactId}`);
-
   deselectAllContacts();
   await highlightContact(selectedContact);
-
   contactSection.classList.remove("d-none");
   await initContactDetails(contactId);
 }
@@ -299,33 +327,58 @@ async function highlightContact(selectedContact) {
 }
 
 /**
- * Displays the update bar with animations.
+ * Shows the update bar with an animated transition.
+ * and "moveOut" animations. The function manages event listeners for smooth transitions.
  */
 function showUpdateBar() {
   let updateBar = document.getElementById("update-bar");
   updateBar.classList.remove("d-none");
+  addMoveInListener(updateBar);
+}
 
-  function handleMoveIn(event) {
+/**
+ * Adds an animation end listener for the "moveIn" animation.
+ * and adds an animation end listener for the "moveOut" animation.
+ * 
+ * @param {HTMLElement} updateBar - The update bar element to which the listener is added.
+ */
+function addMoveInListener(updateBar) {
+  updateBar.addEventListener("animationend", function handleMoveIn(event) {
     if (event.animationName === "moveIn") {
       setTimeout(() => {
-        updateBar.classList.add("move-out");
-        updateBar.addEventListener("animationend", handleMoveOut);
+        addMoveOutListener(updateBar);
       }, 100);
       updateBar.removeEventListener("animationend", handleMoveIn);
     }
-  }
+  });
+}
 
-  function handleMoveOut(event) {
+/**
+ * Adds an animationend listener for the "moveOut" animation.
+ * re-adds the "moveIn" animation listener for future animations.
+ * 
+ * @param {HTMLElement} updateBar - The update bar element to which the listener is added.
+ */
+function addMoveOutListener(updateBar) {
+  updateBar.classList.add("move-out");
+  updateBar.addEventListener("animationend", function handleMoveOut(event) {
     if (event.animationName === "moveOut") {
       setTimeout(() => {
-        updateBar.classList.add("d-none");
-        updateBar.removeEventListener("animationend", handleMoveOut);
-        updateBar.addEventListener("animationend", handleMoveIn); 
+        finalizeUpdateBar(updateBar);
       }, 100);
+      updateBar.removeEventListener("animationend", handleMoveOut);
     }
-  }
+  });
+}
 
-  updateBar.addEventListener("animationend", handleMoveIn);
+/**
+ * Finalizes the update bar by hiding it and resetting event listeners.
+ * Adds the "d-none" class to hide the update bar and re-adds the "moveIn" animation listener 
+ * @param {HTMLElement} updateBar - The update bar element to be finalized.
+ */
+function finalizeUpdateBar(updateBar) {
+  updateBar.classList.add("d-none");
+  addMoveInListener(updateBar); // Re-add listener for future animations
 }
 
 /**
