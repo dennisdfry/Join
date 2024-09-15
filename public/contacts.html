@@ -25,7 +25,7 @@
           <a class="arrow-button-resp" onclick="toggleElement('.contactlist-section-responsive', 'd-none')">
             <img src="./img/arrow-left-line.png" alt="button that leads back to the main page">
           </a>
-          <div class="contact-options-menu d-none" onclick="toggleElement('.contactlist-section', 'd-none')">
+          <div class="contact-options-menu d-none" onclick="toggleElement('.contact-options-dropdown', 'd-none')">
             <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g filter="url(#filter0_d_71395_18084)">
               <rect x="4" width="56" height="56" rx="28" fill="#2A3647" shape-rendering="crispEdges"/>
@@ -52,10 +52,10 @@
               </svg> 
               <div class="contact-options-dropdown d-flex d-none">
                 <div class="contact-section-btn-box-resp">
-                  <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="showEditForm('-O6l335RI9uxUjhXStgs')" id="edit-btn">
+                  <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="showEditForm('${contactId}')" id="edit-btn">
                     <img class="obj-cover img-24" src="./img/edit.png">Edit
                   </button>
-                  <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteContact('-O6l335RI9uxUjhXStgs')" id="del-btn">
+                  <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteContact()" id="del-btn">
                     <img class="obj-cover img-24" src="./img/delete.png">Delete
                   </button>
                 </div>
