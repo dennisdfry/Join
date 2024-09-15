@@ -257,8 +257,8 @@
   .contact-options-menu {
     display: flex !important;
     position: fixed;
-    top: 700px;
-    left: 80%;
+    bottom: 15%;
+    left: 300px;
   }
 
   .contact-options-dropdown {    
