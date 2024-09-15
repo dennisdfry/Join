@@ -75,7 +75,7 @@ function openAddForm() {
       if (activeElement === subtaskInput) {
         addSubtask2();
       } else {
-        let addButton = document.getElementById('add-task-button-board');
+        let addButton = document.getElementById('add-task-button');
         if (addButton) {
           addButton.click();
         }
