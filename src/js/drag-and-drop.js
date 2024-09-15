@@ -1,7 +1,9 @@
-document.addEventListener("mousedown", toggleRotateClass);
-document.addEventListener("mouseup", toggleRotateClass);
-document.addEventListener("mouseleave", toggleRotateClass);
-document.addEventListener("dragend", toggleRotateClass);
+document.addEventListener("mousedown", handleRotateStart);
+document.addEventListener("mouseup", handleRotateEnd);
+document.addEventListener("mouseleave", handleRotateEnd);
+document.addEventListener("dragend", handleRotateEnd);
+
+let cachedElement = null; // Cache the element for performance
 
 /**
  * Starts the dragging process by setting the current dragged task's key.
@@ -14,20 +16,26 @@ function startDragging(taskkey) {
 }
 
 /**
- * Toggles the "rotate" class on the closest ".board-task-container" element based on the event type.
- * 
- * Adds the "rotate" class when a "mousedown" event occurs and removes it on other events.
+ * Adds the "rotate" class to the closest ".board-task-container" element when dragging starts.
  * 
  * @param {Event} event - The event object from the event listener.
  */
-function toggleRotateClass(event) {
-  const element = event.target.closest(".board-task-container");
-  if (element) {
-    if (event.type === "mousedown") {
-      element.classList.add("rotate");
-    } else {
-      element.classList.remove("rotate");
-    }
+function handleRotateStart(event) {
+  cachedElement = event.target.closest(".board-task-container");
+  if (cachedElement) {
+    cachedElement.classList.add("rotate");
+  }
+}
+
+/**
+ * Removes the "rotate" class from the previously cached ".board-task-container" element.
+ * 
+ * @param {Event} event - The event object from the event listener.
+ */
+function handleRotateEnd(event) {
+  if (cachedElement) {
+    cachedElement.classList.remove("rotate");
+    cachedElement = null; // Clear the cache after use
   }
 }
 
