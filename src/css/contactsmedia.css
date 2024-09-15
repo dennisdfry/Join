@@ -10,10 +10,7 @@
   }
 
   #contact-section {
-    width: 461px;
-    height: 200px;
-    top: 400px;
-    left: 750px;
+    top: 300px;
   }
 
   .contact-information {
@@ -194,7 +191,7 @@
   #contact-section {
     width: 461px;
     height: 364px;
-    top: 200px;
+    top: 100px;
     left: 480px;
   }
 }
@@ -241,5 +238,9 @@
     position: fixed;
     top: 12%;
     left: 5%;
+  }
+
+  #contact-section {
+    top: 300px;
   }
 }
