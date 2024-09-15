@@ -219,11 +219,11 @@
   }
 
   .contact-information {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .test-div {
+  .contactlist-section-responsive {
     position: fixed;
     top: 10%;
     left: 0;
@@ -242,5 +242,12 @@
 
   #contact-section {
     top: 300px;
+  }
+
+  .contact-options-menu {
+    display: flex !important;
+    position: fixed;
+    top: 700px;
+    left: 80%;
   }
 }
