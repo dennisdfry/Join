@@ -91,7 +91,8 @@ function renderContactInfo(contactSection, contact) {
  * @returns {string} - A Base64-encoded SVG image.
  */
 function generateProfileImage(name) {
-  let colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F3FF33", "#33FFF3"];
+  let colors = [
+    "#FF5733", "#33FF57","#3357FF","#FF33A1","#33FFF3", "#4B0082", "#8B0000", "#006400", "#191970", "#2F4F4F", "#483D8B"];
   let randomColor = colors[Math.floor(Math.random() * colors.length)];
   let initials = name
     .split(" ")
