@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../src/css/board.css" />
     <link rel="stylesheet" href="/src/css/boardmedia.css" />
     <link rel="stylesheet" href="../src/css/addtaskmedia.css" />
+    <link rel="stylesheet" href="../src/css/addTask2.css">
     <link rel="stylesheet" href="../src/css/utils.css" />
     <link rel="stylesheet" href="../src/css/utils2.css" />
     <link rel="stylesheet" href="../src/css/addTask.css" />
@@ -94,17 +95,17 @@
           <!-- Linke Sektion -->
           <div class="add-task-form-left-section2">
             <label for="title">Title <span class="red-star">*</span></label>
-            <input required minlength="2" class="add-task-title-inputfield" type="text" placeholder="Enter a title" name="title" id="title2" />
+            <input required minlength="2" class="add-task-title-inputfield2" type="text" placeholder="Enter a title" name="title" id="title2" />
 
             <label for="description">Description</label>
             <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description" name="description" id="description2"></textarea>
             <label for="assignedTo">Assigned to</label>
             <div class="multiselect">
-              <div class="selectBox" onclick="showCheckboxes2()">
+              <div class="selectBox2" onclick="showCheckboxes2()">
                 <select required class="add-task-select">
                   <option>Select an option</option>
                 </select>
-                <div class="overSelect"></div>
+                <div class="overSelect2"></div>
               </div>
               <div id="checkboxes2"></div>
             </div>
@@ -112,7 +113,7 @@
           <div class="add-task-seperator2"></div>
           <div class="add-task-form-right-section2">
             <label for="dueDate">Due date <span class="red-star">*</span></label>
-            <input required class="add-task-select2" type="date" id="dueDate2" name="dueDate" />
+            <input required class="add-task-select3" type="date" id="dueDate2" name="dueDate" />
 
             <label id="prioSection2" for="prio">Prio</label>
             <div class="add-task-prio-button-container">

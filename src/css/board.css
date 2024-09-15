@@ -496,9 +496,9 @@ body {
 .add-task-form-left-section2 {
   width: 440px;
   position: absolute;
-  top: 174px;
+  top: 189px;
   left: 74px;
-  gap: 16px;
+  gap: 12px;
   display: flex;
   flex-direction: column;
 }
@@ -509,9 +509,9 @@ body {
 .add-task-form-right-section2 {
   width: 440px;
   position: absolute;
-  top: 174px;
-  left: 610.25px;
-  gap: 24px;
+  top: 190px;
+  left: 589.25px;
+  gap: 16px;
   display: flex;
   flex-direction: column;
 }
@@ -531,17 +531,18 @@ body {
   top: 174px;
   left: 562.25px;
 }
-
 .add-task-title-inputfield2 {
-  width: 460px;
+  width: 440px;
   padding-left: 16px;
-  border-radius: 10px !important;
+  padding-right: 16px;
+  border-radius: 10px;
   height: 48px;
   outline: none;
   border: 1px solid #a8a8a8;
   font-size: 20px;
   color: #000000;
-}
+  }
+
 
 .add-task-textarea2 {
   min-height: 124px;
@@ -566,7 +567,24 @@ body {
 }
 
 .add-task-select2 {
-  width: 460px;
+  width: 440px;
+  height: 48px;
+  border-radius: 10px;
+  margin-top: -7px;
+  outline: none;
+  border: 1px solid #a8a8a8;
+  font-size: 20px;
+  font-family: "Inter";
+  font-weight: 400;
+  appearance: none;
+  background-image: url("/public/img/arrow_drop_downaa.png");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 16px) center;
+  background-size: 24px;
+}
+
+.add-task-select3 {
+  width: 420px;
   height: 48px;
   border-radius: 10px;
   margin-top: -7px;
@@ -621,7 +639,7 @@ input[type="text" i] {
   position: absolute;
   border-radius: 10px;
   z-index: 1;
-  width: 440px;
+  width: 475px;
   height: 130px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -670,6 +688,32 @@ input[type="text" i] {
   font-family: "Inter";
   font-weight: 400;
   cursor: pointer;
+}
+
+.selectBox2 select {
+  overflow: hidden;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 475px;
+  padding-left: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  box-sizing: border-box;
+}
+
+.selectBox2 option {
+  display: flex;
+  align-items: center;
+}
+
+.overSelect2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .subtasks-control2 img {
