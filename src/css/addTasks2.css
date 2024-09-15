@@ -1,0 +1,278 @@
+.add-task-create-button {
+    background-color: rgb(42, 54, 71);
+    color: #ffffff;
+    height: 56px;
+    width: 183px;
+    border-radius: 10px;
+    font-family: "Inter700";
+    font-size: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    transition: transform 0.2s;
+  }
+  
+  .add-task-create-button:hover {
+    cursor: pointer;
+    background-color: #29abe2;
+    color: #ffffff;
+    transform: scale(1.1);
+  }
+  
+  .add-task-cancel-button {
+    background-color: #ffffff;
+    height: 56px;
+    width: 126px;
+    border: 1px solid rgb(42, 54, 71);
+    border-radius: 10px;
+    color: rgb(42, 54, 71);
+    font-family: "Inter";
+    font-size: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+  
+  .add-task-cancel-button:hover {
+    cursor: pointer;
+    border: 1px solid #29abe2;;
+    color: #007cee;
+    transform: scale(1.1);
+  }
+  
+  /* select section */
+  .checkBoxFlex {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+  }
+  
+  .checkBoxFlex:hover {
+    background-color: #a8a8a8;
+    cursor: pointer;
+  }
+  
+  .flexBoxContainer {
+    width: 100%;
+  }
+  
+  .multiselect {
+    position: relative;
+  }
+  
+  .selectBox {
+    position: relative;
+  }
+  
+  select,
+  input[type="date"],
+  select option {
+    padding-left: 16px;
+  }
+  
+  .selectBox select {
+    overflow: hidden;
+    /* Hide scrollbar */
+    -webkit-appearance: none;
+    /* Remove default arrow in Webkit browsers */
+    -moz-appearance: none;
+    /* Remove default arrow in Firefox */
+    appearance: none;
+    /* Remove default arrow */
+    width: 475px;
+    padding-left: 16px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    box-sizing: border-box;
+    /* Ensure padding is included in the element's width */
+  }
+  
+  .selectBox option {
+    display: flex;
+    align-items: center;
+  }
+  
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  #checkboxes,
+  #checkboxes2 {
+    display: none;
+    border: none;
+    background-color: #ffffff;
+    position: absolute;
+    border-radius: 10px;
+    z-index: 1;
+    width: 475px;
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
+  }
+  
+  #checkboxes img,
+  #checkboxes2 img {
+    height: 42px;
+    width: 42px;
+  }
+  
+  #checkboxes::-webkit-scrollbar,
+  #checkboxes2::-webkit-scrollbar  {
+    display: none;
+  }
+  #checkboxes::-webkit-scrollbar-thumb,
+  #checkboxes2::-webkit-scrollbar-thumb {
+    background-color: #2a3647;
+    border-radius: 8px;
+  }
+  #checkboxes::-webkit-scrollbar-track {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+  }
+  #checkboxes::-webkit-scrollbar-thumb,
+  #checkboxes2::-webkit-scrollbar-thumb {
+    height: 53px;
+  }
+  
+  #checkboxes label,
+  #checkboxes2 label {
+    padding: 5px;
+  }
+  
+  #checkboxes label img,
+  #checkboxes2 label img {
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  
+  /* checkbox ende */
+  
+  /* subtasks */
+  .input-with-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .no-border {
+    border: none;
+  }
+  
+  #subtasksPlus {
+    position: absolute;
+    right: 10px;
+  }
+  .subtasksList {
+    height: 120px;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    flex-grow: 1;
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
+  }
+  
+  
+  .subtasksList::-webkit-scrollbar {
+    display: none;
+  }
+  .subtasksList::-webkit-scrollbar-thumb {
+    background-color: #2a3647;
+    border-radius: 8px;
+  }
+  .subtasksList::-webkit-scrollbar-track {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+  }
+  .subtasksList::-webkit-scrollbar-thumb {
+    height: 53px;
+  }
+  
+  .subtasksList ul {
+    display: inline-block;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+  }
+  .d-none {
+    display: none;
+  }
+  
+  .subtasks-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #a8a8a8;
+    background-color: #ffffff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: none;
+  }
+  
+  .subtasks-control img {
+    height: 16px;
+    width: 16px;
+    padding: 4px;
+  }
+  
+  .subtasks-control img:hover {
+    border-radius: 100%;
+    background-color: #a8a8a8;
+    padding: 4px;
+  }
+  
+  .seperator-subtasks {
+    height: 14px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border: 1px solid #d1d1d1;
+  }
+  .subtask-button, .subtasks-button2 {
+    height: 52px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 0 10px 10px 0;
+    outline: none;
+    border-left: none;
+    background-color: #ffffff;
+    font-size: 24px;
+    font-family: "Inter";
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .subtasks-input, .subtasks-input2 {
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    outline: none;
+    border: 1px solid #a8a8a8;
+    border-right: none;
+    font-size: 20px;
+    font-family: "Inter";
+    font-weight: 400;
+    flex-grow: 1;
+    padding-left: 16px;
+  }
+  

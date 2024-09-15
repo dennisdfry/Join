@@ -366,8 +366,7 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
     assignedToUserArray = assignedToUserArrayEdit;
     assignedToUserArrayNamesGlobal = assignedToUserArrayNamesGlobalEdit;
   }
-  addTaskArrayEdit.push({
-    title: taskTitle,
+  addTaskArrayEdit.push({title: taskTitle,
     description: taskDescription,
     assignedTo: assignedToUserArray,
     assignedToNames: assignedToUserArrayNamesGlobal,
@@ -376,8 +375,7 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
     category: taskCategory,
     subtasks: subtasksArrayEdit,
     subtaskStatus: subtasksStatusArrayEdit,
-    boardCategory: "todo",
-  });
+    boardCategory: "todo",});
 }
 
 function deleteSubtaskEdit(i, indexHTML) {

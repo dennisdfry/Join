@@ -21,7 +21,6 @@ function setupForm() {
   checkFormFields();
 }
 
-
 /**
  * Checks if all required fields are filled and enables or disables the submit button accordingly.
  */
@@ -29,7 +28,6 @@ function checkFormFields() {
   let filledFields = ["name", "mail", "phone"].every((id) => document.getElementById(id).value.trim());
   document.getElementById("formfield-create-btn").disabled = !filledFields;
 }
-
 
 /**
  * Checks if the Enter key is pressed and triggers the form submit event.
@@ -41,7 +39,6 @@ function handleEnterPress(event) {
     handleFormSubmit(event);
   }
 }
-
 
 /**
  * Handles the form submission to add a new contact.
@@ -61,7 +58,6 @@ function handleFormSubmit(event) {
   closeFormField();
 }
 
-
 /**
  * Validates an email address.
  * @param {string} email - The email address to validate.
@@ -70,7 +66,6 @@ function handleFormSubmit(event) {
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-
 
 /**
  * Validates a phone number based on custom rules.
@@ -85,7 +80,6 @@ function validatePhone(phone) {
   return phoneReg.test(phone);
 }
 
-
 /**
  * Capitalizes the first letter of a name.
  * @param {string} name - The contact's name.
@@ -98,7 +92,6 @@ function capitalizeFirstLetter(name) {
   }
   return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 }
-
 
 /**
  * Capitalizes the first letter of each word in a name.
@@ -120,7 +113,6 @@ function capitalizeSecondLetter(words) {
 function showFormField(formId = "add-form-section", overlayId = "overlay", outsideClickHandler = handleOutsideFormClick) {
   let formField = document.getElementById(formId);
   let overlay = document.getElementById(overlayId);
-  
   overlay.classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
