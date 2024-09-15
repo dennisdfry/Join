@@ -251,9 +251,7 @@
     left: 80%;
   }
 
-  .contact-options-dropdown,
-  .contact-section-btn-box {
-    display: flex !important;
+  .contact-options-dropdown {
     flex-direction: column;
     justify-content: center;
     position: fixed;
