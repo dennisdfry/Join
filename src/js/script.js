@@ -208,24 +208,3 @@ async function progressBar(indexHtml) {
     progressBar.style.width = 0;}
   }
 
-/**
- * Creates a new task based on form input.
- * 
- * Prevents default form submission, validates the form, and saves the task data.
- * 
- * @param {Event} event - The form submission event.
- */
-async function createTask(event) {
-  event.preventDefault();
-  let form = event.target;
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return false;
-  }
-  defineTaskObjects2();
-  await saveToFirebase2();
-  form.reset();
-  addTaskArray = [];
-  clearSubtask2();
-  await changeSite("board.html");
-}

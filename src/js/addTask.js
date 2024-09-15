@@ -1,7 +1,5 @@
-// Base URL for Firebase API requests
-let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com";
 
-// Arrays to store task-related data
+let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com";
 let subtasksArray = []; // Stores the names of subtasks
 let subtasksStatusArray = []; // Stores the completion status of each subtask (false by default)
 let prioArray = []; // Stores the priority level of the task
@@ -12,17 +10,6 @@ let assignedToUserArray = []; // Stores the indices of users assigned to the tas
 let assignedToUserArrayNamesGlobal = []; // Stores the names of the users assigned to the task
 let imageUrlsGlobal = []; // Stores the image URLs of contacts
 let selectedPrio = null; // Tracks the selected priority of the task
-
-async function init() {
-  try {
-    let fireBaseData = await onloadData("/");
-    let contacts = await fetchContacts(fireBaseData);
-    let imageUrls = await fetchImages();
-    await assignedTo(contacts, imageUrls);
-  } catch (error) {
-    console.error("Fehler bei der Initialisierung:", error);
-  }
-}
 
 /**
  * Initializes the task form by fetching data from Firebase and setting up the "Assigned To" dropdown.
@@ -180,7 +167,6 @@ function showCheckboxes2() {
  * @returns {Promise<void>}
  */
 async function createTask(event) {
-  //enableEnterPress();
   event.preventDefault();
 
   let form = event.target;
@@ -192,19 +178,23 @@ async function createTask(event) {
     alert("Please select a priority before submitting the form.");
     return false;
   }
-  defineTaskObjects(); // Prepare task data
-  await saveToFirebase(); // Save task to Firebase
-  form.reset(); // Reset the form fields
-  resetFormState(); // Reset internal state
-  changeSite("board.html"); // Redirect to the board view
+  defineTaskObjects(); 
+  await saveToFirebase();
+  form.reset();
+  resetFormState();
+  changeSite("board.html");
 }
 
+/**
+ * Handles the Enter key press for adding subtasks or submitting the form.
+ * @param {KeyboardEvent} event - The keyboard event triggered by pressing a key.
+ */
 function checkEnterSubtasks(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
 
     let activeElement = document.activeElement;
-    let subtaskInput = document.getElementById('subtasks')
+    let subtaskInput = document.getElementById('subtasks');
 
     if (activeElement === subtaskInput) {
       addSubtask();
