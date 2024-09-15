@@ -228,7 +228,7 @@ function validateEditForm() {
  */
 async function getUpdatedContact(contactId) {
   const oldContact = await getContact(contactId);
-  const newName = document.getElementById("edit-name").value.trim();
+  const newName = capitalizeFirstLetter(document.getElementById("edit-name").value.trim());
   
   return {
     name: newName,
@@ -256,7 +256,7 @@ function handleSuccess() {
 async function loadEditFormData(contactId) {
   try {
     const contact = await getContact(contactId);
-    document.getElementById("edit-name").value = contact.name;
+    document.getElementById("edit-name").value = capitalizeFirstLetter(contact.name);
     document.getElementById("edit-mail").value = contact.mail;
     document.getElementById("edit-phone").value = contact.phone;
     let editImageContainer = document.getElementById("prof2-img");
