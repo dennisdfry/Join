@@ -200,10 +200,6 @@ function handleEnterKey(event) {
   }
 }
 
-//AB HIER BEGINNT DAS ADDTASK IM BOARD!!!//
-
-
-
 /**
  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
  * @param {object} contacts - The contacts object.
@@ -480,7 +476,6 @@ function updateSubtasksList2() {
             </ul>`;
   }
 }
-
 
 /**
  * Clears the subtasks display.
