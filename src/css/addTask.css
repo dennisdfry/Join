@@ -531,7 +531,7 @@ select option {
   margin-right: 4px;
   border: 1px solid #d1d1d1;
 }
-.subtask-button {
+.subtask-button, .subtasks-button2 {
   height: 52px;
   background: none;
   border: none;
@@ -550,7 +550,7 @@ select option {
   font-weight: 400;
   cursor: pointer;
 }
-.subtasks-input {
+.subtasks-input, .subtasks-input2 {
   height: 50px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;

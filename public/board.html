@@ -92,14 +92,14 @@
           <!-- Linke Sektion -->
           <div class="add-task-form-left-section2">
             <label for="title">Title <span class="red-star">*</span></label>
-            <input required minlength="2" class="add-task-title-inputfield2" type="text" placeholder="Enter a title" name="title" id="title2" />
+            <input required minlength="2" class="add-task-title-inputfield" type="text" placeholder="Enter a title" name="title" id="title2" />
 
             <label for="description">Description</label>
-            <textarea required minlength="2" class="add-task-textarea2" placeholder="Enter a description" name="description" id="description2"></textarea>
+            <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description" name="description" id="description2"></textarea>
             <label for="assignedTo">Assigned to</label>
-            <div class="multiselect2">
-              <div class="selectBox2" onclick="showCheckboxes2()">
-                <select required class="add-task-select2">
+            <div class="multiselect">
+              <div class="selectBox" onclick="showCheckboxes2()">
+                <select required class="add-task-select">
                   <option>Select an option</option>
                 </select>
                 <div class="overSelect"></div>
@@ -149,7 +149,7 @@
           <button onclick="closeAddForm()" class="add-task-cancel-button">
             <span>Clear <span>x</span></span>
           </button>
-          <button class="add-task-create-button" id="add-task-button2">
+          <button class="add-task-create-button" id="add-task-button-board">
             <span>Create Task</span>
             <img src="../public/img/check.svg" />
           </button>

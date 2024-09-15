@@ -49,6 +49,7 @@ async function fetchImagesBoard(path = "") {
   let responseToJson = await response.json();
   let contacts = responseToJson.contacts;
   let imageUrl = Object.values(contacts).map((contact) => contact.img);
+  assignedTo2(contacts, imageUrl);
   return imageUrl;
 }
 
@@ -191,7 +192,7 @@ function handleEnterKey(event) {
     if (activeElement === subtaskInput) {
       addSubtask2();
     } else {
-      let addButton = document.getElementById('add-task-button2');
+      let addButton = document.getElementById('add-task-button-board');
       if (addButton) {
         addButton.click();
       }
@@ -203,59 +204,6 @@ function handleEnterKey(event) {
 
 
 
-
-/**
- * Initializes the task form by fetching data from Firebase and setting up the "Assigned To" dropdown.
- * @returns {Promise<void>}
- */
-async function init2() {
-  try {
-    let fireBaseData = await onloadData2("/");
-    let contacts = await fetchContacts2(fireBaseData);
-    let imageUrls = await fetchImages2();
-    await assignedTo2(contacts, imageUrls);
-
-  } catch (error) {
-    console.error("Error during initialization:", error);
-  }
-}
-
-/**
- * Fetches contact images from Firebase and returns an array of image URLs.
- * @returns {Promise<string>} - A promise that resolves to an array of image URLs.
- */
-async function fetchImages2() {
-  try {
-    let fireBaseData = await onloadData2("/");
-    let contacts = fireBaseData.contacts;
-    let imageUrls = Object.values(contacts).map((contact) => contact.img);
-    return imageUrls;
-  } catch (error) {
-    console.error("Error fetching images", error);
-  }
-}
-
-/**
- * Fetches JSON data from Firebase at the given path.
- * @param {string} [path=""] - The path to fetch data from.
- * @returns {Promise<object>} - A promise that resolves to the JSON response.
- */
-async function onloadData2(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  return responseToJson;
-}
-
-/**
- * Extracts and returns the contacts object from the JSON response.
- * @param {object} responseToJson - The JSON response from Firebase.
- * @returns {object} - The contacts object extracted from the response.
- */
-async function fetchContacts2(responseToJson) {
-  let contacts = responseToJson.contacts;
-  return contacts;
-}
-
 /**
  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
  * @param {object} contacts - The contacts object.
@@ -264,13 +212,10 @@ async function fetchContacts2(responseToJson) {
  */
 async function assignedTo2(contacts, imageUrls) {
   try {
-    const extractNames = (contacts) => {
-      return Object.values(contacts).map((entry) => ({ name: entry.name }));
-    };
-    const names = extractNames(contacts);
+    const names = Object.values(contacts).map(entry => ({ name: entry.name }));
     checkboxInit2(names, imageUrls);
   } catch (error) {
-    console.error(error);
+    console.error("Error assigning users:", error);
   }
 }
 
@@ -331,13 +276,8 @@ async function assignedToUser2(index, element) {
  */
 function showCheckboxes2() {
   let checkboxes = document.getElementById("checkboxes2");
-  if (!expanded) {
-    checkboxes.style.display = "block";
-    expanded = true;
-  } else {
-    checkboxes.style.display = "none";
-    expanded = false;
-  }
+  expanded = !expanded;
+  checkboxes.style.display = expanded ? "block" : "none";
 }
 
 /**
@@ -451,20 +391,13 @@ async function saveToFirebase2(path = "/tasks") {
  * @param {string} id - The ID of the button to update.
  */
 function prio2(id) {
-  const buttons = document.querySelectorAll(
-    ".add-task-prio-button-container button"
-  );
+  const buttons = document.querySelectorAll(".add-task-prio-button-container button");
 
-  buttons.forEach((button) => {
-    button.classList.remove(
-      "add-task-prio-button-urgent",
-      "add-task-prio-button-medium",
-      "add-task-prio-button-low"
-    );
-    button.classList.add("add-task-prio-button");
-  });
+  buttons.forEach(button => button.className = "add-task-prio-button"); // Reset all buttons
+
   let position = document.getElementById(`prio2Button${id}`);
-  prioIdCheck2(id, position);
+  const prioClasses = ["urgent", "medium", "low"];
+  position.classList.add(`add-task-prio-button-${prioClasses[id - 1]}`);
   selectedPrio = id;
 }
 
@@ -495,7 +428,6 @@ function showSubtaskControls2() {
   document.getElementById("subtasks2").classList.remove("add-task-input");
   document.getElementById("subtasks2").classList.add("subtasks-input");
   let position = document.getElementById("subtasksControl2");
-  position.innerHTML ="";
   position.innerHTML = 
         `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button">
             <img src="../public/img/closeAddTask.png" alt="Reset">
@@ -528,7 +460,7 @@ function resetSubtaskInput2() {
   let input = document.getElementById("subtasks2");
   input.value = "";
   document.getElementById("subtasks2").classList.add("add-task-input");
-  document.getElementById("subtasks2").classList.remove("subtasks-input");
+  document.getElementById("subtasks2").classList.remove("subtasks-input2");
   let position = document.getElementById("subtasksControl2");
   position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button">
                                 +
