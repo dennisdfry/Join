@@ -181,8 +181,9 @@ async function checkAuthAndGreet(greetingMessage, greetingElement, greetingEleme
   }
 }
 
+
 /**
- * Loads tasks from the database.
+ * Loads tasks from the database using the older Firebase SDK.
  * @async
  * @function
  * @returns {Promise<Object>} The task data.
