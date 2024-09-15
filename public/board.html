@@ -79,7 +79,7 @@
     <div onclick="oneClickClose(event)" id="openTask" class="d-none d-flex-center"></div>
 
     <div id="overlay-form" class="overlay d-none"></div>
-    <form onsubmit=" return createTask(event)" id="add-task-form" class="add-Task-Container2 vis-hidden d-none">
+    <form onsubmit=" return createTaskBoard(event)" id="add-task-form" class="add-Task-Container2 vis-hidden d-none">
       <div class="add-task-head2">
         <h1 class="mg-block-inline">Add Task</h1>
         <div class="add-task-close-button"></div>
@@ -108,21 +108,20 @@
             </div>
           </div>
           <div class="add-task-seperator2"></div>
-          <!-- Rechte Sektion -->
           <div class="add-task-form-right-section2">
-            <label for="dueDate">Due date <span class="red-star" id="prio2Button1">*</span></label>
+            <label for="dueDate">Due date <span class="red-star">*</span></label>
             <input required class="add-task-select2" type="date" id="dueDate2" name="dueDate" />
 
             <label id="prioSection2" for="prio">Prio</label>
-            <div class="add-task-prio-button2-container">
-              <button onclick="prio2(1)" id="prio2Button1" value="1" data-prio="urgent" type="button" class="add-task-prio-button2">
+            <div class="add-task-prio-button-container">
+              <button onclick="prio2(1)" id="prio2Button1" value="1" data-prio="urgent" type="button" class="add-task-prio-button">
                 <span>Urgent</span>
                 <img src="../public/img/Prio alta.png" alt="" />
               </button>
-              <button onclick="prio2(2)" id="prio2Button2" value="2" data-prio="medium" type="button" class="add-task-prio-button2">
+              <button onclick="prio2(2)" id="prio2Button2" value="2" data-prio="medium" type="button" class="add-task-prio-button">
                 <span>Medium =</span>
               </button>
-              <button onclick="prio2(3)" id="prio2Button3" value="3" data-prio="low" type="button" class="add-task-prio-button2">
+              <button onclick="prio2(3)" id="prio2Button3" value="3" data-prio="low" type="button" class="add-task-prio-button">
                 <span>Low</span>
                 <img src="../public/img/Prio baja.png" />
               </button>
@@ -134,11 +133,11 @@
               <option value="Technical Task">Technical Task</option>
               <option value="User Story">User Story</option>
             </select>
-            <label for="subtasks2">Subtasks</label>
-            <div class="input-with-button2 bradius10">
-              <input type="text" minlength="2" class="add-task-input2" placeholder="Add item" id="subtasks2" name="subtasks" />
-              <div id="subtasksControl2" class="subtasks-control2">
-                <button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button2">+</button>
+            <label for="subtasks">Subtasks</label>
+            <div class="input-with-button bradius10">
+              <input type="text" minlength="2" class="add-task-input" placeholder="Add item" id="subtasks2" name="subtasks" />
+              <div id="subtasksControl2" class="subtasks-control">
+                <button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button">+</button>
               </div>
             </div>
             <div class="subtasksList2" id="subtasksPosition2"></div>

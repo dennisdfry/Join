@@ -89,13 +89,13 @@ async function assignedTo(contacts, imageUrls) {
 function checkboxInit(names, imageUrls) {
   let position = document.getElementById("checkboxes");
   position.innerHTML = "";
-  let list = ""; // Initialize the string
+  let list = "";
   for (let index = 0; index < names.length; index++) {
     const element = names[index].name;
-    const imgSrc = imageUrls[index]; // Get image URL
+    const imgSrc = imageUrls[index];
     list += checkBoxRender(index, imgSrc, element);
   }
-  position.innerHTML = list; // Set HTML content
+  position.innerHTML = list; 
 }
 
 /**
@@ -138,20 +138,6 @@ async function assignedToUser(index, element) {
  */
 function showCheckboxes() {
   let checkboxes = document.getElementById("checkboxes");
-  if (!expanded) {
-    checkboxes.style.display = "block";
-    expanded = true;
-  } else {
-    checkboxes.style.display = "none";
-    expanded = false;
-  }
-}
-
-/**
- * Toggles the visibility of the second "Assigned To" dropdown.
- */
-function showCheckboxes2() {
-  let checkboxes = document.getElementById("checkboxes2");
   if (!expanded) {
     checkboxes.style.display = "block";
     expanded = true;
@@ -282,7 +268,7 @@ function prio(id) {
   });
   let position = document.getElementById(`prioButton${id}`);
   prioIdCheck(id, position);
-  selectedPrio = id; // Set priority status
+  selectedPrio = id;
 }
 
 /**

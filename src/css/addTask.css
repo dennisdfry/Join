@@ -283,7 +283,7 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   display: flex;
   position: absolute;
   top: 680px;
-  left: 707px;
+  left: 740px;
 }
 
 .add-task-create-button {
