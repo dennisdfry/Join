@@ -605,8 +605,29 @@ body {
   font-size: 61px;
 }
 
+#subtasksPlus2 {
+  position: absolute;
+  right: 10px;
+}
+
 input[type="text" i] {
   padding-block: 0px;
+}
+
+#checkboxes2 {
+  display: none;
+  border: none;
+  background-color: #ffffff;
+  position: absolute;
+  border-radius: 10px;
+  z-index: 1;
+  width: 440px;
+  height: 130px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scrollbar-color: #2a3647 #e0e0e0;
+  -ms-overflow-style: none;
 }
 
 
@@ -637,9 +658,23 @@ input[type="text" i] {
   border-left: none;
 }
 
+ .subtask-button2 {
+  height: 51px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 0 10px 10px 0;
+  font-size: 24px;
+  font-family: "Inter";
+  font-weight: 400;
+  cursor: pointer;
+}
+
 .subtasks-control2 img {
-  height: 16px;
-  width: 16px;
+  height: 14px;
+  width: 14px;
   padding: 4px;
 }
 
@@ -762,16 +797,6 @@ label[for="dueDate"]{
   position: absolute;
   top: 700px;
   left: 150px;
-}
-
-.subtasks-control2 {
-  display: flex;
-  align-items: center;
-  border: 1px solid #a8a8a8;
-  background-color: #ffffff;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-left: none;
 }
 
 .overlay {

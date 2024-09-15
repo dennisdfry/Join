@@ -175,7 +175,7 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   flex-grow: 1;
 }
 
-.add-task-button {
+.add-task-button, .add-task-button-board {
   background: none;
   border: none;
   cursor: pointer;
@@ -390,8 +390,7 @@ select option {
   bottom: 0;
 }
 
-#checkboxes,
-#checkboxes2 {
+#checkboxes {
   display: none;
   border: none;
   background-color: #ffffff;
@@ -530,7 +529,7 @@ select option {
   margin-right: 4px;
   border: 1px solid #d1d1d1;
 }
-.subtask-button, .subtasks-button2 {
+.subtask-button {
   height: 52px;
   background: none;
   border: none;
