@@ -448,3 +448,7 @@ body {
   outline: none;
   border-color: red;
 }
+
+.arrow-button-resp {
+  display: none;
+}

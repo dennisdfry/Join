@@ -224,26 +224,29 @@
 
   .contactlist-section-responsive {
     position: fixed;
-    top: 8%;
+    top: 10%;
     left: 0;
     width: 100vw;
     height: 81.5vh;
-    background-color: #f6f7f8;
+    background-color: #f4f4f4;
     z-index: 2;
   }
 
-  .contact-section-header {
+  .contact-section-header-resp {
     display: flex;
+    flex-direction: column;
     position: fixed;
+    gap: 16px;
     top: 12%;
     left: 5%;
+    z-index: 2;
   }
 
-  .contact-section-header h1 {    
+  .contact-section-header-resp h1 {    
     font-size: 47px;
   }
 
-  .contact-section-header  {
+  .contact-section-header-resp  {
     font-size: 20px;
   }
 
@@ -269,5 +272,13 @@
     border-radius: 20px 0px 20px 20px;
     background-color: white;
     padding: 10px;
+  }
+  
+  .arrow-button-resp {
+    display: flex;
+    position: fixed;
+    top: 150px;
+    right: 30px;
+    text-decoration: none !important;    
   }
 }
