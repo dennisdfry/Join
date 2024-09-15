@@ -203,7 +203,7 @@
     width: 300px;
     position: fixed;
     left: 5%;
-    z-index: 3000;
+    z-index: 3;
   }
 
   .edit-contact-section {
@@ -225,12 +225,12 @@
 
   .contactlist-section-responsive {
     position: fixed;
-    top: 10%;
+    top: 8%;
     left: 0;
     width: 100vw;
     height: 81.5vh;
     background-color: #f6f7f8;
-    z-index: 5000;
+    z-index: 2;
   }
 
   .contact-section-header {
@@ -251,7 +251,7 @@
     left: 80%;
   }
 
-  .contact-options-dropdown {
+  .contact-options-dropdown {    
     flex-direction: column;
     justify-content: center;
     position: fixed;
@@ -260,7 +260,7 @@
     width: 116px;
     height: 100px;
     border-radius: 20px 0px 20px 20px;
-    z-index: 5002;
+    z-index: 4;
     background-color: white;
     padding: 10px;
   }
