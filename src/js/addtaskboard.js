@@ -50,8 +50,6 @@ function openAddForm() {
   function outsideClickHandler(event) {
     let formField = document.getElementById("add-task-form");
     let overlay = document.getElementById("overlay-form");
-  
-    // If the click is outside the form but within the overlay, close the form.
     if (!formField.contains(event.target) && overlay.contains(event.target)) {
       closeAddForm();
     }
@@ -91,7 +89,7 @@ function openAddForm() {
    */
   async function assignedTo2(contacts, imageUrls) {
     try {
-      const names = Object.values(contacts).map(entry => ({ name: entry.name }));
+      let names = Object.values(contacts).map(entry => ({ name: entry.name }));
       checkboxInit2(names, imageUrls);
     } catch (error) {
       console.error("Error assigning users:", error);

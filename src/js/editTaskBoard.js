@@ -263,6 +263,10 @@ function prioIdCheck(id, position) {
   position.classList.remove("add-task-prio-button");
 }
 
+/**
+ * Adds a new subtask to the list of subtasks during task editing.
+ * @param {number} index - The index of the task being edited.
+ */
 function addSubtaskEdit(index) {
   let input = document.getElementById(`subtasksEdit${index}`);
   if (input.value.trim() !== "") {
@@ -273,6 +277,7 @@ function addSubtaskEdit(index) {
     subtasksRenderEdit(index);
   }
 }
+
 
 /**
  * Updates the task data on the board after editing and saves it to Firebase.
@@ -296,6 +301,13 @@ function handleFormSubmitEdit(event, index, category) {
   updateTaskBoard(index, category);
 }
 
+/**
+ * Updates the task board with edited task details and navigates to the board page.
+ * 
+ * @param {number} index - The index of the task being edited.
+ * @param {string} category - The category of the task.
+ * @async
+ */
 async function updateTaskBoard(index, category) {
   defineTaskObjectsEdit(index, category);
   let positionTask = `/tasks/${taskkeys[index]}`;
@@ -304,6 +316,9 @@ async function updateTaskBoard(index, category) {
   changeSite("board.html");
 }
 
+/**
+ * Resets the form state after editing a task.
+ */
 function resetFormStateEdit() {
   addTaskArrayEdit = [];
   selectedPrioEdit = null;
@@ -319,6 +334,8 @@ function resetFormStateEdit() {
   assignedToUserArrayEdit = [];
   assignedToUserArrayNamesGlobalEdit = [];
 }
+
+
 /**
  * Saves the edited task data to Firebase.
  *
@@ -378,6 +395,12 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
     boardCategory: "todo",});
 }
 
+/**
+ * Deletes a subtask and updates the display.
+ * 
+ * @param {number} i - The index of the subtask to delete.
+ * @param {number} indexHTML - The index of the task being edited.
+ */
 function deleteSubtaskEdit(i, indexHTML) {
   let position = document.getElementById(`supplementarySubtaskEdit${i}`);
   position.innerHTML = "";
@@ -385,6 +408,11 @@ function deleteSubtaskEdit(i, indexHTML) {
   subtasksRenderEdit(indexHTML);
 }
 
+/**
+ * Renders the list of subtasks for a given task.
+ * 
+ * @param {number} indexHTML - The index of the task being edited.
+ */
 function subtasksRenderEdit(indexHTML) {
   let subtasksedit = subtasksLengthArray[0];
   let position = document.getElementById(`subtasksPosition${indexHTML}`);
@@ -407,12 +435,24 @@ function subtasksRenderEdit(indexHTML) {
   }
 }
 
+/**
+ * Updates a subtask with new input value and re-renders the list.
+ * 
+ * @param {number} i - The index of the subtask to update.
+ * @param {number} indexHTML - The index of the task being edited.
+ */
 function finishSubtaskEdit(i, indexHTML) {
   let input = document.getElementById(`inputEditSubtasks${i}`);
   subtasksArrayEdit[i] = input.value;
   subtasksRenderEdit(indexHTML);
 }
 
+/**
+ * Closes the task edit modal and resets the form state.
+ * 
+ * @param {Event} event - The event object.
+ * @param {number} index - The index of the task being edited.
+ */
 function closeOpenTaskEdit(event, index) {
   event.stopPropagation();
   let openPosition = document.getElementById("openTask");
@@ -422,6 +462,9 @@ function closeOpenTaskEdit(event, index) {
   resetFormStateEdit();
 }
 
+/**
+ * Enables the Enter key to trigger the edit button click.
+ */
 function enableEnterKeyEdit() {
   document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
@@ -433,3 +476,4 @@ function enableEnterKeyEdit() {
     }
   });
 }
+

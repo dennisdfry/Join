@@ -99,8 +99,9 @@ async function updateHTML() {
  * If the input is cleared, all tasks are shown again.
  */
 function searchTasks() {
-  const searchInput = document.querySelector('.search-task-web').value.toLowerCase();
-  let allTasks = document.getElementsByTagName('div'); // Holt alle div-Elemente
+  const searchInputElement = document.querySelector('.search-task-web');
+  const searchInput = searchInputElement.value.toLowerCase();
+  let allTasks = document.getElementsByTagName('div');
 
   for (let i = 0; i < allTasks.length; i++) {
     let task = allTasks[i];

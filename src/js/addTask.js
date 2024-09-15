@@ -171,6 +171,10 @@ async function createTask(event) {
   changeSite("board.html");
 }
 
+/**
+ * Handles the "Enter" key press event to submit subtasks or a form.
+ * @param {KeyboardEvent} event - The keyboard event object representing the "Enter" key press.
+ */
 function checkEnterSubtasks(event) {
   if (event.key === "Enter") {
     event.preventDefault(); 
@@ -187,6 +191,7 @@ function checkEnterSubtasks(event) {
     }
   }
 }
+
 
 /**
  * Resets the internal state of the form and clears stored data.
