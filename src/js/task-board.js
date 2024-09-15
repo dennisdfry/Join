@@ -90,6 +90,55 @@ async function updateHTML() {
   }
 }
 
+
+
+/**
+ * Filters tasks based on the search input.
+ * Displays tasks that match the search query (starting from 3 characters).
+ * If the input is cleared, all tasks are shown again.
+ */
+function searchTasks() {
+  const searchInput = document.querySelector('.search-task-web').value.toLowerCase();
+  let allTasks = document.getElementsByTagName('div'); // Holt alle div-Elemente
+
+  for (let i = 0; i < allTasks.length; i++) {
+    let task = allTasks[i];
+    
+    if (task.id.startsWith('parentContainer')) {
+      let title = task.getElementsByTagName('h2')[0].innerHTML.toLowerCase();
+      if (searchInput.length < 3 || title.includes(searchInput)) {
+        task.style.display = 'block';
+      } else {
+        task.style.display = 'none';
+      }
+    }
+  }
+}
+
+//AB HIER BEGINNT DAS ADDTASK IM BOARD!!!//
+
+/**
+ * Creates a new task based on form input.
+ * 
+ * Prevents default form submission, validates the form, and saves the task data.
+ * 
+ * @param {Event} event - The form submission event.
+ */
+async function createTaskBoard(event) {
+  event.preventDefault();
+  let form = event.target;
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return false;
+  }
+  defineTaskObjects2();
+  await saveToFirebase2();
+  form.reset();
+  addTaskArray = [];
+  clearSubtask2();
+  await changeSite("board.html");
+}
+
 /**
  * Updates the priority button styling.
  *
@@ -225,29 +274,6 @@ function clearSubtask2() {
   position.innerHTML = "";
 }
 
-/**
- * Filters tasks based on the search input.
- * Displays tasks that match the search query (starting from 3 characters).
- * If the input is cleared, all tasks are shown again.
- */
-function searchTasks() {
-  const searchInput = document.querySelector('.search-task-web').value.toLowerCase();
-  let allTasks = document.getElementsByTagName('div'); // Holt alle div-Elemente
-
-  for (let i = 0; i < allTasks.length; i++) {
-    let task = allTasks[i];
-    
-    if (task.id.startsWith('parentContainer')) {
-      let title = task.getElementsByTagName('h2')[0].innerHTML.toLowerCase();
-      if (searchInput.length < 3 || title.includes(searchInput)) {
-        task.style.display = 'block';
-      } else {
-        task.style.display = 'none';
-      }
-    }
-  }
-}
-
 
 /**
  * Opens the form to add a new task.
@@ -289,19 +315,36 @@ function closeAddForm() {
 }
 
 
+/**
+ * Handles outside click detection.
+ *
+ * This function listens for clicks outside the "add-task" form. If the click occurs
+ * outside the form but within the overlay, it triggers the form to close.
+ *
+ * @param {Event} event - The click event.
+ */
 function outsideClickHandler(event) {
   let formField = document.getElementById("add-task-form");
   let overlay = document.getElementById("overlay-form");
 
+  // If the click is outside the form but within the overlay, close the form.
   if (!formField.contains(event.target) && overlay.contains(event.target)) {
     closeAddForm();
   }
 }
 
-
+/**
+ * Handles the Enter key press event.
+ *
+ * This function listens for the Enter key being pressed. Depending on which element
+ * is active (focused), it either adds a new subtask or submits the task by clicking
+ * the corresponding button.
+ *
+ * @param {KeyboardEvent} event - The keyboard event for key press.
+ */
 function handleEnterKey(event) {
   if (event.key === "Enter") {
-    event.preventDefault();
+    event.preventDefault(); 
     let activeElement = document.activeElement;
     let subtaskInput = document.getElementById('subtasks2');
 

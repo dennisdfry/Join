@@ -190,7 +190,7 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
  */
 
 function assignedToUserEdit(index, element) {
-  assignedToUserEditNull = true; // ???
+  assignedToUserEditNull = true;
   const arrayIndex = assignedToUserArray.indexOf(index);
   if (arrayIndex !== -1) {
     assignedToUserArray.splice(arrayIndex, 1);
