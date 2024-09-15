@@ -205,6 +205,10 @@
     left: 5%;
   }
 
+  #contact-section {
+    height: 200px;
+  }
+
   .contact-section-btn-box {
     display: none;
   }
@@ -233,6 +237,14 @@
     position: fixed;
     top: 12%;
     left: 5%;
+  }
+
+  .contact-section-header h1 {    
+    font-size: 47px;
+  }
+
+  .contact-section-header  {
+    font-size: 20px;
   }
 
   #contact-section {
