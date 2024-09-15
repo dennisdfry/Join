@@ -1,0 +1,242 @@
+.subtasksLength {
+    width: 73px;
+  }
+  .subtasks-board-task-text {
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 12px;
+  }
+  .subtask-scrollbar {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
+  }
+  
+  .subtask-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .subtask-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #2a3647;
+    border-radius: 8px;
+  }
+  .subtask-scrollbar::-webkit-scrollbar-track {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+  }
+  .subtask-scrollbar::-webkit-scrollbar-thumb {
+    height: 53px;
+  }
+  
+  .user-image-bord-container {
+    max-width: 80px;
+    width: 80px;
+    height: 32px;
+    display: flex;
+    position: relative;
+  }
+  .user-image-board {
+    border-radius: 50%;
+  }
+  .image-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .prio-board-image {
+    color: rgb(255, 168, 0);
+  }
+  /* openTask */
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100vw);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .board-task-container-open {
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    animation: slideInFromRight 0.5s ease-out forwards;
+  }
+  
+  .board-task-container-open h1 {
+    background-color: #0038ff;
+    padding: 4px 24px;
+    color: rgb(255, 255, 255);
+  }
+  .board-task-container-open h2 {
+    margin-top: 10px;
+  }
+  
+  .close-open-task-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 56px;
+  }
+  .close-open-task-img:hover {
+    cursor: pointer;
+  }
+  .margin-left-open-task {
+    margin-left: 25px;
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .board-render-section {
+    display: flex;
+  }
+  
+  .board-render-status-container {
+    height: 65vh;
+    width: 252px;
+    margin-top: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
+  }
+  
+  .board-render-status-container::-webkit-scrollbar {
+    display: none;
+  }
+  .board-render-status-container::-webkit-scrollbar-thumb {
+    background-color: #2a3647;
+    border-radius: 8px;
+  }
+  .board-render-status-container::-webkit-scrollbar-track {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+  }
+  .board-render-status-container::-webkit-scrollbar-thumb {
+    height: 53px;
+  }
+  
+  .user-image-bord-container-open {
+    padding-left: 4px;
+  }
+  .user-image-task-open {
+    width: 42px;
+    height: 42px;
+    margin-right: 16px;
+  }
+  .checkbox-open-Task {
+    width: 16px;
+    height: 16px;
+    margin-right: 16px;
+  }
+  .open-task-delete-edit {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+  .seperator-opentask {
+    width: 0px;
+    border: 1px solid #d1d1d1;
+    height: 24px;
+    margin: 4px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  .edit-task-textarea {
+    min-height: 120px;
+    border-radius: 10px;
+    max-width: 434px;
+    outline: none;
+    border: 1px solid #a8a8a8;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 8px;
+    resize: vertical;
+    font-size: 20px;
+  }
+  
+  
+  .edit-task-date {
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 48px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #a8a8a8;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 20px;
+    appearance: none;
+    background-image: url("/public/img/arrow_drop_downaa.png");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16px) center;
+    background-size: 24px;
+  }
+  
+  .drag-area {
+    max-height: 60vh;
+    background-color: rgb(246, 247, 248);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .todo {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .add-task-exit-btn {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 32px;
+    left: 1052px;
+    cursor: pointer;
+  }
+  
+  .req-field {
+    position: absolute;
+    top: 700px;
+    left: 150px;
+  }
+  
+  .title-edit-input {
+    border-radius: 10px;
+    max-width: 434px;
+    height: 48px;
+    outline: none;
+    border: 1px solid #a8a8a8;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 8px;
+  }
