@@ -114,7 +114,7 @@ function generateProfileImage(name) {
 function renderContactButtons(contactId) {
   const contactSectionBtnBoxResp = document.querySelector('.contact-section-btn-box-resp');
   
-  contactSectionBtnBoxResp.innerHTML +=  `
+  contactSectionBtnBoxResp.innerHTML =  `
     <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="showEditForm('${contactId}')" id="edit-btn">
       <img class="obj-cover img-24" src="./img/edit.png">Edit
     </button>
