@@ -117,8 +117,6 @@ function showFormField(formId = "add-form-section", overlayId = "add-overlay", o
   overlay.classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  
-  // Clear existing event listeners to avoid duplicates
   document.removeEventListener("click", outsideClickHandler);
   document.addEventListener("click", outsideClickHandler);
 

@@ -216,7 +216,7 @@ function prioEdit(id) {
   });
   let position = document.getElementById(`prioButtonEdit${id}`);
   prioIdCheck(id, position);
-  selectedPrioEdit = true; // Set priority status
+  selectedPrioEdit = true;
 }
 /**
  * Checks the priority ID and updates the button style accordingly.

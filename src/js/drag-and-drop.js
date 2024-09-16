@@ -35,7 +35,7 @@ function handleRotateStart(event) {
 function handleRotateEnd(event) {
   if (cachedElement) {
     cachedElement.classList.remove("rotate");
-    cachedElement = null; // Clear the cache after use
+    cachedElement = null;
   }
 }
 
