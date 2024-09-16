@@ -28,31 +28,6 @@ function editDescription(index) {
 }
 
 /**
- * Opens the task in edit mode and renders the task details for editing.
- *
- * @param {number} index - The index of the task being edited.
- * @param {string} category - The category of the task.
- * @param {string} title - The title of the task.
- * @param {string} description - The description of the task.
- * @param {string} date - The due date of the task.
- * @param {string} prio - The priority of the task.
- * @async
- */
-
-async function editOpenTask(index, category, title, description, date, prio) {
-  let position = document.getElementById("openTask");
-  position.innerHTML = "";
-  position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
-  dueDateEditTask(index, date);
-  initEdit(index);
-  checkboxIndexFalse(index);
-  subtasksRenderEdit(index);
-  CategoryColorEdit(index, category);
-  enableEnterKeyEdit();
-  userImageRenderEdit(index);
-}
-
-/**
  * Sets the background color for the task category during editing.
  *
  * @param {number} index - The index of the task being edited.
@@ -278,29 +253,6 @@ function addSubtaskEdit(index) {
   }
 }
 
-
-/**
- * Updates the task data on the board after editing and saves it to Firebase.
- *
- * @param {number} index - The index of the task being edited.
- * @param {string} category - The category of the task.
- * @async
- */
-
-function handleFormSubmitEdit(event, index, category) {
-  event.preventDefault();
-  let form = event.target;
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
-  if (!selectedPrioEdit) {
-    alert("Please select a priority before submitting the form.");
-    return;
-  }
-  updateTaskBoard(index, category);
-}
-
 /**
  * Updates the task board with edited task details and navigates to the board page.
  * 
@@ -446,34 +398,3 @@ function finishSubtaskEdit(i, indexHTML) {
   subtasksArrayEdit[i] = input.value;
   subtasksRenderEdit(indexHTML);
 }
-
-/**
- * Closes the task edit modal and resets the form state.
- * 
- * @param {Event} event - The event object.
- * @param {number} index - The index of the task being edited.
- */
-function closeOpenTaskEdit(event, index) {
-  event.stopPropagation();
-  let openPosition = document.getElementById("openTask");
-  openPosition.classList.remove("modal-overlay");
-  openPosition.classList.add("d-none");
-  openPosition.innerHTML = "";
-  resetFormStateEdit();
-}
-
-/**
- * Enables the Enter key to trigger the edit button click.
- */
-function enableEnterKeyEdit() {
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      let editButton = document.querySelector(".edit-task-button");
-      if (editButton) {
-        editButton.click();
-      }
-    }
-  });
-}
-

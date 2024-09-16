@@ -220,7 +220,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
                     <ul class="subtasksListEdit" id="subtasksPosition${index}"></ul> 
           <div class="d-flex-end">
             <div class=" d-flex content-even edit-task-button-div">
-             <button class="pointer edit-task-button">
+             <button class="pointer edit-task-button" id="edit-Add-Btn">
                 <span class="fs-16 mg-block-none fs-21 f-weight-700 img-24">Edit</span>
                 <img class="open-task-delete-edit img" src="../public/img/check2.png">
              </button> 
