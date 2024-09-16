@@ -236,18 +236,24 @@ async function deleteOnFirebase(taskkey) {
 /**
  * Enables the Enter key to trigger the edit button click.
  */
-function enableEnterKeyEdit() {
+function enableEnterKeyEdit(index) {
   document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
-      let editButton = document.getElementById("edit-Add-Btn");
-      if (editButton) {
-        editButton.click();
+      let activeElement = document.activeElement;
+      let subtaskInputEdit = document.getElementById(`subtasksEdit${index}`);
+
+      if (activeElement === subtaskInputEdit) {
+        addSubtaskEdit(index);
+      } else {
+        let editButton = document.getElementById("edit-Add-Btn");
+        if (editButton) {
+          editButton.click();
+        }
       }
     }
   });
 }
-
 
 
 /**
