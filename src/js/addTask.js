@@ -89,14 +89,18 @@ async function assignedTo(contacts, imageUrls) {
 function checkboxInit(names, imageUrls) {
   let position = document.getElementById("checkboxes");
   position.innerHTML = "";
+
+  const contacts = names.map((name, index) => ({ name: name.name, imgSrc: imageUrls[index] }));
+  contacts.sort((a, b) => a.name.localeCompare(b.name));
+
   let list = "";
-  for (let index = 0; index < names.length; index++) {
-    const element = names[index].name;
-    const imgSrc = imageUrls[index];
-    list += checkBoxRender(index, imgSrc, element);
-  }
+  contacts.forEach((contact, index) => {
+    list += checkBoxRender(index, contact.imgSrc, contact.name);
+  });
+
   position.innerHTML = list; 
 }
+
 
 /**
  * Returns a string of HTML to render a checkbox with an image and name.
