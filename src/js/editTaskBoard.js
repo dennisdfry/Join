@@ -138,24 +138,25 @@ function assignedToEdit(contacts, imageUrls, index) {
 
 /**
  * Initializes the checkboxes for assigning users to the task during editing.
- *
  * @param {Array<Object>} names - The names of the contacts.
  * @param {Array<string>} imageUrls - The image URLs of the contacts.
  * @param {number} indexHTML - The index of the task being edited.
  */
-
 function checkboxInitEdit(names, imageUrls, indexHTML) {
   let position = document.getElementById(`checkboxesEdit${indexHTML}`);
-
   position.innerHTML = "";
+  const contacts = names.map((name, index) => ({ name: name.name, imgSrc: imageUrls[index] }));
+  
+  contacts.sort((a, b) => a.name.localeCompare(b.name));
+
   let list = "";
-  for (let index = 0; index < names.length; index++) {
-    const element = names[index].name;
-    const imgSrc = imageUrls[index];
-    list += checkBoxRenderEdit(index, imgSrc, element);
-  }
-  position.innerHTML = list;
+  contacts.forEach((contact, index) => {
+    list += checkBoxRender2(index, contact.imgSrc, contact.name); // Use checkBoxRender2
+  });
+
+  position.innerHTML = list; 
 }
+
 
 /**
  * Toggles the assignment of a user to the task during editing.
