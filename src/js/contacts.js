@@ -110,13 +110,18 @@ function capitalizeSecondLetter(words) {
  * @param {string} overlayId - The ID of the overlay to display.
  * @param {Function} outsideClickHandler - The function to handle clicks outside the form.
  */
-function showFormField(formId = "add-form-section", overlayId = "overlay", outsideClickHandler = handleOutsideFormClick) {
+function showFormField(formId = "add-form-section", overlayId = "add-overlay", outsideClickHandler = handleOutsideFormClick) {
   let formField = document.getElementById(formId);
   let overlay = document.getElementById(overlayId);
+  
   overlay.classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+  
+  // Clear existing event listeners to avoid duplicates
+  document.removeEventListener("click", outsideClickHandler);
   document.addEventListener("click", outsideClickHandler);
+
   setupForm();
 }
 
@@ -128,10 +133,11 @@ function showFormField(formId = "add-form-section", overlayId = "overlay", outsi
  * @param {string} overlayId - The ID of the overlay to hide.
  * @param {Array<string>} fieldIds - An array of field IDs to reset.
  */
-function closeFormField(formId = "add-form-section", overlayId = "overlay", fieldIds = ["name", "mail", "phone"]) {
-  document.getElementById(overlayId).classList.add("d-none");
+function closeFormField(formId = "add-form-section", overlayId = "add-overlay", fieldIds = ["name", "mail", "phone"]) {
   let formField = document.getElementById(formId);
+  document.getElementById(overlayId).classList.add("d-none");
   fieldIds.forEach((id) => (document.getElementById(id).value = ""));
+  
   formField.style.animation = "moveOut 200ms ease-out forwards";
   
   setTimeout(() => {
@@ -139,6 +145,7 @@ function closeFormField(formId = "add-form-section", overlayId = "overlay", fiel
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
   }, 100);
   
+  // Remove event listener for the form
   document.removeEventListener("click", handleOutsideFormClick);
   document.querySelectorAll(["name", "mail", "phone"]).forEach(id => {
     let element = document.getElementById(id);
@@ -276,7 +283,7 @@ function handleOutsideFormClick(event) {
  */
 function handleOutsideEditFormClick(event) {
   let section = document.getElementById("edit-contact-section");
-  if (!section.contains(event.target) && !event.target.closest("#edit-btn")) {
+  if (section && !section.contains(event.target) && !event.target.closest("#edit-btn")) {
     closeEditField();
   }
 }
