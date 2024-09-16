@@ -66,7 +66,7 @@
   bottom: 0;
 }
 
-#checkboxesEdit0 {
+#checkboxesEdit1 {
   height: 136px;
   width: auto;
   overflow-x: hidden;
@@ -76,18 +76,18 @@
   -ms-overflow-style: none;
 }
 
-#checkboxesEdit0::-webkit-scrollbar {
+#checkboxesEdit1::-webkit-scrollbar {
   display: none;
 }
-#checkboxesEdit0::-webkit-scrollbar-thumb {
+#checkboxesEdit1::-webkit-scrollbar-thumb {
   background-color: #2a3647;
   border-radius: 8px;
 }
-#checkboxesEdit0::-webkit-scrollbar-track {
+#checkboxesEdit1::-webkit-scrollbar-track {
   background-color: #e0e0e0;
   border-radius: 8px;
 }
-#checkboxesEdit0::-webkit-scrollbar-thumb {
+#checkboxesEdit1::-webkit-scrollbar-thumb {
   height: 53px;
 }
 
