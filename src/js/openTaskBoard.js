@@ -1,5 +1,6 @@
 let opentaskIndex;
 let taskInfo;
+let isSaving = false;
 /**
  * Updates the priority icon in the open task view based on the task's priority level.
  *
@@ -249,31 +250,26 @@ function enableEnterKeyEdit() {
 
 
 
-
-
 /**
- * Updates the task data on the board after editing and saves it to Firebase.
+ * Verarbeitet das Absenden des Formulars, aktualisiert die Taskdaten und speichert sie in Firebase.
  *
- * @param {number} index - The index of the task being edited.
- * @param {string} category - The category of the task.
- * @async
+ * @param {Event} event - Das Ereignis des Formularabsendens.
+ * @param {number} index - Der Index der Aufgabe, die bearbeitet wird.
+ * @param {string} category - Die Kategorie der Aufgabe.
  */
-
 function handleFormSubmitEdit(event, index, category) {
   event.preventDefault();
-  let form = event.target;
-  if (!form.checkValidity()) {
-    form.reportValidity();
+  if (isSaving || !event.target.checkValidity() || !selectedPrioEdit) {
+    if (!selectedPrioEdit) alert("Bitte wähle eine Priorität aus.");
+    event.target.reportValidity();
     return;
   }
-  if (!selectedPrioEdit) {
-    alert("Please select a priority before submitting the form.");
-    return;
-  }
-  updateTaskBoard(index, category);
+  isSaving = true;
+  updateTaskBoard(index, category)
+    .then(() => console.log("Task erfolgreich aktualisiert."))
+    .catch(error => console.error("Fehler beim Speichern der Aufgabe:", error))
+    .finally(() => isSaving = false);
 }
-
-
 
 /**
  * Opens the task in edit mode and renders the task details for editing.
