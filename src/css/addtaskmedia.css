@@ -258,3 +258,181 @@
     width: 396px;
   }
 }
+
+@media (max-width: 430px) {
+  
+  .add-task-create-button {
+    position: absolute;
+    top: 850;
+    left: 100px;
+    bottom: 0;
+  }
+  .add-task-head {
+    height: 75px;
+    margin-top: 0;
+    position: sticky;
+    top: 0;
+    background-color: #f6f7f8;
+    z-index: 3;
+  }
+
+  .add-task-head h1 {
+    font-size: 36px;
+    top: 10px;
+  }
+
+  .add-Task-Container {
+    width: 320px;
+    height: 80vh;
+    position: absolute;
+    top: 80px;
+    left: 16px;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  form {
+    width: 320px;
+  }
+
+  .add-task-middle-section {
+    top: 80px;
+  }
+
+  .add-task-finish-button-container {
+    background-color: #f6f7f8;
+    position: absolute;
+    top: 660px;
+    left: 16px;
+    width: auto;
+    height: auto;
+    padding-bottom: 2px;
+    transform: none;
+  }
+
+  .add-task-title-inputfield {
+    width: 320px;
+    height: 40px;
+    gap: 8px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .selectBox select,
+  .add-task-title-inputfield::placeholder,
+  input[type="date"],
+  select option {
+    padding-left: 16px;
+  }
+
+  select {
+    font-size: 16px;
+    padding-left: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    appearance: none;
+  }
+
+  #taskCategory {
+    width: 320px !important;
+  }
+
+  .subtasksList {
+    height: 60px;
+  }
+
+  .subtasksList ul {
+    margin-top: 8px;
+    font-size: 16px;
+  }
+
+  label[for="title"],
+  label[for="description"],
+  label[for=""],
+  label[for="assignedTo"],
+  label[for="dueDate"],
+  label[for="taskCategory"],
+  label[for="subtasks"],
+  .add-task-prio-button,
+  .add-task-input,
+  select option,
+  .checkBoxImg,
+  .add-task-title-inputfield,
+  .add-task-textarea,
+  #prioButton1,
+  #prioButton2,
+  #prioButton3,
+  .add-task-title-inputfield::placeholder,
+  .add-task-textarea::placeholder,
+  input[type="date"] {
+    font-size: 12px;
+  }
+
+  .add-task-textarea {
+    width: 350px;
+    min-height: 80px;
+    max-height: 88px;
+    gap: 8px;
+  }
+
+  .selectBox select {
+    font-size: 16px;
+    width: 320px;
+    height: 48px;
+    gap: 8px;
+  }
+
+  #checkboxes img {
+    height: 32px;
+    width: 32px;
+  }
+
+  #checkboxes,
+  #checkboxes2 {
+    font-size: 16px;
+    height: 100px;
+    width: 320px;
+  }
+
+  .add-task-finish-section {
+    font-size: 16px;
+    font-weight: 400;
+    position: absolute;
+    top: 580px;
+    padding: 0;
+  }
+
+  .add-task-prio-button-container {
+    width: 320px;
+    height: 50px;
+    gap: 8px;
+  }
+
+  .input-with-button {
+    width: 320px;
+    padding: 0;
+  }
+
+  .add-task-prio-button {
+    margin: 0;
+  }
+
+  .add-task-prio-button:hover {
+    transform: scale(1);
+  }
+
+  .add-task-select {
+    font-size: 16px;
+    width: 320px;
+    height: 48px;
+    padding-right: 0;
+    gap: 8px;
+  }
+
+  .add-task-select select,
+  .add-task-middle-section {
+    width: 396px;
+  }
+}
+
