@@ -81,7 +81,8 @@ function renderContactInfo(contactSection, contact) {
           </div>
         </div>
       </div>
-    </div>`;
+    </div>
+    `;
 }
 
 /**
@@ -103,4 +104,22 @@ function generateProfileImage(name) {
   <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
 </svg>`;
   return `data:image/svg+xml;base64,${btoa(svgImage)}`;
+}
+
+/**
+ * Renders the Edit and Delete buttons inside the element with the class 'contact-section-btn-box-resp'.
+ * 
+ * @param {string} contactId - The unique ID of the contact used to associate the buttons with the correct contact.
+ */
+function renderContactButtons(contactId) {
+  const contactSectionBtnBoxResp = document.querySelector('.contact-section-btn-box-resp');
+  
+  contactSectionBtnBoxResp.innerHTML +=  `
+    <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="showEditForm('${contactId}')" id="edit-btn">
+      <img class="obj-cover img-24" src="./img/edit.png">Edit
+    </button>
+    <button class="bg-color-tr txt-center gap-8 b-unset pointer d-flex-center flex-d-row fs-16" onclick="deleteContact('${contactId}')" id="del-btn">
+      <img class="obj-cover img-24" src="./img/delete.png">Delete
+    </button>
+  `;
 }

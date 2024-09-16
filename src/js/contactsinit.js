@@ -47,6 +47,7 @@ async function initContactDetails(contactId) {
       let contact = await getContact(contactId);
       renderContactHead(contactSection, contact, contactId);
       renderContactInfo(contactSection, contact);
+      renderContactButtons(contactId);
   } catch (error) {
       console.error("Error loading contact details:", error);
   }
