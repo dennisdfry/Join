@@ -151,12 +151,11 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
 
   let list = "";
   contacts.forEach((contact, index) => {
-    list += checkBoxRender2(index, contact.imgSrc, contact.name); // Use checkBoxRender2
+    list += checkBoxRenderEdit(index, contact.imgSrc, contact.name);
   });
 
   position.innerHTML = list; 
 }
-
 
 /**
  * Toggles the assignment of a user to the task during editing.
