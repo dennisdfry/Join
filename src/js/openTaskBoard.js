@@ -28,7 +28,7 @@ function searchprioOpenTask(index, prio) {
  *
  * @param {number} index - The index of the task.
  * @param {Array<string>} users - An array of user IDs associated with the task.
- * @param {Array<string>} fetchImage - An array of image URLs associated with the users.
+ * @param {Object} fetchImage - Object mapping user IDs to image URLs and names.
  * @param {Array<string>} userNames - An array of user names associated with the task.
  * @async
  */
@@ -38,15 +38,18 @@ async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
   if (!users || users.length === 0) {
     return;
   }
-  for (let i = 0; i < users.length; i++) {
-    let element = users[i];
-    let names = userNames[i];
-    assignedToUserArrayNamesGlobalEdit.push(names);
-    assignedToUserArrayEdit.push(element);
-    let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImageOpen(imageUrl, i, names); // ???
+  const userEntries = users.map(userId => ({
+    userId,
+    name: userNames[users.indexOf(userId)],
+    img: fetchImage[userId]
+  }));
+  userEntries.sort((a, b) => a.name.localeCompare(b.name));
+  for (let i = 0; i < userEntries.length; i++) {
+    const { img, name } = userEntries[i];
+    position.innerHTML += await htmlBoardImageOpen(img, i, name);
   }
 }
+
 
 /**
  * Generates the HTML structure for displaying a user's image and name in the open task view.

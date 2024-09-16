@@ -128,21 +128,16 @@ async function searchIndexUrl(index, users, fetchImage) {
 
 function tileUserImage(index) {
   const images = document.getElementById(`userImageBoard${index}`).getElementsByClassName("image-div");
-  const totalWidth = 100; // Gesamter verfügbarer Platz in Pixeln
-  const imageWidth = 32; // Breite eines einzelnen Bildes in Pixeln
-  const overlap = 16; // Überlappung pro Bild in Pixeln (halbe Bildbreite)
+  const totalWidth = 100;
+  const imageWidth = 32;
+  const overlap = 16; 
 
-  // Berechnen, wie viele Bilder ohne Überlappung Platz hätten
   const maxImages = Math.floor((totalWidth + overlap) / (imageWidth - overlap));
-
-  // Schleife zur Platzierung der Bilder
   for (let i = 0; i < images.length; i++) {
     const imagePosition = images[i];
     imagePosition.style.position = "absolute";
 
-    // Überlappung: ab dem ersten Bild
     if (i < maxImages) {
-      // Überlappung mit 16px ab dem ersten Bild
       imagePosition.style.left = `${i * (imageWidth - overlap)}px`;
     }
   }
