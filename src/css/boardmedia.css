@@ -151,7 +151,7 @@
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 560px) {
   .board-task-container-open {
     width: 80vw;
   }
