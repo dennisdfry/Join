@@ -150,7 +150,7 @@ window.openTaskToBoardHtml = function (index, category, title, description, date
  */
 window.editTaskHtml = function (index, category, title, description, date, prio) {
   return `
-  <form onsubmit="handleFormSubmitEdit(${event}, ${index}, '${category}')">
+  <form onsubmit="handleFormSubmitEdit(event, ${index}, '${category}')">
     <div class="board-task-container-open edit-board-form bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
         <div class="edit-board-form2 "> 
           <div class="d-flex-between margin-bt8">
