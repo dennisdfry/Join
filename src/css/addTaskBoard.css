@@ -162,11 +162,6 @@
     font-size: 61px;
   }
   
-  #subtasksPlus2 {
-    position: absolute;
-    right: 10px;
-  }
-  
   input[type="text" i] {
     padding-block: 0px;
   }
