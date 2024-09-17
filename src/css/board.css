@@ -211,8 +211,9 @@ body {
 .board-task-container {
   flex-grow: 1;
   padding: 16px;
-  max-width: 253px;
-  max-height: 25vh;
+  max-width: 252px;
+  max-height: 260px;
+  box-sizing: border-box;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
 }
