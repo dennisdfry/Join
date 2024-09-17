@@ -3,7 +3,32 @@ document.addEventListener("mouseup", handleRotateEnd);
 document.addEventListener("mouseleave", handleRotateEnd);
 document.addEventListener("dragend", handleRotateEnd);
 
+document.addEventListener("touchstart", handleRotateStart);
+document.addEventListener("touchend", handleRotateEnd);
+document.addEventListener("touchmove", handleTouchMove);
+
 let cachedElement = null;
+let isTouchDevice = false;
+let touchOffsetX = 0;
+let touchOffsetY = 0;
+
+/**
+ * Prevents the page from scrolling.
+ * 
+ * @param {Event} event - The touchmove event.
+ */
+function preventScroll(event) {
+    event.preventDefault();
+}
+
+/**
+ * Allows the dragged item to be dropped on a valid target by preventing the default behavior.
+ *
+ * @param {DragEvent} ev - The drag event.
+ */
+function allowDrop(ev) {
+    ev.preventDefault();
+  }
 
 /**
  * Starts the dragging process by setting the current dragged task's key.
@@ -16,37 +41,46 @@ function startDragging(taskkey) {
 }
 
 /**
- * Adds the "rotate" class to the closest ".board-task-container" element when dragging starts.
+ * Handles the start of a drag action, initializes the drag for both mouse and touch events.
  * 
  * @param {Event} event - The event object from the event listener.
  */
 function handleRotateStart(event) {
-  cachedElement = event.target.closest(".board-task-container");
-  if (cachedElement) {
-    cachedElement.classList.add("rotate");
+    if (event.type === 'touchstart') {
+      isTouchDevice = true;
+      const touch = event.touches[0];
+      cachedElement = event.target.closest(".board-task-container");
+      
+      if (cachedElement) {
+        const rect = cachedElement.getBoundingClientRect();
+        touchOffsetX = touch.clientX - rect.left;
+        touchOffsetY = touch.clientY - rect.top;
+        cachedElement.classList.add("rotate");
+        currentDraggedElement = cachedElement;
+        document.addEventListener("touchmove", preventScroll, { passive: false });
+      }
+    } else {
+      cachedElement = event.target.closest(".board-task-container");
+      if (cachedElement) {
+        cachedElement.classList.add("rotate");
+      }
+    }
   }
-}
 
 /**
- * Removes the "rotate" class from the previously cached ".board-task-container" element.
+ * Ends the dragging action for both touch and mouse events.
  * 
  * @param {Event} event - The event object from the event listener.
  */
 function handleRotateEnd(event) {
-  if (cachedElement) {
-    cachedElement.classList.remove("rotate");
+    if (currentDraggedElement) {
+      currentDraggedElement.classList.remove("rotate");
+      currentDraggedElement.style.position = '';
+      currentDraggedElement = null;
+    }
     cachedElement = null;
+    document.removeEventListener("touchmove", preventScroll);
   }
-}
-
-/**
- * Allows the dragged item to be dropped on a valid target by preventing the default behavior.
- *
- * @param {DragEvent} ev - The drag event.
- */
-function allowDrop(ev) {
-  ev.preventDefault();
-}
 
 /**
  * Handles the drop event by retrieving the target category and initiating the move.
@@ -80,6 +114,20 @@ async function moveTo(category) {
   }
   updateStatusMessages();
 }
+
+/**
+ * Handles the move during touch dragging, updates the element's position.
+ * 
+ * @param {TouchEvent} event - The touchmove event.
+ */
+function handleTouchMove(event) {
+    if (currentDraggedElement && isTouchDevice) {
+      const touch = event.touches[0];
+      currentDraggedElement.style.position = 'absolute';
+      currentDraggedElement.style.left = (touch.clientX - touchOffsetX) + 'px';
+      currentDraggedElement.style.top = (touch.clientY - touchOffsetY) + 'px';
+    }
+  }
 
 /**
  * Updates the task's category in Firebase.
