@@ -152,7 +152,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
   return `
   <form onsubmit="handleFormSubmitEdit(event, ${index}, '${category}')">
     <div class="board-task-container-open edit-board-form bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
-        <div class="width445 edit-board-form2"> 
+        <div class="edit-board-form2 "> 
           <div class="d-flex-between margin-bt8">
               <h1 id="categoryColorEdit${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTaskEdit(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">

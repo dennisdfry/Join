@@ -306,13 +306,13 @@
 
 .edit-board-form {
   height: 700px;
-  display: flex;
-  flex-direction: column;
+
   flex-grow: 1;
 }
 
 .edit-board-form2 {
-  height: 640px;
+  height: 700px;
+  width: 446px;
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
