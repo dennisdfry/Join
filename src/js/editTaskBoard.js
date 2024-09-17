@@ -144,17 +144,13 @@ function assignedToEdit(contacts, imageUrls, index) {
  */
 function checkboxInitEdit(names, imageUrls, indexHTML) {
   let position = document.getElementById(`checkboxesEdit${indexHTML}`);
-  position.innerHTML = "";
-  const contacts = names.map((name, index) => ({ name: name.name, imgSrc: imageUrls[index] }));
-  
-  contacts.sort((a, b) => a.name.localeCompare(b.name));
-
   let list = "";
-  contacts.forEach((contact, index) => {
-    list += checkBoxRenderEdit(index, contact.imgSrc, contact.name);
-  });
-
-  position.innerHTML = list; 
+  for (let index = 0; index < names.length; index++) {
+    const element = names[index].name;
+    const imgSrc = imageUrls[index];
+    list += checkBoxRenderEdit(index, imgSrc, element);
+  }
+  position.innerHTML = list;
 }
 
 /**

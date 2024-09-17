@@ -38,15 +38,13 @@ async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
   if (!users || users.length === 0) {
     return;
   }
-  const userEntries = users.map(userId => ({
-    userId,
-    name: userNames[users.indexOf(userId)],
-    img: fetchImage[userId]
-  }));
-  userEntries.sort((a, b) => a.name.localeCompare(b.name));
-  for (let i = 0; i < userEntries.length; i++) {
-    const { img, name } = userEntries[i];
-    position.innerHTML += await htmlBoardImageOpen(img, i, name);
+  for (let i = 0; i < users.length; i++) {
+    let element = users[i];
+    let names = userNames[i];
+    assignedToUserArrayNamesGlobalEdit.push(names);
+    assignedToUserArrayEdit.push(element);
+    let imageUrl = fetchImage[element];
+    position.innerHTML += await htmlBoardImageOpen(imageUrl, i, names);
   }
 }
 

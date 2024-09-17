@@ -97,24 +97,23 @@ function openAddForm() {
   }
   
   /**
- * Renders checkboxes with contact images and names for assigning users to tasks.
- * @param {object[]} names - An array of contact names.
- * @param {string[]} imageUrls - An array of image URLs for the contacts.
- */
-function checkboxInit2(names, imageUrls) {
-  let position = document.getElementById("checkboxes2");
-  position.innerHTML = "";
+   * Renders checkboxes with contact images and names for assigning users to tasks.
+   * @param {object[]} names - An array of contact names.
+   * @param {string[]} imageUrls - An array of image URLs for the contacts.
+   */
+  function checkboxInit2(names, imageUrls) {
+    let position = document.getElementById("checkboxes2");
+    position.innerHTML = "";
+    
+    let list = ""; 
+    for (let index = 0; index < names.length; index++) {
+      const element = names[index].name;
+      const imgSrc = imageUrls[index];
+      list += checkBoxRender2(index, imgSrc, element);
+    }
+    position.innerHTML = list; 
+  }
 
-  const contacts = names.map((name, index) => ({ name: name.name, imgSrc: imageUrls[index] }));
-  contacts.sort((a, b) => a.name.localeCompare(b.name));
-
-  let list = "";
-  contacts.forEach((contact, index) => {
-    list += checkBoxRender2(index, contact.imgSrc, contact.name);
-  });
-
-  position.innerHTML = list; 
-}
   
   /**
    * Returns a string of HTML to render a checkbox with an image and name.
@@ -272,12 +271,14 @@ function checkboxInit2(names, imageUrls) {
    */
   function prio2(id) {
     const buttons = document.querySelectorAll(".add-task-prio-button-container button");
-  
-    buttons.forEach(button => button.className = "add-task-prio-button");
+
+    buttons.forEach((button) => {
+      button.classList.remove("add-task-prio-button-urgent", "add-task-prio-button-medium", "add-task-prio-button-low");
+      button.classList.add("add-task-prio-button");
+    });
   
     let position = document.getElementById(`prio2Button${id}`);
-    const prioClasses = ["urgent", "medium", "low"];
-    position.classList.add(`add-task-prio-button-${prioClasses[id - 1]}`);
+    prioIdCheck(id, position);
     selectedPrio = id;
   }
   
