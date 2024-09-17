@@ -3,7 +3,7 @@ document.addEventListener("mouseup", handleRotateEnd);
 document.addEventListener("mouseleave", handleRotateEnd);
 document.addEventListener("dragend", handleRotateEnd);
 
-let cachedElement = null; // Cache the element for performance
+let cachedElement = null;
 
 /**
  * Starts the dragging process by setting the current dragged task's key.

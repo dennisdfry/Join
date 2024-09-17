@@ -41,16 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return null;
   }
-
-  // Display the cookie consent banner if the user has not accepted cookies.
   let cookieBar = document.getElementById("cookie-bar");
   let acceptCookiesButton = document.getElementById("accept-cookies");
-  
   if (!getCookie("cookies-accepted")) {
     cookieBar.style.display = "block";
   }
-
-  // Set the cookie and hide the banner when the user accepts cookies.
   acceptCookiesButton.addEventListener("click", () => {
     setCookie("cookies-accepted", "true", 365);
     cookieBar.style.display = "none";

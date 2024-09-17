@@ -373,7 +373,7 @@ function addMoveOutListener(updateBar) {
  */
 function finalizeUpdateBar(updateBar) {
   updateBar.classList.add("d-none");
-  addMoveInListener(updateBar); // Re-add listener for future animations
+  addMoveInListener(updateBar);
 }
 
 /**

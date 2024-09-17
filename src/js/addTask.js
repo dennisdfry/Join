@@ -1,15 +1,15 @@
 
 let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com";
-let subtasksArray = []; // Stores the names of subtasks
-let subtasksStatusArray = []; // Stores the completion status of each subtask (false by default)
-let prioArray = []; // Stores the priority level of the task
-let addTaskArray = []; // Stores the task data that will be sent to Firebase
-let expanded = false; // Tracks whether the "Assigned To" dropdown is expanded
-let isValid = true; // Used for form validation
-let assignedToUserArray = []; // Stores the indices of users assigned to the task
-let assignedToUserArrayNamesGlobal = []; // Stores the names of the users assigned to the task
-let imageUrlsGlobal = []; // Stores the image URLs of contacts
-let selectedPrio = null; // Tracks the selected priority of the task
+let subtasksArray = [];
+let subtasksStatusArray = [];
+let prioArray = [];
+let addTaskArray = [];
+let expanded = false;
+let isValid = true
+let assignedToUserArray = [];
+let assignedToUserArrayNamesGlobal = []; 
+let imageUrlsGlobal = [];
+let selectedPrio = null; 
 
 /**
  * Initializes the task form by fetching data from Firebase and setting up the "Assigned To" dropdown.

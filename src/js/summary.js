@@ -274,7 +274,7 @@ function updateCategoryCounts(counts) {
 function formatDateGerman(dateStr) {
   const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
   const [year, month, day] = dateStr.split("-");
-  const monthIndex = parseInt(month, 10) - 1; // Months are 1-based
+  const monthIndex = parseInt(month, 10) - 1;
   return `${parseInt(day, 10)}. ${months[monthIndex]} ${year}`;
 }
 
