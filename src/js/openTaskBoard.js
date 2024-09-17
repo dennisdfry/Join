@@ -299,7 +299,7 @@ async function editOpenTask(index, category, title, description, date, prio) {
   checkboxIndexFalse(index);
   subtasksRenderEdit(index);
   CategoryColorEdit(index, category);
-  enableEnterKeyEdit();
+  enableEnterKeyEdit(index);
   userImageRenderEdit(index);
 }
 
