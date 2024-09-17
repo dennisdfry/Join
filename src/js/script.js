@@ -126,11 +126,19 @@ async function searchIndexUrl(index, users, fetchImage) {
   setTimeout(() => tileUserImage(index), 50);
 }
 
+
+
+/**
+ * Arranges user images in a horizontal, overlapping layout.
+ *
+ * @param {number} index - The index of the task or container containing the images.
+ */
+
 function tileUserImage(index) {
   const images = document.getElementById(`userImageBoard${index}`).getElementsByClassName("image-div");
-  const totalWidth = 100;
+  const totalWidth = 140;
   const imageWidth = 32;
-  const overlap = 16; 
+  const overlap = 14; 
 
   const maxImages = Math.floor((totalWidth + overlap) / (imageWidth - overlap));
   for (let i = 0; i < images.length; i++) {
@@ -204,7 +212,10 @@ async function progressBar(indexHtml) {
       data.forEach((statusID, i) => {
         if (statusID) { trueCount++; progressStatusTrue.push({ index: i, statusTrue: statusID }); }});}}
   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
-  if (totalCount > 0) {progressBar.style.width = `${(trueCount / totalCount) * 100}%`;}else{
-    progressBar.style.width = 0;}
+  if (totalCount > 0) {
+    let progressPercentage = (trueCount / totalCount) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+  } else {
+    progressBar.style.width = '0%';
   }
-
+}
