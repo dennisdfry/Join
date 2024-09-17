@@ -53,7 +53,7 @@
 
   .add-task-head {
     width: 428px;
-    height: 112px;
+    /**height: 112px;*/
     margin-top: 0;
     position: sticky;
     top: 0;
@@ -66,15 +66,15 @@
     font-weight: 700;
     line-height: 56.4px;
     text-align: left;
-    position: absolute;
-    top: 56px;
+   /** position: absolute;
+    top: 56px;*//
     margin-block-start: 0;
     margin-block-end: 0;
   }
 
   .add-Task-Container {
     width: 428px;
-    height: 80vh;
+    height: 90vh;
     position: absolute;
     top: 100px;
     left: 16px;
@@ -268,7 +268,7 @@
   }
 
   .add-task-head {
-    height: 12vh;
+    /**height: 12vh;**/
     margin-top: 0;
     position: sticky;
     top: 0;
@@ -283,9 +283,9 @@
 
   .add-Task-Container {
     width: 95%;
-    height: 80vh;
+    height: 90vh;
     position: absolute;
-    top: 15vh;
+    top: 0; /** von 15 zu 0*/
     left: 2%;
     gap: 2%;
     display: flex;
