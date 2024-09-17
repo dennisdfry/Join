@@ -273,7 +273,7 @@ function checkboxInit2(names, imageUrls) {
   function prio2(id) {
     const buttons = document.querySelectorAll(".add-task-prio-button-container button");
   
-    buttons.forEach(button => button.className = "add-task-prio-button"); // Reset all buttons
+    buttons.forEach(button => button.className = "add-task-prio-button");
   
     let position = document.getElementById(`prio2Button${id}`);
     const prioClasses = ["urgent", "medium", "low"];
