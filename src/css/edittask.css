@@ -66,7 +66,7 @@
   bottom: 0;
 }
 
-#checkboxesEdit1 {
+[id^="checkboxesEdit"]{
   height: 136px;
   width: auto;
   overflow-x: hidden;
@@ -76,18 +76,18 @@
   -ms-overflow-style: none;
 }
 
-#checkboxesEdit1::-webkit-scrollbar {
+[id^="checkboxesEdit"]::-webkit-scrollbar {
   display: none;
 }
-#checkboxesEdit1::-webkit-scrollbar-thumb {
+[id^="checkboxesEdit"]::-webkit-scrollbar-thumb {
   background-color: #2a3647;
   border-radius: 8px;
 }
-#checkboxesEdit1::-webkit-scrollbar-track {
+[id^="checkboxesEdit"]::-webkit-scrollbar-track {
   background-color: #e0e0e0;
   border-radius: 8px;
 }
-#checkboxesEdit1::-webkit-scrollbar-thumb {
+[id^="checkboxesEdit"]::-webkit-scrollbar-thumb {
   height: 53px;
 }
 
