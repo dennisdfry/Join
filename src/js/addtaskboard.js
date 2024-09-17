@@ -81,20 +81,23 @@ function openAddForm() {
     }
   }
   
-  /**
-   * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
-   * @param {object} contacts - The contacts object.
-   * @param {string[]} imageUrls - An array of image URLs for the contacts.
-   * @returns {Promise<void>}
-   */
-  async function assignedTo2(contacts, imageUrls) {
-    try {
-      let names = Object.values(contacts).map(entry => ({ name: entry.name }));
-      checkboxInit2(names, imageUrls);
-    } catch (error) {
-      console.error("Error assigning users:", error);
-    }
+/**
+ * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
+ * @param {object} contacts - The contacts object.
+ * @param {string[]} imageUrls - An array of image URLs for the contacts.
+ * @returns {Promise<void>}
+ */
+async function assignedTo2(contacts, imageUrls) {
+  try {
+    const extractNames = (contacts) => {
+      return Object.values(contacts).map((entry) => ({ name: entry.name }));
+    };
+    const names = extractNames(contacts);
+    checkboxInit2(names, imageUrls);
+  } catch (error) {
+    console.error(error);
   }
+}
   
   /**
    * Renders checkboxes with contact images and names for assigning users to tasks.
@@ -104,7 +107,6 @@ function openAddForm() {
   function checkboxInit2(names, imageUrls) {
     let position = document.getElementById("checkboxes2");
     position.innerHTML = "";
-    
     let list = ""; 
     for (let index = 0; index < names.length; index++) {
       const element = names[index].name;
@@ -115,23 +117,23 @@ function openAddForm() {
   }
 
   
-  /**
-   * Returns a string of HTML to render a checkbox with an image and name.
-   * @param {number} index - The index of the checkbox.
-   * @param {string} imgSrc - The URL of the image.
-   * @param {string} element - The name associated with the checkbox.
-   * @returns {string} - The HTML string for the checkbox.
-   */
-  function checkBoxRender2(index, imgSrc, element) {
-    return`
-      <label class="checkBoxFlex" for="checkbox2-${index}">
-          <div class="checkBoxImg">
-              <img src="${imgSrc}" alt="" />
-              ${element}
-          </div>
-          <input type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}')" />
-      </label>`;
-  }
+/**
+ * Returns a string of HTML to render a checkbox with an image and name.
+ * @param {number} index - The index of the checkbox.
+ * @param {string} imgSrc - The URL of the image.
+ * @param {string} element - The name associated with the checkbox.
+ * @returns {string} - The HTML string for the checkbox.
+ */
+function checkBoxRender2(index, imgSrc, element) {
+  return`
+    <label class="checkBoxFlex" for="checkbox2-${index}">
+        <div class="checkBoxImg">
+            <img src="${imgSrc}" alt="" />
+            ${element}
+        </div>
+        <input type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}')" />
+    </label>`;
+}
   
   /**
    * Updates the arrays that store the indices and names of users assigned to the task.
