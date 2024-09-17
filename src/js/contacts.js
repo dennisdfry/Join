@@ -69,9 +69,6 @@ function validateEmail(email) {
 
 /**
  * Validates a phone number based on custom rules.
- * - Must start with + and a valid country code (1-3 digits), or start with a 0.
- * - Can only contain digits after the country code or leading zero.
- * - Length must be between 10 and 16 digits.
  * @param {string} phone - The phone number to validate.
  * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
@@ -114,10 +111,14 @@ function showFormField(formId = "add-form-section", overlayId = "add-overlay", o
   let formField = document.getElementById(formId);
   let overlay = document.getElementById(overlayId);
   
+
   overlay.classList.remove("d-none");
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  document.removeEventListener("click", outsideClickHandler);
+  
+
+  document.removeEventListener("click", handleOutsideFormClick);
+  document.removeEventListener("click", handleOutsideEditFormClick);
   document.addEventListener("click", outsideClickHandler);
 
   setupForm();
@@ -133,23 +134,16 @@ function showFormField(formId = "add-form-section", overlayId = "add-overlay", o
  */
 function closeFormField(formId = "add-form-section", overlayId = "add-overlay", fieldIds = ["name", "mail", "phone"]) {
   let formField = document.getElementById(formId);
+
   document.getElementById(overlayId).classList.add("d-none");
   fieldIds.forEach((id) => (document.getElementById(id).value = ""));
-  
   formField.style.animation = "moveOut 200ms ease-out forwards";
   
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
   }, 100);
-  
-  // Remove event listener for the form
   document.removeEventListener("click", handleOutsideFormClick);
-  document.querySelectorAll(["name", "mail", "phone"]).forEach(id => {
-    let element = document.getElementById(id);
-    element.removeEventListener("input", checkFormFields);
-    element.removeEventListener("keydown", handleEnterPress);
-  });
 }
 
 /**
@@ -168,6 +162,7 @@ function showEditForm(contactId) {
  */
 function closeEditField() {
   closeFormField("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
+  document.removeEventListener("click", handleOutsideEditFormClick);
   document.getElementById("edit-contact-form").removeEventListener("keydown", handleEditEnterPress);
 }
 
