@@ -361,3 +361,63 @@ input[type="password"]::-webkit-password-field {
     bottom: 5%;
   }
 }
+
+@media (max-width: 380px) {
+  .input-mail,
+  .input-password,
+  .login-field {
+    width: 280px;
+    margin: 0;
+    gap: 10px;
+  }
+
+  .input-password input,
+  .input-mail input {
+    height: 35px;
+  }
+
+  ::placeholder {
+    font-size: 18px;
+  }
+
+  .login-txt {
+    font-size: 36px;
+    margin-top: 10px;
+  }
+
+  .login-field {
+    justify-content: flex-start;
+    height: 380px;
+  }
+
+  #login-form {
+    width: 100vw !important;
+  }
+
+  .login-input,
+  .login-checkbox,
+  .login-btn {
+    width: 97%;
+    margin-top: 20px;
+    padding: 0;
+  }
+
+  .login-checkbox {
+    margin-left: 110px;
+  }
+
+  .login-not-user {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  .login-signup-btn {
+    width: 120px;
+  }
+
+  .login-info {
+    position: fixed;
+    margin: 0;
+    top: 560px;
+  }
+}

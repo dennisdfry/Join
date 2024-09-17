@@ -150,3 +150,9 @@
     height: 68vh;
   }
 }
+
+@media (max-width: 380px) {
+  .board-task-container-open {
+    width: 80vw;
+  }
+}
