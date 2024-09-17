@@ -260,3 +260,11 @@
   top: 204px;
   left: 550px;
 }
+
+.mg-top-4 {
+  margin-top: 4px;
+}
+
+.mg-bot-4 {
+  margin-bottom: 4px;
+}

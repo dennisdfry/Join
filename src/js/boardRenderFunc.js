@@ -60,10 +60,10 @@ window.htmlboard = async function (index, category, title, description, date, pr
             <h1 id="categoryColor${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
         </div>
-        <div class="width220">
+        <div class="width220 mg-top-4">
             <h2 class="mg-block-none fs-16 fw-700">${title}</h2> 
         </div>
-        <div>  
+        <div class="mg-bot-4 mg-top-4">  
             <p class="mg-block-none fs-16 fw-400 color-gr width220" id="limitTextDesciption${index}">${description}</p>
         </div> 
         <div class="progress-container d-flex-between width220">
