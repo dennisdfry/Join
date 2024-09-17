@@ -260,10 +260,11 @@
 }
 
 @media (max-width: 430px) {
+
   .add-task-create-button {
     position: absolute;
-    top: 90vh;
-    left: 20vw;
+    top: 32vh;
+    left: 38vw;
   }
 
   .add-task-head {
@@ -284,7 +285,7 @@
     width: 95%;
     height: 80vh;
     position: absolute;
-    top: 8vh;
+    top: 15vh;
     left: 2%;
     gap: 2%;
     display: flex;
@@ -308,6 +309,21 @@
     height: 5vh;
     padding-left: 1vw;
     padding-right: 1vw;
+  }
+
+  .add-task-middle-section {
+    position: absolute;
+    top: 12vh;
+    height: 720px;
+  }
+
+  #prioSection {
+    margin-bottom: 10px;
+  }
+
+  .add-task-finish-section {
+    position: absolute;
+    top: 100vh;
   }
 
   .selectBox select {
@@ -348,8 +364,13 @@
   }
 
   .add-task-prio-button-container {
-    width: 95%;
-    height: 6vh;
+    width: 100%;
+    height: 8vh;
     gap: 1vw;
+  }
+
+  .add-task-form-right-section,
+  .add-task-form-left-section {
+    width: 90vw;
   }
 }

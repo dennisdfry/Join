@@ -299,12 +299,10 @@ body {
   .summary-section {
     padding-top: 10px;
     padding-left: 20px;
+    height: 60vh;
   }
 
   .summary-headline {
-    display: flex;
-    align-items: start;
-    flex-direction: column;
     gap: 10px;
   }
 
@@ -345,9 +343,9 @@ body {
   }
   
   .summary-tasks {
-    padding-top: 20px;
-    width: 90vw;
-    height: 10vh;
+    padding-top: 10px;
+    width: 85vw;
+    height: 50vh;
   }
 
   .summary-to-do-left img,
@@ -375,19 +373,20 @@ body {
 
   .summary-to-do,
   .summary-done {
-    width: 160px;
-    height: 100px;
+    width: 140px;
+    height: 60px;
   }
 
   .summary-tasks-up {
-    height: 110px;
+    height: 80px;
+    margin: 5px;
   }
 
   .summary-tasks-mid {
-    height: 110px;
-    margin: 20px;
+    height: 80px;
+    margin: 5px;
     border-radius: 20px;
-    width: 360px;
+    width: 340px;
   }
 
   .summary-tasks-mid-right-date {
@@ -400,7 +399,12 @@ body {
 
   .summary-tasks-down {
     max-width: 396px;
-    margin: 20px;
+    height: 90px;
+    margin: 5px;
+  }
+
+  .summary-tasks-mid-divider {
+    height: 80px;
   }
 
   .summary-tasks {
@@ -408,5 +412,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 50vh;
+  }
+
+  .nav {
+    position: fixed;
+    top: 555px;
+    left: -5px
   }
 }
