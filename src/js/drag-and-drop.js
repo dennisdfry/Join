@@ -80,7 +80,6 @@ async function moveTo(category) {
   }
 
   updateStatusMessages();
-  statusMessageHeight();
 }
 
 /**
