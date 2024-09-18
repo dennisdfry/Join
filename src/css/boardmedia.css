@@ -6,7 +6,7 @@
     scrollbar-width: none;
     scrollbar-color: #2a3647 #e0e0e0;
     -ms-overflow-style: none;
-    width: 90vw;
+    width: 78vw;
     height: 68vh;
   }
   .board-render-section::-webkit-scrollbar {
@@ -72,7 +72,7 @@
   .board-column {
     justify-content: flex-start;
     align-items: flex-start;
-    width: 88vw;
+    width: 76vw;
     min-height: 300px;
   }
 
@@ -180,12 +180,20 @@
     width: 87vw;
   }
 
+  .board-column {
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 90vw;
+    min-height: 300px;
+  }
+
   ::placeholder {
     font-size: 20px;
   }
 
   .board-render-section {
     height: 68vh;
+    width: 88vh;
   }
 
   .board-render-status-container {
