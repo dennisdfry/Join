@@ -13,7 +13,7 @@ function openAddForm() {
     formField.classList.remove("d-none", "hidden");
     formField.style.cssText =
       "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-    document.addEventListener("click", outsideClickHandler);
+    document.addEventListener("click", outsideClickHandler, true);
     document.addEventListener("keydown", handleEnterKey);
   }
   
@@ -34,7 +34,7 @@ function openAddForm() {
         "visibility: hidden; transform: translateX(100vw)";
     }, 100);
   
-    document.removeEventListener("click", outsideClickHandler);
+    document.removeEventListener("click", outsideClickHandler, true);
     document.removeEventListener("keydown", handleEnterKey);
   }
   
@@ -48,9 +48,10 @@ function openAddForm() {
    * @param {Event} event - The click event.
    */
   function outsideClickHandler(event) {
-    let formField = document.getElementById("add-task-form");
-    let overlay = document.getElementById("overlay-form");
-    if (!formField.contains(event.target) && overlay.contains(event.target)) {
+    const formField = document.getElementById("add-task-form");
+    const isClickInsideForm = formField.contains(event.target);
+  
+    if (!isClickInsideForm) {
       closeAddForm();
     }
   }
