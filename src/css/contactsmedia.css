@@ -305,7 +305,8 @@
     gap: 1px;
   }
 
-  .add-form-section {
+  .add-form-section,
+  .edit-contact-section {
     position: absolute;
     top: 5% !important;
     height: 600px !important;
@@ -351,4 +352,9 @@
     left: 20%;
   }
 
+  .editfield-btn-box {
+    position: absolute;
+    top: 90%;
+    left: 20%;
+  }
 }
