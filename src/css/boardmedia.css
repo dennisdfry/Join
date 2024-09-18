@@ -6,24 +6,23 @@
   .drag-area {
     width: 90vw;
     min-height: 10px;
-    overflow-x: scroll;
-    overflow-y: hidden;
   }
 
   .board-task-column {
     flex-direction: row;
-    width: 150px;
+    min-width: 1000px;
   }
 
   .board-render-status-container {
     flex-direction: row;
     flex: 1;
+    min-width: 1000px;
+    overflow-x: auto;
   }
 
-  .board-task-container {
+  /*.board-task-container {
     max-height: 35vh;
-    width: 252px !important;
-  }
+  }*/
 
   .board-column {
     justify-content: flex-start;
