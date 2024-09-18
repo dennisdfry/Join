@@ -22,10 +22,19 @@ function checkBoxRender2(index, imgSrc, element) {
    * Toggles the visibility of the "Assigned To" dropdown.
    */
  function showCheckboxes2() {
-    let checkboxes = document.getElementById("checkboxes2");
-    expanded = !expanded;
-    checkboxes.style.display = expanded ? "block" : "none";
+  let checkboxes = document.getElementById("checkboxes2");
+
+  // Return early if checkboxes element is not found
+  if (!checkboxes) {
+      console.warn("Checkbox container not found.");
+      return;
   }
+
+  // Toggle the visibility
+  expanded = !expanded;
+  checkboxes.style.display = expanded ? "block" : "none";
+}
+  
   
   /**
    * Creates a new task based on form input.
