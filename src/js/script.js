@@ -240,7 +240,7 @@ function updateProgressBar(indexHtml, progressPercentage) {
  * @param {number} indexHtml - The index of the task in the HTML structure.
  */
 async function progressBar(indexHtml) {
-  // Überprüfen Sie, ob die Elemente existieren
+ 
   let progressBar = document.getElementById(`progressBar${indexHtml}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${indexHtml}`);
 
@@ -249,7 +249,6 @@ async function progressBar(indexHtml) {
     return;
   }
 
-  // Aktualisieren Sie die Elemente
   let { trueCount, totalCount } = await calculateProgress(indexHtml);
   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
   if (totalCount > 0) {
