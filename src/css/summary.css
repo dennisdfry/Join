@@ -343,6 +343,9 @@ body {
   }
   
   .summary-tasks {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     padding-top: 10px;
     width: 85vw;
     height: 50vh;
@@ -405,13 +408,6 @@ body {
 
   .summary-tasks-mid-divider {
     height: 80px;
-  }
-
-  .summary-tasks {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
   }
 
   .nav {
