@@ -287,9 +287,9 @@ function handleOutsideEditFormClick(event) {
  * @param {string} contactId - The ID of the contact to select.
  */
 async function selectContact(contactId) {
-  let contactSection = document.getElementById("contact-section");
+  let contactSection = document.querySelector(".contactlist-section-responsive");
   let selectedContact = document.getElementById(`contactlist-item-${contactId}`);
-  if (window.innerWidth < 851) {
+  if (window.innerWidth < 810) {
     toggleElement('.contactlist-section-responsive', 'd-none');
   }
   deselectAllContacts();
