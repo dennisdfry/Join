@@ -184,7 +184,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 90vw;
-    min-height: 300px;
+    max-height: 300px;
   }
 
   ::placeholder {

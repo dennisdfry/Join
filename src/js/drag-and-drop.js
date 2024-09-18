@@ -104,17 +104,6 @@ async function updateTaskInFirebase(task) {
 }
 
 
-function statusMessageHeight() {
-  const statusMessages = document.querySelectorAll('.board-column');
-  
-  statusMessages.forEach(statusMessage => {
-    if (!statusMessage.classList.contains('d-none')) {
-      statusMessage.style.maxHeight = '24px';
-    } else {
-      statusMessage.style.maxHeight = '';
-    }
-  });
-}
 
 
 
