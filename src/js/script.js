@@ -29,6 +29,7 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
       subtasksRender(index, subtasks)
     ]);
     await progressBar(index);
+    addHoverEffect(index);
   }
 }
 
@@ -193,29 +194,81 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
 }
 
 /**
- * Updates the progress bar based on the completion status of subtasks.
- * 
- * Calculates the percentage of completed subtasks and updates the progress bar width.
+ * Calculates the number of completed subtasks and the total number of subtasks.
  * 
  * @param {number} indexHtml - The index of the task in the HTML structure.
+ * @returns {Promise<{trueCount: number, totalCount: number}>} - An object containing the number of completed and total subtasks.
  */
-
-async function progressBar(indexHtml) {
-  let progressBar = document.getElementById(`progressBar${indexHtml}`);
+async function calculateProgress(indexHtml) {
   let trueCount = 0, totalCount = 0;
-  let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${indexHtml}`)
   for (let index = 0; index < taskkeysGlobal.length; index++) {
     let taskKeyId = taskkeysGlobal[index][indexHtml];
     let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
     if (data) {
       totalCount += data.length;
-      data.forEach((statusID, i) => {
-        if (statusID) { trueCount++; progressStatusTrue.push({ index: i, statusTrue: statusID }); }});}}
+      for (let i = 0; i < data.length; i++) {
+        if (data[i]) { 
+          trueCount++; 
+          progressStatusTrue.push({ index: i, statusTrue: data[i] }); 
+        }
+      }
+    }
+  }
+  return { trueCount, totalCount };
+}
+
+/**
+ * Updates the progress bar width and color based on the percentage of completed subtasks.
+ * 
+ * @param {number} indexHtml - The index of the task in the HTML structure.
+ * @param {number} progressPercentage - The calculated percentage of completed subtasks.
+ */
+function updateProgressBar(indexHtml, progressPercentage) {
+  let progressBar = document.getElementById(`progressBar${indexHtml}`);
+  progressBar.style.width = `${progressPercentage}%`;
+  
+  if (progressPercentage === 100) {
+    progressBar.style.backgroundColor = '#095a1b';
+  } else {
+    progressBar.style.backgroundColor = '';
+  }
+}
+
+/**
+ * Updates the progress bar width and color based on the percentage of completed subtasks.
+ * 
+ * @param {number} indexHtml - The index of the task in the HTML structure.
+ */
+async function progressBar(indexHtml) {
+  let { trueCount, totalCount } = await calculateProgress(indexHtml);
+  let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${indexHtml}`);
+  
   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
+  
   if (totalCount > 0) {
     let progressPercentage = (trueCount / totalCount) * 100;
-    progressBar.style.width = `${progressPercentage}%`;
+    updateProgressBar(indexHtml, progressPercentage);
   } else {
-    progressBar.style.width = '0%';
+    updateProgressBar(indexHtml, 0);
   }
+}
+
+function addHoverEffect(index) {
+  let progressBar = document.getElementById(`progressBar${index}`);
+  let subtaskTrue = document.getElementById(`subtasksAmountTrue${index}`);
+  let subtaskLen = document.getElementById(`subtasksLength${index}`);
+
+  progressBar.addEventListener('mouseenter', () => {
+    if (subtaskTrue && subtaskLen) {
+      subtaskTrue.classList.remove('d-none');
+      subtaskLen.classList.remove('d-none');
+    }
+  });
+
+  progressBar.addEventListener('mouseleave', () => {
+    if (subtaskTrue && subtaskLen) {
+      subtaskTrue.classList.add('d-none');
+      subtaskLen.classList.add('d-none');
+    }
+  });
 }

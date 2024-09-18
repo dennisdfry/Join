@@ -147,7 +147,6 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  min-height: 0;
 }
 
 @keyframes wobble {
