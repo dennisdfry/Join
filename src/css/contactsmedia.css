@@ -286,8 +286,10 @@
 }
 
 @media (max-width: 380px) {
-  .add-contact-btn-responsive {
+  .add-contact-btn-responsive,
+  .contact-options-menu {
     bottom: 15%;
+    right: 5%;
   }
   
   
@@ -382,10 +384,17 @@
     top: -80px;
   }
 
-  .contact-information-content {
-    padding: 0;
+  #contact-information-content {
+    position: fixed;
+    left: 0;
+    padding-top: 70px;
   }
-  
+
+  .contact-information-data {
+    position: fixed;
+    top: 100px;
+    left: 0;
+  }
   .contact-information img {
     width: 80px;    
     height: 80px;
