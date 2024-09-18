@@ -2,7 +2,7 @@
  * Dynamically includes HTML content into elements with the `w3-include-html` attribute.
  * Fetches the content from the specified file and inserts it into the element.
  * Handles errors and displays an error message if the content cannot be loaded.
- * 
+ *
  * @async
  */
 async function includeHTML() {
@@ -25,7 +25,7 @@ async function includeHTML() {
 /**
  * Inserts the fetched HTML content into the element and initializes the page-specific logic.
  * Calls different initialization functions based on the file name.
- * 
+ *
  * @param {Response} resp - The response object returned by the fetch request.
  * @param {HTMLElement} element - The element where the fetched HTML content will be inserted.
  * @param {string} file - The name of the file being fetched.
@@ -52,17 +52,21 @@ async function whichChangeSite(resp, element, file) {
 }
 
 /**
- * Changes the current page by dynamically loading a new HTML file into the main content area.
- * 
+ * Dynamically changes the current page by loading a new HTML file into the main content area.
+ * If the loaded page is "contacts.html", it toggles the visibility of the contact list section.
+ *
  * @param {string} page - The relative path to the new HTML file to be loaded.
  * @async
+ * @returns {Promise<void>} Resolves when the new HTML content has been successfully loaded.
  */
 async function changeSite(page) {
   document.querySelector(".main-content").setAttribute("w3-include-html", page);
-  includeHTML();
+  await includeHTML();
+  if (page === 'contacts.html') {
+    toggleElement('.contactlist-section-responsive', 'd-none');
+  }
 }
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    includeHTML();
-  });
-  
+
+document.addEventListener("DOMContentLoaded", () => {
+  includeHTML();
+});
