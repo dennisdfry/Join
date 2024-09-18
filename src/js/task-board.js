@@ -117,55 +117,6 @@ function searchTasks() {
   }
 }
 
-
-async function init2() {
-  try {
-    let fireBaseData = await onloadData2("/");
-    let contacts = await fetchContacts2(fireBaseData);
-    let imageUrls = await fetchImages2();
-    await assignedTo(contacts, imageUrls);
-
-  } catch (error) {
-    console.error("Error during initialization:", error);
-  }
-}
-
-/**
- * Fetches contact images from Firebase and returns an array of image URLs.
- * @returns {Promise<string>} - A promise that resolves to an array of image URLs.
- */
-async function fetchImages2() {
-  try {
-    let fireBaseData = await onloadData2("/");
-    let contacts = fireBaseData.contacts;
-    let imageUrls = Object.values(contacts).map((contact) => contact.img);
-    return imageUrls;
-  } catch (error) {
-    console.error("Error fetching images", error);
-  }
-}
-
-/**
- * Fetches JSON data from Firebase at the given path.
- * @param {string} [path=""] - The path to fetch data from.
- * @returns {Promise<object>} - A promise that resolves to the JSON response.
- */
-async function onloadData2(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  return responseToJson;
-}
-
-/**
- * Extracts and returns the contacts object from the JSON response.
- * @param {object} responseToJson - The JSON response from Firebase.
- * @returns {object} - The contacts object extracted from the response.
- */
-async function fetchContacts2(responseToJson) {
-  let contacts = responseToJson.contacts;
-  return contacts;
-}
-
 /**
  * Opens the form to add a new task.
  *
@@ -257,10 +208,10 @@ function openAddForm() {
  */
 async function assignedTo2(contacts, imageUrls) {
   try {
-    const extractNames = (contacts) => {
+    const extractNames2 = (contacts) => {
       return Object.values(contacts).map((entry) => ({ name: entry.name }));
     };
-    const names = extractNames(contacts);
+    const names = extractNames2(contacts);
     checkboxInit2(names, imageUrls);
   } catch (error) {
     console.error(error);
@@ -277,9 +228,9 @@ async function assignedTo2(contacts, imageUrls) {
     position.innerHTML = "";
     let list = ""; 
     for (let index = 0; index < names.length; index++) {
-      const element = names[index].name;
-      const imgSrc = imageUrls[index];
-      list += checkBoxRender2(index, imgSrc, element);
+      const element2 = names[index].name;
+      const imgSrc2 = imageUrls[index];
+      list += checkBoxRender2(index, imgSrc2, element2);
     }
     position.innerHTML = list; 
   }
