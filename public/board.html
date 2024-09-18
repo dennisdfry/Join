@@ -31,7 +31,7 @@
       <section class="board-head-section-top">
         <div class="responsive-board-head">
           <h1 class="board-headline">Board</h1>
-          <button onclick="openAddForm()" class="add-task-button-head">
+          <button onclick="changeSite('addTask.html')" class="add-task-button-head">
             <img src="../public/img/add.png"/>
           </button>
         </div>
@@ -52,7 +52,7 @@
         <div class="board-column">
           <div class="board-task-column">
             <h4 class="mg-block-inline">To do</h4>
-            <img onclick="openAddForm()" src="./img/plus button.png" alt="" />
+            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" alt="" />
           </div>
           <div class="status-message">No tasks To Do</div>
           <div class="board-render-status-container drag-area" id="todo" ondrop="moveTo('todo')" ondragover="allowDrop(event)"></div>
@@ -60,7 +60,7 @@
         <div class="board-column">
           <div class="board-task-column">
             <h4 class="mg-block-inline">In progress</h4>
-            <img onclick="openAddForm()" src="./img/plus button.png" />
+            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
           </div>
           <div class="status-message">No tasks in progress</div>
           <div class="board-render-status-container drag-area" id="progress" ondrop="moveTo('progress')" ondragover="allowDrop(event)"></div>
@@ -68,7 +68,7 @@
         <div class="board-column">
           <div class="board-task-column">
             <h4 class="mg-block-inline">Await feedback</h4>
-            <img onclick="openAddForm()" src="./img/plus button.png" />
+            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
           </div>
           <div class="status-message">No tasks in feedback</div>
           <div class="board-render-status-container drag-area" id="feedback" ondrop="moveTo('feedback')" ondragover="allowDrop(event)"></div>
