@@ -136,7 +136,7 @@ async function searchIndexUrl(index, users, fetchImage) {
 
 function tileUserImage(index) {
   const images = document.getElementById(`userImageBoard${index}`).getElementsByClassName("image-div");
-  const totalWidth = 120;
+  const totalWidth = 80;
   const imageWidth = 32;
   const overlap = 14; 
 
