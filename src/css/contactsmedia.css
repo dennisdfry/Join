@@ -243,11 +243,11 @@
     z-index: 2;
   }
 
-  .contact-section-header-resp h1 {    
+  .contact-section-header-resp h1 {
     font-size: 47px;
   }
 
-  .contact-section-header-resp  {
+  .contact-section-header-resp {
     font-size: 20px;
   }
 
@@ -263,7 +263,7 @@
     cursor: pointer;
   }
 
-  .contact-options-dropdown {    
+  .contact-options-dropdown {
     flex-direction: column;
     justify-content: center;
     position: fixed;
@@ -275,12 +275,26 @@
     background-color: white;
     padding: 10px;
   }
-  
+
   .arrow-button-resp {
     display: flex;
     position: fixed;
     top: 150px;
     right: 30px;
-    text-decoration: none !important;    
+    text-decoration: none !important;
   }
+}
+
+@media (max-width: 380px) {
+  .add-contact-btn-responsive {
+    bottom: 20%;
+  }
+  
+  .contacts,
+  .contactlist-section,
+  .contactlist-section-responsive,
+  .contactlist-content {
+    width: 100% !important;
+  }
+
 }
