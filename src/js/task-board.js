@@ -15,7 +15,16 @@ async function loadingBoard() {
     taskkeysGlobal.length = 0;
     task = await onloadDataBoard("/tasks");
     let fetchImage = await fetchImagesBoard("/");
+    if (!task || typeof task !== 'object') {
+      console.warn("No valid task data available.");
+      return; 
+    }
     taskkeys = Object.keys(task);
+    if (taskkeys.length === 0) {
+      console.warn("No tasks found.");
+      return;
+    }
+
     taskkeysGlobal.push(taskkeys);
     await generateHTMLObjects(taskkeys, task);
     await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
@@ -24,6 +33,7 @@ async function loadingBoard() {
     console.error("Error loading tasks:", error);
   }
 }
+
 
 /**
  * Fetches and loads task data from the specified path.
