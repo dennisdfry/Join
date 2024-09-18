@@ -268,7 +268,6 @@
   }
 
   .add-task-head {
-    /**height: 12vh;**/
     margin-top: 0;
     position: sticky;
     top: 0;
@@ -283,9 +282,9 @@
 
   .add-Task-Container {
     width: 95%;
-    height: 90vh;
+    height: 82vh;
     position: absolute;
-    top: 0; /** von 15 zu 0*/
+    top: 15%;
     left: 2%;
     gap: 2%;
     display: flex;
