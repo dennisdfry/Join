@@ -287,14 +287,68 @@
 
 @media (max-width: 380px) {
   .add-contact-btn-responsive {
-    bottom: 20%;
+    bottom: 15%;
   }
   
-  .contacts,
+  
   .contactlist-section,
   .contactlist-section-responsive,
   .contactlist-content {
     width: 100% !important;
+  }
+
+  #add-form-section,
+  .add-form-section,
+  .add-contact-content-left-box,
+  .edit-contact-section {
+    width: 90vw !important;
+    gap: 1px;
+  }
+
+  .add-form-section {
+    position: absolute;
+    top: 5% !important;
+    height: 600px !important;
+  }
+  
+  .add-contact-content-left-box {
+    height: 250px;
+  }
+
+  .form-prof-img img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .form-prof-img {    
+    position: absolute;
+    top: 32%;
+    left: 34%;
+  }
+
+  .add-contact-content-left-box h2 {
+    font-size: 36px;
+    line-height: 56.4px;
+  }
+
+  .add-contact-content-left-box p {
+    font-size: 16px;
+  } 
+
+  #contact-form,
+  #edit-contact-form {
+    width: 80vw;
+    position: absolute;
+    top: 55%;
+  }
+
+  ::placeholder {
+    font-size: 16px;
+  }
+
+  #formfield-create-btn {
+    position: absolute;
+    left: 20%;
   }
 
 }
