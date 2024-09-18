@@ -78,7 +78,9 @@ async function moveTo(category) {
   } else {
     console.error("No task is being dragged.");
   }
+
   updateStatusMessages();
+  statusMessageHeight();
 }
 
 /**
@@ -100,3 +102,20 @@ async function updateTaskInFirebase(task) {
     console.error("Error updating task in Firebase:", error);
   }
 }
+
+
+function statusMessageHeight() {
+  const statusMessages = document.querySelectorAll('.board-column');
+  
+  statusMessages.forEach(statusMessage => {
+    if (!statusMessage.classList.contains('d-none')) {
+      statusMessage.style.maxHeight = '24px';
+    } else {
+      statusMessage.style.maxHeight = '';
+    }
+  });
+}
+
+
+
+

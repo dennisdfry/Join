@@ -149,6 +149,10 @@ body {
   padding: 10px;
 }
 
+.empty {
+  background-color: #f9f9f9;
+}
+
 @keyframes wobble {
   0% {
     transform: rotate(0deg);
