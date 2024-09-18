@@ -9,13 +9,14 @@ let currentDraggedElement;
  *
  * @async
  */
+
 async function loadingBoard() {
   try {
     taskkeysGlobal.length = 0;
     task = await onloadDataBoard("/tasks");
+    let fetchImage = await fetchImagesBoard("/");
     taskkeys = Object.keys(task);
     taskkeysGlobal.push(taskkeys);
-    let fetchImage = await fetchImagesBoard("/");
     await generateHTMLObjects(taskkeys, task);
     await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
     updateStatusMessages();
@@ -62,9 +63,8 @@ async function fetchImagesBoard(path = "") {
  */
 async function generateHTMLObjects(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
-    const { category, description, dueDate, prio, title, boardCategory } =
-      task[taskkeys[index]][0];
-    await positionOfHTMLBlock(index,category,title,description,dueDate,prio,boardCategory);
+    const { category, description, dueDate, prio, title, boardCategory } = task[taskkeys[index]][0];
+    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
   }
   searchTasks();
 }
