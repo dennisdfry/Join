@@ -1,17 +1,11 @@
 @media (max-width: 1350px) {
   .board-render-section {
     flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    scrollbar-color: #2a3647 #e0e0e0;
-    -ms-overflow-style: none;
-    width: 90vw;
-    height: 68vh;
   }
 
   .drag-area {
     width: 90vw;
+    min-height: 10px;
     overflow-x: scroll;
     overflow-y: hidden;
   }
@@ -23,6 +17,7 @@
 
   .board-render-status-container {
     flex-direction: row;
+    flex: 1;
   }
 
   .board-task-container {
@@ -33,8 +28,7 @@
   .board-column {
     justify-content: flex-start;
     align-items: flex-start;
-    width: 90vw;
-    min-height: 300px;
+    min-height: 0;
   }
 
   .board-head-section {
@@ -130,30 +124,12 @@
 
   .responsive-board-head,
   .search-task-section {
-    width: 90vw;
     margin: 0;
-    height: 48px;
     margin-bottom: 10px;
-  }
-
-  .board-task-column,
-  .status-message {
-    width: 87vw;
   }
 
   ::placeholder {
     font-size: 20px;
-  }
-
-  .board-render-section {
-    height: 68vh;
-  }
-}
-
-@media screen and (max-width: 1050px) {
-  .board-column {
-    overflow-x: scroll !important;
-    -webkit-overflow-scrolling: touch;
   }
 }
 
