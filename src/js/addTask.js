@@ -169,6 +169,10 @@ async function createTask(event) {
   await saveToFirebase();
   form.reset();
   resetFormState();
+  let subtasksPosition = document.getElementById("subtasksPosition");
+  if (subtasksPosition) {
+    subtasksPosition.innerHTML = "";
+  }
   changeSite("board.html");
 }
 
@@ -341,13 +345,15 @@ function resetSubtaskInput() {
  */
 function updateSubtasksList() {
   let subtasksPosition = document.getElementById("subtasksPosition");
-  subtasksPosition.innerHTML = "";
-  for (let index = 0; index < subtasksArray.length; index++) {
-    const element = subtasksArray[index];
-    subtasksPosition.innerHTML += `
-            <ul>
-                <li>${element}</li>
-            </ul>`;
+  if (subtasksPosition) {
+    subtasksPosition.innerHTML = "";
+    for (let index = 0; index < subtasksArray.length; index++) {
+      const element = subtasksArray[index];
+      subtasksPosition.innerHTML += `
+              <ul>
+                  <li>${element}</li>
+              </ul>`;
+    }
   }
 }
 
