@@ -28,7 +28,7 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
       searchprio(index, prio),
       subtasksRender(index, subtasks)
     ]);
-   // await progressBar(index);
+   await progressBar(index);
     addHoverEffect(index);
   }
 }
