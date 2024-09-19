@@ -16,6 +16,7 @@
 }
 
 .imprint-content {
+  margin-top: 100px;
   max-width: 1016px;
   padding-left: 272px;
   padding-right: 24px;
@@ -165,6 +166,9 @@ body {
 }
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 96px;
   box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
