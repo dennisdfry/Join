@@ -5,11 +5,13 @@
  * This function listens for authentication state changes using Firebase's `onAuthStateChanged` method.
  */
 function checkAuth() {
+    const guestUser = localStorage.getItem("user");
     firebase.auth().onAuthStateChanged(function (user) {
-        if (!user) {
+        if (!user && guestUser !== "Guest") {
             window.location.replace('/public/login.html');
         }
     });
 }
+
 
 checkAuth();
