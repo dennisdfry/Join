@@ -1,20 +1,4 @@
 /**
- * Checks the authentication state of the user.
- * 
- * Redirects the user to the login page if they are not authenticated.
- * This function listens for authentication state changes using Firebase's `onAuthStateChanged` method.
- */
-function checkAuth() {
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (!user) {
-            window.location.replace('/public/login.html');
-        }
-    });
-}
-
-//checkAuth();
-
-/**
  * Handles user authentication state changes and performs actions based on the current page.
  * 
  * If a user is authenticated and the current page is "summary.html", 
@@ -40,4 +24,5 @@ firebase.auth().onAuthStateChanged((user) => {
 function clearLocalStorage() {
     localStorage.removeItem("user");
     localStorage.removeItem("classAdded");
+    localStorage.removeItem("firebase:host:join-19628-default-rtdb.firebaseio.com");
 }
