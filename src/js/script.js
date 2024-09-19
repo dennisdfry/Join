@@ -29,7 +29,7 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
       subtasksRender(index, subtasks)
     ]);
    await progressBar(index);
-    addHoverEffect(index);
+   await addHoverEffect(index);
   }
 }
 
@@ -139,9 +139,9 @@ function tileUserImage(index) {
   const userImageBoard = document.getElementById(`userImageBoard${index}`);
   if (userImageBoard) {
     const images = userImageBoard.getElementsByClassName("image-div");
-    const totalWidth = 80;
+    const totalWidth = 100;
     const imageWidth = 32;
-    const overlap = 14; 
+    const overlap = 16; 
 
     const maxImages = Math.floor((totalWidth + overlap) / (imageWidth - overlap));
     for (let i = 0; i < images.length; i++) {
@@ -200,7 +200,7 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
 
 
 
-function addHoverEffect(index) {
+async function addHoverEffect(index) {
   let progressBar = document.getElementById(`progressBar${index}`);
   let subtaskTrue = document.getElementById(`subtasksAmountTrue${index}`);
   let subtaskLen = document.getElementById(`subtasksLength${index}`);
