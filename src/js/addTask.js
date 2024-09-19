@@ -75,7 +75,7 @@ async function assignedTo(contacts, imageUrls) {
       return Object.values(contacts).map((entry) => ({ name: entry.name }));
     };
     const names = extractNames(contacts);
-    checkboxInit(names, imageUrls);
+    await checkboxInit(names, imageUrls);
   } catch (error) {
     console.error(error);
   }
@@ -86,7 +86,7 @@ async function assignedTo(contacts, imageUrls) {
  * @param {object[]} names - An array of contact names.
  * @param {string[]} imageUrls - An array of image URLs for the contacts.
  */
-function checkboxInit(names, imageUrls) {
+async function checkboxInit(names, imageUrls) {
   let position = document.getElementById("checkboxes");
   position.innerHTML = "";
 
@@ -165,7 +165,7 @@ async function createTask(event) {
     alert("Please select a priority before submitting the form.");
     return false;
   }
-  defineTaskObjects(); 
+  await defineTaskObjects(); 
   await saveToFirebase();
   form.reset();
   resetFormState();
@@ -213,7 +213,7 @@ function resetFormState() {
 /**
  * Gathers data from the form fields and prepares the task object to be saved.
  */
-function defineTaskObjects() {
+ async function defineTaskObjects() {
   let taskTitle = document.getElementById("title").value;
   let taskDescription = document.getElementById("description").value;
   let dueDateTask = document.getElementById("dueDate").value;
@@ -364,3 +364,4 @@ function clearSubtasks() {
   let position = document.getElementById("subtasksPosition");
   position.innerHTML = "";
 }
+
