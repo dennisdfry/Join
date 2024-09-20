@@ -374,5 +374,5 @@ function clearAddTask(){
   document.getElementById("subtasksPosition").innerHTML = '';
   assignedToUserArray = [];
   assignedToUserArrayNamesGlobal = []; 
-  prio(2);
+  init();
 }
