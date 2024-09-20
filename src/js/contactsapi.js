@@ -108,6 +108,7 @@ async function handlePostDeleteOperations(contactId) {
 async function addContact(contact) {
     try {
       contact.img = contact.img || generateProfileImage(contact.name);
+      
       await postContact(contact);
       await updateContactList();
       let contactId = await getContactId(contact);
