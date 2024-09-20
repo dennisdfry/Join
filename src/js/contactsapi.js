@@ -79,7 +79,7 @@ async function replaceContact(contactId, updatedContact) {
       }
       await postContact(updatedContact);
       await deleteContact(contactId);  
-      await selectNextContact(contactId);
+      //await selectNextContact(contactId);
     } catch (error) {
       console.error("Error replacing contact:", error);
     }
@@ -92,7 +92,7 @@ async function replaceContact(contactId, updatedContact) {
  */
 async function handlePostDeleteOperations(contactId) {
   await updateContactList();
-  await selectNextContact(contactId);
+  //await selectNextContact(contactId);
   closeEditField();
 }
 

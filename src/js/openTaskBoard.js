@@ -96,7 +96,7 @@ function oneClickClose(event) {
 
     progressBar(opentaskIndex);
     resetFormStateEdit();
-    console.log(subtasksArrayEdit);
+   //console.log(subtasksArrayEdit);
   }
 }
 
@@ -227,7 +227,7 @@ async function deleteOnFirebase(taskkey) {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Task successfully deleted.");
+   // console.log("Task successfully deleted.");
   } catch (error) {
     console.error("Error deleting task in Firebase:", error);
   }
@@ -273,7 +273,7 @@ function handleFormSubmitEdit(event, index, category) {
   }
   isSaving = true;
   updateTaskBoard(index, category)
-    .then(() => console.log("Task erfolgreich aktualisiert."))
+    //.then(() => console.log("Task erfolgreich aktualisiert."))//
     .catch(error => console.error("Fehler beim Speichern der Aufgabe:", error))
     .finally(() => isSaving = false);
 }
