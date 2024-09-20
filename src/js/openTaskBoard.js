@@ -130,7 +130,7 @@ function subtasksRenderOpen(indexHtml, subtasks) {
 function subtasksRenderOpenHtml(indexHtml, index, element) {
   return `
     <div class="d-flex item-center pa-7-16">
-      <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task" type="checkbox" id="subtask-${indexHtml}-${index}">
+      <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task pointer" type="checkbox" id="subtask-${indexHtml}-${index}">
       <label for="subtask-${indexHtml}-${index}">${element}</label>
     </div>`;
 }
