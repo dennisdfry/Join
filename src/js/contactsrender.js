@@ -26,7 +26,7 @@ function renderContactItem(contactList, id, contact, imageSrc) {
       <img class="d-flex pointer" src="${imageSrc}"/>
       <div class="contactlist-databox flex-d-col">
         <div class="pointer no-wrap-text fw-400 fs-20">${contact.name}</div>
-        <a class="pointer color-lb fs-16 text-deco-n" href="mailto:${contact.mail}">${contact.mail}</a>
+        <p class="pointer fw-400 fs-16 text-deco-n">${contact.mail}</p>
       </div>
     </div>
   `;

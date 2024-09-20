@@ -2,18 +2,15 @@
  * Initializes event listeners for the contact form.
  * - Adds a submit listener to process the form.
  * - Adds input listeners to validate form fields.
- * - Checks if all required fields are filled and enables or disables the submit button accordingly.
  */
 function setupForm() {
   let form = document.getElementById("contact-form");
   if (!form) return;
   form.addEventListener("submit", handleFormSubmit);
-  console.log("Submit event listener added");
-
   ["name", "mail", "phone"].forEach((id) => {
     let element = document.getElementById(id);
     if (element) {
-      element.addEventListener("input", checkFormFields);
+      element.addEventListener("input", () => validateField(element));
       element.addEventListener("keydown", handleEnterPress);
     }
   });
@@ -22,12 +19,47 @@ function setupForm() {
 }
 
 /**
+ * Validates a single field and shows error messages if invalid.
+ * @param {HTMLElement} field - The form field to validate.
+ */
+function validateField(field) {
+  if (!field.checkValidity()) {
+    field.classList.add("input-error");
+    field.setCustomValidity("Please fill out this field correctly.");
+    field.reportValidity();
+  } else {
+    field.classList.remove("input-error");
+    field.setCustomValidity("");
+  }
+  checkFormFields();
+}
+
+/**
  * Checks if all required fields are filled and enables or disables the submit button accordingly.
  */
 function checkFormFields() {
-  let filledFields = ["name", "mail", "phone"].every((id) => document.getElementById(id).value.trim());
+  let form = document.getElementById("contact-form");
+  let filledFields = form.checkValidity(); 
   document.getElementById("formfield-create-btn").disabled = !filledFields;
 }
+
+/**
+ * Handles the form submission to add a new contact.
+ * @param {Event} event - The form submit event object.
+ */
+function handleFormSubmit(event) {
+  event.preventDefault();
+  
+  let form = document.getElementById("contact-form");
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  let [name, mail, phone] = ["name", "mail", "phone"].map(id => document.getElementById(id).value.trim());
+  addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
+  closeFormField();
+}
+
 
 /**
  * Checks if the Enter key is pressed and triggers the form submit event.
@@ -41,30 +73,13 @@ function handleEnterPress(event) {
 }
 
 /**
- * Handles the form submission to add a new contact.
- * @param {Event} event - The form submit event object.
- */
-function handleFormSubmit(event) {
-  event.preventDefault();
-  let [name, mail, phone] = ["name", "mail", "phone"].map(id => document.getElementById(id).value.trim());
-
-  if (![name, validateEmail(mail), validatePhone(phone)].every(Boolean)) {
-    ["name", "mail", "phone"].forEach(id => 
-      document.getElementById(id).classList.toggle("input-error", !document.getElementById(id).value.trim())
-    );
-    return;
-  }
-  addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
-  closeFormField();
-}
-
-/**
- * Validates an email address.
+ * Validates an email address using a regular expression.
  * @param {string} email - The email address to validate.
  * @returns {boolean} - Returns true if the email is valid, otherwise false.
  */
 function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(String(email).toLowerCase());
 }
 
 /**
