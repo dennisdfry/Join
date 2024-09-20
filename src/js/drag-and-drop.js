@@ -12,7 +12,7 @@ let cachedElement = null;
  */
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
-  console.log("Dragging element with taskkey:", currentDraggedElement);
+ // console.log("Dragging element with taskkey:", currentDraggedElement);
 }
 
 /**
