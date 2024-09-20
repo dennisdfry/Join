@@ -169,7 +169,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           </div> 
           <div class="d-flex full-width flex-d-col margin-bt8" id="dateTask${index}">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Due date:</p>
-                    <input required placeholder="${date}" class="edit-task-date" type="date" id="dueDateEdit${index}" name="dueDate">
+                    <input required placeholder="${date}" class="edit-task-date pointer" type="date" id="dueDateEdit${index}" name="dueDate">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none margin-left-open-task"></p>
           </div>
           <div class="d-flex flex-d-col margin-bt8" id="prioTask${index}">
