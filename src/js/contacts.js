@@ -19,6 +19,23 @@ function setupForm() {
 }
 
 /**
+ * Handles the form submission to add a new contact.
+ * @param {Event} event - The form submit event object.
+ */
+function handleFormSubmit(event) {
+  event.preventDefault();
+  
+  let form = document.getElementById("contact-form");
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  let [name, mail, phone] = ["name", "mail", "phone"].map(id => document.getElementById(id).value.trim());
+  addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
+  closeFormField();
+}
+
+/**
  * Validates a single field and shows error messages if invalid.
  * @param {HTMLElement} field - The form field to validate.
  */
@@ -44,24 +61,6 @@ function checkFormFields() {
 }
 
 /**
- * Handles the form submission to add a new contact.
- * @param {Event} event - The form submit event object.
- */
-function handleFormSubmit(event) {
-  event.preventDefault();
-  
-  let form = document.getElementById("contact-form");
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
-  let [name, mail, phone] = ["name", "mail", "phone"].map(id => document.getElementById(id).value.trim());
-  addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
-  closeFormField();
-}
-
-
-/**
  * Checks if the Enter key is pressed and triggers the form submit event.
  * @param {KeyboardEvent} event - The keyboard event object.
  */
@@ -70,48 +69,6 @@ function handleEnterPress(event) {
     event.preventDefault();
     handleFormSubmit(event);
   }
-}
-
-/**
- * Validates an email address using a regular expression.
- * @param {string} email - The email address to validate.
- * @returns {boolean} - Returns true if the email is valid, otherwise false.
- */
-function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(String(email).toLowerCase());
-}
-
-/**
- * Validates a phone number based on custom rules.
- * @param {string} phone - The phone number to validate.
- * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
- */
-function validatePhone(phone) {
-  let phoneReg = /^(?:\+?\d{1,3}|0)\d{7,14}$/;
-  return phoneReg.test(phone);
-}
-
-/**
- * Capitalizes the first letter of a name.
- * @param {string} name - The contact's name.
- * @returns {string} - The name with the first letter capitalized.
- */
-function capitalizeFirstLetter(name) {
-  let words = name.split(" ");
-  if (words.length >= 2) {
-    return capitalizeSecondLetter(words);
-  }
-  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-}
-
-/**
- * Capitalizes the first letter of each word in a name.
- * @param {Array<string>} words - An array of words to capitalize.
- * @returns {string} - The capitalized words as a single string.
- */
-function capitalizeSecondLetter(words) {
-  return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
 }
 
 /**
@@ -162,6 +119,107 @@ function closeFormField(formId = "add-form-section", overlayId = "add-overlay", 
 }
 
 /**
+ * Handles the submission of the edit form for contacts.
+ * @async
+ * @param {Event} event - The event object representing the form submission.
+ */
+async function handleEditFormSubmit(event) {
+  event.preventDefault();
+  
+  let form = document.getElementById("edit-contact-form");
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const contactId = form.getAttribute("data-id");
+  if (!contactId) return console.error("No contact ID found.");
+
+  let [name, mail, phone] = ["edit-name", "edit-mail", "edit-phone"].map(id => document.getElementById(id).value.trim());
+  
+  try {
+    const updatedContact = await getUpdatedContact(contactId);
+    await replaceContact(contactId, updatedContact);
+    handleSuccess();
+  } catch (error) {
+    console.error("Error updating contact:", error);
+  }
+}
+
+/**
+ * Initializes event listeners for the contact edit form.
+ * - Adds a submit listener to process the edit form.
+ * - Adds input listeners to validate form fields.
+ */
+function setupEditForm() {
+  let form = document.getElementById("edit-contact-form");
+  if (!form) return;
+  form.addEventListener("submit", handleEditFormSubmit);
+  ["edit-name", "edit-mail", "edit-phone"].forEach((id) => {
+    let element = document.getElementById(id);
+    if (element) {
+      element.addEventListener("input", () => validateField(element));
+      element.addEventListener("keydown", handleEditEnterPress);
+    }
+  });
+
+  checkEditFormFields();
+}
+
+/**
+ * Checks if all required fields in the edit form are filled and enables or disables the submit button accordingly.
+ */
+function checkEditFormFields() {
+  let form = document.getElementById("edit-contact-form");
+  let filledFields = form.checkValidity(); 
+  document.getElementById("editfield-create-btn").disabled = !filledFields;
+}
+
+/**
+ * Loads contact data into the edit form fields.
+ * @async
+ * @param {string} contactId - The unique identifier of the contact whose data should be loaded.
+ */
+async function loadEditFormData(contactId) {
+  try {
+    const contact = await getContact(contactId);
+    document.getElementById("edit-name").value = capitalizeFirstLetter(contact.name);
+    document.getElementById("edit-mail").value = contact.mail;
+    document.getElementById("edit-phone").value = contact.phone;
+    let editImageContainer = document.getElementById("prof2-img");
+    if (editImageContainer) {
+      editImageContainer.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}">`;
+    }
+  } catch (error) {
+    console.error("Error loading edit form:", error);
+  }
+}
+
+/**
+ * Checks if the Enter key is pressed and triggers the form submit event.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
+function handleEditEnterPress(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    handleEditFormSubmit(event);
+  }
+}
+
+/**
+ * Validates the email and phone number in the edit form.
+ * @returns {string|null} - Returns an error message if validation fails, otherwise null.
+ */
+function validateEditForm() {
+  let email = document.getElementById("edit-mail").value.trim();
+  let phone = document.getElementById("edit-phone").value.trim();
+  if (!validateEmail(email) || !validatePhone(phone)) {
+    return "Invalid email or phone number.";
+  }
+  return null;
+}
+
+/**
  * Displays the edit form for an existing contact.
  * @param {string} contactId - The ID of the contact to edit.
  */
@@ -179,53 +237,6 @@ function closeEditField() {
   closeFormField("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
   document.removeEventListener("click", handleOutsideEditFormClick);
   document.getElementById("edit-contact-form").removeEventListener("keydown", handleEditEnterPress);
-}
-
-/**
- * Checks if the Enter key is pressed and triggers the form submit event.
- * @param {KeyboardEvent} event - The keyboard event object.
- */
-function handleEditEnterPress(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    handleEditFormSubmit(event);
-  }
-}
-
-/**
- * Handles the submission of the edit form for contacts.
- * @async
- * @param {Event} event - The event object representing the form submission.
- */
-async function handleEditFormSubmit(event) {
-  event.preventDefault();
-
-  const contactId = document.getElementById("edit-contact-form").getAttribute("data-id");
-  if (!contactId) return console.error("No contact ID found.");
-
-  let validationError = validateEditForm();
-  if (validationError) return console.error(validationError);
-
-  try {
-    const updatedContact = await getUpdatedContact(contactId);
-    await replaceContact(contactId, updatedContact);
-    handleSuccess();
-  } catch (error) {
-    console.error("Error updating contact:", error);
-  }
-}
-
-/**
- * Validates the email and phone number in the edit form.
- * @returns {string|null} - Returns an error message if validation fails, otherwise null.
- */
-function validateEditForm() {
-  let email = document.getElementById("edit-mail").value.trim();
-  let phone = document.getElementById("edit-phone").value.trim();
-  if (!validateEmail(email) || !validatePhone(phone)) {
-    return "Invalid email or phone number.";
-  }
-  return null;
 }
 
 /**
@@ -253,26 +264,6 @@ async function getUpdatedContact(contactId) {
 function handleSuccess() {
   showUpdateBar();
   closeEditField();
-}
-
-/**
- * Loads contact data into the edit form fields.
- * @async
- * @param {string} contactId - The unique identifier of the contact whose data should be loaded.
- */
-async function loadEditFormData(contactId) {
-  try {
-    const contact = await getContact(contactId);
-    document.getElementById("edit-name").value = capitalizeFirstLetter(contact.name);
-    document.getElementById("edit-mail").value = contact.mail;
-    document.getElementById("edit-phone").value = contact.phone;
-    let editImageContainer = document.getElementById("prof2-img");
-    if (editImageContainer) {
-      editImageContainer.innerHTML = `<img src="${contact.img || generateProfileImage(contact.name)}">`;
-    }
-  } catch (error) {
-    console.error("Error loading edit form:", error);
-  }
 }
 
 /**
@@ -408,3 +399,46 @@ function sortContacts(contacts) {
 function getImageSrc(contact) {
   return contact.img || generateProfileImage(contact.name);
 }
+
+/**
+ * Validates an email address using a regular expression.
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} - Returns true if the email is valid, otherwise false.
+ */
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(String(email).toLowerCase());
+}
+
+/**
+ * Validates a phone number based on custom rules.
+ * @param {string} phone - The phone number to validate.
+ * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
+ */
+function validatePhone(phone) {
+  let phoneReg = /^(?:\+?\d{1,3}|0)\d{7,14}$/;
+  return phoneReg.test(phone);
+}
+
+/**
+ * Capitalizes the first letter of a name.
+ * @param {string} name - The contact's name.
+ * @returns {string} - The name with the first letter capitalized.
+ */
+function capitalizeFirstLetter(name) {
+  let words = name.split(" ");
+  if (words.length >= 2) {
+    return capitalizeSecondLetter(words);
+  }
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+}
+
+/**
+ * Capitalizes the first letter of each word in a name.
+ * @param {Array<string>} words - An array of words to capitalize.
+ * @returns {string} - The capitalized words as a single string.
+ */
+function capitalizeSecondLetter(words) {
+  return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+}
+
