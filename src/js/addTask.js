@@ -21,6 +21,7 @@ async function init() {
     let contacts = await fetchContacts(fireBaseData);
     let imageUrls = await fetchImages();
     await assignedTo(contacts, imageUrls);
+    prio(2);
 
   } catch (error) {
     console.error("Error during initialization:", error);
@@ -365,3 +366,13 @@ function clearSubtasks() {
   position.innerHTML = "";
 }
 
+function clearAddTask(){
+  document.getElementById("title").value = '';
+  document.getElementById("description").value = '';
+  document.getElementById("dueDate").value = '';
+  document.getElementById("taskCategory").value = '';
+  document.getElementById("subtasksPosition").innerHTML = '';
+  assignedToUserArray = [];
+  assignedToUserArrayNamesGlobal = []; 
+  prio(2);
+}
