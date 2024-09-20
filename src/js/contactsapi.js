@@ -40,7 +40,6 @@ async function getContact(contactId) {
 async function deleteContact(contactId) {
     try {
       await fetchData(`${CONTACTS_URL}/${contactId}.json`, { method: "DELETE" });
-      console.log(`Contact ${contactId} successfully deleted.`);
       await handlePostDeleteOperations(contactId);
     } catch (error) {
       console.error("Error during deletion:", error);
@@ -59,7 +58,6 @@ async function postContact(contact) {
       headers: HEADERS,
       body: JSON.stringify(contact),
     });
-    console.log("Contact successfully uploaded:", newContact);
 }
 
 /**
@@ -79,9 +77,7 @@ async function replaceContact(contactId, updatedContact) {
       if (!contactId) {
         throw new Error("Invalid contact ID. Contact cannot be replaced.");
       }
-      console.log(`Attempting to delete contact with ID ${contactId}.`);
       await postContact(updatedContact);
-      console.log("Creating new contact: ", updatedContact);
       await deleteContact(contactId);  
       await selectNextContact(contactId);
     } catch (error) {
