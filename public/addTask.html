@@ -20,8 +20,8 @@
     <title>Add Task</title>
 </head>
 
-<body onclick="keepOpen(event)" class="background-main">
-    <form onsubmit=" return createTask(event)" class="add-Task-Container">
+<body  class="background-main">
+    <form onclick="keeOpen()" onsubmit=" return createTask(event)" class="add-Task-Container">
         <section class="add-task-head">
             <h1>Add Task</h1>
             <div class="add-task-close-button">
@@ -38,15 +38,15 @@
                     <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description"
                         name="description" id="description"></textarea>
                     <label for="assignedTo">Assigned to</label>
-                    <div class="multiselect pointer">
-                        <div class="selectBox" onclick="showCheckboxes()" tabindex="1">
-                        <!-- <div class="selectBox" onclick="showCheckboxes()"> -->
+                    <div class="multiselect pointer" onclick="showCheckboxes(event)">
+                        <div class="selectBox">
                             <select required class="add-task-select">
                                 <option>Select an option</option>
                             </select>
                             <div class="overSelect"></div>
                         </div>
                         <div id="checkboxes" class="checkboxes-hidden" onclick="keepOpen(event)">
+                            <!-- Insert checkboxes dynamically here -->
                         </div>
                     </div>
                 </div>

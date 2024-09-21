@@ -10,6 +10,7 @@ let assignedToUserArray = [];
 let assignedToUserArrayNamesGlobal = []; 
 let imageUrlsGlobal = [];
 let selectedPrio = null; 
+let expandedBody = false;
 
 /**
  * Initializes the task form by fetching data from Firebase and setting up the "Assigned To" dropdown.
@@ -140,17 +141,33 @@ async function assignedToUser(index, element) {
 /**
  * Toggles the visibility of the "Assigned To" dropdown.
  */
-function showCheckboxes() {
+
+function showCheckboxes(event) {
   let checkboxes = document.getElementById("checkboxes");
   if (!expanded) {
     checkboxes.style.display = "block";
     expanded = true;
-  } else {
+  }
+  event.stopPropagation();
+}
+
+/**
+ * Prevents the checkbox dropdown from closing when clicking inside it.
+ */
+function keepOpen(event) {
+  event.stopPropagation(); // Ensures that clicking inside the checkbox container doesn't close it
+}
+/**
+ * Closes the checkbox dropdown when clicking outside of it.
+ */
+document.onclick = function (event) {
+  let checkboxes = document.getElementById("checkboxes");
+
+  if (expanded && !document.querySelector('.multiselect').contains(event.target)) {
     checkboxes.style.display = "none";
     expanded = false;
   }
-}
-
+};
 
 /**
  * Handles the submission of the task form, including validation and saving the task data to Firebase.
