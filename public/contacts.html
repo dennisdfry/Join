@@ -146,7 +146,15 @@
               <img class="pos-abs img-24" src="./img/mail.png" />
             </div>
             <div class="input-img-div d-flex-center gap-10 pos-rel">
-              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type=" number" id="phone" name="phone" placeholder="Phone" required />
+              <input 
+              class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              placeholder="Phone" 
+              pattern="^(\+?[0-9]+|0[0-9]+)$" 
+              required 
+            />
               <img class="pos-abs img-24" src="./img/call.png" />
             </div>
 

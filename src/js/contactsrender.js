@@ -98,20 +98,12 @@ function generateProfileImage(name) {
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase())
     .join("");
-
-  const existingImg = getExistingImagePath(name); 
-  
-  if (existingImg && existingImg !== generateInitialsPath(name)) {
-    return existingImg;
-  } else {
-    const svgImage = `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="50" fill="${randomColor}" />
-    <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
-  </svg>`;
-    return `data:image/svg+xml;base64,${btoa(svgImage)}`;
-  }
+  const svgImage = `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="50" fill="${randomColor}" />
+  <text x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="32" fill="#FFF" font-family="Inter, sans-serif">${initials}</text>
+</svg>`;
+  return `data:image/svg+xml;base64,${btoa(svgImage)}`;
 }
-
 /**
  * Renders the Edit and Delete buttons inside the element with the class 'contact-section-btn-box-resp'.
  * 
