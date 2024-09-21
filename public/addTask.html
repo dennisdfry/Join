@@ -38,7 +38,7 @@
                     <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description"
                         name="description" id="description"></textarea>
                     <label for="assignedTo">Assigned to</label>
-                    <div class="multiselect">
+                    <div class="multiselect pointer">
                         <div class="selectBox" onclick="showCheckboxes()" tabindex="1">
                         <!-- <div class="selectBox" onclick="showCheckboxes()"> -->
                             <select required class="add-task-select">
@@ -53,7 +53,7 @@
                 <div class="add-task-seperator"></div>
                 <div class="add-task-form-right-section">
                     <label for="dueDate">Due date <span class="red-star">*</span></label>
-                    <input required class="add-task-select" type="date" id="dueDate" name="dueDate">
+                    <input required class="add-task-select pointer" type="date" id="dueDate" name="dueDate" onclick="setTodayDate()">
 
                     <label id="prioSection" for="">Prio</label>
                     <div class="add-task-prio-button-container">

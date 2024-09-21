@@ -379,3 +379,11 @@ function clearAddTask(){
   assignedToUserArrayNamesGlobal = []; 
   init();
 }
+
+function setTodayDate() {
+  const dateInput = document.getElementById('dueDate');
+  const today = new Date().toISOString().split('T')[0]; 
+  if (!dateInput.value) { 
+    dateInput.value = today;
+  }
+}
