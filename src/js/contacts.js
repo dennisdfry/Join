@@ -10,7 +10,7 @@ function setupForm() {
   ["name", "mail", "phone"].forEach((id) => {
     let element = document.getElementById(id);
     if (element) {
-      element.addEventListener("input", () => validateField(element));
+      //element.addEventListener("input", () => validateField(element));
       element.addEventListener("keydown", handleEnterPress);
     }
   });
@@ -48,7 +48,7 @@ function validateField(field) {
     field.classList.remove("input-error");
     field.setCustomValidity("");
   }
-  checkFormFields();
+  //checkFormFields();
 }
 
 /**
@@ -158,12 +158,12 @@ function setupEditForm() {
   ["edit-name", "edit-mail", "edit-phone"].forEach((id) => {
     let element = document.getElementById(id);
     if (element) {
-      element.addEventListener("input", () => validateField(element));
+      //element.addEventListener("input", () => validateField(element));
       element.addEventListener("keydown", handleEditEnterPress);
     }
   });
 
-  checkEditFormFields();
+  //checkEditFormFields();
 }
 
 /**
@@ -416,7 +416,7 @@ function validateEmail(email) {
  * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
 function validatePhone(phone) {
-  let phoneReg = /^(?:\+?\d{1,3}|0)\d{7,14}$/;
+  let phoneReg = /^(\+?[0-9]+|0[0-9]+)$/;
   return phoneReg.test(phone);
 }
 
