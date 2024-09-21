@@ -115,7 +115,7 @@ function checkBoxRender(index, imgSrc, element) {
             <img src="${imgSrc}" alt="" />
             ${element}
         </div>
-        <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${index}','${element}')" />
+        <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${index}','${element}','${imgSrc}')" />
     </label>`;
 }
 
@@ -125,17 +125,21 @@ function checkBoxRender(index, imgSrc, element) {
  * @param {string} element - The name of the user.
  */
 
-async function assignedToUser(index, element) {
+async function assignedToUser(index, element, imgSrc) {
   const image = imageUrlsGlobal[index];
   const arrayIndex = assignedToUserArray.indexOf(index);
   if (arrayIndex !== -1) {
     assignedToUserArray.splice(arrayIndex, 1);
     assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+    imageUrlsGlobal.splice(arrayIndex, 1);
   } else {
     assignedToUserArray.push(index);
     assignedToUserArrayNamesGlobal.push(element);
+    imageUrlsGlobal.push(imgSrc);
   }
-  
+  console.log(assignedToUserArray)
+  console.log(assignedToUserArrayNamesGlobal)
+  console.log(imageUrlsGlobal)
 }
 
 /**
@@ -166,9 +170,17 @@ document.onclick = function (event) {
   if (expanded && !document.querySelector('.multiselect').contains(event.target)) {
     checkboxes.style.display = "none";
     expanded = false;
+    showUserAdd();
   }
 };
-
+function showUserAdd(){
+  let position = document.getElementById('userImageShow');
+  position.innerHTML = '';
+  for (let index = 0; index < imageUrlsGlobal.length; index++) {
+    const element = imageUrlsGlobal[index];
+    position.innerHTML += `<img class="img-32 p-4" src="${element}" alt="" />` ;
+  }
+}
 /**
  * Handles the submission of the task form, including validation and saving the task data to Firebase.
  * @param {Event} event - The form submit event.
