@@ -1,3 +1,6 @@
+
+let isLoading = false; 
+
 /**
  * Dynamically includes HTML content into elements with the `w3-include-html` attribute.
  * Fetches the content from the specified file and inserts it into the element.
@@ -5,23 +8,25 @@
  *
  * @async
  */
+
 async function includeHTML() {
-  let includeElements = document.querySelectorAll("[w3-include-html]");
+  if (isLoading) return;
+  isLoading = true;
+  const includeElements = document.querySelectorAll("[w3-include-html]");
+  
   for (let element of includeElements) {
     const file = element.getAttribute("w3-include-html");
     try {
-      let sanitizedUrl = new URL(file, window.location.href);
-      sanitizedUrl.username = "";
-      sanitizedUrl.password = "";
-      let resp = await fetch(sanitizedUrl);
+      const resp = await fetch(new URL(file, window.location.href));
       await whichChangeSite(resp, element, file);
     } catch (error) {
-      console.error("Error fetching file:", file, error);
+      console.error(`Error fetching file: ${file}`, error);
       element.innerHTML = "Error loading page";
     }
   }
+  
+  isLoading = false;
 }
-
 /**
  * Inserts the fetched HTML content into the element and initializes the page-specific logic.
  * Calls different initialization functions based on the file name.
@@ -35,16 +40,13 @@ async function whichChangeSite(resp, element, file) {
   if (resp.ok) {
     element.innerHTML = await resp.text();
     if (file.includes("addTask.html")) {
-      init();
-    }
-    if (file.includes("contacts.html")) {
-      initContacts();
-    }
-    if (file.includes("board.html")) {
-      loadingBoard();
-    }
-    if (file.includes("summary.html")) {
-      initSmry();
+      await init();
+    } else if (file.includes("contacts.html")) {
+      await initContacts();
+    } else if (file.includes("board.html")) {
+      await loadingBoard();
+    } else if (file.includes("summary.html")) {
+      await initSmry();
     }
   } else {
     element.innerHTML = "Page not found";
@@ -60,8 +62,11 @@ async function whichChangeSite(resp, element, file) {
  * @returns {Promise<void>} Resolves when the new HTML content has been successfully loaded.
  */
 async function changeSite(page) {
+  if (isLoading) return;  // Beende, wenn eine Anfrage läuft
+
   document.querySelector(".main-content").setAttribute("w3-include-html", page);
   await includeHTML();
+
   if (page === 'contacts.html') {
     toggleElement('.contactlist-section-responsive', 'd-none');
   }
