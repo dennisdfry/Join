@@ -123,6 +123,7 @@ function checkBoxRender(index, imgSrc, element) {
  * @param {number} index - The index of the user.
  * @param {string} element - The name of the user.
  */
+
 async function assignedToUser(index, element) {
   const image = imageUrlsGlobal[index];
   const arrayIndex = assignedToUserArray.indexOf(index);
@@ -133,6 +134,7 @@ async function assignedToUser(index, element) {
     assignedToUserArray.push(index);
     assignedToUserArrayNamesGlobal.push(element);
   }
+  
 }
 
 /**
@@ -148,6 +150,7 @@ function showCheckboxes() {
     expanded = false;
   }
 }
+
 
 /**
  * Handles the submission of the task form, including validation and saving the task data to Firebase.

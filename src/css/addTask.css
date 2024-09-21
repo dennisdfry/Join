@@ -9,7 +9,12 @@
   src: url("/src/fonts/inter/inter-v13-latin-700.woff2") format("woff2");
   font-weight: 700;
 }
-
+.checkboxes-hidden {
+  display: none;
+}
+.checkboxes-visible {
+  display: block;
+}
 body {
   height: 100vh;
   overflow: hidden;
