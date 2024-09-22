@@ -10,7 +10,7 @@ function setupForm() {
   ["name", "mail", "phone"].forEach((id) => {
     let element = document.getElementById(id);
     if (element) {
-      //element.addEventListener("input", () => validateField(element));
+      element.addEventListener("input", checkFormFields);
       element.addEventListener("keydown", handleEnterPress);
     }
   });
@@ -27,6 +27,7 @@ function handleFormSubmit(event) {
   
   let form = document.getElementById("contact-form");
   if (!form.checkValidity()) {
+    checkFormFields();
     form.reportValidity();
     return;
   }

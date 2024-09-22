@@ -377,3 +377,8 @@ body {
 .no-hover:hover {
   pointer-events: none;
 }
+
+#formfield-create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed
+}
