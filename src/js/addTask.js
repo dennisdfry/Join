@@ -240,6 +240,8 @@ function resetFormState() {
   assignedToUserArray = [];
   assignedToUserArrayNamesGlobal = [];
   selectedPrio = null;
+  imageUrlsGlobal = [];
+  subtasksArray = [];
   clearSubtasks();
 }
 
@@ -383,12 +385,27 @@ function updateSubtasksList() {
     for (let index = 0; index < subtasksArray.length; index++) {
       const element = subtasksArray[index];
       subtasksPosition.innerHTML += `
-              <ul>
-                  <li>${element}</li>
-              </ul>`;
+             <li id="supplementarySubtask${index}" class="d-flex-between subtasks-edit bradius8">
+        <span>${element}</span>
+        <div>
+            <img class="pointer" onclick="deleteSubtask(${index})" src="../public/img/delete.png">
+            <img class="pointer" onclick="editSubtask(${index})" src="../public/img/edit.png">
+        </div>
+    </li>`;
     }
   }
 }
+function editSubtask(index) {
+  let position = document.getElementById(`supplementarySubtask${index}`);
+  let arrayPosition = subtasksArray[index];
+  position.innerHTML = `
+      <input id="inputAddTaskSubtasks${index}" class="" value="${arrayPosition}">
+      <div>
+          <img class="img-24" onclick="deleteSubtask(${index})" src="../public/img/delete.png">
+          <img class="img-24" onclick="finishSubtask(${index})" src="../public/img/checkAddTask.png" alt="Add">
+      </div>`;
+}
+
 
 /**
  * Clears the list of displayed subtasks by resetting the innerHTML of the subtasksPosition element.
@@ -396,6 +413,13 @@ function updateSubtasksList() {
 function clearSubtasks() {
   let position = document.getElementById("subtasksPosition");
   position.innerHTML = "";
+}
+
+function deleteSubtask(index) {
+  let position = document.getElementById(`supplementarySubtask${index}`);
+  position.innerHTML = "";
+  subtasksArray.splice([index], 1);
+  subtasksRender(index);
 }
 
 function clearAddTask(){
@@ -406,8 +430,13 @@ function clearAddTask(){
   document.getElementById("subtasksPosition").innerHTML = '';
   assignedToUserArray = [];
   assignedToUserArrayNamesGlobal = []; 
+  imageUrlsGlobal = [];
+  subtasksArray = [];
+  document.getElementById('userImageShow').innerHTML = '';
   init();
 }
+
+
 
 function setTodayDate() {
   const dateInput = document.getElementById('dueDate');

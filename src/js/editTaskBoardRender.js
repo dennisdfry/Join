@@ -63,8 +63,6 @@ function supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML) {
 function editSubtaskEdit(i, indexHTML) {
     let position = document.getElementById(`supplementarySubtaskEdit${i}`);
     let arrayPosition = subtasksArrayEdit[i];
-    //console.log(subtasksArrayEdit[i]);
-    
     position.innerHTML = `
         <input id="inputEditSubtasks${i}" class="" value="${arrayPosition}">
         <div>
