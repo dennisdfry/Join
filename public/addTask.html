@@ -22,7 +22,7 @@
 </head>
 
 <body  class="background-main">
-    <form onclick="keeOpen()" onsubmit=" return createTask(event)" class="add-Task-Container">
+    <form onsubmit=" return createTask(event)" class="add-Task-Container">
         <section class="add-task-head">
             <h1>Add Task</h1>
             <div class="add-task-close-button">
@@ -46,7 +46,7 @@
                             </select>
                             <div class="overSelect"></div>
                         </div>
-                        <div id="checkboxes" class="checkboxes-hidden" onclick="keepOpen(event)">
+                        <div id="checkboxes" class="checkboxes-hidden">
                             <!-- Insert checkboxes dynamically here -->
                         </div>
                     </div>
@@ -105,7 +105,7 @@
             <button onclick="clearAddTask()"  class="add-task-cancel-button">
                 <span>Clear <span>x</span></span>
             </button>
-            <button onclick="changeSite('board.html')" class="add-task-create-button" id="createAdd">
+            <button class="add-task-create-button" id="createAdd">
                 <span>Create Task</span>
                 <img src="../public/img/check.svg" alt="">
             </button>

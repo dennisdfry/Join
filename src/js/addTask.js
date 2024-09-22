@@ -158,9 +158,9 @@ function showCheckboxes(event) {
 /**
  * Prevents the checkbox dropdown from closing when clicking inside it.
  */
-function keepOpen(event) {
-  event.stopPropagation(); // Ensures that clicking inside the checkbox container doesn't close it
-}
+// function keepOpen(event) {
+//   event.stopPropagation(); // Ensures that clicking inside the checkbox container doesn't close it
+// }
 /**
  * Closes the checkbox dropdown when clicking outside of it.
  */
@@ -405,7 +405,6 @@ function editSubtask(index) {
           <img class="img-24" onclick="finishSubtask(${index})" src="../public/img/checkAddTask.png" alt="Add">
       </div>`;
 }
-
 
 /**
  * Clears the list of displayed subtasks by resetting the innerHTML of the subtasksPosition element.
