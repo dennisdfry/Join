@@ -15,9 +15,9 @@ async function loadingBoard() {
     taskkeysGlobal.length = 0;
     task = await onloadDataBoard("/tasks");
     let fetchImage = await fetchImagesBoard("/");
-    if (!task || typeof task !== 'object') {
+    if (!task || typeof task !== "object") {
       console.warn("No valid task data available.");
-      return; 
+      return;
     }
     taskkeys = Object.keys(task);
     if (taskkeys.length === 0) {
@@ -33,7 +33,6 @@ async function loadingBoard() {
     console.error("Error loading tasks:", error);
   }
 }
-
 
 /**
  * Fetches and loads task data from the specified path.
@@ -101,27 +100,25 @@ async function updateHTML() {
   }
 }
 
-
-
 /**
  * Filters tasks based on the search input.
  * Displays tasks that match the search query (starting from 3 characters).
  * If the input is cleared, all tasks are shown again.
  */
 function searchTasks() {
-  const searchInputElement = document.querySelector('.search-task-web');
+  const searchInputElement = document.querySelector(".search-task-web");
   const searchInput = searchInputElement.value.toLowerCase();
-  let allTasks = document.getElementsByTagName('div');
+  let allTasks = document.getElementsByTagName("div");
 
   for (let i = 0; i < allTasks.length; i++) {
     let task = allTasks[i];
-    
-    if (task.id.startsWith('parentContainer')) {
-      let title = task.getElementsByTagName('h2')[0].innerHTML.toLowerCase();
+
+    if (task.id.startsWith("parentContainer")) {
+      let title = task.getElementsByTagName("h2")[0].innerHTML.toLowerCase();
       if (searchInput.length < 3 || title.includes(searchInput)) {
-        task.style.display = 'block';
+        task.style.display = "block";
       } else {
-        task.style.display = 'none';
+        task.style.display = "none";
       }
     }
   }
@@ -133,91 +130,93 @@ function searchTasks() {
  * Removes the hidden and non-display classes from the add-task form to make it visible.
  */
 function openAddForm() {
-    document.getElementById("add-task-form").classList.remove("vis-hidden");
-    document.getElementById("add-task-form").classList.remove("d-none");
-    let overlay = document.getElementById("overlay-form");
-    overlay.classList.remove("d-none");
-    let formField = document.getElementById("add-task-form");
-    formField.classList.remove("d-none", "hidden");
-    formField.style.cssText =
-      "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-    document.addEventListener("click", outsideClickHandler, true);
-    document.addEventListener("keydown", handleEnterKey);
-    prio2(2);
-  }
-  
-  /**
-   * Closes the form.
-   *
-   * Removes the non-display class from the add-task form, making it visible.
-   */
-  function closeAddForm() {
-    document.getElementById("overlay-form").classList.add("d-none");
-    let formField = document.getElementById("add-task-form");
-    formField.classList.remove("d-none");
+  document.getElementById("add-task-form").classList.remove("vis-hidden");
+  document.getElementById("add-task-form").classList.remove("d-none");
+  let overlay = document.getElementById("overlay-form");
+  overlay.classList.remove("d-none");
+  let formField = document.getElementById("add-task-form");
+  formField.classList.remove("d-none", "hidden");
+  formField.style.cssText =
+    "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+  document.addEventListener("click", outsideClickHandler, true);
+  document.addEventListener("keydown", handleEnterKey);
+  prio2(2);
+}
 
-    formField.style.animation = "moveOut 200ms ease-out forwards";
-  
-    setTimeout(() => {
-      formField.classList.add("hidden", "d-none");
-      formField.style.cssText =
-        "visibility: hidden; transform: translateX(100vw)";
-    }, 100);
-    document.getElementById("title2").value = '';
-    document.getElementById("description2").value = '';
-    document.getElementById("dueDate2").value = '';
-    document.getElementById("taskCategory2").value = '';
-    document.getElementById("subtasksPosition2").innerHTML = '';
-    document.getElementById('userImageShow2').innerHTML = '';
-  
-    document.removeEventListener("click", outsideClickHandler, true);
-    document.removeEventListener("keydown", handleEnterKey);
+/**
+ * Closes the form.
+ *
+ * Removes the non-display class from the add-task form, making it visible.
+ */
+function closeAddForm() {
+  document.getElementById("overlay-form").classList.add("d-none");
+  let formField = document.getElementById("add-task-form");
+  formField.classList.remove("d-none");
+
+  formField.style.animation = "moveOut 200ms ease-out forwards";
+
+  setTimeout(() => {
+    formField.classList.add("hidden", "d-none");
+    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
+  }, 100);
+
+  removeValues();
+}
+function removeValues() {
+  document.getElementById("title2").value = "";
+  document.getElementById("description2").value = "";
+  document.getElementById("dueDate2").value = "";
+  document.getElementById("taskCategory2").value = "";
+  document.getElementById("subtasksPosition2").innerHTML = "";
+  document.getElementById("userImageShow2").innerHTML = "";
+
+  document.removeEventListener("click", outsideClickHandler, true);
+  document.removeEventListener("keydown", handleEnterKey);
+}
+
+/**
+ * Handles outside click detection.
+ *
+ * This function listens for clicks outside the "add-task" form. If the click occurs
+ * outside the form but within the overlay, it triggers the form to close.
+ *
+ * @param {Event} event - The click event.
+ */
+function outsideClickHandler(event) {
+  const formField = document.getElementById("add-task-form");
+  const isClickInsideForm = formField.contains(event.target);
+
+  if (!isClickInsideForm) {
+    closeAddForm();
   }
-  
-  
-  /**
-   * Handles outside click detection.
-   *
-   * This function listens for clicks outside the "add-task" form. If the click occurs
-   * outside the form but within the overlay, it triggers the form to close.
-   *
-   * @param {Event} event - The click event.
-   */
-  function outsideClickHandler(event) {
-    const formField = document.getElementById("add-task-form");
-    const isClickInsideForm = formField.contains(event.target);
-  
-    if (!isClickInsideForm) {
-      closeAddForm();
-    }
-  }
-  
-  /**
-   * Handles the Enter key press event.
-   *
-   * This function listens for the Enter key being pressed. Depending on which element
-   * is active (focused), it either adds a new subtask or submits the task by clicking
-   * the corresponding button.
-   *
-   * @param {KeyboardEvent} event - The keyboard event for key press.
-   */
-  function handleEnterKey(event) {
-    if (event.key === "Enter") {
-      event.preventDefault(); 
-      let activeElement = document.activeElement;
-      let subtaskInput = document.getElementById('subtasks2');
-  
-      if (activeElement === subtaskInput) {
-        addSubtask2();
-      } else {
-        let addButton = document.getElementById('add-task-button');
-        if (addButton) {
-          addButton.click();
-        }
+}
+
+/**
+ * Handles the Enter key press event.
+ *
+ * This function listens for the Enter key being pressed. Depending on which element
+ * is active (focused), it either adds a new subtask or submits the task by clicking
+ * the corresponding button.
+ *
+ * @param {KeyboardEvent} event - The keyboard event for key press.
+ */
+function handleEnterKey(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    let activeElement = document.activeElement;
+    let subtaskInput = document.getElementById("subtasks2");
+
+    if (activeElement === subtaskInput) {
+      addSubtask2();
+    } else {
+      let addButton = document.getElementById("add-task-button");
+      if (addButton) {
+        addButton.click();
       }
     }
   }
-  
+}
+
 /**
  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
  * @param {object} contacts - The contacts object.
@@ -235,39 +234,39 @@ async function assignedTo2(contacts, imageUrls) {
     console.error(error);
   }
 }
-  
-  /**
-   * Renders checkboxes with contact images and names for assigning users to tasks.
-   * @param {object[]} names - An array of contact names.
-   * @param {string[]} imageUrls - An array of image URLs for the contacts.
-   */
-  function checkboxInit2(names, imageUrls) {
-    let position = document.getElementById("checkboxes2");
-    position.innerHTML = "";
-    let list = ""; 
-    for (let index = 0; index < names.length; index++) {
-      const element2 = names[index].name;
-      const imgSrc2 = imageUrls[index];
-      list += checkBoxRender2(index, imgSrc2, element2);
-    }
-    position.innerHTML = list; 
-  }
 
-  /**
-   * Updates the arrays that store the indices and names of users assigned to the task.
-   * @param {number} index - The index of the user.
-   * @param {string} element - The name of the user.
-   */
-  async function assignedToUser2(index, element, imgSrc) {
-    const image = imageUrlsGlobal[index];
-    const arrayIndex = assignedToUserArray.indexOf(index);
-    if (arrayIndex !== -1) {
-      assignedToUserArray.splice(arrayIndex, 1);
-      assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
-      imageUrlsGlobal.splice(arrayIndex, 1);
-    } else {
-      assignedToUserArray.push(index);
-      assignedToUserArrayNamesGlobal.push(element);
-      imageUrlsGlobal.push(imgSrc);
-    }
+/**
+ * Renders checkboxes with contact images and names for assigning users to tasks.
+ * @param {object[]} names - An array of contact names.
+ * @param {string[]} imageUrls - An array of image URLs for the contacts.
+ */
+function checkboxInit2(names, imageUrls) {
+  let position = document.getElementById("checkboxes2");
+  position.innerHTML = "";
+  let list = "";
+  for (let index = 0; index < names.length; index++) {
+    const element2 = names[index].name;
+    const imgSrc2 = imageUrls[index];
+    list += checkBoxRender2(index, imgSrc2, element2);
   }
+  position.innerHTML = list;
+}
+
+/**
+ * Updates the arrays that store the indices and names of users assigned to the task.
+ * @param {number} index - The index of the user.
+ * @param {string} element - The name of the user.
+ */
+async function assignedToUser2(index, element, imgSrc) {
+  const image = imageUrlsGlobal[index];
+  const arrayIndex = assignedToUserArray.indexOf(index);
+  if (arrayIndex !== -1) {
+    assignedToUserArray.splice(arrayIndex, 1);
+    assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+    imageUrlsGlobal.splice(arrayIndex, 1);
+  } else {
+    assignedToUserArray.push(index);
+    assignedToUserArrayNamesGlobal.push(element);
+    imageUrlsGlobal.push(imgSrc);
+  }
+}
