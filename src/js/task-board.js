@@ -173,9 +173,14 @@ function removeValues() {
   document.getElementById("taskCategory2").value = "";
   document.getElementById("subtasksPosition2").innerHTML = "";
   document.getElementById("userImageShow2").innerHTML = "";
+  assignedToUserArray = [];
+  assignedToUserArrayNamesGlobal = []; 
+  imageUrlsGlobal = [];
+  subtasksArray = [];
 
   document.removeEventListener("click", outsideClickHandler, true);
   document.removeEventListener("keydown", handleEnterKey);
+  prio2(2);
 }
 
 /**
