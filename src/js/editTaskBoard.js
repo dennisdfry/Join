@@ -235,6 +235,24 @@ function prioIdCheck(id, position) {
   position.classList.remove("add-task-prio-button");
 }
 
+
+function handleEnterKey(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    let activeElement = document.activeElement;
+    let subtaskInput = document.getElementById(`addSubtaskEdit(${index})`);
+
+    if (activeElement === subtaskInput) {
+      addSubtaskEdit();
+    } else {
+      let addButton = document.getElementById("edit-Add-Btn");
+      if (addButton) {
+        addButton.click();
+      }
+    }
+  }
+}
+
 /**
  * Adds a new subtask to the list of subtasks during task editing.
  * @param {number} index - The index of the task being edited.

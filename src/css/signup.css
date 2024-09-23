@@ -108,6 +108,8 @@ body {
 #validation-pw-message,
 #validation-email-message,
 #validation-message {
+  font-family: "Inter";
+  font-weight: 400;
   color: red; 
   margin-top: 10px;
 }
