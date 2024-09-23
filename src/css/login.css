@@ -6,13 +6,14 @@ body {
 }
 
 .login-signup {
-  width: 100%;
+  width: 80%;
+  min-width: 300px;
   position: absolute;
   top: 5%;
   right: 5%;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
   z-index: 8;
 }
 
@@ -86,7 +87,7 @@ body {
 
 .login-field {
   width: 80vw;
-  max-width: 500px;
+  max-width: 652px;
   background-color: white;
   position: absolute;
   top: 25%;
