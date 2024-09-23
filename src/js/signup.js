@@ -31,7 +31,7 @@ async function signUp(event) {
     showSuccessMessage();
     clearInput();
   } catch (error) {
-    alert("Error during sign up: " + error.message);
+    console.log("Error during sign up: " + error.message);
   }
   return true;
 }
