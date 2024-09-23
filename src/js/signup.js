@@ -58,24 +58,23 @@ function getFormData() {
  * 
  * @listens input
  */
-document.getElementById('confirm-password').addEventListener('input', validatePassword);
+document.getElementById('confirm-password').addEventListener('blur', validatePassword);
+document.getElementById('password').addEventListener('blur', validatePassword);
 
-/**
- * Validates the password and confirm password fields for equality.
- * If the passwords do not match, displays an error message and adds an "invalid" class to the confirm password field.
- */
 function validatePassword() {
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirm-password').value;
   const errorMessage = document.getElementById('error-message');
   const confirmPasswordInput = document.getElementById('confirm-password');
-
-  if (password !== confirmPassword) {
-    confirmPasswordInput.classList.add('invalid');
-    errorMessage.style.display = 'block';
-  } else {
-    confirmPasswordInput.classList.remove('invalid');
-    errorMessage.style.display = 'none';
+  
+  if (password !== "" && confirmPassword !== "") {
+    if (password !== confirmPassword) {
+      confirmPasswordInput.classList.add('invalid');
+      errorMessage.style.display = 'block';
+    } else {
+      confirmPasswordInput.classList.remove('invalid');
+      errorMessage.style.display = 'none';
+    }
   }
 }
 
