@@ -145,7 +145,6 @@ function openAddForm() {
 
 /**
  * Closes the form.
- *
  * Removes the non-display class from the add-task form, making it visible.
  */
 function closeAddForm() {
@@ -162,6 +161,11 @@ function closeAddForm() {
 
   removeValues();
 }
+
+/**
+ * removes all values.
+ *  removes Eventhandler.
+ */
 function removeValues() {
   document.getElementById("title2").value = "";
   document.getElementById("description2").value = "";
@@ -169,9 +173,14 @@ function removeValues() {
   document.getElementById("taskCategory2").value = "";
   document.getElementById("subtasksPosition2").innerHTML = "";
   document.getElementById("userImageShow2").innerHTML = "";
+  assignedToUserArray = [];
+  assignedToUserArrayNamesGlobal = []; 
+  imageUrlsGlobal = [];
+  subtasksArray = [];
 
   document.removeEventListener("click", outsideClickHandler, true);
   document.removeEventListener("keydown", handleEnterKey);
+  prio2(2);
 }
 
 /**
