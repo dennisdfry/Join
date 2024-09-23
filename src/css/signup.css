@@ -105,7 +105,9 @@ body {
   opacity: 0.5;
   pointer-events: none;
 }
-#validation-pw-message {
+#validation-pw-message,
+#validation-email-message,
+#validation-message {
   color: red; 
   margin-top: 10px;
 }
