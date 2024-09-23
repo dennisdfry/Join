@@ -105,7 +105,10 @@ body {
   opacity: 0.5;
   pointer-events: none;
 }
-
+#validation-email-message {
+  color: red; 
+  margin-top: 10px;
+}
 .submit-signup-btn:hover {
   background-color: #29abe2;
   border-color: #29abe2;

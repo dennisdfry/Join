@@ -64,18 +64,24 @@ function validatePassword() {
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirm-password').value;
   const errorMessage = document.getElementById('error-message');
+  const validationMessage = document.getElementById('validation-message');
   const confirmPasswordInput = document.getElementById('confirm-password');
   
-  if (password !== "" && confirmPassword !== "") {
+  errorMessage.style.display = 'none';
+  confirmPasswordInput.classList.remove('invalid');
+  validationMessage.classList.add('d-none');
+
+  if (password.length < 6) {
+    validationMessage.textContent = "Das Passwort muss mindestens 6 Zeichen lang sein.";
+    validationMessage.classList.remove('d-none');
+  } else if (password !== "" && confirmPassword !== "") {
     if (password !== confirmPassword) {
       confirmPasswordInput.classList.add('invalid');
       errorMessage.style.display = 'block';
-    } else {
-      confirmPasswordInput.classList.remove('invalid');
-      errorMessage.style.display = 'none';
     }
   }
 }
+
 
 /**
  * Validates the password and checkbox fields during sign-up.
