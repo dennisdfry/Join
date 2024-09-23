@@ -13,7 +13,7 @@ function checkBoxRender2(index, imgSrc, element) {
               <img src="${imgSrc}" alt="" />
               ${element}
           </div>
-          <input type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}')" />
+           <input type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}','${imgSrc}')" />
       </label>`;
   }
     
@@ -21,18 +21,13 @@ function checkBoxRender2(index, imgSrc, element) {
  /**
    * Toggles the visibility of the "Assigned To" dropdown.
    */
- function showCheckboxes2() {
+ function showCheckboxes2(event) {
   let checkboxes = document.getElementById("checkboxes2");
-
-  // Return early if checkboxes element is not found
-  if (!checkboxes) {
-      console.warn("Checkbox container not found.");
-      return;
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
   }
-
-  // Toggle the visibility
-  expanded = !expanded;
-  checkboxes.style.display = expanded ? "block" : "none";
+  event.stopPropagation();
 }
 
 document.onclick = function (event) {
@@ -44,6 +39,7 @@ document.onclick = function (event) {
     showUserAdd2();
   }
 };
+
 function showUserAdd2(){
   let position = document.getElementById('userImageShow2');
   position.innerHTML = '';

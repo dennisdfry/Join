@@ -251,14 +251,16 @@ async function assignedTo2(contacts, imageUrls) {
    * @param {number} index - The index of the user.
    * @param {string} element - The name of the user.
    */
-  async function assignedToUser2(index, element) {
+  async function assignedToUser2(index, element, imgSrc) {
     const image = imageUrlsGlobal[index];
     const arrayIndex = assignedToUserArray.indexOf(index);
     if (arrayIndex !== -1) {
       assignedToUserArray.splice(arrayIndex, 1);
       assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+      imageUrlsGlobal.splice(arrayIndex, 1);
     } else {
       assignedToUserArray.push(index);
       assignedToUserArrayNamesGlobal.push(element);
+      imageUrlsGlobal.push(imgSrc);
     }
   }
