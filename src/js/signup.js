@@ -27,7 +27,6 @@ async function signUp(event) {
       await addContact({ name: nameInput.value, mail: mailInput.value, phone: '-'});
     } catch (error) {
       console.error("Error adding contact:", error);
-      alert("There was an issue creating the contact.");
     }
     showSuccessMessage();
     clearInput();
@@ -88,13 +87,18 @@ function validatePassword() {
  * @returns {Promise<boolean>} A promise that resolves to `true` if the validation passes, otherwise `false`.
  */
 function passwordValidation(password, confirm, checkbox) {
+  const messageElement = document.getElementById('validation-message');
   return new Promise((resolve) => {
     if (password !== confirm) {
+      messageElement.textContent = "Passwords do not match.";
+      messageElement.classList.remove('d-none');
       resolve(false);
     } else if (!checkbox) {
-      alert("You must accept the Privacy Policy.");
+      messageElement.textContent = "You must accept the Privacy Policy.";
+      messageElement.classList.remove('d-none');
       resolve(false);
     } else {
+      messageElement.classList.add('d-none');
       resolve(true);
     }
   });
