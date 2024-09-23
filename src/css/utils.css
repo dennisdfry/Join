@@ -75,6 +75,11 @@
 }
 
 /* font-sizes */
+
+.fs-08 {
+  font-size: 8px;
+}
+
 .fs-12 {
   font-size: 12px;
 }

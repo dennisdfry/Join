@@ -64,7 +64,7 @@ function validatePassword() {
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirm-password').value;
   const errorMessage = document.getElementById('error-message');
-  const validationMessage = document.getElementById('validation-message');
+  const validationMessage = document.getElementById('validation-pw-message');
   const confirmPasswordInput = document.getElementById('confirm-password');
   
   errorMessage.style.display = 'none';
@@ -79,6 +79,20 @@ function validatePassword() {
       confirmPasswordInput.classList.add('invalid');
       errorMessage.style.display = 'block';
     }
+  }
+}
+
+document.getElementById('mail').addEventListener('blur', validateEmail);
+
+function validateEmail() {
+  const email = document.getElementById('mail').value;
+  const validationMessage = document.getElementById('validation-email-message');
+  
+  validationMessage.classList.add('d-none');
+
+  if (!email.includes('@')) {
+    validationMessage.textContent = "Please enter a valid format";
+    validationMessage.classList.remove('d-none');
   }
 }
 
