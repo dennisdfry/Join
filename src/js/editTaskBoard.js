@@ -71,7 +71,7 @@ async function initEdit(index) {
   } catch (error) {
     console.error("Error during initialization:", error);
   }
-
+  prioEdit(2);
 }
 
 /**
