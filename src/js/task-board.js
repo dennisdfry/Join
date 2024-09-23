@@ -155,6 +155,7 @@ function openAddForm() {
     document.getElementById("overlay-form").classList.add("d-none");
     let formField = document.getElementById("add-task-form");
     formField.classList.remove("d-none");
+
     formField.style.animation = "moveOut 200ms ease-out forwards";
   
     setTimeout(() => {
@@ -162,6 +163,12 @@ function openAddForm() {
       formField.style.cssText =
         "visibility: hidden; transform: translateX(100vw)";
     }, 100);
+    document.getElementById("title2").value = '';
+    document.getElementById("description2").value = '';
+    document.getElementById("dueDate2").value = '';
+    document.getElementById("taskCategory2").value = '';
+    document.getElementById("subtasksPosition2").innerHTML = '';
+    document.getElementById('userImageShow2').innerHTML = '';
   
     document.removeEventListener("click", outsideClickHandler, true);
     document.removeEventListener("keydown", handleEnterKey);

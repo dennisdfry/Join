@@ -87,6 +87,7 @@ function checkBoxRender2(index, imgSrc, element) {
     form.reset();
     addTaskArray = [];
     clearSubtask2();
+    imageUrlsGlobal = [];
     await changeSite("board.html");
   }
   
