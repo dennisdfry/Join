@@ -18,36 +18,54 @@ function checkBoxRender2(index, imgSrc, element) {
   }
     
  
- /**
+
+  /**
    * Toggles the visibility of the "Assigned To" dropdown.
    */
- function showCheckboxes2(event) {
-  let checkboxes = document.getElementById("checkboxes2");
-  if (!expanded) {
-    checkboxes.style.display = "block";
-    expanded = true;
+  function showCheckboxes2(event) {
+    let checkboxes = document.getElementById("checkboxes2");
+    if (!expanded) {
+      checkboxes.style.display = "block";
+      expanded = true;
+      checkboxClickHandler(); 
+    }
+    event.stopPropagation();
   }
-  event.stopPropagation();
-}
-
-document.onclick = function (event) {
-  let checkboxes = document.getElementById("checkboxes2");
-
-  if (expanded && !document.querySelector('.multiselect').contains(event.target)) {
-    checkboxes.style.display = "none";
-    expanded = false;
-    showUserAdd2();
+  
+  /**
+   * Attaches the document click handler to handle clicks outside the checkboxes.
+   */
+  function checkboxClickHandler() {
+    document.onclick = handleDocumentClick;
   }
-};
-
-function showUserAdd2(){
-  let position = document.getElementById('userImageShow2');
-  position.innerHTML = '';
-  for (let index = 0; index < imageUrlsGlobal.length; index++) {
-    let element = imageUrlsGlobal[index];
-    position.innerHTML += `<img class="img-32 p-4" src="${element}" alt="" />` ;
+  
+  /**
+   * Handles document click events to toggle the visibility of the checkboxes.
+   * 
+   * @param {Event} event - The click event to handle.
+   */
+  function handleDocumentClick(event) {
+    let checkboxes2 = document.getElementById("checkboxes2");
+    let multiselect = document.getElementsByClassName('multiselect2');
+  
+    if (expanded && !Array.from(multiselect).some(element => element.contains(event.target))) {
+      checkboxes2.style.display = "none";
+      expanded = false;
+      showUserAdd2();
+    }
   }
-}
+  
+  /**
+   * Updates the user interface to show selected users in the dropdown.
+   */
+  function showUserAdd2() {
+    let position = document.getElementById('userImageShow2');
+    position.innerHTML = '';
+    for (let index = 0; index < imageUrlsGlobal.length; index++) {
+      let element = imageUrlsGlobal[index];
+      position.innerHTML += `<img class="img-32 p-4" src="${element}" alt="" />`;
+    }
+  }
   
   
   /**
