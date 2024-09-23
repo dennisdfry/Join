@@ -146,25 +146,32 @@ async function assignedToUser(index, element, imgSrc) {
  * Toggles the visibility of the "Assigned To" dropdown.
  */
 
+/**
+ * Toggles the visibility of the checkbox dropdown.
+ */
 function showCheckboxes(event) {
   let checkboxes = document.getElementById("checkboxes");
   if (!expanded) {
     checkboxes.style.display = "block";
     expanded = true;
+    checkboxClickHandler(); 
   }
   event.stopPropagation();
 }
 
 /**
- * Prevents the checkbox dropdown from closing when clicking inside it.
+ * Attaches the document click handler to handle clicks outside the checkboxes.
  */
-// function keepOpen(event) {
-//   event.stopPropagation(); // Ensures that clicking inside the checkbox container doesn't close it
-// }
+function checkboxClickHandler() {
+  document.onclick = handleAddTaskClick;
+}
+
 /**
- * Closes the checkbox dropdown when clicking outside of it.
+ * Handles document click events to toggle the visibility of the checkboxes.
+ * 
+ * @param {Event} event - The click event to handle.
  */
-document.onclick = function (event) {
+function handleAddTaskClick(event) {
   let checkboxes = document.getElementById("checkboxes");
 
   if (expanded && !document.querySelector('.multiselect').contains(event.target)) {
@@ -172,13 +179,17 @@ document.onclick = function (event) {
     expanded = false;
     showUserAdd();
   }
-};
-function showUserAdd(){
+}
+
+/**
+ * Updates the user interface to show selected users in the dropdown.
+ */
+function showUserAdd() {
   let position = document.getElementById('userImageShow');
   position.innerHTML = '';
   for (let index = 0; index < imageUrlsGlobal.length; index++) {
     const element = imageUrlsGlobal[index];
-    position.innerHTML += `<img class="img-32 p-4" src="${element}" alt="" />` ;
+    position.innerHTML += `<img class="img-32 p-4" src="${element}" alt="" />`;
   }
 }
 /**

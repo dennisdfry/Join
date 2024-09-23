@@ -27,7 +27,7 @@ function checkBoxRender2(index, imgSrc, element) {
     if (!expanded) {
       checkboxes.style.display = "block";
       expanded = true;
-      checkboxClickHandler(); 
+      checkbox2ClickHandler(); 
     }
     event.stopPropagation();
   }
@@ -35,7 +35,7 @@ function checkBoxRender2(index, imgSrc, element) {
   /**
    * Attaches the document click handler to handle clicks outside the checkboxes.
    */
-  function checkboxClickHandler() {
+  function checkbox2ClickHandler() {
     document.onclick = handleDocumentClick;
   }
   
