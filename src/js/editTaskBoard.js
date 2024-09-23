@@ -236,7 +236,7 @@ function prioIdCheck(id, position) {
 }
 
 
-function handleEnterKey(event) {
+function handleEditEnterKey(event) {
   if (event.key === "Enter") {
     event.preventDefault();
     let activeElement = document.activeElement;
