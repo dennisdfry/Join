@@ -34,6 +34,24 @@ function checkBoxRender2(index, imgSrc, element) {
   expanded = !expanded;
   checkboxes.style.display = expanded ? "block" : "none";
 }
+
+document.onclick = function (event) {
+  let checkboxes = document.getElementById("checkboxes2");
+
+  if (expanded && !document.querySelector('.multiselect').contains(event.target)) {
+    checkboxes.style.display = "none";
+    expanded = false;
+    showUserAdd2();
+  }
+};
+function showUserAdd2(){
+  let position = document.getElementById('userImageShow2');
+  position.innerHTML = '';
+  for (let index = 0; index < imageUrlsGlobal.length; index++) {
+    let element = imageUrlsGlobal[index];
+    position.innerHTML += `<img class="img-32 p-4" src="${element}" alt="" />` ;
+  }
+}
   
   
   /**

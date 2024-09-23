@@ -108,15 +108,18 @@
             <label for="description">Description</label>
             <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description" name="description" id="description2"></textarea>
             <label for="assignedTo">Assigned to</label>
-            <div class="multiselect">
-              <div class="selectBox2" onclick="showCheckboxes2()">
+            <div class="multiselect pointer"  onclick="showCheckboxes2(event)">
+              <div class="selectBox2">
                 <select required class="add-task-select">
                   <option>Select an option</option>
                 </select>
                 <div class="overSelect2"></div>
               </div>
-              <div id="checkboxes2"></div>
+              <div id="checkboxes2" class="checkboxes-hidden">
+                
+              </div>
             </div>
+            <div id="userImageShow2"></div>
           </div>
           <div class="add-task-seperator2"></div>
           <div class="add-task-form-right-section2">
