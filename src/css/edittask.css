@@ -187,7 +187,8 @@
 .add-task-input-edit {
   width: 100%;
   padding-left: 16px;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   outline: none;
   border: 1px solid #a8a8a8;
   height: 50px;

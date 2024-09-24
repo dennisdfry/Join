@@ -430,9 +430,14 @@ function deleteSubtask(index) {
   let position = document.getElementById(`supplementarySubtask${index}`);
   position.innerHTML = "";
   subtasksArray.splice([index], 1);
-  subtasksRender(index);
+  updateSubtasksList();
 }
 
+function finishSubtask(index) {
+  let input = document.getElementById(`inputAddTaskSubtasks${index}`);
+  subtasksArray[index] = input.value;
+  updateSubtasksList();
+}
 function clearAddTask(){
   document.getElementById("title").value = '';
   document.getElementById("description").value = '';

@@ -194,7 +194,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           <div class="margin-bt8">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Assigned To:</p>
           </div>
-          <div class="multiselect margin-bt8">
+          <div class="multiselect margin-bt8 pointer">
             <div class="selectBox" onclick="showCheckboxesEdit(${index})">
                 <select required class="add-task-select">
                     <option>Select an option</option>
