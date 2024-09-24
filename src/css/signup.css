@@ -55,7 +55,7 @@ body {
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   height: 5vh;
-  width: 422px;
+  max-width: 422px;
   gap: 8px;
   font-size: 20px;
   font-family: "Inter";
@@ -78,15 +78,16 @@ body {
 }
 
 .signup-checkbox {
+  max-width: 800px;
   font-family: "Inter";
   font-size: 16px;
-  padding: 20px 80px;
+  padding: 20px 50px;
   color: #a8a8a8;
 }
 
 .signup-btn {
   margin-top: 20px;
-  width: 500px;
+  max-width: 500px;
   height: 48px;
 }
 
@@ -245,24 +246,22 @@ input[type="password"]::-webkit-password-field {
   }
 
   .signup-field {
-    width: 396px;
-    padding: 20px 40px;
-    gap: 32px;
+    max-width: 80%;
+    border-radius: 30px;
+    padding: 8px 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
-}
 
-@media (max-width: 380px) {
-  .signup-field,
+  .signup-input {
+    max-width: 100%;
+  }
+
   .signup-input input {
-    width: 70vw;
-    gap: 10px;
+    max-width: 100%;
+    height: 3vh;
   }
 
-  .signup-headline {
-    font-size: 36px;
-  }
-
-  ::placeholder {
-    font-size: 16px;
+  .signup-checkbox {
+    padding: 10px 40px;
   }
 }
