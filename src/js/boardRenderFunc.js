@@ -71,8 +71,8 @@ window.htmlboard = async function (index, category, title, description, date, pr
                 <div id="progressBar${index}" class="progress-bar pointer"></div>
             </div>
             <div class="d-flex">
-                <div id="subtasksAmountTrue${index}" class="d-flex-center d-none fs-12 fw-400 color-bl"></div>
-                <div id="subtasksLength${index}" class="subtasksLength d-none fs-12 fw-400 color-bl"></div>
+                <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
+                <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
             </div>
         </div>
         <div class="d-flex-between width220">
