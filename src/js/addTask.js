@@ -197,28 +197,40 @@ function showUserAdd() {
  * @param {Event} event - The form submit event.
  * @returns {Promise<void>}
  */
+
 async function createTask(event) {
   event.preventDefault();
+  if (!validateFormAddTask(event.target)) return;
+  if (!validatePriorityAddTask()) return;
+  await defineTaskObjects(); 
+  await saveToFirebase();
+  resetUIAddTask(event.target);
+  changeSite("board.html");
+}
 
-  let form = event.target;
+function validateFormAddTask(form) {
   if (!form.checkValidity()) {
     form.reportValidity();
     return false;
   }
+  return true;
+}
+
+function validatePriorityAddTask() {
   if (!selectedPrio) {
     alert("Please select a priority before submitting the form.");
     return false;
   }
-  await defineTaskObjects(); 
-  await saveToFirebase();
+  return true;
+}
+
+function resetUIAddTask(form) {
   form.reset();
-  resetFormState();
-//  imageUrlsGlobal = [];
+  resetFormStateAddTask();
   let subtasksPosition = document.getElementById("subtasksPosition");
   if (subtasksPosition) {
     subtasksPosition.innerHTML = "";
   }
-  changeSite("board.html");
 }
 
 /**
@@ -230,7 +242,6 @@ function checkEnterSubtasks(event) {
     event.preventDefault(); 
     let activeElement = document.activeElement;
     let subtaskInput = document.getElementById('subtasks');
-
     if (activeElement === subtaskInput) {
       addSubtask();
     } else {
@@ -242,11 +253,10 @@ function checkEnterSubtasks(event) {
   }
 }
 
-
 /**
  * Resets the internal state of the form and clears stored data.
  */
-function resetFormState() {
+function resetFormStateAddTask() {
   addTaskArray = [];
   subtasksArray = [];
   assignedToUserArray = [];
