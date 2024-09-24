@@ -21,6 +21,27 @@ body {
   align-items: flex-end;
   z-index: 8;
 }
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 10;
+  background-color: rgb(246, 247, 248);
+  width: 100vw;
+  height: 100vh;
+  transition: all 1s ease;
+  transform-origin: top left;
+}
+
+.logo-shrink {
+  transform: scale(0.365) translate(77px, 80px);
+  width: 200px;
+  height: 240px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .login-signup button {
   border: none;
   padding: 15px 16px;
@@ -37,56 +58,6 @@ body {
   font-size: 16px;
   color: white;
   border-radius: 8px;
-}
-
-.login-logo {
-  position: absolute;
-  top: 35%;
-  left: 42%;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 1s ease;
-}
-
-.fadeout {
-  z-index: 9;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(246, 247, 248, 1);
-}
-
-#login-logo-animated {
-  height: 334px;
-  width: 274px;
-  transition: transform 1s ease, top 1s ease, left 1s ease;
-}
-
-.shrink {
-  animation: shrink-animation 1s forwards;
-}
-
-.fadeout-animate {
-  animation: fadeOutBackground 1s forwards;
-}
-
-@keyframes shrink-animation {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0.37);
-  }
-}
-
-@keyframes fadeOutBackground {
-  from {
-    background-color: rgba(246, 247, 248, 1);
-  }
-  to {
-    background-color: rgba(246, 247, 248, 0);
-  }
 }
 
 .login-field {
@@ -143,7 +114,7 @@ body {
 .login-checkbox {
   font-family: "Inter";
   font-size: 16px;
-  padding: 20px 80px;
+  padding: 20px 40px;
 }
 
 .login-btn {
@@ -267,25 +238,26 @@ input[type="password"]::-webkit-password-field {
   .login-field {
     width: 80%;
     max-width: 396px;
-    height: 515px;
+    max-height: 60%;
     padding: 0px 15px;
     top: 20%;
+    gap: 10px;
     z-index: 100;
   }
 
   .login-input input {
     width: 100%;
-    max-width: 400px;
-    height: 48px;
+    max-width: 320px;
+    height: 38px;
   }
 
   .login-btn {
     margin-top: 20px;
-    width: 420px;
-    height: 123px;
+    max-width: 100%;
+    height: 100px;
     flex-direction: column;
-    gap: 21px;
-    margin-left: 0;
+    gap: 10px;
+    margin: 0 10px;
   }
 
   .submit-login-btn,
@@ -315,118 +287,18 @@ input[type="password"]::-webkit-password-field {
     margin: 0;
   }
 
-  .login-logo {
-    position: fixed;
-    top: 25%;
-    left: 42%;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 1s ease;
-  }
-  
-  .fadeout {
-    z-index: 9;
-    height: 100vh;
-    width: 100vw;
-    background-color: #2A3647;
-  }
-  
-  #login-logo-animated {
-    height: 122px;
-    width: 100px;
-    transition: transform 1s ease, top 1s ease, left 1s ease;
-  }
-  
-  .shrink {
-    animation: shrink-animation 1s forwards;
-  }
-  
-  .fadeout-animate {
-    animation: fadeOutBackground 1s forwards;
-  }
-  
-  @keyframes shrink-animation {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(0.64);
-    }
-  }
-  
-  @keyframes fadeOutBackground {
-    from {
-      background-color: #2A3647;
-    }
-    to {
-      background-color: rgba(246, 247, 248, 0);
-    }
-  }
-
   .login-info {
     position: absolute;
     bottom: 5%;
   }
-}
-
-@media (max-width: 380px) {
-  .input-mail,
-  .input-password,
-  .login-field {
-    width: 280px;
-    margin: 0;
-    gap: 10px;
-  }
-
-  .input-password input,
-  .input-mail input {
-    height: 35px;
-  }
-
-  ::placeholder {
-    font-size: 18px;
-  }
-
-  .login-txt {
-    font-size: 36px;
-    margin-top: 10px;
-  }
-
-  .login-field {
-    justify-content: flex-start;
-    height: 380px;
-  }
 
   #login-form {
-    width: 100vw !important;
+    max-width: 100%;
   }
 
-  .login-input,
-  .login-checkbox,
-  .login-btn {
-    width: 97%;
-    margin-top: 20px;
-    padding: 0;
-  }
-
-  .login-checkbox {
-    margin-left: 110px;
-  }
-
-  .login-not-user {
-    font-size: 16px;
-    margin-right: 10px;
-  }
-
-  .login-signup-btn {
-    width: 120px;
-  }
-
-  .login-info {
-    position: fixed;
-    margin: 0;
-    top: 560px;
+  .submit-login-btn,
+  .submit-guest-login-btn {
+    height: 35px;
   }
 }
+

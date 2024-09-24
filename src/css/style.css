@@ -15,6 +15,10 @@
   font-weight: 600;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .imprint-content {
   max-width: 1016px;
   padding-left: 272px;
@@ -97,7 +101,6 @@ h3 {
 
 body {
   margin: 0;
-  height: 100vh;
 }
 
 .nav {
@@ -105,7 +108,7 @@ body {
   top: 0;
   left: 0;
   background-color: #2a3647;
-  max-width: 232px;
+  min-width: 232px;
   height: 100vh;
   font-family: "Inter";
   z-index: 3;
@@ -117,6 +120,7 @@ body {
 
 .nav-mid {
   height: 33vh;
+  width: 100%;
 }
 
 .nav-mid a {
@@ -137,7 +141,7 @@ body {
 .task-field,
 .board-field,
 .contact-field {
-  width: 150px;
+  width: 100%;
   padding-left: 64px;
 }
 

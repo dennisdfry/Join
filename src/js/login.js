@@ -42,27 +42,25 @@ document.getElementById("login-form").addEventListener("submit", async function 
 });
 
 /**
- * Animates the login logo and handles the fadeout effect on page load.
- * 
- * @listens DOMContentLoaded
+ * Shrinks the login logo by applying a CSS class that scales it down 
+ * and moves it to the top-left corner. Also makes the background transparent.
+ * This function selects the login logo element and adds the 'logo-shrink' 
+ * class to initiate the transformation.
  */
-document.addEventListener("DOMContentLoaded", function () {
-  setTimeout(() => {
-    const animatedDiv = document.getElementById("login-logo");
-    const animatedImg = document.getElementById("login-logo-animated");
-    const fadeoutDiv = document.getElementById("fadeout");
+function shrinkLogo() {
+  const logoElement = document.querySelector('.login-logo');
+  logoElement.classList.add('logo-shrink');
+}
 
-    animatedDiv.style.position = "fixed";
-    animatedDiv.style.top = "-0.4%";
-    animatedDiv.style.left = "2%";
+/**
+ * Sets a timeout to trigger the shrinkLogo function after 1 second (1000ms)
+ * once the window has fully loaded. This ensures that the logo shrinks
+ * with a delay after the page content is ready.
+ */
+window.onload = function() {
+  setTimeout(shrinkLogo, 1000);
+};
 
-    animatedImg.classList.add("shrink");
-    fadeoutDiv.classList.add("fadeout-animate");
-    fadeoutDiv.addEventListener("animationend", function () {
-      fadeoutDiv.classList.add("d-none");
-    });
-  }, 500);
-});
 
 /**
  * Handles guest login by setting a local storage item and navigating to the summary page.
