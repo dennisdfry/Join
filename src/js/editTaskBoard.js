@@ -379,18 +379,14 @@ function subtasksRenderEdit(indexHTML) {
   let subtasksedit = subtasksLengthArray[0];
   let position = document.getElementById(`subtasksPosition${indexHTML}`);
   if (!position) {
-    return;
-  }
+    return;}
   position.innerHTML = "";
   if (subtasksedit) {
     for (let index = 0; index < subtasksedit.length; index++) {
       const element = subtasksedit[index];
       if (element) {
-        subtasksArrayEdit.push(element);
-      }
-    }
-    subtasksLengthArray = [];
-  }
+        subtasksArrayEdit.push(element);}}
+    subtasksLengthArray = [];}
   for (let i = 0; i < subtasksArrayEdit.length; i++) {
     const updatesubtasks = subtasksArrayEdit[i];
     position.innerHTML += supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML);
@@ -403,4 +399,3 @@ function subtasksRenderEdit(indexHTML) {
  * @param {number} i - The index of the subtask to update.
  * @param {number} indexHTML - The index of the task being edited.
  */
-
