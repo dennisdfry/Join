@@ -240,7 +240,7 @@ function handleEditEnterKey(event) {
   if (event.key === "Enter") {
     event.preventDefault();
     let activeElement = document.activeElement;
-    let subtaskInput = document.getElementById(`addSubtaskEdit(${index})`);
+    let subtaskInput = document.getElementById(`addSubtaskEdit`);
 
     if (activeElement === subtaskInput) {
       addSubtaskEdit();
