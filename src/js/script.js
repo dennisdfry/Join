@@ -127,8 +127,6 @@ async function searchIndexUrl(index, users, fetchImage) {
   setTimeout(() => tileUserImage(index), 50);
 }
 
-
-
 /**
  * Arranges user images in a horizontal, overlapping layout.
  *

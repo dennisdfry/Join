@@ -183,6 +183,7 @@
   font-weight: 400;
   flex-grow: 1;
   padding-left: 16px;
+
 }
 .add-task-input-edit {
   width: 100%;
@@ -196,6 +197,7 @@
   font-family: "Inter";
   font-weight: 400;
   flex-grow: 1;
+  border-right: none;
 }
 
 .input-with-button-edit {
