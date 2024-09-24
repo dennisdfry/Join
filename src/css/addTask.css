@@ -181,7 +181,20 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   font-weight: 400;
   flex-grow: 1;
 }
-
+.add-task-input-board{
+  width: 100%;
+  padding-left: 16px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  outline: none;
+  border: 1px solid #a8a8a8;
+  height: 50px;
+  font-size: 20px;
+  font-family: "Inter";
+  font-weight: 400;
+  flex-grow: 1;
+  border-right: none;
+}
 .add-task-button, .add-task-button-board {
   background: none;
   border: none;
