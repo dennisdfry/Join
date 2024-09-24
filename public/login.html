@@ -20,30 +20,32 @@
         <img src="/public/img/join-logo-animated.png" alt="join logo" id="login-logo-animated" />
       </div>
       <div class="fadeout" id="fadeout"></div>
-      <div class="login-field d-flex-center flex-d-col">
-        <span class="login-txt fs-61 fw-700">Log in</span>
-        <div class="login-headline-divider"></div>
-        <form id="login-form">
-          <div class="login-input d-flex-center flex-d-col gap-20 fw-700">
-            <div class="input-mail">
-              <input type="email" required placeholder="Email" id="email" />
-              <img src="/public/img/envelope.png" alt="briefumschlag logo" />
+      <div id="loginfield" class="d-none2">
+        <div class="login-field d-flex-center flex-d-col">
+          <span class="login-txt fs-61 fw-700">Log in</span>
+          <div class="login-headline-divider"></div>
+          <form id="login-form">
+            <div class="login-input d-flex-center flex-d-col gap-20 fw-700">
+              <div class="input-mail">
+                <input type="email" required placeholder="Email" id="email" />
+                <img src="/public/img/envelope.png" alt="briefumschlag logo" />
+              </div>
+              <div class="input-password">
+                <input type="password" required placeholder="Password" id="password-login" />
+                <img src="/public/img/lock.png" class="password-toggle" id="toggle-password-login" alt="schloss logo" />
+              </div>
+              <div class="error-message d-none" id="error-message">Check your email or password. Please try again.</div>
             </div>
-            <div class="input-password">
-              <input type="password" required placeholder="Password" id="password-login" />
-              <img src="/public/img/lock.png" class="password-toggle" id="toggle-password-login" alt="schloss logo" />
+            <div class="login-checkbox">
+              <input type="checkbox" id="remember-me" name="remember-me" class="pointer" />
+              <label for="checkbox">Remember me</label>
             </div>
-            <div class="error-message d-none" id="error-message">Check your email or password. Please try again.</div>
-          </div>
-          <div class="login-checkbox">
-            <input type="checkbox" id="remember-me" name="remember-me" class="pointer" />
-            <label for="checkbox">Remember me</label>
-          </div>
-          <div class="login-btn d-flex-center">
-            <button class="submit-login-btn fw-700 fs-21 pointer">Log in</button>
-            <button class="submit-guest-login-btn fw-700 fs-21 pointer">Guest Log in</button>
-          </div>
-        </form>
+            <div class="login-btn d-flex-center">
+              <button class="submit-login-btn fw-700 fs-21 pointer">Log in</button>
+              <button class="submit-guest-login-btn fw-700 fs-21 pointer">Guest Log in</button>
+            </div>
+          </form>
+        </div>
       </div>
       <div class="login-info">
         <button class="pointer" onclick="goToPrivacy()">Privacy Policy</button>

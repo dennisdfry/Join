@@ -62,6 +62,11 @@ document.addEventListener("DOMContentLoaded", function () {
       fadeoutDiv.classList.add("d-none");
     });
   }, 500);
+
+  setTimeout(() => {
+    const login = document.getElementById('loginfield');
+    login.classList.remove('d-none2');
+  }, 1400);
 });
 
 /**
