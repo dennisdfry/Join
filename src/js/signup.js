@@ -27,12 +27,11 @@ async function signUp(event) {
       await addContact({ name: nameInput.value, mail: mailInput.value, phone: '-'});
     } catch (error) {
       console.error("Error adding contact:", error);
-      alert("There was an issue creating the contact.");
     }
     showSuccessMessage();
     clearInput();
   } catch (error) {
-    alert("Error during sign up: " + error.message);
+    console.log("Error during sign up: " + error.message);
   }
   return true;
 }
@@ -65,18 +64,38 @@ function validatePassword() {
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirm-password').value;
   const errorMessage = document.getElementById('error-message');
+  const validationMessage = document.getElementById('validation-pw-message');
   const confirmPasswordInput = document.getElementById('confirm-password');
   
-  if (password !== "" && confirmPassword !== "") {
+  errorMessage.style.display = 'none';
+  confirmPasswordInput.classList.remove('invalid');
+  validationMessage.classList.add('d-none');
+
+  if (password.length < 6) {
+    validationMessage.textContent = "Das Passwort muss mindestens 6 Zeichen lang sein.";
+    validationMessage.classList.remove('d-none');
+  } else if (password !== "" && confirmPassword !== "") {
     if (password !== confirmPassword) {
       confirmPasswordInput.classList.add('invalid');
       errorMessage.style.display = 'block';
-    } else {
-      confirmPasswordInput.classList.remove('invalid');
-      errorMessage.style.display = 'none';
     }
   }
 }
+
+document.getElementById('mail').addEventListener('blur', validateEmail);
+
+function validateEmail() {
+  const email = document.getElementById('mail').value;
+  const validationMessage = document.getElementById('validation-email-message');
+  
+  validationMessage.classList.add('d-none');
+
+  if (!email.includes('@')) {
+    validationMessage.textContent = "Please enter a valid format";
+    validationMessage.classList.remove('d-none');
+  }
+}
+
 
 /**
  * Validates the password and checkbox fields during sign-up.
@@ -88,13 +107,18 @@ function validatePassword() {
  * @returns {Promise<boolean>} A promise that resolves to `true` if the validation passes, otherwise `false`.
  */
 function passwordValidation(password, confirm, checkbox) {
+  const messageElement = document.getElementById('validation-message');
   return new Promise((resolve) => {
     if (password !== confirm) {
+      messageElement.textContent = "Passwords do not match.";
+      messageElement.classList.remove('d-none');
       resolve(false);
     } else if (!checkbox) {
-      alert("You must accept the Privacy Policy.");
+      messageElement.textContent = "You must accept the Privacy Policy.";
+      messageElement.classList.remove('d-none');
       resolve(false);
     } else {
+      messageElement.classList.add('d-none');
       resolve(true);
     }
   });

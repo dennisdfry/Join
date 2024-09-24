@@ -108,3 +108,9 @@ function userImageRenderEdit(index) {
         }
     }
 }
+
+function finishSubtaskEdit(i, indexHTML) {
+    let input = document.getElementById(`inputEditSubtasks${i}`);
+    subtasksArrayEdit[i] = input.value;
+    subtasksRenderEdit(indexHTML);
+  }

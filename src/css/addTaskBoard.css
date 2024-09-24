@@ -371,7 +371,7 @@ label[for="dueDate"] {
 }
 
 .assignedToScroll {
-  height: 120px;
+  max-height: 120px;
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;

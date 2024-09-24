@@ -71,8 +71,8 @@ window.htmlboard = async function (index, category, title, description, date, pr
                 <div id="progressBar${index}" class="progress-bar pointer"></div>
             </div>
             <div class="d-flex">
-                <div id="subtasksAmountTrue${index}" class="d-flex-center d-none fs-12 fw-400 color-bl"></div>
-                <div id="subtasksLength${index}" class="subtasksLength d-none fs-12 fw-400 color-bl"></div>
+                <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
+                <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
             </div>
         </div>
         <div class="d-flex-between width220">
@@ -194,7 +194,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           <div class="margin-bt8">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Assigned To:</p>
           </div>
-          <div class="multiselect margin-bt8">
+          <div class="multiselect margin-bt8 pointer">
             <div class="selectBox" onclick="showCheckboxesEdit(${index})">
                 <select required class="add-task-select">
                     <option>Select an option</option>

@@ -220,11 +220,11 @@ function checkBoxRender2(index, imgSrc, element) {
     document.getElementById("subtasks2").classList.add("subtasks-input");
     let position = document.getElementById("subtasksControl2");
     position.innerHTML = 
-          `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button2">
+          `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button">
               <img src="../public/img/closeAddTask.png" alt="Reset">
           </button>
           <div class="seperator-subtasks"></div>
-          <button onclick="addSubtask2()" type="button" class="subtask-button2">
+          <button onclick="addSubtask2()" type="button" class="subtask-button">
               <img src="../public/img/checkAddTask.png" alt="Add">
           </button>`;
   }
@@ -251,25 +251,50 @@ function checkBoxRender2(index, imgSrc, element) {
     let input = document.getElementById("subtasks2");
     input.value = "";
     document.getElementById("subtasks2").classList.add("add-task-input");
-    document.getElementById("subtasks2").classList.remove("subtasks-input2");
+    document.getElementById("subtasks2").classList.remove("subtasks-input");
     let position = document.getElementById("subtasksControl2");
     position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button-board">
                                   +
                               </button>`;
   }
-  /**
-   * Updates the displayed list of subtasks based on the current contents of the subtasksArray.
-   */
-  function updateSubtasksList2() {
-    let subtasksPosition = document.getElementById("subtasksPosition2");
+
+/**
+ * Updates the displayed list of subtasks based on the current contents of the subtasksArray.
+ */
+function updateSubtasksList2() {
+  let subtasksPosition = document.getElementById("subtasksPosition2");
+  if (subtasksPosition) {
     subtasksPosition.innerHTML = "";
     for (let index = 0; index < subtasksArray.length; index++) {
       const element = subtasksArray[index];
       subtasksPosition.innerHTML += `
-              <ul>
-                  <li>${element}</li>
-              </ul>`;
+             <li id="supplementarySubtask2${index}" class="d-flex-between subtasks-edit bradius8">
+        <span>${element}</span>
+        <div>
+            <img class="pointer" onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
+            <img class="pointer" onclick="editSubtask2(${index})" src="../public/img/edit.png">
+        </div>
+    </li>`;
     }
+  }
+}
+
+  function editSubtask2(index) {
+    let position = document.getElementById(`supplementarySubtask2${index}`);
+    let arrayPosition = subtasksArray[index];
+    position.innerHTML = `
+        <input id="inputAddTaskSubtasks2${index}" class="" value="${arrayPosition}">
+        <div>
+            <img class="img-24" onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
+            <img class="img-24" onclick="finishSubtask2(${index})" src="../public/img/checkAddTask.png" alt="Add">
+        </div>`;
+  }
+  
+  function deleteSubtask2(index) {
+    let position = document.getElementById(`supplementarySubtask2${index}`);
+    position.innerHTML = "";
+    subtasksArray.splice([index], 1);
+    subtasksRender(index);
   }
   
   /**

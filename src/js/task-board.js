@@ -158,13 +158,14 @@ function closeAddForm() {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
   }, 100);
+  document.removeEventListener("click", outsideClickHandler, true);
+  document.removeEventListener("keydown", handleEnterKey);
 
   removeValues();
 }
 
 /**
  * removes all values.
- *  removes Eventhandler.
  */
 function removeValues() {
   document.getElementById("title2").value = "";
@@ -177,9 +178,6 @@ function removeValues() {
   assignedToUserArrayNamesGlobal = []; 
   imageUrlsGlobal = [];
   subtasksArray = [];
-
-  document.removeEventListener("click", outsideClickHandler, true);
-  document.removeEventListener("keydown", handleEnterKey);
   prio2(2);
 }
 
@@ -196,6 +194,7 @@ function outsideClickHandler(event) {
   const isClickInsideForm = formField.contains(event.target);
 
   if (!isClickInsideForm) {
+    removeValues();
     closeAddForm();
   }
 }

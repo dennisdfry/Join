@@ -71,7 +71,7 @@ async function initEdit(index) {
   } catch (error) {
     console.error("Error during initialization:", error);
   }
-
+  prioEdit(2);
 }
 
 /**
@@ -235,6 +235,19 @@ function prioIdCheck(id, position) {
   position.classList.remove("add-task-prio-button");
 }
 
+
+function handleEditEnterKey(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    let activeElement = document.activeElement;
+    let subtaskInput = document.getElementById(`addSubtaskEdit`);
+
+    if (activeElement === subtaskInput) {
+      addSubtaskEdit();
+    } 
+  }
+}
+
 /**
  * Adds a new subtask to the list of subtasks during task editing.
  * @param {number} index - The index of the task being edited.
@@ -366,18 +379,14 @@ function subtasksRenderEdit(indexHTML) {
   let subtasksedit = subtasksLengthArray[0];
   let position = document.getElementById(`subtasksPosition${indexHTML}`);
   if (!position) {
-    return;
-  }
+    return;}
   position.innerHTML = "";
   if (subtasksedit) {
     for (let index = 0; index < subtasksedit.length; index++) {
       const element = subtasksedit[index];
       if (element) {
-        subtasksArrayEdit.push(element);
-      }
-    }
-    subtasksLengthArray = [];
-  }
+        subtasksArrayEdit.push(element);}}
+    subtasksLengthArray = [];}
   for (let i = 0; i < subtasksArrayEdit.length; i++) {
     const updatesubtasks = subtasksArrayEdit[i];
     position.innerHTML += supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML);
@@ -390,8 +399,3 @@ function subtasksRenderEdit(indexHTML) {
  * @param {number} i - The index of the subtask to update.
  * @param {number} indexHTML - The index of the task being edited.
  */
-function finishSubtaskEdit(i, indexHTML) {
-  let input = document.getElementById(`inputEditSubtasks${i}`);
-  subtasksArrayEdit[i] = input.value;
-  subtasksRenderEdit(indexHTML);
-}
