@@ -134,27 +134,20 @@ async function searchIndexUrl(index, users, fetchImage) {
  *
  * @param {number} index - The index of the task or container containing the images.
  */
-
 function tileUserImage(index) {
   const userImageBoard = document.getElementById(`userImageBoard${index}`);
   if (userImageBoard) {
-    const images = userImageBoard.getElementsByClassName("image-div");
-    const totalWidth = 100;
-    const imageWidth = 32;
-    const overlap = 16; 
-
-    const maxImages = Math.floor((totalWidth + overlap) / (imageWidth - overlap));
+    const images = userImageBoard.getElementsByClassName("image-div"),
+      totalWidth = 100,
+      imageWidth = 32,
+      overlap = 16,
+      maxImages = Math.floor((totalWidth + overlap) / (imageWidth - overlap));
     for (let i = 0; i < images.length; i++) {
       const imagePosition = images[i];
       imagePosition.style.position = "absolute";
-
-      if (i < maxImages) {
-        imagePosition.style.left = `${i * (imageWidth - overlap)}px`;
-      }
+      if (i < maxImages) imagePosition.style.left = `${i * (imageWidth - overlap)}px`;
     }
-  } else {
-    console.error(`Element nicht gefunden: userImageBoard${index}`);
-  }
+  } else console.error(`Element nicht gefunden: userImageBoard${index}`);
 }
 
 /**
@@ -198,8 +191,6 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
   }
 }
 
-
-
 async function addHoverEffect(index) {
   let progressBar = document.getElementById(`progressBar${index}`);
   let subtaskTrue = document.getElementById(`subtasksAmountTrue${index}`);
@@ -219,8 +210,6 @@ async function addHoverEffect(index) {
     }
   });
 }
-
-
 
 /**
  * Calculates the number of completed subtasks and the total number of subtasks.
@@ -254,14 +243,11 @@ async function calculateProgress(index) {
  */
 function updateProgressBar(index, progressPercentage) {
   let progressBar = document.getElementById(`progressBar${index}`);
-
   if (!progressBar) {
     console.error(`Element nicht gefunden: progressBar${index}`);
     return;
   }
-
   progressBar.style.width = `${progressPercentage}%`;
-  
   if (progressPercentage === 100) {
     progressBar.style.backgroundColor = '#095a1b';
   } else {
@@ -275,15 +261,12 @@ function updateProgressBar(index, progressPercentage) {
  * @param {number} indexHtml - The index of the task in the HTML structure.
  */
 async function progressBar(index) {
- 
   let progressBar = document.getElementById(`progressBar${index}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
-
   if (!progressBar || !positionOfTrueAmount) {
     console.error(`Elemente nicht gefunden: progressBar${index}`);
     return;
-  }
-
+}
   let { trueCount, totalCount } = await calculateProgress(index);
   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
   if (totalCount > 0) {
@@ -291,5 +274,4 @@ async function progressBar(index) {
     updateProgressBar(index, progressPercentage);
   } else {
     updateProgressBar(index, 0);
-  }
-}
+  }}
