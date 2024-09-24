@@ -403,9 +403,4 @@ function subtasksRenderEdit(indexHTML) {
  * @param {number} i - The index of the subtask to update.
  * @param {number} indexHTML - The index of the task being edited.
  */
-function finishSubtaskEdit(i, indexHTML) {
-  let input = document.getElementById(`inputEditSubtasks${i}`);
-  subtasksArrayEdit[i] = input.value;
-  subtasksRenderEdit(indexHTML);
-  //Progressbar(i);
-}
+
