@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setTimeout(() => {
     const login = document.getElementById('loginfield');
-    login.classList.remove('d-none2');
+    login.classList.remove('d-none');
   }, 1400);
 });
 
