@@ -194,6 +194,7 @@ function outsideClickHandler(event) {
   const isClickInsideForm = formField.contains(event.target);
 
   if (!isClickInsideForm) {
+    removeValues();
     closeAddForm();
   }
 }

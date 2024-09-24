@@ -213,6 +213,7 @@ async function createTask(event) {
   await saveToFirebase();
   form.reset();
   resetFormState();
+//  imageUrlsGlobal = [];
   let subtasksPosition = document.getElementById("subtasksPosition");
   if (subtasksPosition) {
     subtasksPosition.innerHTML = "";

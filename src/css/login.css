@@ -50,12 +50,12 @@ body {
   transition: all 1s ease;
 }
 
-.fadeout {
+/*.fadeout {
   z-index: 9;
   height: 100vh;
   width: 100vw;
   background-color: rgba(246, 247, 248, 1);
-}
+}*/
 
 #login-logo-animated {
   height: 334px;
