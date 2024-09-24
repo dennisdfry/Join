@@ -244,12 +244,7 @@ function handleEditEnterKey(event) {
 
     if (activeElement === subtaskInput) {
       addSubtaskEdit();
-    } else {
-      let addButton = document.getElementById("edit-Add-Btn");
-      if (addButton) {
-        addButton.click();
-      }
-    }
+    } 
   }
 }
 
@@ -412,4 +407,5 @@ function finishSubtaskEdit(i, indexHTML) {
   let input = document.getElementById(`inputEditSubtasks${i}`);
   subtasksArrayEdit[i] = input.value;
   subtasksRenderEdit(indexHTML);
+  //Progressbar(i);
 }
