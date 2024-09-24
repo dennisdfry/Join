@@ -29,7 +29,6 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
       subtasksRender(index, subtasks)
     ]);
    await progressBar(index);
-   await addHoverEffect(index);
   }
 }
 
@@ -189,25 +188,6 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
   }
 }
 
-async function addHoverEffect(index) {
-  let progressBar = document.getElementById(`progressBar${index}`);
-  let subtaskTrue = document.getElementById(`subtasksAmountTrue${index}`);
-  let subtaskLen = document.getElementById(`subtasksLength${index}`);
-
-  progressBar.addEventListener('mouseenter', () => {
-    if (subtaskTrue && subtaskLen) {
-      subtaskTrue.classList.remove('d-none');
-      subtaskLen.classList.remove('d-none');
-    }
-  });
-
-  progressBar.addEventListener('mouseleave', () => {
-    if (subtaskTrue && subtaskLen) {
-      subtaskTrue.classList.add('d-none');
-      subtaskLen.classList.add('d-none');
-    }
-  });
-}
 
 /**
  * Calculates the number of completed subtasks and the total number of subtasks.
