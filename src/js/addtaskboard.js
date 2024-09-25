@@ -151,6 +151,7 @@ function checkBoxRender2(index, imgSrc, element) {
       prio: lastString,
       category: taskCategory,
       subtasks: subtasksArray,
+      subtaskStatus: subtasksStatusArray,
       boardCategory: "todo",
     });
   }
@@ -239,6 +240,7 @@ function checkBoxRender2(index, imgSrc, element) {
     if (input.value.trim() !== "") {
       subtasksArray.push(input.value.trim());
       input.value = "";
+      subtasksStatusArray.push(false);
       updateSubtasksList2();
       resetSubtaskInput2();
     }
@@ -305,6 +307,7 @@ function updateSubtasksList2() {
   function clearSubtask2() {
     let position = document.getElementById("subtasksPosition2");
     position.innerHTML = "";
+    subtasksStatusArray = [];
   }
 
   function setTodayDate() {
