@@ -263,6 +263,16 @@ input[type="password"]::-webkit-password-field {
   .submit-login-btn,
   .login-signup-btn {
     width: 180px;
+    height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-not-user {
+    font-size: 12px;
+    margin-right: 10px;
+    padding: 5px;
   }
 
   .submit-guest-login-btn {
