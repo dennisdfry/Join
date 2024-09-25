@@ -244,8 +244,8 @@ async function progressBar(index) {
   let { trueCount, totalCount } = await calculateProgress(index);
   
   if(totalCount == 0){
-    document.getElementById(`hideProgressContain${index}`).classList.add('d-none');
-    console.log(totalCount)
+    document.getElementById(`hideProgressBar${index}`).classList.add('d-none');
+    document.getElementById(`hideProgressAmount${index}`).classList.add('d-none');
     return
   }else{
   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
