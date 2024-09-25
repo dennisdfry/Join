@@ -66,11 +66,11 @@ window.htmlboard = async function (index, category, title, description, date, pr
         <div class="mg-bot-4 mg-top-4">  
             <p class="mg-block-none fs-16 fw-400 color-gr width220" id="limitTextDesciption${index}">${description}</p>
         </div> 
-        <div class="progress-container d-flex-between width220">
+        <div id="hideProgressContain${index}" class="progress-container d-flex-between width220">
             <div class="width128">
                 <div id="progressBar${index}" class="progress-bar pointer"></div>
             </div>
-            <div class="d-flex">
+            <div  class="d-flex">
                 <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
                 <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
             </div>

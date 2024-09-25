@@ -241,15 +241,17 @@ function updateProgressBar(index, progressPercentage) {
 async function progressBar(index) {
   let progressBar = document.getElementById(`progressBar${index}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
-  if (!progressBar || !positionOfTrueAmount) {
-    console.error(`Elemente nicht gefunden: progressBar${index}`);
-    return;
-}
   let { trueCount, totalCount } = await calculateProgress(index);
+  
+  if(totalCount == 0){
+    document.getElementById(`hideProgressContain${index}`).classList.add('d-none');
+    console.log(totalCount)
+    return
+  }else{
   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
   if (totalCount > 0) {
     let progressPercentage = (trueCount / totalCount) * 100;
     updateProgressBar(index, progressPercentage);
   } else {
     updateProgressBar(index, 0);
-  }}
+  }}}
