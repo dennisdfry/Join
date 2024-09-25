@@ -245,7 +245,7 @@ header {
     top: auto;
     bottom: 0 !important;
     max-width: 1050px;
-    width: 100vw;
+    width: 100vw !important;
     height: 80px;
   }
 
