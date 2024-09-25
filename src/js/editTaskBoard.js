@@ -367,6 +367,7 @@ function deleteSubtaskEdit(i, indexHTML) {
   let position = document.getElementById(`supplementarySubtaskEdit${i}`);
   position.innerHTML = "";
   subtasksArrayEdit.splice([i], 1);
+  subtasksStatusArrayEdit.splice([i], 1);
   subtasksRenderEdit(indexHTML);
 }
 

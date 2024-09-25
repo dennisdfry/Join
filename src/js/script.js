@@ -250,6 +250,7 @@ async function progressBar(index) {
   }else{
   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
   if (totalCount > 0) {
+    console.log(totalCount)
     let progressPercentage = (trueCount / totalCount) * 100;
     updateProgressBar(index, progressPercentage);
   } else {
