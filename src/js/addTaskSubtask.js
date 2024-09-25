@@ -60,6 +60,7 @@ function addSubtask() {
   function clearSubtasks() {
     let position = document.getElementById("subtasksPosition");
     position.innerHTML = "";
+    subtasksStatusArray = [];
   }
   
   function deleteSubtask(index) {

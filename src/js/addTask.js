@@ -137,9 +137,6 @@ async function assignedToUser(index, element, imgSrc) {
     assignedToUserArrayNamesGlobal.push(element);
     imageUrlsGlobal.push(imgSrc);
   }
-  //console.log(assignedToUserArray);
-  //console.log(assignedToUserArrayNamesGlobal);
-  //console.log(imageUrlsGlobal);
 }
 
 /**
