@@ -1,9 +1,13 @@
+let cachedElement = null;
+
+function startUp () {  
 document.addEventListener("mousedown", handleRotateStart);
 document.addEventListener("mouseup", handleRotateEnd);
 document.addEventListener("mouseleave", handleRotateEnd);
 document.addEventListener("dragend", handleRotateEnd);
-
-let cachedElement = null;
+document.addEventListener("touchstart", handleTouchRotateStart);
+document.addEventListener("touchend", handleTouchRotateEnd); 
+}
 
 /**
  * Starts the dragging process by setting the current dragged task's key.
@@ -12,7 +16,6 @@ let cachedElement = null;
  */
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
- // console.log("Dragging element with taskkey:", currentDraggedElement);
 }
 
 /**
@@ -21,6 +24,21 @@ function startDragging(taskkey) {
  * @param {Event} event - The event object from the event listener.
  */
 function handleRotateStart(event) {
+  event.preventDefault;
+  cachedElement = event.target.closest(".board-task-container");
+  if (cachedElement) {
+    cachedElement.classList.add("rotate");
+  }
+}
+
+
+
+/**
+ * Adds the "rotate" class to the closest ".board-task-container" element when touch starts.
+ * 
+ * @param {TouchEvent} event - The touch event object from the event listener.
+ */
+function handleTouchRotateStart(event) {
   cachedElement = event.target.closest(".board-task-container");
   if (cachedElement) {
     cachedElement.classList.add("rotate");
@@ -38,6 +56,19 @@ function handleRotateEnd(event) {
     cachedElement = null;
   }
 }
+
+/**
+ * Removes the "rotate" class from the previously cached ".board-task-container" element.
+ * 
+ * @param {Event} event - The event object from the event listener.
+ */
+function handleTouchRotateEnd(event) {
+  if (cachedElement) {
+    cachedElement.classList.remove("rotate");
+    cachedElement = null;
+  }
+}
+
 
 /**
  * Allows the dragged item to be dropped on a valid target by preventing the default behavior.
@@ -102,8 +133,4 @@ async function updateTaskInFirebase(task) {
   }
 }
 
-
-
-
-
-
+document.addEventListener("DOMContentLoaded", startUp);
