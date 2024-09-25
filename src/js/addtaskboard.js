@@ -306,3 +306,11 @@ function updateSubtasksList2() {
     let position = document.getElementById("subtasksPosition2");
     position.innerHTML = "";
   }
+
+  function setTodayDate() {
+    const dateInput = document.getElementById('dueDate2');
+    const today = new Date().toISOString().split('T')[0]; 
+    if (!dateInput.value) { 
+      dateInput.value = today;
+    }
+  }
