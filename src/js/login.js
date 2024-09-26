@@ -50,6 +50,9 @@ document.getElementById("login-form").addEventListener("submit", async function 
 function shrinkLogo() {
   const logoElement = document.querySelector('.login-logo');
   const logoElementInvert = document.querySelector('#login-logo-invert');
+  
+  logoElement.style.animation = "backgroundChange 1s forwards";
+
   logoElement.classList.add('logo-shrink');
   logoElementInvert.classList.add('logo-shrink-invert');
 }

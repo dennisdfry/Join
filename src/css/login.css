@@ -28,7 +28,7 @@ body {
   align-items: center;
   position: absolute;
   z-index: 10;
-  background-color:#2a3647;
+  background-color:rgb(246, 247, 248);
   width: 100vw;
   height: 100vh;
   transition: all 1s ease;
@@ -326,6 +326,23 @@ input[type="password"]::-webkit-password-field {
     height: 240px;
     background-color:  rgb(246, 247, 248);
     opacity: 0;
+  }
+
+  .login-logo {
+    animation: backgroundChange 100s forwards;
+  }
+
+  .login-logo {
+    background-color: #2a3647;
+  }
+
+  @keyframes backgroundChange {
+    0% {
+      background-color: #2a3647;
+    }
+    100% {
+      background-color: rgb(246, 247, 248);
+    }
   }
 }
 
