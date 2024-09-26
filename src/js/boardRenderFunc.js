@@ -55,7 +55,7 @@ async function userNamesRender(index) {
  */
 window.htmlboard = async function (index, category, title, description, date, prio) {
   return `
-    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" ontouchstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
+    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" ontouchstart="handleTouchStart('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
         <div class="d-flex-between">
             <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
             <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">

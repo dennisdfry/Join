@@ -1,12 +1,14 @@
 let cachedElement = null;
 
+
 function startUp () {  
 document.addEventListener("mousedown", handleRotateStart);
 document.addEventListener("mouseup", handleRotateEnd);
 document.addEventListener("mouseleave", handleRotateEnd);
 document.addEventListener("dragend", handleRotateEnd);
-document.addEventListener("touchstart", handleTouchRotateStart);
-document.addEventListener("touchend", handleTouchRotateEnd); 
+document.addEventListener("touchstart", handleTouchStart, { passive: false });
+document.addEventListener("touchmove", handleTouchMove, { passive: false });
+document.addEventListener("touchend", handleTouchEnd);
 }
 
 /**
@@ -38,10 +40,25 @@ function handleRotateStart(event) {
  * 
  * @param {TouchEvent} event - The touch event object from the event listener.
  */
-function handleTouchRotateStart(event) {
-  cachedElement = event.target.closest(".board-task-container");
-  if (cachedElement) {
+function handleTouchStart(event) {
+
+  const targetElement = event.target.closest(".board-task-container");
+  if (targetElement) {
+    cachedElement = targetElement;
     cachedElement.classList.add("rotate");
+    const taskkey = targetElement.getAttribute("data-taskkey");
+    startDragging(taskkey);
+  }
+}
+
+function handleTouchMove(event) {
+  event.preventDefault();
+}
+
+function handleTouchEnd(event) {
+  if (cachedElement) {
+    cachedElement.classList.remove("rotate");
+    cachedElement = null;
   }
 }
 
@@ -58,11 +75,11 @@ function handleRotateEnd(event) {
 }
 
 /**
- * Removes the "rotate" class from the previously cached ".board-task-container" element.
- * 
- * @param {Event} event - The event object from the event listener.
+ * Handles the touch end event.
+ *
+ * @param {TouchEvent} event - The touch event object from the event listener.
  */
-function handleTouchRotateEnd(event) {
+function handleTouchEnd(event) {
   if (cachedElement) {
     cachedElement.classList.remove("rotate");
     cachedElement = null;
