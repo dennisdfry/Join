@@ -28,7 +28,7 @@ body {
   align-items: center;
   position: absolute;
   z-index: 10;
-  background-color: #2a3647;
+  background-color:#2a3647;
   width: 100vw;
   height: 100vh;
   transition: all 1s ease;
@@ -43,15 +43,7 @@ body {
   transform: scale(0.365) translate(77px, 80px);
   width: 200px;
   height: 240px;
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.logo-shrink-invert {
-  transform: scale(0.365) translate(77px, 80px);
-  width: 200px;
-  height: 240px;
-  background-color: rgba(0, 0, 0, 0);
-  opacity: 0;
+  background-color:  rgb(246, 247, 248);
 }
 
 .login-signup button {
@@ -326,6 +318,14 @@ input[type="password"]::-webkit-password-field {
   #login-logo-invert {
     display: flex;
     position: absolute;
+  }
+
+  .logo-shrink-invert {
+    transform: scale(0.365) translate(77px, 80px);
+    width: 200px;
+    height: 240px;
+    background-color:  rgb(246, 247, 248);
+    opacity: 0;
   }
 }
 
