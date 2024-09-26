@@ -74,7 +74,7 @@
 
   .add-Task-Container {
     width: 428px;
-    height: 90vh;
+    height: 80vh;
     position: absolute;
     top: 100px;
     left: 16px;
@@ -263,7 +263,7 @@
 
   .add-task-create-button {
     position: absolute;
-    top: 32vh;
+    top: 15vh;
     left: 38vw;
   }
 
@@ -282,7 +282,7 @@
 
   .add-Task-Container {
     width: 95%;
-    height: 82vh;
+    height: 75vh;
     position: absolute;
     top: 15%;
     gap: 2%;
@@ -321,7 +321,7 @@
 
   .add-task-finish-section {
     position: absolute;
-    top: 100vh;
+    top: 85vh;
   }
 
   .selectBox select {
