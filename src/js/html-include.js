@@ -1,4 +1,3 @@
-
 let isLoading = false; 
 
 /**
@@ -27,6 +26,7 @@ async function includeHTML() {
   
   isLoading = false;
 }
+
 /**
  * Inserts the fetched HTML content into the element and initializes the page-specific logic.
  * Calls different initialization functions based on the file name.

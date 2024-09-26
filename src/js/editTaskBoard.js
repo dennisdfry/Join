@@ -7,6 +7,7 @@ let fetchImagesEdit = [];
 let assignedToUserArrayEdit = [];
 let assignedToUserArrayNamesGlobalEdit = [];
 let subtasksStatusArrayEdit = [];
+
 /**
  * Clears the placeholder of the task title input field during editing.
  *
@@ -215,6 +216,7 @@ function prioEdit(id) {
   prioIdCheck(id, position);
   selectedPrioEdit = true;
 }
+
 /**
  * Checks the priority ID and updates the button style accordingly.
  *
