@@ -28,11 +28,15 @@ body {
   align-items: center;
   position: absolute;
   z-index: 10;
-  background-color: rgb(246, 247, 248);
+  background-color: #2a3647;
   width: 100vw;
   height: 100vh;
   transition: all 1s ease;
   transform-origin: top left;
+}
+
+#login-logo-invert {
+  display: none;
 }
 
 .logo-shrink {
@@ -40,6 +44,14 @@ body {
   width: 200px;
   height: 240px;
   background-color: rgba(0, 0, 0, 0);
+}
+
+.logo-shrink-invert {
+  transform: scale(0.365) translate(77px, 80px);
+  width: 200px;
+  height: 240px;
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 0;
 }
 
 .login-signup button {
@@ -309,6 +321,11 @@ input[type="password"]::-webkit-password-field {
   .submit-login-btn,
   .submit-guest-login-btn {
     height: 35px;
+  }
+
+  #login-logo-invert {
+    display: flex;
+    position: absolute;
   }
 }
 
