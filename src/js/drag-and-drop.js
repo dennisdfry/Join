@@ -1,14 +1,7 @@
 
 let cachedElement = null;
-let offsetX = 0;
-let offsetY = 0;
-let currentDraggedTaskKey = null;
 
 function startUp() {
-  document.addEventListener('touchstart', handleTouchStart);
-  document.addEventListener('touchmove', handleTouchMove, { passive: false });
-  document.addEventListener('touchend', handleTouchEnd);
-  document.addEventListener('touchleave', handleTouchEnd);
   document.addEventListener("mousedown", handleRotateStart);
   document.addEventListener("mouseup", handleRotateEnd);
   document.addEventListener("mouseleave", handleRotateEnd);
@@ -48,100 +41,6 @@ function handleRotateEnd(event) {
     cachedElement = null;
   }
 }
-
-
-
-function startDraggingTouch (taskkey) { 
-  currentDraggedTaskKey = taskkey;
-}
-
-/**
- * Handles the touch start event, initializes dragging.
- * 
- * @param {TouchEvent} event - The touch event object from the event listener.
- */
-function handleTouchStart(event) {
-  cachedElement = event.target.closest(".board-task-container");
-  if (cachedElement) {
-    let taskKey = cachedElement.dataset.taskkey;
-
-    let touch = event.touches[0];
-    let rect = cachedElement.getBoundingClientRect();
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
-
-    cachedElement.classList.add("rotate");
-    startDragging(taskKey);
-  }
-}
-
-/**
- * Handles the touch move event and moves the task along with the finger.
- * 
- * @param {TouchEvent} event - The touch event object from the event listener.
- */
-function handleTouchMove(event) {
-  event.preventDefault();
-  if (cachedElement) {
-    let touch = event.touches[0];
-    let draggedOverElement = document.elementFromPoint(touch.clientX, touch.clientY);
-
-    if (draggedOverElement && draggedOverElement.classList.contains("board-column")) {
-      draggedOverElement.classList.add("drag-over");
-      const newCategory = draggedOverElement.dataset.category;
-      cachedElement.dataset.newCategory = newCategory;
-    } else {
-      document.querySelectorAll(".board-column").forEach(column => column.classList.remove("drag-over"));
-    }
-
-    cachedElement.style.position = 'absolute';
-    cachedElement.style.zIndex = '1000';
-    cachedElement.style.left = `${touch.clientX - offsetX}px`;
-    cachedElement.style.top = `${touch.clientY - offsetY}px`;
-  }
-}
-
-
-/**
- * Handles the touch end event and stops the dragging process.
- *
- * @param {TouchEvent} event - The touch event object from the event listener.
- */
-function handleTouchEnd(event) {
-  if (cachedElement) {
-    cachedElement.classList.remove("rotate");
-    cachedElement.style.position = '';
-    cachedElement.style.zIndex = '';
-    cachedElement.style.left = '';
-    cachedElement.style.top = '';
-
-    const newCategory = cachedElement.dataset.newCategory;
-    if (newCategory && currentDraggedTaskKey) {
-      moveToTouch(newCategory); 
-    }
-
-    cachedElement = null;
-  }
-}
-
-async function moveToTouch(category) {
-  if (currentDraggedTaskKey) {
-    task[currentDraggedTaskKey]["boardCategory"] = category;
-
-    await updateTaskInFirebase({
-      id: currentDraggedTaskKey,
-      boardCategory: category,
-    });
-
-    await updateHTML();
-  } else {
-    console.error("No task is being dragged.");
-  }
-
-  updateStatusMessages();
-}
-
-
 
 /**
  * Allows the dragged item to be dropped on a valid target by preventing the default behavior.
