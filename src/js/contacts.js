@@ -54,26 +54,6 @@ function validateForm() {
 }
 
 /**
- * Validates the name field.
- * @param {string} name - The name to validate.
- * @returns {boolean} - True if valid, false otherwise.
- */
-function validateAddName(name) {
-  const nameRegex = /^[A-Za-z\s]{3,}$/; 
-  return nameRegex.test(name);
-}
-
-/**
-* Validates the phone number field.
-* @param {string} phone - The phone number to validate.
-* @returns {boolean} - True if valid, false otherwise.
-*/
-function validateAddPhone(phone) {
-  const phoneRegex = /^(\+|0)[0-9]{1,3}([\\s-]?([0-9]{1,4}[\\s-]?)?[0-9]{3,4}[\\s-]?[0-9]{3,4})?$/;
-  return phoneRegex.test(phone);
-}
-
-/**
 * Validates a single field and shows error messages if invalid, without blocking focus.
 * @param {HTMLElement} field - The form field to validate.
 */
@@ -81,7 +61,7 @@ function validateField(field) {
   field.setCustomValidity("");
 
   if (field.id === "name") {
-      if (!validateAddName(field.value)) {
+      if (!validateName(field.value)) {
           field.classList.add("input-error");
           field.setCustomValidity("The name must be at least 3 characters long and contain only letters.");
       } else {
@@ -89,7 +69,7 @@ function validateField(field) {
           field.setCustomValidity(""); 
       }
   } else if (field.id === "phone") {
-      if (!validateAddPhone(field.value)) {
+      if (!validatePhone(field.value)) {
           field.classList.add("input-error");
           field.setCustomValidity("Please enter a valid phone number that starts with '+' or '0'.");
       } else {
@@ -178,6 +158,27 @@ function closeFormField(formId = "add-form-section", overlayId = "add-overlay", 
   document.removeEventListener("click", handleOutsideFormClick);
 }
 
+
+/**
+ * Initializes event listeners for the contact edit form.
+ * - Adds a submit listener to process the edit form.
+ * - Adds input listeners to validate form fields.
+ */
+function setupEditForm() {
+  let form = document.getElementById("edit-contact-form");
+  if (!form) return;
+  form.addEventListener("submit", handleEditFormSubmit);
+  ["edit-name", "edit-mail", "edit-phone"].forEach((id) => {
+    let element = document.getElementById(id);
+    if (element) {
+      //element.addEventListener("input", (event) => validateField(element));
+      element.addEventListener("keydown", handleEditEnterPress);
+    }
+  });
+
+  //checkEditFormFields();
+}
+
 /**
  * Handles the submission of the edit form for contacts.
  * @async
@@ -207,26 +208,6 @@ async function handleEditFormSubmit(event) {
 }
 
 /**
- * Initializes event listeners for the contact edit form.
- * - Adds a submit listener to process the edit form.
- * - Adds input listeners to validate form fields.
- */
-function setupEditForm() {
-  let form = document.getElementById("edit-contact-form");
-  if (!form) return;
-  form.addEventListener("submit", handleEditFormSubmit);
-  ["edit-name", "edit-mail", "edit-phone"].forEach((id) => {
-    let element = document.getElementById(id);
-    if (element) {
-      //element.addEventListener("input", () => validateField(element));
-      element.addEventListener("keydown", handleEditEnterPress);
-    }
-  });
-
-  //checkEditFormFields();
-}
-
-/**
  * Checks if all required fields in the edit form are filled and enables or disables the submit button accordingly.
  */
 function checkEditFormFields() {
@@ -234,6 +215,51 @@ function checkEditFormFields() {
   let filledFields = form.checkValidity(); 
   document.getElementById("editfield-create-btn").disabled = !filledFields;
 }
+
+/**
+ * Validates the email and phone number in the edit form.
+ * @returns {string|null} - Returns an error message if validation fails, otherwise null.
+ */
+function validateEditForm() {
+  let name = document.getElementById('edit-name').value.trim();
+  let email = document.getElementById("edit-mail").value.trim();
+  let phone = document.getElementById("edit-phone").value.trim();
+  if (!validateEmail(email) || !validatePhone(phone) || !validateName(name)) {
+    return "Invalid name, email or phone number.";
+  }
+  return null;
+}
+
+/**
+ * Validates the name field.
+ * @param {string} name - The name to validate.
+ * @returns {boolean} - True if valid, false otherwise.
+ */
+function validateName(name) {
+  const nameRegex = /^[A-Za-z\s]{3,}$/; 
+  return nameRegex.test(name);
+}
+
+/**
+* Validates the phone number field.
+* @param {string} phone - The phone number to validate.
+* @returns {boolean} - True if valid, false otherwise.
+*/
+function validatePhone(phone) {
+  const phoneRegex = /^(\+|0)[0-9]{1,3}([\\s-]?([0-9]{1,4}[\\s-]?)?[0-9]{3,4}[\\s-]?[0-9]{3,4})?$/;
+  return phoneRegex.test(phone);
+}
+
+/**
+ * Validates an email address using a regular expression.
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} - Returns true if the email is valid, otherwise false.
+ */
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(String(email).toLowerCase());
+}
+
 
 /**
  * Loads contact data into the edit form fields.
@@ -266,18 +292,6 @@ function handleEditEnterPress(event) {
   }
 }
 
-/**
- * Validates the email and phone number in the edit form.
- * @returns {string|null} - Returns an error message if validation fails, otherwise null.
- */
-function validateEditForm() {
-  let email = document.getElementById("edit-mail").value.trim();
-  let phone = document.getElementById("edit-phone").value.trim();
-  if (!validateEmail(email) || !validatePhone(phone)) {
-    return "Invalid email or phone number.";
-  }
-  return null;
-}
 
 /**
  * Displays the edit form for an existing contact.
@@ -458,26 +472,6 @@ function sortContacts(contacts) {
  */
 function getImageSrc(contact) {
   return contact.img || generateProfileImage(contact.name);
-}
-
-/**
- * Validates an email address using a regular expression.
- * @param {string} email - The email address to validate.
- * @returns {boolean} - Returns true if the email is valid, otherwise false.
- */
-function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(String(email).toLowerCase());
-}
-
-/**
- * Validates a phone number based on custom rules.
- * @param {string} phone - The phone number to validate.
- * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
- */
-function validatePhone(phone) {
-  let phoneReg = /^(\+?[0-9]{1,3}[\s-]?([0-9]{1,4}[\s-]?)?[0-9]{3,4}[\s-]?[0-9]{3,4})$/;
-  return phoneReg.test(phone);
 }
 
 /**
