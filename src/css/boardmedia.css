@@ -29,7 +29,9 @@
     overflow-x: scroll;
     overflow-y: hidden;
     min-height: 48px;
-  }  
+  }
+  
+  
 
   .board-task-column {
     flex-direction: row;
@@ -46,24 +48,21 @@
     min-width: 48px;
     width: auto;
   }
-
   .board-render-status-container::-webkit-scrollbar {
     display: none;
   }
-
   .board-render-status-container::-webkit-scrollbar-thumb {
     background-color: #2a3647;
     border-radius: 8px;
   }
-
   .board-render-status-container::-webkit-scrollbar-track {
     background-color: #e0e0e0;
     border-radius: 8px;
   }
-
   .board-render-status-container::-webkit-scrollbar-thumb {
     height: 53px;
   }
+  
 
   .board-task-container {
     max-height: 35vh;
@@ -207,21 +206,17 @@
     min-width: 48px;
     width: auto;
   }
-
   .board-render-status-container::-webkit-scrollbar {
     display: none;
   }
-
   .board-render-status-container::-webkit-scrollbar-thumb {
     background-color: #2a3647;
     border-radius: 8px;
   }
-
   .board-render-status-container::-webkit-scrollbar-track {
     background-color: #e0e0e0;
     border-radius: 8px;
   }
-
   .board-render-status-container::-webkit-scrollbar-thumb {
     height: 53px;
   }
@@ -238,11 +233,5 @@
 @media (max-width: 560px) {
   .board-task-container-open {
     width: 80vw;
-  }
-
-  .board-render-section,
-  #renderSectionBoard {
-    height: 68vh;
-    width: 340px;
   }
 }

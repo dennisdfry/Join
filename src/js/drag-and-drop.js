@@ -1,12 +1,9 @@
+document.addEventListener("mousedown", handleRotateStart);
+document.addEventListener("mouseup", handleRotateEnd);
+document.addEventListener("mouseleave", handleRotateEnd);
+document.addEventListener("dragend", handleRotateEnd);
 
 let cachedElement = null;
-
-function startUp() {
-  document.addEventListener("mousedown", handleRotateStart);
-  document.addEventListener("mouseup", handleRotateEnd);
-  document.addEventListener("mouseleave", handleRotateEnd);
-  document.addEventListener("dragend", handleRotateEnd);
-}
 
 /**
  * Starts the dragging process by setting the current dragged task's key.
@@ -15,6 +12,7 @@ function startUp() {
  */
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
+  console.log("Dragging element with taskkey:", currentDraggedElement);
 }
 
 /**
@@ -23,7 +21,6 @@ function startDragging(taskkey) {
  * @param {Event} event - The event object from the event listener.
  */
 function handleRotateStart(event) {
-  event.preventDefault;
   cachedElement = event.target.closest(".board-task-container");
   if (cachedElement) {
     cachedElement.classList.add("rotate");
@@ -60,7 +57,6 @@ function onDrop(event) {
   event.preventDefault();
   const newCategory = event.target.dataset.category;
   moveTo(newCategory);
-  moveToTouch(newCategory);
 }
 
 /**
@@ -105,5 +101,3 @@ async function updateTaskInFirebase(task) {
     console.error("Error updating task in Firebase:", error);
   }
 }
-
-document.addEventListener("DOMContentLoaded",startUp());

@@ -15,8 +15,7 @@
   }
 
   .add-task-finish-button-container {
-    top: 1000px;
-    left: 0;
+    left: 50%;
   }
 
   .add-Task-Container {
@@ -125,11 +124,7 @@
 
   .add-task-finish-button-container {
     background-color: #f6f7f8;
-    position: absolute;
-    top: 780px;
-    left: 216px;
-    width: auto;
-    height: auto;
+    position: relative;
     padding-bottom: 2px;
     transform: none;
   }
@@ -262,9 +257,7 @@
 @media (max-width: 430px) {
 
   .add-task-create-button {
-    position: absolute;
-    top: 15vh;
-    left: 38vw;
+    max-width: 150px;
   }
 
   .add-task-head {
@@ -296,9 +289,9 @@
 
   .add-task-finish-button-container {
     background-color: #f6f7f8;
-    position: absolute;
-    top: 70vh;
-    left: 5vw;
+    position: relative;
+    top: 110%;
+    left: 50%;
     padding-bottom: 2px;
   }
 
@@ -320,8 +313,8 @@
   }
 
   .add-task-finish-section {
-    position: absolute;
-    top: 85vh;
+    position: relative;
+    top: 120%;
   }
 
   .selectBox select {
