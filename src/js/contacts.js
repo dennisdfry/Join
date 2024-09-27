@@ -58,13 +58,25 @@ function validateForm() {
  * @param {HTMLElement} field - The form field to validate.
  */
 function validateField(field) {
-  field.setCustomValidity(""); 
-  if (!field.checkValidity()) {
-      field.classList.add("input-error");
-      field.setCustomValidity("Please fill out this field correctly.");
+  const nameRegex = /^[A-Za-z]{3,}$/; 
+  field.setCustomValidity("");
+
+  if (field.id === "name") {
+      if (!nameRegex.test(field.value)) {
+          field.classList.add("input-error");
+          field.setCustomValidity("The name must be at least 3 characters long and contain only letters.");
+      } else {
+          field.classList.remove("input-error");
+          field.setCustomValidity(""); 
+      }
   } else {
-      field.classList.remove("input-error");
-      field.setCustomValidity(""); 
+      if (!field.checkValidity()) {
+          field.classList.add("input-error");
+          field.setCustomValidity("Please fill out this field correctly.");
+      } else {
+          field.classList.remove("input-error");
+          field.setCustomValidity(""); 
+      }
   }
   if (document.activeElement == field) {
       field.reportValidity();
