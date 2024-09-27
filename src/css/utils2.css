@@ -142,3 +142,7 @@
 .width445 {
   width: 445px;
 }
+
+.transition120 {
+  transition: 120ms;
+}
