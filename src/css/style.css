@@ -322,4 +322,5 @@ header {
 .nav-mid a.active {
   background-color: #29abe2;
   color: white;
+  transition: 120ms;
 }
