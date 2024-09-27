@@ -207,7 +207,7 @@
               <img class="pos-abs img-24" src="./img/mail.png" />
             </div>
             <div class="input-img-div d-flex-center gap-10 pos-rel">
-              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="text" id="edit-phone" name="phone" placeholder="Phone" required/>
+              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="text" id="edit-phone" name="phone" placeholder="Phone" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')"/>
               <img class="pos-abs img-24" src="./img/call.png" />
             </div>
           </form>
