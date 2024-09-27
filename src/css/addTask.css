@@ -15,12 +15,6 @@
 .checkboxes-visible {
   display: block;
 }
-body {
-  height: 100vh;
-  overflow: hidden;
-  margin: 0;
-  max-width: 1440px;
-}
 
 .add-Task-Container {
   width: 976.25px;

@@ -11,14 +11,6 @@
   font-weight: 700;
 }
 
-body {
-  height: 100vh;
-  font-family: "Inter";
-  font-weight: 400;
-  overflow: hidden;
-  margin: 0;
-}
-
 .board-head-section {
   max-width: 1208px;
   max-height: 232px;
