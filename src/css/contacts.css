@@ -49,11 +49,6 @@ body {
   padding: 12px 0px 12px 0px;
 }
 
-#add-contact-btn img {
- /*width: 32px;
-  height: 32px;*/
-}
-
 #add-contact-btn:hover {
   background-color: #29abe2;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -183,7 +178,6 @@ body {
 #contact-information-content {
   width: 207px;
   height: 74px;
-  padding-top: 38px;
   gap: 59px;
 }
 
