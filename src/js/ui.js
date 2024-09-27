@@ -15,6 +15,17 @@ function toggleElement(elementClass, className) {
 }
 
 /**
+ * Toggles the visibility of the user icon dropdown menu.
+ * Prevents the event from propagating to parent elements.
+ *
+ * @param {Event} event - The click event object.
+ */
+function toggleDropdown(event) {
+  event.stopPropagation(); // Verhindert, dass der Klick weitergegeben wird
+  toggleElement('.user-icon-dropdown', 'd-none');
+}
+
+/**
  * Updates the visibility of status messages based on the number of tasks in each container.
  * If a container has tasks, the corresponding status message is hidden;
  * if it has no tasks, the status message is shown.

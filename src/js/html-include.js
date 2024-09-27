@@ -47,7 +47,7 @@ async function whichChangeSite(resp, element, file) {
       await loadingBoard();
     } else if (file.includes("summary.html")) {
       await initSmry();
-    }
+    } 
   } else {
     element.innerHTML = "Page not found";
   }
