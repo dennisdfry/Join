@@ -154,6 +154,7 @@
               placeholder="Phone" 
               pattern="^(\+?[0-9]+|0[0-9]+)$" 
               required 
+              oninput="this.value = this.value.replace(/[^0-9+]/g, '')"
             />
               <img class="pos-abs img-24" src="./img/call.png" />
             </div>
