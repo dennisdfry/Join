@@ -152,10 +152,11 @@
               id="phone" 
               name="phone" 
               placeholder="Phone" 
-              pattern="^(\+?[0-9 ]+|0[0-9 ]+)$" 
+              pattern="^(\\+|0)[0-9]{1,3}([\\s-]?([0-9]{1,4}[\\s-]?)?[0-9]{3,4}[\\s-]?[0-9]{3,4})?$" 
+              title="Die Telefonnummer muss mit einem '+' oder '0' beginnen und kann Zahlen und optionale Leerzeichen oder Bindestriche enthalten." 
               required 
-              oninput="this.value = this.value.replace(/[^0-9+]/g, '');validateForm()"
-            />
+
+          />
               <img class="pos-abs img-24" src="./img/call.png" />
             </div>
 

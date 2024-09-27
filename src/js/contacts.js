@@ -54,17 +54,44 @@ function validateForm() {
 }
 
 /**
- * Validates a single field and shows error messages if invalid, without blocking focus.
- * @param {HTMLElement} field - The form field to validate.
+ * Validates the name field.
+ * @param {string} name - The name to validate.
+ * @returns {boolean} - True if valid, false otherwise.
  */
+function validateAddName(name) {
+  const nameRegex = /^[A-Za-z\s]{3,}$/; 
+  return nameRegex.test(name);
+}
+
+/**
+* Validates the phone number field.
+* @param {string} phone - The phone number to validate.
+* @returns {boolean} - True if valid, false otherwise.
+*/
+function validateAddPhone(phone) {
+  const phoneRegex = /^(\+|0)[0-9]{1,3}([\\s-]?([0-9]{1,4}[\\s-]?)?[0-9]{3,4}[\\s-]?[0-9]{3,4})?$/;
+  return phoneRegex.test(phone);
+}
+
+/**
+* Validates a single field and shows error messages if invalid, without blocking focus.
+* @param {HTMLElement} field - The form field to validate.
+*/
 function validateField(field) {
-  const nameRegex = /^[A-Za-z]{3,}$/; 
   field.setCustomValidity("");
 
   if (field.id === "name") {
-      if (!nameRegex.test(field.value)) {
+      if (!validateAddName(field.value)) {
           field.classList.add("input-error");
           field.setCustomValidity("The name must be at least 3 characters long and contain only letters.");
+      } else {
+          field.classList.remove("input-error");
+          field.setCustomValidity(""); 
+      }
+  } else if (field.id === "phone") {
+      if (!validateAddPhone(field.value)) {
+          field.classList.add("input-error");
+          field.setCustomValidity("Please enter a valid phone number that starts with '+' or '0'.");
       } else {
           field.classList.remove("input-error");
           field.setCustomValidity(""); 
@@ -78,6 +105,7 @@ function validateField(field) {
           field.setCustomValidity(""); 
       }
   }
+
   if (document.activeElement == field) {
       field.reportValidity();
   }
@@ -448,7 +476,7 @@ function validateEmail(email) {
  * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
 function validatePhone(phone) {
-  let phoneReg = /^(\+?[0-9]+|0[0-9]+)$/;
+  let phoneReg = /^(\+?[0-9]{1,3}[\s-]?([0-9]{1,4}[\s-]?)?[0-9]{3,4}[\s-]?[0-9]{3,4})$/;
   return phoneReg.test(phone);
 }
 
