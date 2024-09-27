@@ -19,10 +19,6 @@ body {
   margin: 0;
 }
 
-.background-main {
-  background-color: rgb(246, 247, 248);
-}
-
 .board-head-section {
   max-width: 1208px;
   max-height: 232px;
