@@ -43,15 +43,6 @@ function handleFormSubmit(event) {
 
 
 
-function validateForm() {
-  let form = document.getElementById('contact-form');
-  let submitButton = document.getElementById('formfield-create-btn');
-  if (form.checkValidity()) {
-    submitButton.disabled = false;
-  } else {
-    submitButton.disabled = true;
-  }
-}
 
 /**
 * Validates a single field and shows error messages if invalid, without blocking focus.
@@ -167,18 +158,22 @@ function closeFormField(formId = "add-form-section", overlayId = "add-overlay", 
 function setupEditForm() {
   let form = document.getElementById("edit-contact-form");
   if (!form) return;
-  form.addEventListener("submit", handleEditFormSubmit);
+  
+  form.addEventListener("submit", handleFormSubmit);
+  
   ["edit-name", "edit-mail", "edit-phone"].forEach((id) => {
     let element = document.getElementById(id);
     if (element) {
-      //element.addEventListener("input", (event) => validateField(element));
-      element.addEventListener("keydown", handleEditEnterPress);
+      element.addEventListener("input", (event) => {
+        validateEditField(event.target); 
+        checkEditFormFields();
+      });
+      element.addEventListener("blur", () => validateEditField(element));
+      element.addEventListener("keydown", handleEnterPress);
     }
   });
-
-  //checkEditFormFields();
+  checkEditFormFields();
 }
-
 /**
  * Handles the submission of the edit form for contacts.
  * @async
@@ -186,18 +181,15 @@ function setupEditForm() {
  */
 async function handleEditFormSubmit(event) {
   event.preventDefault();
-  
   let form = document.getElementById("edit-contact-form");
   if (!form.checkValidity()) {
+    checkEditFormFields();
     form.reportValidity();
     return;
   }
-
   const contactId = form.getAttribute("data-id");
   if (!contactId) return console.error("No contact ID found.");
 
-  let [name, mail, phone] = ["edit-name", "edit-mail", "edit-phone"].map(id => document.getElementById(id).value.trim());
-  
   try {
     const updatedContact = await getUpdatedContact(contactId);
     await replaceContact(contactId, updatedContact);
@@ -210,6 +202,7 @@ async function handleEditFormSubmit(event) {
 /**
  * Checks if all required fields in the edit form are filled and enables or disables the submit button accordingly.
  */
+
 function checkEditFormFields() {
   let form = document.getElementById("edit-contact-form");
   let filledFields = form.checkValidity(); 
@@ -217,17 +210,41 @@ function checkEditFormFields() {
 }
 
 /**
- * Validates the email and phone number in the edit form.
- * @returns {string|null} - Returns an error message if validation fails, otherwise null.
- */
-function validateEditForm() {
-  let name = document.getElementById('edit-name').value.trim();
-  let email = document.getElementById("edit-mail").value.trim();
-  let phone = document.getElementById("edit-phone").value.trim();
-  if (!validateEmail(email) || !validatePhone(phone) || !validateName(name)) {
-    return "Invalid name, email or phone number.";
+* Validates a single field and shows error messages if invalid, without blocking focus.
+* @param {HTMLElement} field - The form field to validate.
+*/
+function validateEditField(field) {
+  field.setCustomValidity("");
+
+  if (field.id === "edit-name") {
+      if (!validateName(field.value)) {
+          field.classList.add("input-error");
+          field.setCustomValidity("The name must be at least 3 characters long and contain only letters.");
+      } else {
+          field.classList.remove("input-error");
+          field.setCustomValidity(""); 
+      }
+  } else if (field.id === "edit-phone") {
+      if (!validatePhone(field.value)) {
+          field.classList.add("input-error");
+          field.setCustomValidity("Please enter a valid phone number that starts with '+' or '0'.");
+      } else {
+          field.classList.remove("input-error");
+          field.setCustomValidity(""); 
+      }
+  } else {
+      if (!field.checkValidity()) {
+          field.classList.add("input-error");
+          field.setCustomValidity("Please fill out this field correctly.");
+      } else {
+          field.classList.remove("input-error");
+          field.setCustomValidity(""); 
+      }
   }
-  return null;
+
+  if (document.activeElement == field) {
+      field.reportValidity();
+  }
 }
 
 /**
