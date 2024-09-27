@@ -19,7 +19,6 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  z-index: 8;
 }
 
 .login-logo {
@@ -290,7 +289,6 @@ input[type="password"]::-webkit-password-field {
     right: 0;
     display: flex;
     justify-content: center;
-    z-index: 8;
   }
 
   .login-txt {
