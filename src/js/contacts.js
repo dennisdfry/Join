@@ -169,7 +169,7 @@ function setupEditForm() {
         checkEditFormFields();
       });
       element.addEventListener("blur", () => validateEditField(element));
-      element.addEventListener("keydown", handleEnterPress);
+      element.addEventListener("keydown", handleEditEnterPress);
     }
   });
   checkEditFormFields();
