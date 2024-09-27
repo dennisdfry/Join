@@ -40,6 +40,9 @@ function handleFormSubmit(event) {
   addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
   closeFormField();
 }
+
+
+
 function validateForm() {
   let form = document.getElementById('contact-form');
   let submitButton = document.getElementById('formfield-create-btn');
@@ -55,17 +58,16 @@ function validateForm() {
  * @param {HTMLElement} field - The form field to validate.
  */
 function validateField(field) {
-
-  if (!field.checkValidity()) {
-    field.classList.add("input-error");
-    field.setCustomValidity("Please fill out this field correctly.");
-    field.reportValidity(); 
-  } else {
-    field.classList.remove("input-error");
-    field.setCustomValidity(""); 
-    field.reportValidity(); 
+    field.setCustomValidity("");
+    if (!field.checkValidity()) {
+      field.classList.add("input-error");
+      field.setCustomValidity("Please fill out this field correctly.");
+    } else {
+      field.classList.remove("input-error");
+      field.setCustomValidity(""); 
+    }
+    field.reportValidity();
   }
-}
 
 /**
  * Checks if all required fields are filled and enables or disables the submit button accordingly.
