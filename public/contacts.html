@@ -142,7 +142,7 @@
             </div>
             <div class="input-img-div d-flex-center gap-10 pos-rel">
               <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" 
-                     type="email" pattern="[^ @]+@[^ @]+\.[^ @]+" id="mail" name="mail" placeholder="Email" required />
+                     type="email" pattern="^[^ @]+@[^ @]+\.[a-zA-Z]{2,}$" id="mail" name="mail" placeholder="Email" required />
               <img class="pos-abs img-24" src="./img/mail.png" />
             </div>
             <div class="input-img-div d-flex-center gap-10 pos-rel">
@@ -154,7 +154,7 @@
               placeholder="Phone" 
               pattern="^(\+?[0-9]+|0[0-9]+)$" 
               required 
-              oninput="this.value = this.value.replace(/[^0-9+]/g, '')"
+              oninput="this.value = this.value.replace(/[^0-9+]/g, '');validateForm()"
             />
               <img class="pos-abs img-24" src="./img/call.png" />
             </div>
@@ -203,11 +203,11 @@
               <img class="pos-abs img-24" src="./img/person.png" />
             </div>
             <div class="input-img-div d-flex-center gap-10 pos-rel">
-              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="email" id="edit-mail" name="mail" placeholder="Email" required />
+              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="email" id="edit-mail" name="mail" pattern="^[^ @]+@[^ @]+\.[a-zA-Z]{2,}$" placeholder="Email" required />
               <img class="pos-abs img-24" src="./img/mail.png" />
             </div>
             <div class="input-img-div d-flex-center gap-10 pos-rel">
-              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="text" id="edit-phone" name="phone" placeholder="Phone" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')"/>
+              <input class="bradius10 d-flex item-center pointer fs-20 fw-400 l-height-24" type="text" id="edit-phone" name="phone" placeholder="Phone" required oninput="this.value = this.value.replace(/[^0-9+]/g, '');validateForm()"/>
               <img class="pos-abs img-24" src="./img/call.png" />
             </div>
           </form>
