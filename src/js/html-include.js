@@ -52,8 +52,7 @@ async function whichChangeSite(resp, element, file) {
     element.innerHTML = "Page not found";
   }
 }
-
-/**
+ /**
  * Dynamically changes the current page by loading a new HTML file into the main content area.
  * If the loaded page is "contacts.html", it toggles the visibility of the contact list section.
  *
@@ -63,15 +62,14 @@ async function whichChangeSite(resp, element, file) {
  */
 async function changeSite(page, clickedElement) {
   if (isLoading) return;
-  
   document.querySelectorAll('.nav-mid a').forEach(link => {
     link.classList.remove('active');
   });
-  clickedElement.classList.add('active');
-
+  if (clickedElement) {
+    clickedElement.classList.add('active');
+  }
   document.querySelector(".main-content").setAttribute("w3-include-html", page);
   await includeHTML();
-
   if (page === 'contacts.html') {
     toggleElement('.contactlist-section-responsive', 'd-none');
   }
