@@ -317,3 +317,8 @@ header {
     margin-right: 0;
   }
 }
+
+.nav-mid a.active {
+  background-color: #29abe2;
+  color: white;
+}

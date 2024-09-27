@@ -61,8 +61,13 @@ async function whichChangeSite(resp, element, file) {
  * @async
  * @returns {Promise<void>} Resolves when the new HTML content has been successfully loaded.
  */
-async function changeSite(page) {
-  if (isLoading) return;  // Beende, wenn eine Anfrage läuft
+async function changeSite(page, clickedElement) {
+  if (isLoading) return;
+  
+  document.querySelectorAll('.nav-mid a').forEach(link => {
+    link.classList.remove('active');
+  });
+  clickedElement.classList.add('active');
 
   document.querySelector(".main-content").setAttribute("w3-include-html", page);
   await includeHTML();
