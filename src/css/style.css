@@ -152,7 +152,7 @@ body {
 .task-field:hover,
 .board-field:hover,
 .contact-field:hover {
-  background-color: #091931;
+  background-color: #263750;
 }
 
 .nav-down {
@@ -328,7 +328,7 @@ header {
 }
 
 .nav-mid a.active {
-  background-color: #29abe2;
+  background-color: #091931;
   color: white;
   transition: 120ms;
 }
