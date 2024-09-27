@@ -54,20 +54,22 @@ function validateForm() {
 }
 
 /**
- * Validates a single field and shows error messages if invalid.
+ * Validates a single field and shows error messages if invalid, without blocking focus.
  * @param {HTMLElement} field - The form field to validate.
  */
 function validateField(field) {
-    field.setCustomValidity("");
-    if (!field.checkValidity()) {
+  field.setCustomValidity(""); 
+  if (!field.checkValidity()) {
       field.classList.add("input-error");
       field.setCustomValidity("Please fill out this field correctly.");
-    } else {
+  } else {
       field.classList.remove("input-error");
       field.setCustomValidity(""); 
-    }
-    field.reportValidity();
   }
+  if (document.activeElement == field) {
+      field.reportValidity();
+  }
+}
 
 /**
  * Checks if all required fields are filled and enables or disables the submit button accordingly.
