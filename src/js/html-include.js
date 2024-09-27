@@ -52,6 +52,7 @@ async function whichChangeSite(resp, element, file) {
     element.innerHTML = "Page not found";
   }
 }
+
  /**
  * Dynamically changes the current page by loading a new HTML file into the main content area.
  * If the loaded page is "contacts.html", it toggles the visibility of the contact list section.
@@ -74,6 +75,7 @@ async function changeSite(page, clickedElement) {
     toggleElement('.contactlist-section-responsive', 'd-none');
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   includeHTML();
