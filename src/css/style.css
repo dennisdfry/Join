@@ -169,7 +169,7 @@ body {
 }
 
 header {
-  width: 100vw;
+  width: 100%;
   height: 96px;
   box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
 }
@@ -234,6 +234,10 @@ header {
   padding-left: 232px;
   background-color: #f4f4f4;
   min-height: 100vh;
+}
+
+.main-section-wrapper {
+  width: 100vw;
 }
 
 @media (max-width: 1050px) {
