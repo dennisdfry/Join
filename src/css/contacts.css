@@ -50,8 +50,8 @@ body {
 }
 
 #add-contact-btn img {
-  width: 32px;
-  height: 32px;
+ /*width: 32px;
+  height: 32px;*/
 }
 
 #add-contact-btn:hover {

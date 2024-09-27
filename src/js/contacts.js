@@ -6,15 +6,20 @@
 function setupForm() {
   let form = document.getElementById("contact-form");
   if (!form) return;
+  
   form.addEventListener("submit", handleFormSubmit);
+  
   ["name", "mail", "phone"].forEach((id) => {
     let element = document.getElementById(id);
     if (element) {
-      element.addEventListener("input", checkFormFields);
+      element.addEventListener("input", (event) => {
+        validateField(event.target); 
+        checkFormFields();
+      });
+      element.addEventListener("blur", () => validateField(element));
       element.addEventListener("keydown", handleEnterPress);
     }
   });
-
   checkFormFields();
 }
 
@@ -41,15 +46,16 @@ function handleFormSubmit(event) {
  * @param {HTMLElement} field - The form field to validate.
  */
 function validateField(field) {
+
   if (!field.checkValidity()) {
     field.classList.add("input-error");
     field.setCustomValidity("Please fill out this field correctly.");
-    field.reportValidity();
+    field.reportValidity(); 
   } else {
     field.classList.remove("input-error");
-    field.setCustomValidity("");
+    field.setCustomValidity(""); 
+    field.reportValidity(); 
   }
-  //checkFormFields();
 }
 
 /**
@@ -349,7 +355,7 @@ function addMoveInListener(updateBar) {
     if (event.animationName === "moveIn") {
       setTimeout(() => {
         addMoveOutListener(updateBar);
-      }, 100);
+      }, 400);
       updateBar.removeEventListener("animationend", handleMoveIn);
     }
   });
