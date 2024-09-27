@@ -285,8 +285,8 @@ input[type="password"]::-webkit-password-field {
 
   .login-signup {
     width: 80%;
-    position: absolute;
-    bottom: 10%;
+    position: fixed;
+    bottom: 60px;
     right: 0;
     display: flex;
     justify-content: center;
