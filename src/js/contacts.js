@@ -40,6 +40,15 @@ function handleFormSubmit(event) {
   addContact({ name: capitalizeFirstLetter(name), mail, phone, img: document.getElementById("prof-img").value });
   closeFormField();
 }
+function validateForm() {
+  let form = document.getElementById('contact-form');
+  let submitButton = document.getElementById('formfield-create-btn');
+  if (form.checkValidity()) {
+    submitButton.disabled = false;
+  } else {
+    submitButton.disabled = true;
+  }
+}
 
 /**
  * Validates a single field and shows error messages if invalid.
