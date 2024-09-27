@@ -186,12 +186,14 @@ body {
   height: 128px;
 }
 
+
+
 #add-form-section {
   width: 1212px;
   height: 592px;
   animation: moveIn 200ms ease-in 100ms forwards;
-  top: 100px;
-  left: 240px;
+  top: 25%;
+  left: 25%;
   z-index: 999;
 }
 
@@ -237,8 +239,8 @@ body {
   width: 1212px;
   height: 592px;
   animation: moveIn 200ms ease-in 100ms forwards;
-  top: 100px;
-  left: 240px;
+  top: 25%;
+  left: 25%;
   z-index: 1000;
 }
 @keyframes moveIn {
