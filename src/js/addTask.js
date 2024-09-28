@@ -7,9 +7,9 @@ let addTaskArray = [];
 let expanded = false;
 let isValid = true
 let assignedToUserArray = [];
-let assignedToUserArrayNamesGlobal = []; 
+let assignedToUserArrayNamesGlobal = [];
 let imageUrlsGlobal = [];
-let selectedPrio = null; 
+let selectedPrio = null;
 let expandedBody = false;
 
 /**
@@ -23,6 +23,7 @@ async function init() {
     let imageUrls = await fetchImages();
     await assignedTo(contacts, imageUrls);
     prio(2);
+    setTodayDateAddTask()
 
   } catch (error) {
     console.error("Error during initialization:", error);
@@ -98,7 +99,7 @@ async function checkboxInit(names, imageUrls) {
     const imgSrc = imageUrls[index];
     list += checkBoxRender(index, imgSrc, element);
   }
-  position.innerHTML = list; 
+  position.innerHTML = list;
 }
 
 /**
@@ -109,7 +110,7 @@ async function checkboxInit(names, imageUrls) {
  * @returns {string} - The HTML string for the checkbox.
  */
 function checkBoxRender(index, imgSrc, element) {
-  return`
+  return `
     <label class="checkBoxFlex" for="checkbox-${index}" id="checkboxColor${index}">
         <div class="checkBoxImg">
             <img id="assignedToUserImageBorder${index}" src="${imgSrc}" alt="" />
@@ -148,7 +149,7 @@ function assignedtoUserHighlightAdd(index) {
   position.style.color = '#ffffff';
 }
 
-function assignedtoUserHighlightRemove(index){
+function assignedtoUserHighlightRemove(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
   positionOfImage.classList.remove('assignedToUserImage');
@@ -167,7 +168,7 @@ function showCheckboxes(event) {
   if (!expanded) {
     checkboxes.style.display = "block";
     expanded = true;
-    checkboxClickHandler(); 
+    checkboxClickHandler();
   }
   event.stopPropagation();
 }
@@ -197,27 +198,19 @@ function handleAddTaskClick(event) {
 /**
  * Updates the user interface to show selected users in the dropdown.
  */
-// function showUserAdd() {
-//   let position = document.getElementById('userImageShow');
-//   position.innerHTML = '';
-//   for (let index = 0; index < imageUrlsGlobal.length; index++) {
-//     const element = imageUrlsGlobal[index];
- 
-//     position.innerHTML += `<img class="img-48 " src="${element}" alt="" />`;
-//   }
-// }
+
 function showUserAdd() {
   let position = document.getElementById('userImageShow');
-  position.innerHTML = ''; 
+  position.innerHTML = '';
   for (let index = 0; index < imageUrlsGlobal.length; index++) {
     const element = imageUrlsGlobal[index];
     if (index > 3) {
-      const remaining = imageUrlsGlobal.length - 5; 
+      const remaining = imageUrlsGlobal.length - 5;
       position.innerHTML += `
         <div class="img-48 more-users">
           +${remaining}
         </div>`;
-      break; 
+      break;
     }
     position.innerHTML += `<img class="img-48" src="${element}" alt="" />`;
   }
@@ -232,7 +225,7 @@ async function createTask(event) {
   event.preventDefault();
   if (!validateFormAddTask(event.target)) return;
   if (!validatePriorityAddTask()) return;
-  await defineTaskObjects(); 
+  await defineTaskObjects();
   await saveToFirebase();
   resetUIAddTask(event.target);
   changeSite("board.html");
@@ -269,7 +262,7 @@ function resetUIAddTask(form) {
  */
 function checkEnterSubtasks(event) {
   if (event.key === "Enter") {
-    event.preventDefault(); 
+    event.preventDefault();
     let activeElement = document.activeElement;
     let subtaskInput = document.getElementById('subtasks');
     if (activeElement === subtaskInput) {
@@ -300,7 +293,7 @@ function resetFormStateAddTask() {
 /**
  * Gathers data from the form fields and prepares the task object to be saved.
  */
- async function defineTaskObjects() {
+async function defineTaskObjects() {
   let taskTitle = document.getElementById("title").value;
   let taskDescription = document.getElementById("description").value;
   let dueDateTask = document.getElementById("dueDate").value;
@@ -391,7 +384,7 @@ function prioIdCheck(id, position) {
  * Adds a subtask to the subtask array and updates the displayed list.
  */
 
-function clearAddTask(){
+function clearAddTask() {
   document.getElementById("title").value = '';
   document.getElementById("description").value = '';
   document.getElementById("dueDate").value = '';
@@ -399,17 +392,23 @@ function clearAddTask(){
   document.getElementById("subtasksPosition").innerHTML = '';
   document.getElementById("subtasks").innerHTML = '';
   assignedToUserArray = [];
-  assignedToUserArrayNamesGlobal = []; 
+  assignedToUserArrayNamesGlobal = [];
   imageUrlsGlobal = [];
   subtasksArray = [];
   document.getElementById('userImageShow').innerHTML = '';
   init();
 }
 
-function setTodayDate() {
+
+function setTodayDateAddTask() {
   const dateInput = document.getElementById('dueDate');
-  const today = new Date().toISOString().split('T')[0]; 
-  if (!dateInput.value) { 
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.setAttribute('min', today);
+  const nextYear = new Date();
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+  const maxDate = nextYear.toISOString().split('T')[0];
+  dateInput.setAttribute('max', maxDate);
+  if (!dateInput.value) {
     dateInput.value = today;
   }
 }
