@@ -35,9 +35,10 @@ function addSubtask() {
         subtasksPosition.innerHTML += `
                <li id="supplementarySubtask${index}" class="d-flex-between subtasks-edit bradius8">
           <span>${element}</span>
-          <div>
-              <img class="pointer" onclick="deleteSubtask(${index})" src="../public/img/delete.png">
-              <img class="pointer" onclick="editSubtask(${index})" src="../public/img/edit.png">
+          <div class="d-flex item-center">
+              <img class="pointer img-24 p-4 " onclick="deleteSubtask(${index})" src="../public/img/delete.png">
+              <div class="seperator-subtasks"></div>
+              <img class="pointer img-24 p-4 " onclick="editSubtask(${index})" src="../public/img/edit.png">
           </div>
       </li>`;
       }
@@ -47,10 +48,11 @@ function addSubtask() {
     let position = document.getElementById(`supplementarySubtask${index}`);
     let arrayPosition = subtasksArray[index];
     position.innerHTML = `
-        <input id="inputAddTaskSubtasks${index}" required minlength="2" class="" value="${arrayPosition}">
-        <div>
-            <img class="img-24" onclick="deleteSubtask(${index})" src="../public/img/delete.png">
-            <img class="img-24" onclick="validateAndFinish(${index})" src="../public/img/checkAddTask.png" alt="Add">
+        <input class="inputAddTaskSubtasks" id="inputAddTaskSubtasks${index}" required minlength="2" class="" value="${arrayPosition}">
+        <div class="d-flex item-center">
+            <img class="img-24 pointer p-4 " onclick="deleteSubtask(${index})" src="../public/img/delete.png">
+            <div class="seperator-subtasks"></div>
+            <img class="img-24 pointer p-4 " onclick="validateAndFinish(${index})" src="../public/img/checkAddTask.png" alt="Add">
         </div> `;
   }
 
