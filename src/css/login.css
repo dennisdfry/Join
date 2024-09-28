@@ -174,14 +174,13 @@ body {
 
 .login-info {
   position: absolute;
-  top: 85%;
+  bottom: 5%;
 }
 
 .login-info button {
   border: none;
   background-color: rgb(246, 247, 248);
   font-family: "Inter";
-  margin: 50px 0px;
   color: #a8a8a8;
   font-size: 16px;
 }
