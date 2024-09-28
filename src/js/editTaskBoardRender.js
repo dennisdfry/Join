@@ -45,7 +45,7 @@ function showSubtaskControlsEdit(index) {
  */
 function supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML) {
     return `
-    <li id="supplementarySubtaskEdit${i}" class="d-flex-between subtasks-edit bradius8">
+    <li id="supplementarySubtaskEdit${i}" class="d-flex-between subtasksEdit bradius8">
         <span>${updatesubtasks}</span>
         <div>
             <img class="pointer" onclick="deleteSubtaskEdit('${i}','${indexHTML}')" src="../public/img/delete.png">

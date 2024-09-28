@@ -127,9 +127,9 @@
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: none;
-    /* scrollbar-color: #2a3647 #e0e0e0; */
+    scrollbar-color: #2a3647 #e0e0e0;
     -ms-overflow-style: none;
-  }
+   } 
   
   
   .subtasksList::-webkit-scrollbar {
@@ -222,7 +222,6 @@
     background: none;
     box-shadow: none;
     outline: none;
-    padding-left:16px;
     background-color: #ffffff;
     height:32px;
   }
@@ -234,3 +233,15 @@
     margin:1px;
     background-color: #ffffff;
   }
+
+.subtasks-edit:hover{
+  background-color:#a8a8a8 ;
+}
+.subtasks-edit-input{
+  padding-left:16px;
+  padding-right:16px;
+  height:32px;
+  margin:1px;
+  background-color: #ffffff;
+  border-bottom:1px solid #29abe2;
+}

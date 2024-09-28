@@ -44,15 +44,19 @@ function addSubtask() {
       }
     }
   }
+
+
   function editSubtask(index) {
     let position = document.getElementById(`supplementarySubtask${index}`);
+    position.classList.remove('subtasks-edit');
+    position.classList.add('subtasks-edit-input');
     let arrayPosition = subtasksArray[index];
     position.innerHTML = `
-        <input class="inputAddTaskSubtasks" id="inputAddTaskSubtasks${index}" required minlength="2" class="" value="${arrayPosition}">
+        <input class="inputAddTaskSubtasks fs-16" id="inputAddTaskSubtasks${index}" required minlength="2" class="" value="${arrayPosition}">
         <div class="d-flex item-center">
-            <img class="img-24 pointer p-4 " onclick="deleteSubtask(${index})" src="../public/img/delete.png">
+            <img class="img-24 pointer p-4" onclick="deleteSubtask(${index})" src="../public/img/delete.png">
             <div class="seperator-subtasks"></div>
-            <img class="img-24 pointer p-4 " onclick="validateAndFinish(${index})" src="../public/img/checkAddTask.png" alt="Add">
+            <img class="img-24 pointer p-4" onclick="validateAndFinish(${index})" src="../public/img/checkAddTask.png" alt="Add">
         </div> `;
   }
 
