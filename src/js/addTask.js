@@ -197,12 +197,29 @@ function handleAddTaskClick(event) {
 /**
  * Updates the user interface to show selected users in the dropdown.
  */
+// function showUserAdd() {
+//   let position = document.getElementById('userImageShow');
+//   position.innerHTML = '';
+//   for (let index = 0; index < imageUrlsGlobal.length; index++) {
+//     const element = imageUrlsGlobal[index];
+ 
+//     position.innerHTML += `<img class="img-48 " src="${element}" alt="" />`;
+//   }
+// }
 function showUserAdd() {
   let position = document.getElementById('userImageShow');
-  position.innerHTML = '';
+  position.innerHTML = ''; 
   for (let index = 0; index < imageUrlsGlobal.length; index++) {
     const element = imageUrlsGlobal[index];
-    position.innerHTML += `<img class="img-32 p-4" src="${element}" alt="" />`;
+    if (index > 3) {
+      const remaining = imageUrlsGlobal.length - 5; 
+      position.innerHTML += `
+        <div class="img-48 more-users">
+          +${remaining}
+        </div>`;
+      break; 
+    }
+    position.innerHTML += `<img class="img-48" src="${element}" alt="" />`;
   }
 }
 /**

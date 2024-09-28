@@ -259,7 +259,10 @@
   width: 32px;
   height: 32px;
 }
-
+.img-48 {
+  width: 48px;
+  height: 48px;
+}
 .form-prof-img {
   width: 120px;
   height: 120px;
