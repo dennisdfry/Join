@@ -112,7 +112,7 @@ function checkBoxRender(index, imgSrc, element) {
   return`
     <label class="checkBoxFlex" for="checkbox-${index}" id="checkboxColor${index}">
         <div class="checkBoxImg">
-            <img src="${imgSrc}" alt="" />
+            <img id="assignedToUserImageBorder${index}" src="${imgSrc}" alt="" />
             ${element}
         </div>
         <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${index}','${element}','${imgSrc}')" />
@@ -142,14 +142,16 @@ async function assignedToUser(index, element, imgSrc) {
 }
 function assignedtoUserHighlightAdd(index) {
   let position = document.getElementById(`checkboxColor${index}`);
-  let positionOfCkeckArea = document.getElementById(`checkbox-${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  positionOfImage.classList.add('assignedToUserImage');
   position.style.backgroundColor = '#2a3647';
   position.style.color = '#ffffff';
 }
 
 function assignedtoUserHighlightRemove(index){
   let position = document.getElementById(`checkboxColor${index}`);
-  let positionOfCkeckArea = document.getElementById(`checkbox-${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  positionOfImage.classList.remove('assignedToUserImage');
   position.style.backgroundColor = '#ffffff';
   position.style.color = '#2a3647';
 }
@@ -378,6 +380,7 @@ function clearAddTask(){
   document.getElementById("dueDate").value = '';
   document.getElementById("taskCategory").value = '';
   document.getElementById("subtasksPosition").innerHTML = '';
+  document.getElementById("subtasks").innerHTML = '';
   assignedToUserArray = [];
   assignedToUserArrayNamesGlobal = []; 
   imageUrlsGlobal = [];
@@ -385,8 +388,6 @@ function clearAddTask(){
   document.getElementById('userImageShow').innerHTML = '';
   init();
 }
-
-
 
 function setTodayDate() {
   const dateInput = document.getElementById('dueDate');

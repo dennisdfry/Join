@@ -372,3 +372,8 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
+
+.assignedToUserImage{
+  border-radius: 50%;
+  border: 1px solid white;
+}
