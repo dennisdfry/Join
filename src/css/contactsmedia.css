@@ -169,14 +169,8 @@
     display: flex;
     position: fixed;
     bottom: 15%;
-    left: 300px;
+    right: 10%;
     cursor: pointer;
-  }
-
-  #add-form-section,
-  #edit-contact-section {
-    top: 11%;
-    left: 2%;
   }
 
   .add-contact-seperator {
