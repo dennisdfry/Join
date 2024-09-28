@@ -205,7 +205,7 @@ function showUserAdd() {
   for (let index = 0; index < imageUrlsGlobal.length; index++) {
     const element = imageUrlsGlobal[index];
     if (index > 3) {
-      const remaining = imageUrlsGlobal.length - 5;
+      const remaining = imageUrlsGlobal.length - 4;
       position.innerHTML += `
         <div class="img-48 more-users">
           +${remaining}
