@@ -178,7 +178,7 @@ header {
 }
 
 .head {
-  max-width: 1440px;
+  max-width: 1920px;
   padding: 20px 40px;
   font-size: 20px;
   line-height: 24px;
@@ -219,9 +219,9 @@ header {
   border-radius: 20px 0px 20px 20px;
   width: 150px;
   gap: 8px;
-  position: absolute;
+  position: fixed;
   margin-right: 80px;
-  top: 11.5%;
+  top: 100px;
   align-items: start !important;
   z-index: 100;
 }
