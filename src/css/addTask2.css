@@ -4,6 +4,7 @@
     align-items: center;
     border-radius: 10px;
     margin: 1px;
+
   }
   
   .checkBoxFlex:hover {
@@ -187,7 +188,7 @@
     border: 1px solid #d1d1d1;
   }
   .subtask-button {
-    height: 52px;
+    height: 48px;
     background: none;
     border: none;
     cursor: pointer;
