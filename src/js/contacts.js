@@ -319,6 +319,7 @@ function showEditForm(contactId) {
   document.getElementById("edit-contact-form").setAttribute("data-id", contactId);
   loadEditFormData(contactId);
   document.getElementById("edit-contact-form").addEventListener("keydown", handleEditEnterPress);
+  setupEditForm();
 }
 
 /**
