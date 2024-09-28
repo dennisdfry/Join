@@ -252,6 +252,7 @@ function validateEditField(field) {
 /**
  * Validates the name field.
  * @param {string} name - The name to validate.
+ * E.164 Validation with 0 and space allowance
  * @returns {boolean} - True if valid, false otherwise.
  */
 function validateName(name) {
@@ -265,8 +266,8 @@ function validateName(name) {
 * @returns {boolean} - True if valid, false otherwise.
 */
 function validatePhone(phone) {
-  const phoneRegex = /^(\+|0)[0-9]{1,3}([\\s-]?([0-9]{1,4}[\\s-]?)?[0-9]{3,4}[\\s-]?[0-9]{3,4})?$/;
-  return phoneRegex.test(phone);
+  const phoneRegex = /^(0\d{1,14}|\+?[1-9]\d{0,14})(\s?\d+)*$/;
+  return phoneRegex.test(phone.trim());
 }
 
 /**
