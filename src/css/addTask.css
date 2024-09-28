@@ -336,3 +336,39 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   color: #007cee;
   transform: scale(1.1);
 }
+.assignedToUserCheckbox{
+  appearance: none;
+  border: 2px solid #2a3647;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.assignedToUserCheckbox {
+  appearance: none; /* Entfernt das Standarddesign */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #2a3647;
+  border-radius: 5px;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Checkbox wird beim Klicken ausgefüllt */
+.assignedToUserCheckbox:checked {
+  background-color: #2a3647;
+  border-color: #ffffff;
+}
+
+/* Hinzufügen des Häkchens im Kästchen */
+.assignedToUserCheckbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 5px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

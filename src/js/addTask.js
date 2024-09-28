@@ -110,12 +110,12 @@ async function checkboxInit(names, imageUrls) {
  */
 function checkBoxRender(index, imgSrc, element) {
   return`
-    <label class="checkBoxFlex" for="checkbox-${index}">
+    <label class="checkBoxFlex" for="checkbox-${index}" id="checkboxColor${index}">
         <div class="checkBoxImg">
             <img src="${imgSrc}" alt="" />
             ${element}
         </div>
-        <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${index}','${element}','${imgSrc}')" />
+        <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUser('${index}','${element}','${imgSrc}')" />
     </label>`;
 }
 
@@ -132,13 +132,20 @@ async function assignedToUser(index, element, imgSrc) {
     assignedToUserArray.splice(arrayIndex, 1);
     assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
     imageUrlsGlobal.splice(arrayIndex, 1);
+    assignedtoUserHighlightRemove(index);
   } else {
     assignedToUserArray.push(index);
     assignedToUserArrayNamesGlobal.push(element);
     imageUrlsGlobal.push(imgSrc);
+    assignedtoUserHighlightAdd(index);
   }
 }
-
+function assignedtoUserHighlightAdd(index) {
+  let position = document.getElementById(`checkboxColor${index}`);
+  let positionOfCkeckArea = document.getElementById(`checkbox-${index}`);
+  position.style.backgroundColor = '#2a3647';
+  position.style.color = '#ffffff';
+}
 /**
  * Toggles the visibility of the "Assigned To" dropdown.
  */
