@@ -266,10 +266,9 @@ function validateName(name) {
 * @returns {boolean} - True if valid, false otherwise.
 */
 function validatePhone(phone) {
-  const phoneRegex = /^(0\d{1,14}|\+?[1-9]\d{0,14})(\s?\d+)*$/;
+  const phoneRegex = /^(0\d{1,14}|\+[1-9]\d{0,14})(\s?\d+)*$/;
   return phoneRegex.test(phone.trim());
 }
-
 /**
  * Validates an email address using a regular expression.
  * @param {string} email - The email address to validate.
