@@ -55,6 +55,7 @@
   }
   
   
+  
   #checkboxes {
     display: none;
     border: none;
@@ -65,22 +66,16 @@
     width: 475px;
     height: 200px;
     overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-width: none;
-    scrollbar-color: #2a3647 #e0e0e0;
-    -ms-overflow-style: none;
-  }
-  
+    overflow-y: auto; /* Scrollen für den Y-Achse (vertikal) */
+    scrollbar-color: #2a3647 #e0e0e0; /* Farbe des Scrollbalkens und der Spur */
+    scrollbar-width: thin; /* Schmaler Scrollbalken (nur Firefox) */
+}
   #checkboxes img,
   #checkboxes2 img {
     height: 42px;
     width: 42px;
   }
   
-  #checkboxes::-webkit-scrollbar,
-  #checkboxes2::-webkit-scrollbar  {
-    display: none;
-  }
   #checkboxes::-webkit-scrollbar-thumb,
   #checkboxes2::-webkit-scrollbar-thumb {
     background-color: #2a3647;
