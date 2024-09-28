@@ -20,7 +20,7 @@
   width: 976.25px;
   height: 424px;
   position: absolute;
-  left: 328px;
+  left: 280px;
 }
 
 .add-task-head {
@@ -54,13 +54,13 @@
 }
 
 .add-task-form-left-section {
-  width: 90%;
+  width: 75%;
   display: flex;
   flex-direction: column;
 }
 
 .add-task-form-right-section {
-  width: 90%;
+  width: 75%;
   display: flex;
   flex-direction: column;
 }
@@ -289,10 +289,11 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   height: 56px;
   gap: 16px;
   display: flex;
-  position: absolute;
-  top: 680px;
-  left: 712px;
+  position: relative;
+  bottom: 10%;
+  left: 72%;
 }
+
 .add-task-create-button {
   background-color: rgb(42, 54, 71);
   color: #ffffff;

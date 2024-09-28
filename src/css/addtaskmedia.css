@@ -15,7 +15,9 @@
   }
 
   .add-task-finish-button-container {
-    left: 50%;
+    position: absolute;
+    bottom: -20%;
+    left: 0;
   }
 
   .add-Task-Container {
@@ -67,7 +69,7 @@
   }
 
   .add-Task-Container {
-    width: 98%;
+    width: 96%;
     height: 80vh;
     position: absolute;
     top: 100px;
@@ -105,7 +107,6 @@
     margin-top: 0;
     flex-direction: column;
     position: absolute;
-    top: 160px;
   }
   .add-task-seperator {
     display: none;
@@ -117,7 +118,8 @@
 
   .add-task-finish-button-container {
     background-color: #f6f7f8;
-    position: relative;
+    position: absolute;
+    bottom: -12%;
     padding-bottom: 2px;
     transform: none;
   }
