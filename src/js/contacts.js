@@ -193,10 +193,12 @@ async function handleEditFormSubmit(event) {
   try {
     const updatedContact = await getUpdatedContact(contactId);
     await replaceContact(contactId, updatedContact);
-    handleSuccess();
+
   } catch (error) {
     console.error("Error updating contact:", error);
   }
+  closeEditField();
+  showUpdateBar();
 }
 
 /**
@@ -317,9 +319,9 @@ function handleEditEnterPress(event) {
 function showEditForm(contactId) {
   showFormField("edit-contact-section", "edit-overlay", handleOutsideEditFormClick);
   document.getElementById("edit-contact-form").setAttribute("data-id", contactId);
-  loadEditFormData(contactId);
-  document.getElementById("edit-contact-form").addEventListener("keydown", handleEditEnterPress);
   setupEditForm();
+  loadEditFormData(contactId);
+
 }
 
 /**
@@ -328,7 +330,6 @@ function showEditForm(contactId) {
 function closeEditField() {
   closeFormField("edit-contact-section", "edit-overlay", ["edit-name", "edit-mail", "edit-phone"]);
   document.removeEventListener("click", handleOutsideEditFormClick);
-  document.getElementById("edit-contact-form").removeEventListener("keydown", handleEditEnterPress);
 }
 
 /**
@@ -350,13 +351,6 @@ async function getUpdatedContact(contactId) {
   };
 }
 
-/**
- * Handles successful contact update.
- */
-function handleSuccess() {
-  showUpdateBar();
-  closeEditField();
-}
 
 /**
  * Closes the form when a click outside the form occurs.
