@@ -333,7 +333,7 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
 
 .add-task-cancel-button:hover {
   cursor: pointer;
-  border: 1px solid #29abe2;;
+  border: 1px solid #29abe2;
   color: #007cee;
   transform: scale(1.1);
 }
