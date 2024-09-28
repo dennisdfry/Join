@@ -291,6 +291,7 @@
   .contactlist-section-responsive,
   .contactlist-content {
     width: 100% !important;
+    height: 100% !important;
   }
 
   #add-form-section,
@@ -352,12 +353,6 @@
     position: absolute;
     top: 90%;
     left: 20%;
-  }
-
-  .contactlist-section-responsive {
-    position: absolute;
-    top: 3%;
-    height: 530px;
   }
 
   .contact-section-header-resp {

@@ -238,10 +238,9 @@ body {
   width: 1212px;
   height: 592px;
   animation: moveIn 200ms ease-in 100ms forwards;
-  top: 25%;
-  left: 25%;
   z-index: 1000;
 }
+
 @keyframes moveIn {
   0% {
     visibility: visible;
