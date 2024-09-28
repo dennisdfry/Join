@@ -9,17 +9,21 @@
     width: 78vw;
     height: 68vh;
   }
+
   .board-render-section::-webkit-scrollbar {
     display: none;
   }
+
   .board-render-section::-webkit-scrollbar-thumb {
     background-color: #2a3647;
     border-radius: 8px;
   }
+
   .board-render-section::-webkit-scrollbar-track {
     background-color: #e0e0e0;
     border-radius: 8px;
   }
+
   .board-render-section::-webkit-scrollbar-thumb {
     height: 53px;
   }
@@ -30,8 +34,6 @@
     overflow-y: hidden;
     min-height: 48px;
   }
-  
-  
 
   .board-task-column {
     flex-direction: row;
@@ -48,22 +50,25 @@
     min-width: 48px;
     width: auto;
   }
+
   .board-render-status-container::-webkit-scrollbar {
     display: none;
   }
+
   .board-render-status-container::-webkit-scrollbar-thumb {
     background-color: #2a3647;
     border-radius: 8px;
   }
+
   .board-render-status-container::-webkit-scrollbar-track {
     background-color: #e0e0e0;
     border-radius: 8px;
   }
+
   .board-render-status-container::-webkit-scrollbar-thumb {
     height: 53px;
   }
   
-
   .board-task-container {
     max-height: 35vh;
     width: 252px !important;
@@ -192,8 +197,7 @@
   }
 
   .board-render-section {
-    height: 68vh;
-    width: 88vh;
+    height: 50vh;
   }
 
   .board-render-status-container {
