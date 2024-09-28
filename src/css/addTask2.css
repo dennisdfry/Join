@@ -127,7 +127,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: none;
-    scrollbar-color: #2a3647 #e0e0e0;
+    /* scrollbar-color: #2a3647 #e0e0e0; */
     -ms-overflow-style: none;
   }
   
@@ -217,4 +217,20 @@
     flex-grow: 1;
     padding-left: 16px;
   }
-  
+  .inputAddTaskSubtasks{
+    border: none;
+    background: none;
+    box-shadow: none;
+    outline: none;
+    padding-left:16px;
+    background-color: #ffffff;
+    height:32px;
+  }
+
+  .subtasks-edit{
+    padding-left:16px;
+    padding-right:16px;
+    height:32px;
+    margin:1px;
+    background-color: #ffffff;
+  }
