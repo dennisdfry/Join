@@ -146,6 +146,13 @@ function assignedtoUserHighlightAdd(index) {
   position.style.backgroundColor = '#2a3647';
   position.style.color = '#ffffff';
 }
+
+function assignedtoUserHighlightRemove(index){
+  let position = document.getElementById(`checkboxColor${index}`);
+  let positionOfCkeckArea = document.getElementById(`checkbox-${index}`);
+  position.style.backgroundColor = '#ffffff';
+  position.style.color = '#2a3647';
+}
 /**
  * Toggles the visibility of the "Assigned To" dropdown.
  */
