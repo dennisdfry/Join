@@ -196,10 +196,6 @@
     font-size: 20px;
   }
 
-  .board-render-section {
-    height: 50vh;
-  }
-
   .board-render-status-container {
     flex-direction: row;
     overflow-x: scroll;
