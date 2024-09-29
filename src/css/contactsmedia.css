@@ -252,7 +252,7 @@
     display: flex !important;
     position: fixed;
     bottom: 15%;
-    right: 30px;
+    right: 10%;
     cursor: pointer;
   }
 
@@ -290,7 +290,7 @@
   .contactlist-section-responsive,
   .contactlist-content {
     width: 100% !important;
-    height: 100% !important;
+    height: 85% !important;
   }
 
   #add-form-section,
