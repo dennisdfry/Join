@@ -153,10 +153,6 @@
     left: 0;
   }
 
-  .contactlist-seperator {
-    width: 45%;
-  }
-
   .contactlist-section > * {
     margin: 0;
   }
@@ -286,22 +282,11 @@
   }
 }
 
-@media (max-width: 770px) {
-  
-  .contactlist-seperator {
-    width: 100%;
-  }
-}
-
 @media (max-width: 380px) {
   .add-contact-btn-responsive,
   .contact-options-menu {
     bottom: 15%;
     right: 5%;
-  }
-  
-  .contactlist-seperator {
-    width: 100%;
   }
   
   .contactlist-section,
