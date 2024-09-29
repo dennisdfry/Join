@@ -252,7 +252,6 @@ function validateEditField(field) {
 /**
  * Validates the name field.
  * @param {string} name - The name to validate.
- * E.164 Validation with 0 and space allowance
  * @returns {boolean} - True if valid, false otherwise.
  */
 function validateName(name) {
@@ -262,6 +261,7 @@ function validateName(name) {
 
 /**
 * Validates the phone number field.
+ * E.164 Validation with 0 and space allowance
 * @param {string} phone - The phone number to validate.
 * @returns {boolean} - True if valid, false otherwise.
 */

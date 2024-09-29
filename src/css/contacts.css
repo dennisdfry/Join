@@ -47,8 +47,8 @@ body {
 }
 
 #add-contact-btn {
-  width: 352px;
-  height: 56px;
+  width: 322px;
+  height: 52px;
   padding: 12px 0px 12px 0px;
 }
 
@@ -58,7 +58,7 @@ body {
 }
 
 .contactlist-content {
-  height: 75vh;
+  height: 80vh;
   width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -130,7 +130,7 @@ body {
   width: 100%;
   margin-bottom: 8px;
   border-bottom: 1px solid #d1d1d1;
-  margin-left: 48px;
+ /* margin-left: 48px;*/
 }
 
 .contact-section-header {
