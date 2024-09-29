@@ -22,6 +22,7 @@
 
   .add-Task-Container {
     height: 89vh;
+    width: 70%;
   }
 
   form {
