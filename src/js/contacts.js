@@ -255,7 +255,7 @@ function validateEditField(field) {
  * @returns {boolean} - True if valid, false otherwise.
  */
 function validateName(name) {
-  const nameRegex = /^[A-Za-z\s]{3,}$/; 
+  const nameRegex = /^[A-Za-zÄÖÜäöüß\s]{3,}$/; 
   return nameRegex.test(name);
 }
 
