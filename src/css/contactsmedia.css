@@ -5,6 +5,10 @@
     border-bottom: 3px solid #29abe2;
   }
 
+  .contactlist-seperator {
+    width: 40%;
+  }
+
   .contact-section-seperator {
     display: none;
   }
@@ -149,6 +153,10 @@
     left: 0;
   }
 
+  .contactlist-seperator {
+    width: 45%;
+  }
+
   .contactlist-section > * {
     margin: 0;
   }
@@ -278,6 +286,13 @@
   }
 }
 
+@media (max-width: 770px) {
+  
+  .contactlist-seperator {
+    width: 100%;
+  }
+}
+
 @media (max-width: 380px) {
   .add-contact-btn-responsive,
   .contact-options-menu {
@@ -285,6 +300,9 @@
     right: 5%;
   }
   
+  .contactlist-seperator {
+    width: 100%;
+  }
   
   .contactlist-section,
   .contactlist-section-responsive,
@@ -383,6 +401,7 @@
     top: 100px;
     left: 0;
   }
+
   .contact-information img {
     width: 80px;    
     height: 80px;
