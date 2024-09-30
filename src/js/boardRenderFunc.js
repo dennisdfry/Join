@@ -54,36 +54,43 @@ async function userNamesRender(index) {
  * @returns {Promise<string>} - A promise that resolves to the HTML string.
  */
 window.htmlboard = async function (index, category, title, description, date, prio) {
-  return `
-    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
-        <div class="d-flex-between">
-            <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
-            <img src="/public/img/dots.png" id="dots-parent-container" class="d-none">
-            <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
-        </div>
-        <div class="width220 mg-top-4">
-            <h2 class="mg-block-none fs-16 fw-700">${title}</h2> 
-        </div>
-        <div class="mg-bot-4 mg-top-4">  
-            <p class="mg-block-none fs-16 fw-400 color-gr width220" id="limitTextDesciption${index}">${description}</p>
-        </div> 
-        <div class="progress-container d-flex-between width220">
-            <div id="hideProgressBar${index}" class="width128">
-                <div id="progressBar${index}" class="progress-bar pointer"></div>
-            </div>
-            <div id="hideProgressAmount${index}" class="d-flex">
-                <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
-                <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
-            </div>
-        </div>
-        <div class="d-flex-between width220">
-            <div class="user-image-bord-container" id="userImageBoard${index}">
-            </div>
-            <div class="img-32 d-flex-center" id="prioPosition${index}">
-            </div>
-        </div>  
-    </div>`;
-};
+    return `
+      <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
+          <div class="d-flex-between" style="position: relative;"> <!-- Position relativ zum Dropdown-Menü -->
+              <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
+              <img src="/public/img/dots.png" id="dots-parent-container${index}" onclick="toggleElement('#taskDropdown${index}', 'd-none')">
+              <div id="taskDropdown${index}" class="task-dropdown d-flex-start flex-d-col p-10 d-none">
+                  <span>Move to:</span>
+                  <a href="#">ToDo</a>
+                  <a href="#">Progress</a>
+                  <a href="#">Feedback</a>
+                  <a href="#">Done</a>
+                </div>
+              <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
+          </div>
+          <div class="width220 mg-top-4">
+              <h2 class="mg-block-none fs-16 fw-700">${title}</h2> 
+          </div>
+          <div class="mg-bot-4 mg-top-4">  
+              <p class="mg-block-none fs-16 fw-400 color-gr width220" id="limitTextDesciption${index}">${description}</p>
+          </div> 
+          <div class="progress-container d-flex-between width220">
+              <div id="hideProgressBar${index}" class="width128">
+                  <div id="progressBar${index}" class="progress-bar pointer"></div>
+              </div>
+              <div id="hideProgressAmount${index}" class="d-flex">
+                  <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
+                  <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
+              </div>
+          </div>
+          <div class="d-flex-between width220">
+              <div class="user-image-bord-container" id="userImageBoard${index}">
+              </div>
+              <div class="img-32 d-flex-center" id="prioPosition${index}">
+              </div>
+          </div>  
+      </div>`;
+  };
 
 /**
  * Generates HTML for an open task view.

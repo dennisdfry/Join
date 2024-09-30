@@ -6,6 +6,7 @@
  * @param {string} className - The class name to be toggled on the element.
  */
 function toggleElement(elementClass, className) {
+  event.stopPropagation();
   const element = document.querySelector(elementClass);
   if (element.classList.contains(className)) {
     element.classList.remove(className);
