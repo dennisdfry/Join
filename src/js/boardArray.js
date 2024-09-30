@@ -34,6 +34,12 @@ async function initDataBoard(){
     console.error("Error loading tasks:", error);
   }
 }
+async function onloadDataBoard(path = "") {
+  let response = await fetch(BASE_URL + path + ".json");
+  let responseToJson = await response.json();
+  return responseToJson;
+}
+
 async function fetchImagesUrlsBoardNew(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();

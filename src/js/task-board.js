@@ -40,11 +40,7 @@ let currentDraggedElement;
  * @returns {Promise<Object>} A promise that resolves to the task data.
  * @async
  */
-async function onloadDataBoard(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  return responseToJson;
-}
+
 
 /**
  * Fetches and loads images for the board from the specified path.
