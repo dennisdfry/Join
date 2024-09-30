@@ -58,6 +58,7 @@ window.htmlboard = async function (index, category, title, description, date, pr
     <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
         <div class="d-flex-between">
             <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
+            <img src="/public/img/dots.png" id="dots-parent-container" class="d-none">
             <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
         </div>
         <div class="width220 mg-top-4">
@@ -152,17 +153,17 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
   return `
   <form onsubmit="handleFormSubmitEdit(event, ${index}, '${category}')">
     <div class="board-task-container-open edit-board-form bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
-        <div class="edit-board-form2 "> 
+        <div class="edit-board-form2"> 
           <div class="d-flex-between margin-bt8">
               <h1 id="categoryColorEdit${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTaskEdit(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
-          <div class="margin-bt8 width445">
+          <div class="margin-bt8 full-width">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Title:</p>
-              <input required minlength="2" onclick="editTitle(${index})" id="inputEditTitle${index}"  class="title-edit-input width445" type="text"
+              <input required minlength="2" onclick="editTitle(${index})" id="inputEditTitle${index}"  class="title-edit-input full-width" type="text"
                         value="${title}" name="title">
           </div>
-          <div class="margin-bt8 width445">  
+          <div class="margin-bt8 full-width">  
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Description:</p>
               <textarea required minlength="2" onclick="editDescription(${index})" id="descriptionEdit${index}"  class="edit-task-textarea full-width" 
                         name="description">${description}</textarea>
@@ -218,14 +219,14 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
                         </div>
                     </div>
                     <ul class="subtasksListEdit" id="subtasksPosition${index}"></ul> 
-          <div class="d-flex-end">
+          
             <div class=" d-flex content-even edit-task-button-div">
              <button class="pointer edit-task-button" id="edit-Add-Btn">
                 <span class="fs-16 mg-block-none fs-21 f-weight-700 img-24">Edit</span>
                 <img class="open-task-delete-edit img" src="../public/img/check2.png">
              </button> 
             </div>
-          </div> 
+           
         </div>  
     </div>
     </form>

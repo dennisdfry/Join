@@ -269,7 +269,7 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
 }
 
 .add-task-prio-button-container {
-  width: 440px;
+  width: 100%;
   height: 88px;
   gap: 8px;
   display: flex;

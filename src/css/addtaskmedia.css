@@ -26,7 +26,6 @@
   }
 
   form {
-    height: 930px;
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
@@ -279,7 +278,10 @@
   }
 
   form {
+    position: relative;
+    top: 10%;
     width: 95%;
+    height: 100%;
   }
 
   .add-task-finish-button-container {

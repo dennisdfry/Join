@@ -165,7 +165,7 @@
 .edit-task-textarea {
   min-height: 120px;
   border-radius: 10px;
-  max-width: 434px;
+  width: 100%;
   outline: none;
   border: 1px solid #a8a8a8;
   font-size: 20px;
@@ -231,7 +231,6 @@
 
 .title-edit-input {
   border-radius: 10px;
-  max-width: 434px;
   height: 48px;
   outline: none;
   border: 1px solid #a8a8a8;

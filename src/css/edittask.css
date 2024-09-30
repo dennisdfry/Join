@@ -279,11 +279,6 @@
   padding-inline-start: 0px;
 }
 
-.edit-task-button-div {
-  position: absolute;
-  top: 690px;
-  left: 380px;
-}
 
 .edit-task-button {
   background-color: rgb(42, 54, 71);
@@ -309,13 +304,14 @@
 
 .edit-board-form {
   position: relative;
-  max-height: 80%;
+  height: 100%;
+  width: 100%;
   flex-grow: 1;
 }
 
 .edit-board-form2 {
-  max-height: 100%;
-  width: 446px;
+  height: 100%;
+  width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
