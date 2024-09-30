@@ -1,77 +1,6 @@
 
 let currentDraggedElement;
 
-/**
- * Loads the task board data, fetches images, and generates HTML elements.
- * The function resets the global task keys array, loads task data, fetches images,
- * generates HTML objects for tasks, and updates status messages on the board.
- *
- * @async
- */
-
-// async function loadingBoard() {
-//   try {
-//     taskkeysGlobal.length = 0;
-//     task = await onloadDataBoard("/tasks");
-//     let fetchImage = await fetchImagesBoard("/");
-//     if (!task || typeof task !== "object") {
-//       console.warn("No valid task data available.");
-//       return;
-//     }
-//     taskkeys = Object.keys(task);
-//     if (taskkeys.length === 0) {
-//       console.warn("No tasks found.");
-//       return;
-//     }
-
-//     taskkeysGlobal.push(taskkeys);
-//     await generateHTMLObjects(taskkeys, task);
-//     await generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage);
-//     updateStatusMessages();
-//   } catch (error) {
-//     console.error("Error loading tasks:", error);
-//   }
-// }
-
-/**
- * Fetches and loads task data from the specified path.
- *
- * @param {string} [path=""] - The path to fetch the task data from.
- * @returns {Promise<Object>} A promise that resolves to the task data.
- * @async
- */
-
-
-/**
- * Fetches and loads images for the board from the specified path.
- *
- * @param {string} [path=""] - The path to fetch the images from.
- * @returns {Promise<Array<string>>} A promise that resolves to an array of image URLs.
- * @async
- */
-async function fetchImagesBoard(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  let contacts = responseToJson.contacts;
-  let imageUrl = Object.values(contacts).map((contact) => contact.img);
-  assignedTo2(contacts, imageUrl);
-  return imageUrl;
-}
-
-/**
- * Generates and positions HTML elements for each task on the board.
- *
- * @param {Array<string>} taskkeys - Array of task keys to be processed.
- * @param {Object} task - The task data object containing details of each task.
- * @async
- */
-async function generateHTMLObjects(taskkeys, task) {
-  for (let index = 0; index < taskkeys.length; index++) {
-    const { category, description, dueDate, prio, title, boardCategory } = task[taskkeys[index]][0];
-    await positionOfHTMLBlock(index, category, title, description, dueDate, prio, boardCategory);
-  }
-  searchTasks();
-}
 
 /**
  * Clears and updates the HTML content of task categories on the board.
@@ -89,7 +18,7 @@ async function updateHTML() {
   }
 
   try {
-    await loadingBoard();
+    await initDataBoard();
   } catch (error) {
     console.error("Error updating HTML content:", error);
   }

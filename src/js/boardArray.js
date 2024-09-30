@@ -441,7 +441,7 @@ function openTaskToBoardHtml(index, category, description, dueDate, prio, title,
             <div class="d-flex item-center">
               <div onclick="deleteTask(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none">Delete</p></div>
               <div class="seperator-opentask"></div>
-              <div onclick="editOpenTask('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}') class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none">Edit</p></div>
+              <div onclick="editOpenTask('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none">Edit</p></div>
             </div>
           </div>
         </div>  
