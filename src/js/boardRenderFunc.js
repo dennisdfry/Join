@@ -1,34 +1,3 @@
-/**
- * Generates HTML for an image to be displayed on a board.
- * @param {string} imageUrl - The URL of the image to display.
- * @param {number} index - The index associated with the image.
- * @returns {Promise<string>} - A promise that resolves to the HTML string.
- */
-// async function htmlBoardImage(imageUrl) {
-//   return `
-//     <div class="image-div">
-//       <img class="user-image-board img-32" src="${imageUrl}">
-//     </div>`;
-// }
-
-/**
- * Renders the number of subtasks for a given task and updates the display.
- * @param {number} indexHtml - The index of the task for which subtasks are being rendered.
- * @param {Array} subtasks - An array of subtasks to render.
- * @returns {Promise<void>}
- */
-async function subtasksRender(indexHtml, subtasks) {
-  subtasksLengthArray.push({
-    position: indexHtml,
-    subs: subtasks,
-  });
-  let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
-  if (Array.isArray(subtasks)) {
-    positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
-  } else {
-    positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
-  }
-}
 
 /**
  * Renders the user names associated with a task.
@@ -42,6 +11,7 @@ async function userNamesRender(index) {
     position.innerHTML += `<p class="d-flex item-center fs-20 fw-400">${element}</p>`;
   }
 }
+
 
 /**
  * Generates HTML for a task card to be displayed on the board.
