@@ -115,7 +115,8 @@ function searchTasks() {
 
     if (task.id.startsWith("parentContainer")) {
       let title = task.getElementsByTagName("h2")[0].innerHTML.toLowerCase();
-      if (searchInput.length < 3 || title.includes(searchInput)) {
+      let discript = task.getElementsByTagName("p")[0].innerHTML.toLowerCase();
+      if (searchInput.length < 3 || title.includes(searchInput) || discript.includes(searchInput)) {
         task.style.display = "block";
       } else {
         task.style.display = "none";
