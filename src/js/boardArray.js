@@ -67,10 +67,11 @@ async function fetchUserNamesBoardNew(path = "") {
 async function generateHTMLObjectsBoard(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
     const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus} = task[taskkeys[index]][0];
+    console.log(dueDate)
     taskArrayBoard.push({
       title: title,
       description: description,
-      date:dueDate,
+      dueDate:dueDate,
       category:category,
       prio:prio,
       boardCategory:boardCategory,
@@ -85,6 +86,7 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
     for (let index = 0; index < taskArrayBoard.length; index++) {
       const element = taskArrayBoard[index];
       const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus} = element;
+      console.log(dueDate)
       positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus)
       searchIndexUrlBoard(index, assignedTo);
       searchprioBoard(index, prio);
