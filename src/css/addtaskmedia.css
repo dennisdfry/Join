@@ -278,7 +278,10 @@
   }
 
   form {
+    position: relative;
+    top: 10%;
     width: 95%;
+    height: 100%;
   }
 
   .add-task-finish-button-container {
