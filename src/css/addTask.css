@@ -114,7 +114,7 @@
   padding: 8px 16px 8px 16px;
   min-height: 157px;
   max-height: 240px;
-  width: 475px;
+  width: 100%;
   border-radius: 10px;
   outline: none;
   border: 1px solid #a8a8a8;
@@ -202,7 +202,7 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
 }
 
 .input-with-button {
-  width: 440px;
+  width: 100%;
   height: 48px;
   margin-top: 10px;
   border: 1px solid #f6f7f8;
