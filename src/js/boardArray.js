@@ -82,6 +82,7 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus)
       searchIndexUrlBoard(index, assignedTo);
       searchprioBoard(index, prio);
+      subtasksRenderBoard(index, subtasks);
       
     }}
 
@@ -151,5 +152,18 @@ function searchprioBoard(index, prio) {
         position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
       }
     }
+  }
+}
+
+async function subtasksRenderBoard(indexHtml, subtasks) {
+  subtasksLengthArray.push({
+    position: indexHtml,
+    subs: subtasks,
+  });
+  let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
+  if (Array.isArray(subtasks)) {
+    positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
+  } else {
+    positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
   }
 }
