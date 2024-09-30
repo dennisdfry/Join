@@ -110,23 +110,23 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
  * @param {number} index - The index of the task.
  * @returns {Promise<{trueCount: number, totalCount: number}>} - An object containing the number of completed and total subtasks.
  */
-async function calculateProgress(index) {
-  let trueCount = 0, totalCount = 0;
-  for (let i = 0; i < taskkeysGlobal.length; i++) {
-    let taskKeyId = taskkeysGlobal[i][index];
-    let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
-    if (data) {
-      totalCount += data.length;
-      for (let j = 0; j < data.length; j++) {
-        if (data[j]) { 
-          trueCount++; 
-          progressStatusTrue.push({ index: j, statusTrue: data[j] }); 
-        }
-      }
-    }
-  }
-  return { trueCount, totalCount };
-}
+// async function calculateProgress(index) {
+//   let trueCount = 0, totalCount = 0;
+//   for (let i = 0; i < taskkeysGlobal.length; i++) {
+//     let taskKeyId = taskkeysGlobal[i][index];
+//     let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
+//     if (data) {
+//       totalCount += data.length;
+//       for (let j = 0; j < data.length; j++) {
+//         if (data[j]) { 
+//           trueCount++; 
+//           progressStatusTrue.push({ index: j, statusTrue: data[j] }); 
+//         }
+//       }
+//     }
+//   }
+//   return { trueCount, totalCount };
+// }
 
 /**
  * Updates the progress bar width and color based on the percentage of completed subtasks.
@@ -153,20 +153,20 @@ function updateProgressBar(index, progressPercentage) {
  * 
  * @param {number} indexHtml - The index of the task in the HTML structure.
  */
-async function progressBar(index) {
-  let progressBar = document.getElementById(`progressBar${index}`);
-  let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
-  let { trueCount, totalCount } = await calculateProgress(index);
+// async function progressBar(index) {
+//   let progressBar = document.getElementById(`progressBar${index}`);
+//   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
+//   let { trueCount, totalCount } = await calculateProgress(index);
   
-  if(totalCount == 0){
-    document.getElementById(`hideProgressBar${index}`).classList.add('d-none');
-    document.getElementById(`hideProgressAmount${index}`).classList.add('d-none');
-    return
-  }else{
-  positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
-  if (totalCount > 0) {
-    let progressPercentage = (trueCount / totalCount) * 100;
-    updateProgressBar(index, progressPercentage);
-  } else {
-    updateProgressBar(index, 0);
-  }}}
+//   if(totalCount == 0){
+//     document.getElementById(`hideProgressBar${index}`).classList.add('d-none');
+//     document.getElementById(`hideProgressAmount${index}`).classList.add('d-none');
+//     return
+//   }else{
+//   positionOfTrueAmount.innerHTML = `<div>${trueCount}/</div>`;
+//   if (totalCount > 0) {
+//     let progressPercentage = (trueCount / totalCount) * 100;
+//     updateProgressBar(index, progressPercentage);
+//   } else {
+//     updateProgressBar(index, 0);
+//   }}}
