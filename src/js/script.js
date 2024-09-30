@@ -13,8 +13,6 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID];
     let users = taskFolder[0].assignedTo;
-    console.log(users)
-    console.log(fetchImage)
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
     let userNames = taskFolder[0].assignedToNames;
@@ -108,28 +106,56 @@ async function loadSubtaskStatus(indexHtml) {
  * @param {Array<string>} users - Array of user IDs assigned to the task.
  * @param {Object} fetchImage - Object mapping user IDs to image URLs.
  */
+// async function searchIndexUrl(indexHTML, users, fetchImage) {
+//   let position = document.getElementById(`userImageBoard${indexHTML}`);
+//   position.innerHTML = "";
+//   if (users == null) {
+//     return;
+//   }
+//   const userArray = users[indexHTML];
+//   for (let index = 0; index < users.length; index++) {
+//     let imageUrlNumber = users[index];
+//     console.log(users)
+//     let imageUrlPositionFromArray = imageUrlBoard[imageUrlNumber];
+//      if (users.length > 3) {
+//             const remaining = users.length - 4;
+//             console.log(remaining)
+//             position.innerHTML += `
+//               <div class="img-48 more-users">
+//                 +${remaining}
+//               </div>`;
+//             break;
+//           }
+//           position.innerHTML += `<img class="img-24" src="${imageUrlPositionFromArray}" alt="" />`;
+//   }
+// }
 async function searchIndexUrl(indexHTML, users, fetchImage) {
   let position = document.getElementById(`userImageBoard${indexHTML}`);
   position.innerHTML = "";
   if (users == null) {
     return;
   }
+
   const userArray = users[indexHTML];
-  for (let index = 0; index < users.length; index++) {
+  // Bestimme die Anzahl der Bilder, die angezeigt werden sollen
+  const maxImages = Math.min(users.length, 4);
+
+  for (let index = 0; index < maxImages; index++) {
     let imageUrlNumber = users[index];
+    console.log(users);
     let imageUrlPositionFromArray = imageUrlBoard[imageUrlNumber];
-     if (index > 3) {
-            const remaining = imageUrlNumber.length - 4;
-            position.innerHTML += `
-              <div class="img-48 more-users">
-                +${remaining}
-              </div>`;
-            break;
-          }
-          position.innerHTML += `<img class="img-24" src="${imageUrlPositionFromArray}" alt="" />`;
+    position.innerHTML += `<img class="img-24" src="${imageUrlPositionFromArray}" alt="" />`;
+  }
+
+  // Wenn es mehr als 4 Nutzer gibt, füge das "+x" Overlay hinzu
+  if (users.length > 4) {
+    const remaining = users.length - 4;
+    position.innerHTML += `
+      <div class="img-24 more-users-board">
+        +${remaining}
+      </div>`;
   }
 }
-
 
 /**
  * Updates the status of a subtask based on the checkbox state.

@@ -10,7 +10,6 @@ async function initDataBoard(){
         task = await onloadDataBoard("/tasks");
         let fetchImageUrls = await fetchImagesUrlsBoardNew("/");
         let fetchUserNames = await fetchUserNamesBoardNew("/");
-        console.log(fetchUserNames)
         for (let index = 0; index < fetchImageUrls.length; index++) {
             const elementUrl = fetchImageUrls[index];
             const elementNames = fetchUserNames[index].name;
