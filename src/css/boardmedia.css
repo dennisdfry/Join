@@ -232,6 +232,7 @@
 
 @media (max-width: 560px) {
   .board-task-container-open {
-    width: 80vw;
+    width: 80%;
+    height: 80%;
   }
 }

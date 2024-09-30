@@ -152,17 +152,17 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
   return `
   <form onsubmit="handleFormSubmitEdit(event, ${index}, '${category}')">
     <div class="board-task-container-open edit-board-form bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
-        <div class="edit-board-form2 "> 
+        <div class="edit-board-form2"> 
           <div class="d-flex-between margin-bt8">
               <h1 id="categoryColorEdit${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTaskEdit(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
           </div>
-          <div class="margin-bt8 width445">
+          <div class="margin-bt8 full-width">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Title:</p>
-              <input required minlength="2" onclick="editTitle(${index})" id="inputEditTitle${index}"  class="title-edit-input width445" type="text"
+              <input required minlength="2" onclick="editTitle(${index})" id="inputEditTitle${index}"  class="title-edit-input full-width" type="text"
                         value="${title}" name="title">
           </div>
-          <div class="margin-bt8 width445">  
+          <div class="margin-bt8 full-width">  
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Description:</p>
               <textarea required minlength="2" onclick="editDescription(${index})" id="descriptionEdit${index}"  class="edit-task-textarea full-width" 
                         name="description">${description}</textarea>
