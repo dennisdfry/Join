@@ -7,7 +7,7 @@
     scrollbar-color: #2a3647 #e0e0e0;
     -ms-overflow-style: none;
     width: 100%;
-    height: 68vh;
+    height: 100%;
   }
 
   .board-render-section::-webkit-scrollbar {
@@ -48,6 +48,7 @@
     scrollbar-color: #2a3647 #e0e0e0;
     -ms-overflow-style: none;
     min-width: 48px;
+    height: 100%;
     width: auto;
   }
 
@@ -81,13 +82,28 @@
     min-height: 300px;
   }
 
-  .board-head-section {
+  .board-head-section {        
+    overflow-x: scroll;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
     width: 78%;
+    height: 90%;
+  }
+
+  .board-render-section {   
+    height: 150%;     
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
   }
 
   .board-head-section-top {
     margin-bottom: 20px;
-    height: 236px;
+    height: 100px;
   }
 
   .responsive-board-head {
@@ -115,15 +131,24 @@
 @media (max-width: 1050px) {
   .board-head-section {
     width: 100%;
+    height: 80%;
     left: 5%;
     top: 150px;
+  }
+
+  .board-render-section {   
+    height: 200%;     
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
   }
 
   .board-head-section-top {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    height: 100px;
   }
 
   .board-headline {
