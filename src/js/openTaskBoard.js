@@ -5,21 +5,21 @@
  * @param {number} index - The index of the task.
  * @param {string} prio - The priority level of the task ('Urgent', 'Medium', 'Low').
  */
-function searchprioOpenTask(index, prio) {
-  let position = document.getElementById(`prioPositionOpenTask${index}`);
-  position.innerHTML = "";
-  if (prio == "Urgent") {
-    position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
-  } else {
-    if (prio == "Medium") {
-      position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
-    } else {
-      if (prio == "Low") {
-        position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
-      }
-    }
-  }
-}
+// function searchprioOpenTask(index, prio) {
+//   let position = document.getElementById(`prioPositionOpenTask${index}`);
+//   position.innerHTML = "";
+//   if (prio == "Urgent") {
+//     position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
+//   } else {
+//     if (prio == "Medium") {
+//       position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
+//     } else {
+//       if (prio == "Low") {
+//         position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
+//       }
+//     }
+//   }
+// }
 
 /**
  * Renders the user images for a specific task in the open task view.
@@ -30,21 +30,21 @@ function searchprioOpenTask(index, prio) {
  * @param {Array<string>} userNames - An array of user names associated with the task.
  * @async
  */
-async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
-  let position = document.getElementById(`userImageBoardOpen${index}`);
-  position.innerHTML = "";
-  if (!users || users.length === 0) {
-    return;
-  }
-  for (let i = 0; i < users.length; i++) {
-    let element = users[i];
-    let names = userNames[i];
-    assignedToUserArrayNamesGlobalEdit.push(names);
-    assignedToUserArrayEdit.push(element);
-    let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImageOpen(imageUrl, i, names);
-  }
-}
+// async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
+//   let position = document.getElementById(`userImageBoardOpen${index}`);
+//   position.innerHTML = "";
+//   if (!users || users.length === 0) {
+//     return;
+//   }
+//   for (let i = 0; i < users.length; i++) {
+//     let element = users[i];
+//     let names = userNames[i];
+//     assignedToUserArrayNamesGlobalEdit.push(names);
+//     assignedToUserArrayEdit.push(element);
+//     let imageUrl = fetchImage[element];
+//     position.innerHTML += await htmlBoardImageOpen(imageUrl, i, names);
+//   }
+// }
 
 
 /**
@@ -55,13 +55,13 @@ async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
  * @param {string} names - The name of the user.
  * @returns {string} The HTML string representing the user's image and name.
  */
-function htmlBoardImageOpen(imageUrl, index, names) {
-  return `
-    <div class="d-flex pa-7-16">
-      <img class="user-image-task-open" src="${imageUrl}">
-      <div class="d-flex item-center font-sf fs-19 fw-400">${names}</div>
-    </div>`;
-}
+// function htmlBoardImageOpen(imageUrl, index, names) {
+//   return `
+//     <div class="d-flex pa-7-16">
+//       <img class="user-image-task-open" src="${imageUrl}">
+//       <div class="d-flex item-center font-sf fs-19 fw-400">${names}</div>
+//     </div>`;
+// }
 
 /**
  * Closes the open task view and navigates back to the main board.
