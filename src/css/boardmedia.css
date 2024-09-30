@@ -127,10 +127,6 @@
     width: 100%;
   }
 
-  #dots-parent-container {
-    display: flex !important;
-    width: 32px;
-  }
 }
 
 @media (max-width: 1050px) {
