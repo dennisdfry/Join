@@ -5,6 +5,7 @@ let imageUrlBoard = [];
 let userNamesBoard = [];
 let ToDoBoard = [];
 let subtasksOpenArray = [];
+let assignedToUserArrayOpen = [];
 async function initDataBoard(){
   taskArrayBoard = [];
     try {
@@ -139,21 +140,7 @@ function searchIndexUrlBoard(indexHTML, assignedTo) {
   }
 }
 
-function searchprioBoard(index, prio) {
-  let position = document.getElementById(`prioPosition${index}`);
-  position.innerHTML = "";
-  if (prio == "Urgent") {
-    position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
-  } else {
-    if (prio == "Medium") {
-      position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
-    } else {
-      if (prio == "Low") {
-        position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
-      }
-    }
-  }
-}
+
 
 async function subtasksRenderBoard(indexHtml, subtasks) {
   subtasksLengthArray.push({
@@ -225,25 +212,55 @@ function openTaskToBoardRender(index, category, description, dueDate, prio, titl
     position.innerHTML = openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
     CategoryColorOpen(index, category);
     subtasksRenderOpen(index, subtasks);
-    searchIndexUrlOpen(index, users, fetchImage, userNames),
+    searchIndexUrlOpen(index, assignedTo);
+    searchprioBoard(index, prio)
    
   // promiseSecondInfoOpenTask(index);
 }
-async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
-  let position = document.getElementById(`userImageBoardOpen${index}`);
+function searchprioBoard(index, prio) {
+  console.log(prio)
+  let position = document.getElementById(`prioPositionOpenTask${index}`);
   position.innerHTML = "";
-  if (!users || users.length === 0) {
-    return;
-  }
-  for (let i = 0; i < users.length; i++) {
-    let element = users[i];
-    let names = userNames[i];
-    assignedToUserArrayNamesGlobalEdit.push(names);
-    assignedToUserArrayEdit.push(element);
-    let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImageOpen(imageUrl, i, names);
+  if (prio == "Urgent") {
+    position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
+  } else {
+    if (prio == "Medium") {
+      position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
+    } else {
+      if (prio == "Low") {
+        position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
+      }
+    }
   }
 }
+
+function searchIndexUrlOpen(index, assignedTo) {
+  let assignedToArray = assignedTo.split(',').map(assignedTo => assignedTo.trim());
+  assignedToUserArrayOpen.push(assignedToArray);
+  let position = document.getElementById(`userImageBoardOpen${index}`);
+  position.innerHTML = "";
+  if (!assignedToUserArrayOpen|| assignedToUserArrayOpen.length === 0) {
+    return;
+  }
+  for (let i = 0; i < assignedToArray.length; i++) {
+    const element = assignedToArray[i];
+    const images = imageUrlBoard[element];
+    const names = userNamesBoard[element]
+    position.innerHTML +=  htmlBoardImageOpen(images,names, i);
+
+  }
+  assignedToArray = [];
+  assignedToUserArrayOpen = [];
+}
+
+function htmlBoardImageOpen(images,names, i) {
+  return `
+    <div class="d-flex pa-7-16">
+      <img class="user-image-task-open" src="${images}">
+      <div class="d-flex item-center font-sf fs-19 fw-400">${names}</div>
+    </div>`;
+}
+
 function subtasksRenderOpen(indexHtml, subtasks) {
   let subtasksArray = subtasks.split(',').map(subtask => subtask.trim());
   subtasksOpenArray.push(subtasksArray);
@@ -291,6 +308,7 @@ async function promiseSecondInfoOpenTask(index) {
   }
 }
 function openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+  console.log(dueDate)
   return `
     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
         <div class="width445">  
