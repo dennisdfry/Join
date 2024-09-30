@@ -6,7 +6,7 @@
     scrollbar-width: none;
     scrollbar-color: #2a3647 #e0e0e0;
     -ms-overflow-style: none;
-    width: 78vw;
+    width: 100%;
     height: 68vh;
   }
 
@@ -77,15 +77,12 @@
   .board-column {
     justify-content: flex-start;
     align-items: flex-start;
-    width: 76vw;
+    width: 100%;
     min-height: 300px;
   }
 
   .board-head-section {
-    position: relative;
-    width: 60vw;
-    top: 0;
-    left: 20%;
+    width: 79%;
   }
 
   .board-head-section-top {
@@ -117,9 +114,9 @@
 
 @media (max-width: 1050px) {
   .board-head-section {
-    width: 60vw;
+    width: 100%;
     left: 5%;
-    top: 28px;
+    top: 150px;
   }
 
   .board-head-section-top {

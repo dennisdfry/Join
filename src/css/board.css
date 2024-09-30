@@ -15,9 +15,7 @@ body {
 }
 
 .board-head-section {
-  max-width: 1208px;
-  max-height: 232px;
-  position: absolute;
+  position: fixed;
   top: 96px;
   left: 232px;
 }
