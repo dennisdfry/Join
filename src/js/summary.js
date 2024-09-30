@@ -9,6 +9,7 @@ function initSmry() {
   summaryGreeting();
   summaryGreetingResp();
   addClassAfterDelay();
+  
 }
 
 /**

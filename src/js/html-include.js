@@ -44,6 +44,7 @@ async function whichChangeSite(resp, element, file) {
     } else if (file.includes("contacts.html")) {
       await initContacts();
     } else if (file.includes("board.html")) {
+      await initDataBoard();
       await loadingBoard();
     } else if (file.includes("summary.html")) {
       await initSmry();

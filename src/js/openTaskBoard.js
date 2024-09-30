@@ -1,6 +1,4 @@
-let opentaskIndex;
-let taskInfo;
-let isSaving = false;
+
 /**
  * Updates the priority icon in the open task view based on the task's priority level.
  *

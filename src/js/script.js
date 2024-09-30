@@ -1,10 +1,4 @@
-let subtasksLengthArray = [];
-const taskData = {};
-let taskkeys = [];
-let progressStatusTrue = [];
-let TechnicalTask = "Technical Task";
-let UserStory = "User Story";
-let assignedToUserEditNull = null;
+
 /**
  * Generates and populates HTML objects for tasks, including user images, priority, and subtasks.
  * 
@@ -19,6 +13,8 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
     const tasksID = taskkeys[index];
     const taskFolder = task[tasksID];
     let users = taskFolder[0].assignedTo;
+    console.log(users)
+    console.log(fetchImage)
     let subtasks = taskFolder[0].subtasks;
     let prio = taskFolder[0].prio;
     let userNames = taskFolder[0].assignedToNames;
@@ -112,40 +108,28 @@ async function loadSubtaskStatus(indexHtml) {
  * @param {Array<string>} users - Array of user IDs assigned to the task.
  * @param {Object} fetchImage - Object mapping user IDs to image URLs.
  */
-async function searchIndexUrl(index, users, fetchImage) {
-  let position = document.getElementById(`userImageBoard${index}`);
+async function searchIndexUrl(indexHTML, users, fetchImage) {
+  let position = document.getElementById(`userImageBoard${indexHTML}`);
   position.innerHTML = "";
   if (users == null) {
     return;
   }
+  const userArray = users[indexHTML];
   for (let index = 0; index < users.length; index++) {
-    const element = users[index];
-    let imageUrl = fetchImage[element];
-    position.innerHTML += await htmlBoardImage(imageUrl, index);
+    let imageUrlNumber = users[index];
+    let imageUrlPositionFromArray = imageUrlBoard[imageUrlNumber];
+     if (index > 3) {
+            const remaining = imageUrlNumber.length - 4;
+            position.innerHTML += `
+              <div class="img-48 more-users">
+                +${remaining}
+              </div>`;
+            break;
+          }
+          position.innerHTML += `<img class="img-24" src="${imageUrlPositionFromArray}" alt="" />`;
   }
-  setTimeout(() => tileUserImage(index), 50);
 }
 
-/**
- * Arranges user images in a horizontal, overlapping layout.
- *
- * @param {number} index - The index of the task or container containing the images.
- */
-function tileUserImage(index) {
-  const userImageBoard = document.getElementById(`userImageBoard${index}`);
-  if (userImageBoard) {
-    const images = userImageBoard.getElementsByClassName("image-div"),
-      totalWidth = 100,
-      imageWidth = 32,
-      overlap = 16,
-      maxImages = Math.floor((totalWidth + overlap) / (imageWidth - overlap));
-    for (let i = 0; i < images.length; i++) {
-      const imagePosition = images[i];
-      imagePosition.style.position = "absolute";
-      if (i < maxImages) imagePosition.style.left = `${i * (imageWidth - overlap)}px`;
-    }
-  } else console.error(`Element nicht gefunden: userImageBoard${index}`);
-}
 
 /**
  * Updates the status of a subtask based on the checkbox state.

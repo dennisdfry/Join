@@ -1,5 +1,4 @@
-const taskkeysGlobal = [];
-let task = {};
+
 let currentDraggedElement;
 
 /**

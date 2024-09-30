@@ -1,12 +1,3 @@
-let addTaskArrayEdit = [];
-let expandedEdit = false;
-let selectedPrioEdit = null;
-let subtasksArrayEdit = [];
-let usersEdit = [];
-let fetchImagesEdit = [];
-let assignedToUserArrayEdit = [];
-let assignedToUserArrayNamesGlobalEdit = [];
-let subtasksStatusArrayEdit = [];
 
 /**
  * Clears the placeholder of the task title input field during editing.
