@@ -4,7 +4,7 @@ let descriptionBoard =[];
 let imageUrlBoard = [];
 let userNamesBoard = [];
 let ToDoBoard = [];
-
+let subtasksOpenArray = [];
 async function initDataBoard(){
   taskArrayBoard = [];
     try {
@@ -75,7 +75,6 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
   upstreamHTMLrender()}
 
   function upstreamHTMLrender(){
-    console.log(taskArrayBoard);
     for (let index = 0; index < taskArrayBoard.length; index++) {
       const element = taskArrayBoard[index];
       const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus} = element;
@@ -84,12 +83,13 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       searchprioBoard(index, prio);
       subtasksRenderBoard(index, subtasks);
       CategoryColor(index, category)
+      progressBar(index,subtasks , subtaskStatus)
     }}
 
   function positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus){
     let position = document.getElementById(`${boardCategory}`);
     position.innerHTML += `
-    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${dueDate}', '${prio}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
+    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
         <div class="d-flex-between">
             <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
             <img src="/public/img/dots.png" id="dots-parent-container" class="d-none">
@@ -176,3 +176,160 @@ function CategoryColor(index, category) {
     position.style.backgroundColor = "#0038ff";
   }
 }
+
+
+function progressBar(index, subtasks, subtaskStatus) {
+  let progressBar = document.getElementById(`progressBar${index}`);
+  let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
+  let { trueCount, totalCount } = calculateProgress(index, subtasks, subtaskStatus);
+  
+  if (totalCount == 0) {
+    document.getElementById(`hideProgressBar${index}`).classList.add('d-none');
+    document.getElementById(`hideProgressAmount${index}`).classList.add('d-none');
+    return;
+  } else {
+    positionOfTrueAmount.innerHTML = `<div>${trueCount}/${totalCount}</div>`;
+    let progressPercentage = (trueCount / totalCount) * 100;
+    updateProgressBar(index, progressPercentage);
+  }
+}
+
+function calculateProgress(index, subtasks, subtaskStatus) {
+  let trueCount = 0, totalCount = subtasks.length;
+  
+  if (subtaskStatus && subtaskStatus[index]) {
+    const data = subtaskStatus[index];
+
+    for (let i = 0; i < data.length; i++) {
+      if (data[i] === true) {
+        trueCount++;
+      }
+    }
+    
+    return { trueCount, totalCount };
+  } else {
+    console.log('kein subtask');
+    return { trueCount: 0, totalCount: 0 };
+  }
+}
+
+function openTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+  opentaskIndex = index;
+  let position = document.getElementById("openTask");
+  if (position.classList.contains("modal-overlay")) {
+    return;
+  } else {
+    position.classList.add("modal-overlay");
+    position.classList.remove("d-none", "hidden");
+    position.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+    position.innerHTML = openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
+    CategoryColorOpen(index, category);
+    subtasksRenderOpen(index, subtasks);
+    searchIndexUrlOpen(index, users, fetchImage, userNames),
+   
+  // promiseSecondInfoOpenTask(index);
+}
+async function searchIndexUrlOpen(index, users, fetchImage, userNames) {
+  let position = document.getElementById(`userImageBoardOpen${index}`);
+  position.innerHTML = "";
+  if (!users || users.length === 0) {
+    return;
+  }
+  for (let i = 0; i < users.length; i++) {
+    let element = users[i];
+    let names = userNames[i];
+    assignedToUserArrayNamesGlobalEdit.push(names);
+    assignedToUserArrayEdit.push(element);
+    let imageUrl = fetchImage[element];
+    position.innerHTML += await htmlBoardImageOpen(imageUrl, i, names);
+  }
+}
+function subtasksRenderOpen(indexHtml, subtasks) {
+  let subtasksArray = subtasks.split(',').map(subtask => subtask.trim());
+  subtasksOpenArray.push(subtasksArray);
+  let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
+  position.innerHTML = "";
+  for (let i = 0; i < subtasksArray.length; i++) {
+      const element = subtasksArray[i];
+      position.innerHTML += subtasksRenderOpenHtml(indexHtml, i, element);
+  }
+  subtasksOpenArray = [];
+}
+
+function subtasksRenderOpenHtml(indexHtml, index, element) {
+  return `
+    <div class="d-flex item-center pa-7-16">
+      <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task pointer" type="checkbox" id="subtask-${indexHtml}-${index}">
+      <label for="subtask-${indexHtml}-${index}">${element}</label>
+    </div>`;
+}
+function CategoryColorOpen(index, category) {
+  let position = document.getElementById(`categoryColorOpen${index}`);
+  if (category == "Technical Task") {
+    position.style.backgroundColor = "#1fd7c1";
+  } else {
+    position.style.backgroundColor = "#0038ff";
+  }
+}
+}
+async function promiseSecondInfoOpenTask(index) {
+  let taskInfo = taskData[index];
+  if (taskInfo) {
+    let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
+    usersEdit = users;
+    fetchImagesEdit = fetchImage;
+    subtasksRenderOpen(index, subtasks);
+    await Promise.all([
+      searchIndexUrlOpen(index, users, fetchImage, userNames),
+      searchprio(index, prio),
+      searchprioOpenTask(index, prio),
+    ]);
+    subtasksStatusArrayEdit = [];
+    await loadSubtaskStatus(index);
+  } else {
+    console.error("No data found for the specified index.");
+  }
+}
+function openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+  return `
+    <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
+        <div class="width445">  
+          <div class="d-flex-between margin-bt8">
+              <h1 id="categoryColorOpen${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
+              <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
+          </div>
+          <div class="margin-bt8">
+                <h2 class="task-title mg-block-none fw-700 fs-61">${title}</h2>
+          </div>
+          <div class="margin-bt8">  
+              <p class="description-open-task fs-20 fw-400 mg-block-none">${description}</p>
+          </div> 
+          <div class="d-flex item-center mg-btt25" id="dateTask${index}">
+              <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Due date:</p>
+              <p class="d-flex item-center fs-20 fw-400 mg-block-none margin-left-open-task">${dueDate}</p>
+          </div>
+          <div class="d-flex item-center mg-btt25" id="prioTask${index}">
+              <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Priority:</p>
+              <span class="d-flex item-center fs-16 fw-400 margin-left-open-task">${prio}</span>
+              <div class="prio-board-image-container d-flex-center" id="prioPositionOpenTask${index}">
+              </div>
+          </div>
+          <div class="mg-btt25">
+              <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Assigned To:</p>
+          </div>
+          <div class="d-flex mg-btt25 assignedToScroll">
+              <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
+              </div>
+          </div>
+          <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-inline">Subtasks:</p>    
+              <div class="subtask-scrollbar" id="subtasksBoardOpen${index}"></div>
+          <div class="d-flex-end">
+            <div class="d-flex item-center">
+              <div onclick="deleteTask(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none">Delete</p></div>
+              <div class="seperator-opentask"></div>
+              <div onclick="editOpenTask('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}') class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none">Edit</p></div>
+            </div>
+          </div>
+        </div>  
+    </div>`;
+};

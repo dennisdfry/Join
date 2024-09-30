@@ -104,18 +104,18 @@ function oneClickClose(event) {
  * @param {number} indexHtml - The index of the task in the HTML.
  * @param {Array<string>} subtasks - An array of subtasks associated with the task.
  */
-function subtasksRenderOpen(indexHtml, subtasks) {
-  let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
-  position.innerHTML = "";
-  subtasksLengthArray = [];
-  subtasksLengthArray.push(subtasks);
-  if (Array.isArray(subtasks)) {
-    for (let i = 0; i < subtasks.length; i++) {
-      const element = subtasks[i];
-      position.innerHTML += subtasksRenderOpenHtml(indexHtml, i, element);
-    }
-  }
-}
+// function subtasksRenderOpen(indexHtml, subtasks) {
+//   let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
+//   position.innerHTML = "";
+//   subtasksLengthArray = [];
+//   subtasksLengthArray.push(subtasks);
+//   if (Array.isArray(subtasks)) {
+//     for (let i = 0; i < subtasks.length; i++) {
+//       const element = subtasks[i];
+//       position.innerHTML += subtasksRenderOpenHtml(indexHtml, i, element);
+//     }
+//   }
+// }
 
 /**
  * Generates the HTML structure for displaying a subtask in the open task view.
@@ -125,13 +125,13 @@ function subtasksRenderOpen(indexHtml, subtasks) {
  * @param {string} element - The subtask description.
  * @returns {string} The HTML string representing the subtask.
  */
-function subtasksRenderOpenHtml(indexHtml, index, element) {
-  return `
-    <div class="d-flex item-center pa-7-16">
-      <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task pointer" type="checkbox" id="subtask-${indexHtml}-${index}">
-      <label for="subtask-${indexHtml}-${index}">${element}</label>
-    </div>`;
-}
+// function subtasksRenderOpenHtml(indexHtml, index, element) {
+//   return `
+//     <div class="d-flex item-center pa-7-16">
+//       <input onclick="subtaskStatus('${indexHtml}','${index}')" class="checkbox-open-Task pointer" type="checkbox" id="subtask-${indexHtml}-${index}">
+//       <label for="subtask-${indexHtml}-${index}">${element}</label>
+//     </div>`;
+// }
 
 /**
  * Opens and renders the detailed view of a task on the board, including its category, title, description, date, and priority.
@@ -143,20 +143,21 @@ function subtasksRenderOpenHtml(indexHtml, index, element) {
  * @param {string} date - The due date of the task.
  * @param {string} prio - The priority level of the task.
  */
-function openTaskToBoardRender(index,category,title,description,date,prio) {
-  opentaskIndex = index;
-  let position = document.getElementById("openTask");
-  if (position.classList.contains("modal-overlay")) {
-    return;
-  } else {
-    position.classList.add("modal-overlay");
-    position.classList.remove("d-none", "hidden");
-    position.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-    position.innerHTML = openTaskToBoardHtml(index,category,title,description,date,prio);
-    CategoryColorOpen(index, category);
-  }
-  promiseSecondInfoOpenTask(index);
-}
+// function openTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+
+//   opentaskIndex = index;
+//   let position = document.getElementById("openTask");
+//   if (position.classList.contains("modal-overlay")) {
+//     return;
+//   } else {
+//     position.classList.add("modal-overlay");
+//     position.classList.remove("d-none", "hidden");
+//     position.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+//     position.innerHTML = openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
+//     CategoryColorOpen(index, category);
+//   }
+//   // promiseSecondInfoOpenTask(index);
+// }
 
 /**
  * Updates the background color of the task's category label in the open task view.

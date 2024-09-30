@@ -24,49 +24,49 @@ async function userNamesRender(index) {
  * @param {string} prio - The priority of the task.
  * @returns {string} - The HTML string for the open task view.
  */
-window.openTaskToBoardHtml = function (index, category, title, description, date, prio) {
-  return `
-    <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
-        <div class="width445">  
-          <div class="d-flex-between margin-bt8">
-              <h1 id="categoryColorOpen${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
-              <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
-          </div>
-          <div class="margin-bt8">
-                <h2 class="task-title mg-block-none fw-700 fs-61">${title}</h2>
-          </div>
-          <div class="margin-bt8">  
-              <p class="description-open-task fs-20 fw-400 mg-block-none">${description}</p>
-          </div> 
-          <div class="d-flex item-center mg-btt25" id="dateTask${index}">
-              <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Due date:</p>
-              <p class="d-flex item-center fs-20 fw-400 mg-block-none margin-left-open-task">${date}</p>
-          </div>
-          <div class="d-flex item-center mg-btt25" id="prioTask${index}">
-              <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Priority:</p>
-              <span class="d-flex item-center fs-16 fw-400 margin-left-open-task">${prio}</span>
-              <div class="prio-board-image-container d-flex-center" id="prioPositionOpenTask${index}">
-              </div>
-          </div>
-          <div class="mg-btt25">
-              <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Assigned To:</p>
-          </div>
-          <div class="d-flex mg-btt25 assignedToScroll">
-              <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
-              </div>
-          </div>
-          <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-inline">Subtasks:</p>    
-              <div class="subtask-scrollbar" id="subtasksBoardOpen${index}"></div>
-          <div class="d-flex-end">
-            <div class="d-flex item-center">
-              <div onclick="deleteTask(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none">Delete</p></div>
-              <div class="seperator-opentask"></div>
-              <div onclick="editOpenTask(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none">Edit</p></div>
-            </div>
-          </div>
-        </div>  
-    </div>`;
-};
+// window.openTaskToBoardHtml = function (index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+//   return `
+//     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
+//         <div class="width445">  
+//           <div class="d-flex-between margin-bt8">
+//               <h1 id="categoryColorOpen${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
+//               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
+//           </div>
+//           <div class="margin-bt8">
+//                 <h2 class="task-title mg-block-none fw-700 fs-61">${title}</h2>
+//           </div>
+//           <div class="margin-bt8">  
+//               <p class="description-open-task fs-20 fw-400 mg-block-none">${description}</p>
+//           </div> 
+//           <div class="d-flex item-center mg-btt25" id="dateTask${index}">
+//               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Due date:</p>
+//               <p class="d-flex item-center fs-20 fw-400 mg-block-none margin-left-open-task">${dueDate}</p>
+//           </div>
+//           <div class="d-flex item-center mg-btt25" id="prioTask${index}">
+//               <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Priority:</p>
+//               <span class="d-flex item-center fs-16 fw-400 margin-left-open-task">${prio}</span>
+//               <div class="prio-board-image-container d-flex-center" id="prioPositionOpenTask${index}">
+//               </div>
+//           </div>
+//           <div class="mg-btt25">
+//               <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-none">Assigned To:</p>
+//           </div>
+//           <div class="d-flex mg-btt25 assignedToScroll">
+//               <div class="user-image-bord-container-open" id="userImageBoardOpen${index}">
+//               </div>
+//           </div>
+//           <p class="d-flex item-center fs-20 fw-700 color-dg mg-block-inline">Subtasks:</p>    
+//               <div class="subtask-scrollbar" id="subtasksBoardOpen${index}"></div>
+//           <div class="d-flex-end">
+//             <div class="d-flex item-center">
+//               <div onclick="deleteTask(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none">Delete</p></div>
+//               <div class="seperator-opentask"></div>
+//               <div onclick="editOpenTask(${index}, '${category}', '${title}', '${description}', '${dueDate}', '${prio}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none">Edit</p></div>
+//             </div>
+//           </div>
+//         </div>  
+//     </div>`;
+// };
 
 /**
  * Generates HTML for an edit task view.
