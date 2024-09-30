@@ -257,4 +257,13 @@
     width: 80%;
     max-height: 80%;
   }
+
+  .board-render-section {   
+    height: 250%;     
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    scrollbar-color: #2a3647 #e0e0e0;
+    -ms-overflow-style: none;
+  }
 }

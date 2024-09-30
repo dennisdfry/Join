@@ -5,6 +5,12 @@
     border-bottom: 3px solid #29abe2;
   }
 
+  .contactlist-content {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+  }
+
   .contact-section-seperator {
     display: none;
   }
