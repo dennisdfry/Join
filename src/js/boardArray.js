@@ -83,7 +83,7 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       searchIndexUrlBoard(index, assignedTo);
       searchprioBoard(index, prio);
       subtasksRenderBoard(index, subtasks);
-      
+      CategoryColor(index, category)
     }}
 
   function positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus){
@@ -165,5 +165,14 @@ async function subtasksRenderBoard(indexHtml, subtasks) {
     positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
   } else {
     positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
+  }
+}
+
+function CategoryColor(index, category) {
+  let position = document.getElementById(`categoryColor${index}`);
+  if (category == TechnicalTask) {
+    position.style.backgroundColor = "#1fd7c1";
+  } else {
+    position.style.backgroundColor = "#0038ff";
   }
 }

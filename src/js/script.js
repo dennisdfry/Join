@@ -26,46 +26,9 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
   }
 }
 
-/**
- * Positions and sets the HTML content for a task block.
- * 
- * Updates the color, HTML content, and applies category-specific styling for the task.
- * 
- * @param {number} index - The index of the task.
- * @param {string} category - The category of the task.
- * @param {string} title - The title of the task.
- * @param {string} description - The description of the task.
- * @param {string} date - The due date of the task.
- * @param {string} prio - The priority level of the task.
- * @param {string} boardCategory - The category of the board.
- */
-async function positionOfHTMLBlock(index, category, title, description, date, prio, boardCategory) {
-  setTaskColor(category);
-  let position = document.getElementById(`${boardCategory}`);
-  position.innerHTML += await window.htmlboard(index, category, title, description, date, prio);
-  limitTextTo50Chars(`limitTextDesciption${index}`);
-  CategoryColor(index, category);
-}
 
-/**
- * Updates the priority display for a task.
- * 
- * Sets the HTML content to show the priority level using appropriate images.
- * 
- * @param {number} index - The index of the task.
- * @param {string} prio - The priority level of the task.
- */
-function searchprio(index, prio) {
-  let position = document.getElementById(`prioPosition${index}`);
-  position.innerHTML = "";
-  if (prio === "Urgent") {
-    position.innerHTML = `<img src="../public/img/Prio alta.png" alt="">`;
-  } else if (prio === "Medium") {
-    position.innerHTML = `<img src="../public/img/prioOrange.png" alt="">`;
-  } else if (prio === "Low") {
-    position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
-  }
-}
+
+
 
 /**
  * Loads and updates the status of subtasks.

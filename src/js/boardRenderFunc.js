@@ -1,27 +1,3 @@
-/**
- * Generates HTML for an image to be displayed on a board.
- * @param {string} imageUrl - The URL of the image to display.
- * @param {number} index - The index associated with the image.
- * @returns {Promise<string>} - A promise that resolves to the HTML string.
- */
-/**
- * Renders the number of subtasks for a given task and updates the display.
- * @param {number} indexHtml - The index of the task for which subtasks are being rendered.
- * @param {Array} subtasks - An array of subtasks to render.
- * @returns {Promise<void>}
- */
-async function subtasksRender(indexHtml, subtasks) {
-  subtasksLengthArray.push({
-    position: indexHtml,
-    subs: subtasks,
-  });
-  let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
-  if (Array.isArray(subtasks)) {
-    positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
-  } else {
-    positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
-  }
-}
 
 /**
  * Renders the user names associated with a task.
@@ -36,47 +12,7 @@ async function userNamesRender(index) {
   }
 }
 
-/**
- * Generates HTML for a task card to be displayed on the board.
- * @param {number} index - The index of the task.
- * @param {string} category - The category of the task.
- * @param {string} title - The title of the task.
- * @param {string} description - The description of the task.
- * @param {string} date - The due date of the task.
- * @param {string} prio - The priority of the task.
- * @returns {Promise<string>} - A promise that resolves to the HTML string.
- */
-window.htmlboard = async function (index, category, title, description, date, prio) {
-  return `
-    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender(${index}, '${category}', '${title}', '${description}', '${date}', '${prio}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
-        <div class="d-flex-between">
-            <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
-            <img src="/public/img/dots.png" id="dots-parent-container" class="d-none">
-            <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
-        </div>
-        <div class="width220 mg-top-4">
-            <h2 class="mg-block-none fs-16 fw-700">${title}</h2> 
-        </div>
-        <div class="mg-bot-4 mg-top-4">  
-            <p class="mg-block-none fs-16 fw-400 color-gr width220" id="limitTextDesciption${index}">${description}</p>
-        </div> 
-        <div class="progress-container d-flex-between width220">
-            <div id="hideProgressBar${index}" class="width128">
-                <div id="progressBar${index}" class="progress-bar pointer"></div>
-            </div>
-            <div id="hideProgressAmount${index}" class="d-flex">
-                <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
-                <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
-            </div>
-        </div>
-        <div class="d-flex-between width220">
-            <div class="user-image-bord-container" id="userImageBoard${index}">
-            </div>
-            <div class="img-32 d-flex-center" id="prioPosition${index}">
-            </div>
-        </div>  
-    </div>`;
-};
+
 
 /**
  * Generates HTML for an open task view.

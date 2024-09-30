@@ -24,14 +24,7 @@ function setTaskColor() {
    * @param {number} index - The index of the element to be targeted. Used to construct the element ID.
    * @param {string} category - The category of the task (e.g., "TechnicalTask").
    */
-  function CategoryColor(index, category) {
-    let position = document.getElementById(`categoryColor${index}`);
-    if (category == TechnicalTask) {
-      position.style.backgroundColor = "#1fd7c1";
-    } else {
-      position.style.backgroundColor = "#0038ff";
-    }
-  }
+
   
   /**
    * Limits the text content of an element to 50 characters.
