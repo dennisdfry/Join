@@ -240,30 +240,54 @@ function openTaskToBoardRender(index, category, description, dueDate, prio, titl
    
 }}
 
-async function loadSubtaskStatus(indexHtml, subtaskStatus) {
+// function loadSubtaskStatus(indexHtml, subtaskStatus) {
+//   let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
+//   subtaskStatusArray.push(subtaskStatusArrayDev);
+//   for (let index = 0; index < subtaskStatusArray.length; index++) {
+//     const element = subtaskStatusArray[index];
+//    console.log(element)
+//     if (element== null) {
+//       return;
+//     }
+//     for (let i = 0; i < element.length; i++) {
+//       const subStatus = element[i];
+//       console.log(subStatus)
+//       subtasksStatusArray.push(subStatus);
+//         let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
+//         if (subStatus === true && checkbox) {
+//           checkbox.checked = subStatus;
+//         }
+//     }
+//   }
+// }
+function loadSubtaskStatus(indexHtml, subtaskStatus) {
   let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
   subtaskStatusArray.push(subtaskStatusArrayDev);
   for (let index = 0; index < subtaskStatusArray.length; index++) {
     const element = subtaskStatusArray[index];
    console.log(element)
-    
     if (element== null) {
       return;
     }
     for (let i = 0; i < element.length; i++) {
-      const element = data[i];
-      subtasksStatusArrayEdit.push(element);
-      try {
+      const subStatus = element[i];
+      console.log(subStatus)
+      subtasksStatusArray.push(subStatus);
         let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
-        if (element === true && checkbox) {
-          checkbox.checked = element;
+        if (subStatus === 'true' && checkbox) {
+          checkbox.checked = subStatus;
         }
-      } catch (error) {
-        console.error(`Error loading status for subtask checkbox ${index}: `, error);
-      }
     }
+    subtaskStatusArray = [];
   }
 }
+
+async function subtaskStatus(indexHtml, index) {
+  const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+  const isChecked = checkbox.checked;
+  await statusSubtaskSaveToFirebase(isChecked, indexHtml, index);
+}
+
 function searchprioBoardOpen(index, prio) {
   let position = document.getElementById(`prioPositionOpenTask${index}`);
   position.innerHTML = "";
@@ -326,6 +350,32 @@ function subtasksRenderOpenHtml(indexHtml, index, element) {
       <label for="subtask-${indexHtml}-${index}">${element}</label>
     </div>`;
 }
+
+async function subtaskStatus(indexHtml, index) {
+  const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+  const isChecked = checkbox.checked;
+  await statusSubtaskSaveToFirebase(isChecked, indexHtml, index);
+}
+
+async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
+  for (const taskKeyId of taskkeysGlobal.map((el) => el[indexHtml])) {
+    const path = `/tasks/${taskKeyId}/0/subtaskStatus/${index}`;
+    try {
+      const response = await fetch(`${BASE_URL}${path}.json`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(isChecked),
+      });
+      if (!response.ok) {
+        console.error(`Error updating status of subtask checkbox ${index}:`, response.statusText);
+      }
+    } catch (error) {
+      console.error(`Error saving status of subtask checkbox ${index}:`, error);
+    }
+  }
+  subtasksOpenArray = [];
+}
+
 function CategoryColorOpen(index, category) {
   let position = document.getElementById(`categoryColorOpen${index}`);
   if (category == "Technical Task") {

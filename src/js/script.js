@@ -70,11 +70,11 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
  * @param {number} indexHtml - The index of the task in the HTML structure.
  * @param {number} index - The index of the subtask.
  */
-async function subtaskStatus(indexHtml, index) {
-  const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
-  const isChecked = checkbox.checked;
-  await statusSubtaskSaveToFirebase(isChecked, indexHtml, index);
-}
+// async function subtaskStatus(indexHtml, index) {
+//   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+//   const isChecked = checkbox.checked;
+//   await statusSubtaskSaveToFirebase(isChecked, indexHtml, index);
+// }
 
 /**
  * Saves the subtask status to Firebase.
