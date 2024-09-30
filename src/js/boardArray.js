@@ -86,6 +86,22 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       CategoryColor(index, category)
       progressBar(index,subtasks , subtaskStatus)
     }}
+    function searchprioBoard(index, prio) {
+      console.log(prio)
+      let position = document.getElementById(`prioPosition${index}`);
+      position.innerHTML = "";
+      if (prio == "Urgent") {
+        position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
+      } else {
+        if (prio == "Medium") {
+          position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
+        } else {
+          if (prio == "Low") {
+            position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
+          }
+        }
+      }
+    }
 
   function positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus){
     let position = document.getElementById(`${boardCategory}`);
@@ -213,11 +229,11 @@ function openTaskToBoardRender(index, category, description, dueDate, prio, titl
     CategoryColorOpen(index, category);
     subtasksRenderOpen(index, subtasks);
     searchIndexUrlOpen(index, assignedTo);
-    searchprioBoard(index, prio)
+    searchprioBoardOpen(index, prio)
    
   // promiseSecondInfoOpenTask(index);
 }
-function searchprioBoard(index, prio) {
+function searchprioBoardOpen(index, prio) {
   console.log(prio)
   let position = document.getElementById(`prioPositionOpenTask${index}`);
   position.innerHTML = "";
