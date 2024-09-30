@@ -4,13 +4,6 @@
  * @param {number} index - The index associated with the image.
  * @returns {Promise<string>} - A promise that resolves to the HTML string.
  */
-// async function htmlBoardImage(imageUrl) {
-//   return `
-//     <div class="image-div">
-//       <img class="user-image-board img-32" src="${imageUrl}">
-//     </div>`;
-// }
-
 /**
  * Renders the number of subtasks for a given task and updates the display.
  * @param {number} indexHtml - The index of the task for which subtasks are being rendered.
