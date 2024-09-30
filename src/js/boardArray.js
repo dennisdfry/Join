@@ -6,6 +6,7 @@ let userNamesBoard = [];
 let ToDoBoard = [];
 
 async function initDataBoard(){
+  taskArrayBoard = [];
     try {
         taskkeysGlobal.length = 0;
         task = await onloadDataBoard("/tasks");
@@ -79,7 +80,9 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       const element = taskArrayBoard[index];
       const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus} = element;
       positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus)
-      searchIndexUrlBoard(index, assignedTo )
+      searchIndexUrlBoard(index, assignedTo);
+      searchprioBoard(index, prio);
+      
     }}
 
   function positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus){
@@ -114,7 +117,7 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
         </div>  
     </div>`;
   }
-async function searchIndexUrlBoard(indexHTML, assignedTo) {
+function searchIndexUrlBoard(indexHTML, assignedTo) {
   let position = document.getElementById(`userImageBoard${indexHTML}`);
   position.innerHTML = "";
   if (assignedTo == null) {
@@ -132,5 +135,21 @@ async function searchIndexUrlBoard(indexHTML, assignedTo) {
       <div class="img-24 more-users-board">
         +${remaining}
       </div>`;
+  }
+}
+
+function searchprioBoard(index, prio) {
+  let position = document.getElementById(`prioPosition${index}`);
+  position.innerHTML = "";
+  if (prio == "Urgent") {
+    position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
+  } else {
+    if (prio == "Medium") {
+      position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
+    } else {
+      if (prio == "Low") {
+        position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
+      }
+    }
   }
 }

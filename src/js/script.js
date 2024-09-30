@@ -97,37 +97,7 @@ async function loadSubtaskStatus(indexHtml) {
   }
 }
 
-/**
- * Updates the HTML content with user images for a task.
- * 
- * Displays images of users assigned to the task based on the provided URLs.
- * 
- * @param {number} index - The index of the task.
- * @param {Array<string>} users - Array of user IDs assigned to the task.
- * @param {Object} fetchImage - Object mapping user IDs to image URLs.
- */
 
-async function searchIndexUrl(indexHTML, users, fetchImage) {
-  let position = document.getElementById(`userImageBoard${indexHTML}`);
-  position.innerHTML = "";
-  if (users == null) {
-    return;
-  }
-  const userArray = users[indexHTML];
-  const maxImages = Math.min(users.length, 4);
-  for (let index = 0; index < maxImages; index++) {
-    let imageUrlNumber = users[index];
-    let imageUrlPositionFromArray = imageUrlBoard[imageUrlNumber];
-    position.innerHTML += `<img class="img-24" src="${imageUrlPositionFromArray}" alt="" />`;
-  }
-  if (users.length > 4) {
-    const remaining = users.length - 4;
-    position.innerHTML += `
-      <div class="img-24 more-users-board">
-        +${remaining}
-      </div>`;
-  }
-}
 
 /**
  * Updates the status of a subtask based on the checkbox state.
