@@ -6,6 +6,8 @@ let userNamesBoard = [];
 let ToDoBoard = [];
 let subtasksOpenArray = [];
 let assignedToUserArrayOpen = [];
+let subtaskStatusArray = [];
+
 async function initDataBoard(){
   taskArrayBoard = [];
     try {
@@ -67,7 +69,6 @@ async function fetchUserNamesBoardNew(path = "") {
 async function generateHTMLObjectsBoard(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
     const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus} = task[taskkeys[index]][0];
-    console.log(dueDate)
     taskArrayBoard.push({
       title: title,
       description: description,
@@ -86,7 +87,6 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
     for (let index = 0; index < taskArrayBoard.length; index++) {
       const element = taskArrayBoard[index];
       const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus} = element;
-      console.log(dueDate)
       positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus)
       searchIndexUrlBoard(index, assignedTo);
       searchprioBoard(index, prio);
@@ -95,7 +95,6 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       progressBar(index,subtasks , subtaskStatus)
     }}
     function searchprioBoard(index, prio) {
-      console.log(prio)
       let position = document.getElementById(`prioPosition${index}`);
       position.innerHTML = "";
       if (prio == "Urgent") {
@@ -216,7 +215,6 @@ function calculateProgress(index, subtasks, subtaskStatus) {
         trueCount++;
       }
     }
-    
     return { trueCount, totalCount };
   } else {
     console.log('kein subtask');
@@ -237,12 +235,36 @@ function openTaskToBoardRender(index, category, description, dueDate, prio, titl
     CategoryColorOpen(index, category);
     subtasksRenderOpen(index, subtasks);
     searchIndexUrlOpen(index, assignedTo);
-    searchprioBoardOpen(index, prio)
+    searchprioBoardOpen(index, prio);
+    loadSubtaskStatus(index, subtaskStatus);
    
-  // promiseSecondInfoOpenTask(index);
+}}
+
+async function loadSubtaskStatus(indexHtml, subtaskStatus) {
+  let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
+  subtaskStatusArray.push(subtaskStatusArrayDev);
+  for (let index = 0; index < subtaskStatusArray.length; index++) {
+    const element = subtaskStatusArray[index];
+   console.log(element)
+    
+    if (element== null) {
+      return;
+    }
+    for (let i = 0; i < element.length; i++) {
+      const element = data[i];
+      subtasksStatusArrayEdit.push(element);
+      try {
+        let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
+        if (element === true && checkbox) {
+          checkbox.checked = element;
+        }
+      } catch (error) {
+        console.error(`Error loading status for subtask checkbox ${index}: `, error);
+      }
+    }
+  }
 }
 function searchprioBoardOpen(index, prio) {
-  console.log(prio)
   let position = document.getElementById(`prioPositionOpenTask${index}`);
   position.innerHTML = "";
   if (prio == "Urgent") {
@@ -312,7 +334,7 @@ function CategoryColorOpen(index, category) {
     position.style.backgroundColor = "#0038ff";
   }
 }
-}
+
 async function promiseSecondInfoOpenTask(index) {
   let taskInfo = taskData[index];
   if (taskInfo) {

@@ -37,28 +37,28 @@ async function generateHTMLObjectsForUserPrioSubtasks(taskkeys, task, fetchImage
  * 
  * @param {number} indexHtml - The index of the task in the HTML structure.
  */
-async function loadSubtaskStatus(indexHtml) {
-  for (let index = 0; index < taskkeysGlobal.length; index++) {
-    const element = taskkeysGlobal[index];
-    const taskKeyId = element[indexHtml];
-    let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
-    if (data == null) {
-      return;
-    }
-    for (let i = 0; i < data.length; i++) {
-      const element = data[i];
-      subtasksStatusArrayEdit.push(element);
-      try {
-        let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
-        if (element === true && checkbox) {
-          checkbox.checked = element;
-        }
-      } catch (error) {
-        console.error(`Error loading status for subtask checkbox ${index}: `, error);
-      }
-    }
-  }
-}
+// async function loadSubtaskStatus(indexHtml) {
+//   for (let index = 0; index < taskkeysGlobal.length; index++) {
+//     const element = taskkeysGlobal[index];
+//     const taskKeyId = element[indexHtml];
+//     let data = await onloadDataBoard(`/tasks/${taskKeyId}/0/subtaskStatus/`);
+//     if (data == null) {
+//       return;
+//     }
+//     for (let i = 0; i < data.length; i++) {
+//       const element = data[i];
+//       subtasksStatusArrayEdit.push(element);
+//       try {
+//         let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
+//         if (element === true && checkbox) {
+//           checkbox.checked = element;
+//         }
+//       } catch (error) {
+//         console.error(`Error loading status for subtask checkbox ${index}: `, error);
+//       }
+//     }
+//   }
+// }
 
 
 
