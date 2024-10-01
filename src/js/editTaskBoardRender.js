@@ -43,16 +43,7 @@ function showSubtaskControlsEdit(index) {
  * @param {string} indexHTML - The index or identifier used in the HTML structure.
  * @returns {string} - The HTML string for the supplementary subtask item.
  */
-function supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML) {
-    return `
-    <li id="supplementarySubtaskEdit${i}" class="d-flex-between subtasksEdit bradius8">
-        <span>${updatesubtasks}</span>
-        <div>
-            <img class="pointer" onclick="deleteSubtaskEdit('${i}','${indexHTML}')" src="../public/img/delete.png">
-            <img class="pointer" onclick="editSubtaskEdit('${i}','${indexHTML}')" src="../public/img/edit.png">
-        </div>
-    </li>`;
-}
+
 
 /**
  * Prepares an input field for editing a subtask, displaying controls to finish or delete the edit.
@@ -60,17 +51,24 @@ function supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML) {
  * @param {number} i - The index of the subtask being edited.
  * @param {string} indexHTML - The index or identifier used in the HTML structure.
  */
-function editSubtaskEdit(i, indexHTML) {
+function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
     let position = document.getElementById(`supplementarySubtaskEdit${i}`);
-    let arrayPosition = subtasksArrayEdit[i];
     position.innerHTML = `
-        <input id="inputEditSubtasks${i}" class="" value="${arrayPosition}">
+        <input id="inputEditSubtasks${i}" class="" value="${subtask}">
         <div>
             <img class="img-24" onclick="deleteSubtaskEdit('${i}','${indexHTML}')" src="../public/img/delete.png">
-            <img class="img-24" onclick="finishSubtaskEdit('${i}','${indexHTML}')" src="../public/img/checkAddTask.png" alt="Add">
+            <img class="img-24" onclick="finishSubtaskEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/checkAddTask.png" alt="Add">
         </div>`;
 }
+function finishSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
+   let subtasksEditArrayFinish = subtasksEditArrayOrigin.split(',').map(subtasksEditArrayOrigin => subtasksEditArrayOrigin.trim());
+    let input = document.getElementById(`inputEditSubtasks${i}`);
+    console.log(subtasksEditArrayFinish)
+    subtasksEditArrayFinish[i] = input.value;
 
+    console.log(subtasksEditArrayFinish)
+    subtasksRenderOpenEdit(indexHTML, subtasksEditArrayFinish);
+  }
 /**
  * Resets the subtask input field to its original state during task editing.
  * 
@@ -109,8 +107,3 @@ function userImageRenderEdit(index) {
     }
 }
 
-function finishSubtaskEdit(i, indexHTML) {
-    let input = document.getElementById(`inputEditSubtasks${i}`);
-    subtasksArrayEdit[i] = input.value;
-    subtasksRenderEdit(indexHTML);
-  }

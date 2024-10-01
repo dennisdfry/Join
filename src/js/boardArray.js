@@ -5,6 +5,8 @@ let imageUrlBoard = [];
 let userNamesBoard = [];
 let ToDoBoard = [];
 let subtasksOpenArray = [];
+let subtasksEditArrayFinish = [];
+let subtasksEditArrayOrigin = [];
 let assignedToUserArrayOpen = [];
 let subtaskStatusArray = [];
 
@@ -149,6 +151,7 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
         </div>  
     </div>`;
   }
+
 function searchIndexUrlBoard(indexHTML, assignedTo) {
   let position = document.getElementById(`userImageBoard${indexHTML}`);
   position.innerHTML = "";
@@ -247,26 +250,7 @@ function openTaskToBoardRender(index, category, description, dueDate, prio, titl
    
 }}
 
-// function loadSubtaskStatus(indexHtml, subtaskStatus) {
-//   let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
-//   subtaskStatusArray.push(subtaskStatusArrayDev);
-//   for (let index = 0; index < subtaskStatusArray.length; index++) {
-//     const element = subtaskStatusArray[index];
-//    console.log(element)
-//     if (element== null) {
-//       return;
-//     }
-//     for (let i = 0; i < element.length; i++) {
-//       const subStatus = element[i];
-//       console.log(subStatus)
-//       subtasksStatusArray.push(subStatus);
-//         let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
-//         if (subStatus === true && checkbox) {
-//           checkbox.checked = subStatus;
-//         }
-//     }
-//   }
-// }
+
 function loadSubtaskStatus(indexHtml, subtaskStatus) {
   let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
   subtaskStatusArray.push(subtaskStatusArrayDev);
@@ -392,26 +376,22 @@ function CategoryColorOpen(index, category) {
   }
 }
 
-async function promiseSecondInfoOpenTask(index) {
-  let taskInfo = taskData[index];
-  if (taskInfo) {
-    let { users, userNames, prio, subtasks, fetchImage } = taskInfo;
-    usersEdit = users;
-    fetchImagesEdit = fetchImage;
-    subtasksRenderOpen(index, subtasks);
-    await Promise.all([
-      searchIndexUrlOpen(index, users, fetchImage, userNames),
-      searchprio(index, prio),
-      searchprioOpenTask(index, prio),
-    ]);
-    subtasksStatusArrayEdit = [];
-    await loadSubtaskStatus(index);
-  } else {
-    console.error("No data found for the specified index.");
+
+function oneClickClose(event) {
+  let openPosition = document.getElementById("openTask");
+  if (event.target.classList.contains("modal-overlay")) {
+    openPosition.classList.remove("modal-overlay");
+    openPosition.style.animation = "moveOut 200ms ease-out forwards";
+    setTimeout(() => {
+      openPosition.classList.add("hidden", "d-none");
+      openPosition.style.cssText =
+        "visibility: hidden; transform: translateX(100vw)";
+    }, 100);
+    progressBar(opentaskIndex);
+    resetFormStateEdit();
   }
 }
 function openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
-  console.log(dueDate)
   return `
     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
         <div class="width445">  
@@ -448,7 +428,7 @@ function openTaskToBoardHtml(index, category, description, dueDate, prio, title,
             <div class="d-flex item-center">
               <div onclick="deleteTask(${index})" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/deleteOpenTask.png"><p class="fs-16 mg-block-none">Delete</p></div>
               <div class="seperator-opentask"></div>
-              <div onclick="editOpenTask('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none">Edit</p></div>
+              <div onclick="EditTaskToBoardRender('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="d-flex item-center pointer"><img class="open-task-delete-edit img" src="../public/img/editOpenTask.png"><p class="fs-16 mg-block-none">Edit</p></div>
             </div>
           </div>
         </div>  

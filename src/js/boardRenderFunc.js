@@ -24,7 +24,7 @@ async function userNamesRender(index) {
  * @param {string} prio - The priority of the task.
  * @returns {string} - The HTML string for the edit task view.
  */
-window.editTaskHtml = function (index, category, title, description, date, prio) {
+window.editTaskHtml = function (index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
   return `
   <form onsubmit="handleFormSubmitEdit(event, ${index}, '${category}')">
     <div class="board-task-container-open edit-board-form bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
@@ -45,7 +45,7 @@ window.editTaskHtml = function (index, category, title, description, date, prio)
           </div> 
           <div class="d-flex full-width flex-d-col margin-bt8" id="dateTask${index}">
               <p class="d-flex item-center fs-20 fw-700 mg-block-none color-dg">Due date:</p>
-                    <input required placeholder="${date}" class="edit-task-date pointer" type="date" id="dueDateEdit${index}" name="dueDate">
+                    <input required placeholder="${dueDate}" class="edit-task-date pointer" type="date" id="dueDateEdit${index}" name="dueDate">
               <p class="d-flex item-center fs-20 fw-400 mg-block-none margin-left-open-task"></p>
           </div>
           <div class="d-flex flex-d-col margin-bt8" id="prioTask${index}">

@@ -17,36 +17,23 @@ function closeOpenTask(event, indexHTML) {
   }, 100);
 }
 
-function oneClickClose(event) {
-  let openPosition = document.getElementById("openTask");
-  if (event.target.classList.contains("modal-overlay")) {
-    openPosition.classList.remove("modal-overlay");
-    openPosition.style.animation = "moveOut 200ms ease-out forwards";
-    setTimeout(() => {
-      openPosition.classList.add("hidden", "d-none");
-      openPosition.style.cssText =
-        "visibility: hidden; transform: translateX(100vw)";
-    }, 100);
-    progressBar(opentaskIndex);
-    resetFormStateEdit();
-  }
-}
 
 
-/**
- * Updates the background color of the task's category label in the open task view.
- *
- * @param {number} index - The index of the task.
- * @param {string} category - The category of the task.
- */
-function CategoryColorOpen(index, category) {
-  let position = document.getElementById(`categoryColorOpen${index}`);
-  if (category == "TechnicalTask") {
-    position.style.backgroundColor = "#1fd7c1";
-  } else {
-    position.style.backgroundColor = "#0038ff";
-  }
-}
+
+// /**
+//  * Updates the background color of the task's category label in the open task view.
+//  *
+//  * @param {number} index - The index of the task.
+//  * @param {string} category - The category of the task.
+//  */
+// function CategoryColorOpen(index, category) {
+//   let position = document.getElementById(`categoryColorOpen${index}`);
+//   if (category == "TechnicalTask") {
+//     position.style.backgroundColor = "#1fd7c1";
+//   } else {
+//     position.style.backgroundColor = "#0038ff";
+//   }
+// }
 
 
 
@@ -140,18 +127,18 @@ function handleFormSubmitEdit(event, index, category) {
  * @async
  */
 
-async function editOpenTask(index, category, title, description, date, prio) {
-  let position = document.getElementById("openTask");
-  position.innerHTML = "";
-  position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
-  dueDateEditTask(index, date);
-  initEdit(index);
-  checkboxIndexFalse(index);
-  subtasksRenderEdit(index);
-  CategoryColorEdit(index, category);
-  enableEnterKeyEdit(index);
-  userImageRenderEdit(index);
-}
+// async function editOpenTask(index, category, title, description, date, prio) {
+//   let position = document.getElementById("openTask");
+//   position.innerHTML = "";
+//   position.innerHTML = await window.editTaskHtml(index, category, title, description, date, prio);
+//   dueDateEditTask(index, date);
+//   initEdit(index);
+//   checkboxIndexFalse(index);
+//   subtasksRenderEdit(index);
+//   CategoryColorEdit(index, category);
+//   enableEnterKeyEdit(index);
+//   userImageRenderEdit(index);
+// }
 
 /**
  * Closes the task edit modal and resets the form state.

@@ -26,7 +26,7 @@ function editDescription(index) {
  * @param {string} category - The category of the task.
  */
 
-function CategoryColorEdit(index, category) {
+function CategoryColorOpenEdit(index, category) {
   let position = document.getElementById(`categoryColorEdit${index}`);
   if (category == TechnicalTask) {
     position.style.backgroundColor = "#1fd7c1";
@@ -47,75 +47,65 @@ function dueDateEditTask(index, date) {
   position.value = date;
 }
 
-/**
- * Initializes the editing process by fetching and rendering relevant task data.
- *
- * @param {number} index - The index of the task being edited.
- * @async
- */
 
-async function initEdit(index) {
-  try {
-    let fireBaseData = await onloadData("/");
-    let contacts = fetchContacts(fireBaseData);
-    let imageUrls = await fetchImages();
-    await assignedToEdit(contacts, imageUrls, index);
-  } catch (error) {
-    console.error("Error during initialization:", error);
-  }
-  prioEdit(2);
+
+function EditTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+    let position = document.getElementById("openTask");
+    position.innerHTML = "";
+    position.innerHTML = editTaskHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
+    CategoryColorOpenEdit(index, category);
+    subtasksRenderOpenEdit(index, subtasks);
+    // searchIndexUrlOpenEdit(index, assignedTo);
+    // searchprioBoardOpenEdit(index, prio);
+    // loadSubtaskStatus(index, subtaskStatus);
+   
 }
 
-/**
- * Fetches images of contacts from Firebase.
- *
- * @returns {Promise<Array<string>>} - An array of image URLs.
- * @async
- */
-async function fetchImages() {
-  try {
-    let fireBaseData = await onloadData("/");
-    let contacts = fireBaseData.contacts;
-    let imageUrls = Object.values(contacts).map((contact) => contact.img);
-    return imageUrls;
-  } catch (error) {
-    console.error("Error fetching images", error);
+function deleteSubtaskEdit(i, indexHTML) {
+  let position = document.getElementById(`supplementarySubtaskEdit${i}`);
+  position.innerHTML = "";
+  subtasksArrayEdit.splice([i], 1);
+  subtasksStatusArrayEdit.splice([i], 1);
+  subtasksRenderEdit(indexHTML);
+}
+
+function addSubtaskEdit(index) {
+  let input = document.getElementById(`subtasksEdit${index}`);
+  if (input.value.trim() !== "") {
+    subtasksArrayEdit.push(input.value.trim());
+    input.value = "";
+    subtasksStatusArrayEdit.push(false);
+    resetSubtaskInputEdit(index);
+    subtasksRenderEdit(index);
   }
 }
-
-/**
- * Fetches data from Firebase for the given path.
- *
- * @param {string} [path=""] - The path to fetch data from.
- * @returns {Promise<Object>} - The fetched data as a JSON object.
- * @async
- */
-
-async function onloadData(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  return responseToJson;
+function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
+  return `
+  <li id="supplementarySubtaskEdit${index}" class="d-flex-between subtasksEdit bradius8">
+      <span>${subtask}</span>
+      <div>
+          <img class="pointer" onclick="deleteSubtaskEdit('${index}','${indexHTML}')" src="../public/img/delete.png">
+          <img class="pointer" onclick="editSubtaskEdit('${index}','${indexHTML}','${subtask}', '${subtasksEditArrayOrigin}')" src="../public/img/edit.png">
+      </div>
+  </li>`;
 }
 
-/**
- * Extracts and returns contacts from the given data.
- *
- * @param {Object} responseToJson - The JSON data containing contacts.
- * @returns {Object} - The contacts object.
- */
 
-function fetchContacts(responseToJson) {
-  let contacts = responseToJson.contacts;
-  return contacts;
+function subtasksRenderOpenEdit(indexHtml, subtasks) {
+  let subtasksEditArrayOrigin;
+  if (Array.isArray(subtasks)) {
+    subtasksEditArrayOrigin = subtasks;
+  } else {
+    subtasksEditArrayOrigin = subtasks.split(',').map(subtask => subtask.trim());
+  }
+  let position = document.getElementById(`subtasksPosition${indexHtml}`);
+  position.innerHTML = "";
+  for (let index = 0; index < subtasksEditArrayOrigin.length; index++) {
+    const element = subtasksEditArrayOrigin[index];
+    position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin);
+  }
 }
 
-/**
- * Renders the contacts for assigning users during task editing.
- *
- * @param {Object} contacts - The contacts data.
- * @param {Array<string>} imageUrls - The image URLs of the contacts.
- * @param {number} index - The index of the task being edited.
- */
 
 function assignedToEdit(contacts, imageUrls, index) {
   try {
@@ -124,6 +114,9 @@ function assignedToEdit(contacts, imageUrls, index) {
     };
     const names = extractNames(contacts);
     checkboxInitEdit(names, imageUrls, index);
+    console.log(names)
+    console.log(imageUrls)
+    console.log(names)
   } catch (error) {
     console.error(error);
   }
@@ -245,16 +238,7 @@ function handleEditEnterKey(event) {
  * Adds a new subtask to the list of subtasks during task editing.
  * @param {number} index - The index of the task being edited.
  */
-function addSubtaskEdit(index) {
-  let input = document.getElementById(`subtasksEdit${index}`);
-  if (input.value.trim() !== "") {
-    subtasksArrayEdit.push(input.value.trim());
-    input.value = "";
-    subtasksStatusArrayEdit.push(false);
-    resetSubtaskInputEdit(index);
-    subtasksRenderEdit(index);
-  }
-}
+
 
 /**
  * Updates the task board with edited task details and navigates to the board page.
@@ -350,46 +334,3 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
     boardCategory: "todo",});
 }
 
-/**
- * Deletes a subtask and updates the display.
- * 
- * @param {number} i - The index of the subtask to delete.
- * @param {number} indexHTML - The index of the task being edited.
- */
-function deleteSubtaskEdit(i, indexHTML) {
-  let position = document.getElementById(`supplementarySubtaskEdit${i}`);
-  position.innerHTML = "";
-  subtasksArrayEdit.splice([i], 1);
-  subtasksStatusArrayEdit.splice([i], 1);
-  subtasksRenderEdit(indexHTML);
-}
-
-/**
- * Renders the list of subtasks for a given task.
- * 
- * @param {number} indexHTML - The index of the task being edited.
- */
-function subtasksRenderEdit(indexHTML) {
-  let subtasksedit = subtasksLengthArray[0];
-  let position = document.getElementById(`subtasksPosition${indexHTML}`);
-  if (!position) {
-    return;}
-  position.innerHTML = "";
-  if (subtasksedit) {
-    for (let index = 0; index < subtasksedit.length; index++) {
-      const element = subtasksedit[index];
-      if (element) {
-        subtasksArrayEdit.push(element);}}
-    subtasksLengthArray = [];}
-  for (let i = 0; i < subtasksArrayEdit.length; i++) {
-    const updatesubtasks = subtasksArrayEdit[i];
-    position.innerHTML += supplementarySubtaskEditHTML(updatesubtasks, i, indexHTML);
-  }
-}
-
-/**
- * Updates a subtask with new input value and re-renders the list.
- * 
- * @param {number} i - The index of the subtask to update.
- * @param {number} indexHTML - The index of the task being edited.
- */
