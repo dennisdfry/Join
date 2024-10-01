@@ -95,9 +95,10 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       searchIndexUrlBoard(index, assignedTo);
       searchprioBoard(index, prio);
       subtasksRenderBoard(index, subtasks);
-      CategoryColor(index, category)
-      progressBar(index,subtasks , subtaskStatus)
+      CategoryColor(index, category);
+      progressBar(index, subtasks, subtaskStatus);
     }}
+    
     function searchprioBoard(index, prio) {
       let position = document.getElementById(`prioPosition${index}`);
       position.innerHTML = "";
@@ -216,23 +217,49 @@ function progressBar(index, subtasks, subtaskStatus) {
   }
 }
 
+/**
+ * Updates the progress bar width and color based on the percentage of completed subtasks.
+ *
+ * @param {number} indexHtml - The index of the task in the HTML structure.
+ * @param {number} progressPercentage - The calculated percentage of completed subtasks.
+ */
+function updateProgressBar(index, progressPercentage, subtasks) {
+  let progressBar = document.getElementById(`progressBar${index}`);
+  if (!progressBar) {
+    console.error(`Element nicht gefunden: progressBar${index}`);
+    return;
+  }
+  progressBar.style.width = `${progressPercentage}%`;
+  if (progressPercentage === 100) {
+    progressBar.style.backgroundColor = "#095a1b";
+  } else {
+    progressBar.style.backgroundColor = "";
+  }
+}
+
 function calculateProgress(index, subtasks, subtaskStatus) {
-  let trueCount = 0, totalCount = subtasks.length;
+  let trueCount = 0;
+  if (!Array.isArray(subtasks)) {
+    console.warn(`Subtasks ist kein gültiges Array für Task ${index}`);
+    return { trueCount: 0, totalCount: 0 };
+  }
   
+  let totalCount = subtasks.length;
+
   if (subtaskStatus && subtaskStatus[index]) {
     const data = subtaskStatus[index];
-
     for (let i = 0; i < data.length; i++) {
       if (data[i] === true) {
         trueCount++;
       }
     }
-    return { trueCount, totalCount };
   } else {
-    console.log('kein subtask');
-    return { trueCount: 0, totalCount: 0 };
+    console.log('Kein Subtask-Status gefunden');
   }
+  
+  return { trueCount, totalCount };
 }
+
 
 function openTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
   opentaskIndex = index;

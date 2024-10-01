@@ -100,3 +100,4 @@ async function updateTaskInFirebase(task) {
     console.error("Error updating task in Firebase:", error);
   }
 }
+
