@@ -55,7 +55,7 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     position.innerHTML = editTaskHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
     CategoryColorOpenEdit(index, category);
     subtasksRenderOpenEdit(index, subtasks);
-    
+    checkboxIndexFalse(index);
     // searchIndexUrlOpenEdit(index, assignedTo);
     // searchprioBoardOpenEdit(index, prio);
     // loadSubtaskStatus(index, subtaskStatus);
@@ -78,6 +78,7 @@ function addSubtaskEdit(index) {
     subtasksStatusArrayEdit.push(false);
     resetSubtaskInputEdit(index);
     subtasksRenderEdit(index);
+   
   }
 }
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
@@ -140,22 +141,16 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
   position.innerHTML = list;
 }
 
-/**
- * Toggles the assignment of a user to the task during editing.
- *
- * @param {number} index - The index of the contact.
- * @param {string} element - The name of the contact.
- */
 
-function assignedToUserEdit(index, element) {
+function assignedToUserEdit(index, url, name) {
   assignedToUserEditNull = true;
-  const arrayIndex = assignedToUserArray.indexOf(index);
+  const arrayIndex = assignedToEditName.indexOf(name);
   if (arrayIndex !== -1) {
-    assignedToUserArray.splice(arrayIndex, 1);
-    assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+    assignedToEditName.splice(arrayIndex, 1);
+    asiignedToEditUrl.splice(arrayIndex, 1);
   } else {
-    assignedToUserArray.push(index);
-    assignedToUserArrayNamesGlobal.push(element);
+    assignedToEditName.push(name);
+    asiignedToEditUrl.push(url);
   }
 }
 
@@ -164,11 +159,11 @@ function assignedToUserEdit(index, element) {
  *
  * @param {number} index - The index of the task being edited.
  */
-// function checkboxIndexFalse(index) {
-//   let checkboxes = document.getElementById(`checkboxesEdit${index}`);
-//   checkboxes.style.display = "none";
-//   expandedEdit = false;
-// }
+function checkboxIndexFalse(index) {
+  let checkboxes = document.getElementById(`checkboxesEdit${index}`);
+  checkboxes.style.display = "none";
+  expandedEdit = false;
+}
 
 /**
  * Toggles the visibility of the checkboxes for assigning users during task editing.
@@ -177,7 +172,6 @@ function assignedToUserEdit(index, element) {
  */
 function showCheckboxesEdit(indexHTML) {
   let checkboxes = document.getElementById(`checkboxesEdit${indexHTML}`);
-
   if (!expandedEdit) {
     checkboxes.style.display = "block";
     expandedEdit = true;
@@ -185,7 +179,6 @@ function showCheckboxesEdit(indexHTML) {
       for (let index = 0; index < userNamesBoard.length; index++) {
         const names = userNamesBoard[index];
         const urls = imageUrlBoard[index];
-        
         checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls);
       }
     }
