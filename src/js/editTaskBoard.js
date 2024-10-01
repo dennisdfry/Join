@@ -55,6 +55,7 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     position.innerHTML = editTaskHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
     CategoryColorOpenEdit(index, category);
     subtasksRenderOpenEdit(index, subtasks);
+    prioEdit(index, prio);
     // searchIndexUrlOpenEdit(index, assignedTo);
     // searchprioBoardOpenEdit(index, prio);
     // loadSubtaskStatus(index, subtaskStatus);
@@ -190,14 +191,13 @@ function showCheckboxesEdit(index) {
  *
  * @param {number} id - The ID of the priority button clicked.
  */
-function prioEdit(id) {
+function prioEdit(index, prio) {
   const buttons = document.querySelectorAll(".add-task-prio-button-container button");
   buttons.forEach((button) => {
     button.classList.remove("add-task-prio-button-urgent", "add-task-prio-button-medium", "add-task-prio-button-low");
     button.classList.add("add-task-prio-button");
   });
-  let position = document.getElementById(`prioButtonEdit${id}`);
-  prioIdCheck(id, position);
+  prioIdCheck(index,prio);
   selectedPrioEdit = true;
 }
 
@@ -207,15 +207,18 @@ function prioEdit(id) {
  * @param {number} id - The ID of the priority.
  * @param {HTMLElement} position - The DOM element of the priority button.
  */
-function prioIdCheck(id, position) {
-  if (id == 1) {
+function prioIdCheck(index, prio) {
+  if (prio == "Urgent") {
     prioArray.push("Urgent");
+    let position = document.getElementById(`prioButtonEdit${1}`);
     position.classList.add("add-task-prio-button-urgent");
-  } else if (id == 2) {
+  } else if (prio == "Medium") {
     prioArray.push("Medium");
+    let position = document.getElementById(`prioButtonEdit${2}`);
     position.classList.add("add-task-prio-button-medium");
-  } else if (id == 3) {
+  } else if (prio == "Low") {
     prioArray.push("Low");
+    let position = document.getElementById(`prioButtonEdit${3}`);
     position.classList.add("add-task-prio-button-low");
   }
   position.classList.remove("add-task-prio-button");
