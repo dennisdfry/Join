@@ -87,7 +87,7 @@ window.editTaskHtml = function (index, category, description, dueDate, prio, tit
                         <input type="text" minlength="2" class="add-task-input-edit" placeholder="Add item" id="subtasksEdit${index}"
                             name="subtasks">
                         <div id="subtasksControl${index}" class="subtasks-control-edit">
-                            <button onclick="showSubtaskControlsEdit(${index})" type="button" id="subtasksPlus${index}"
+                            <button onclick="showSubtaskControlsEdit(${index}, '${subtasks}')" type="button" id="subtasksPlus${index}"
                                 class="add-task-button-edit">
                                 +
                             </button>

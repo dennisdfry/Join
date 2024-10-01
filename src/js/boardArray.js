@@ -11,6 +11,7 @@ let assignedToUserArrayOpen = [];
 let subtaskStatusArray = [];
 let assignedToEditName = []
 let asiignedToEditUrl = [];
+let showSubtasksEdit = [];
 
 async function initDataBoard(){
   taskArrayBoard = [];

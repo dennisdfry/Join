@@ -21,16 +21,17 @@ function checkBoxRenderEdit(index, names, urls) {
  * 
  * @param {number} index - The index of the task for which subtasks are being edited.
  */
-function showSubtaskControlsEdit(index) {
+function showSubtaskControlsEdit(index, subtasks) {
+    
     document.getElementById(`subtasksEdit${index}`).classList.remove('add-task-input-edit');
     document.getElementById(`subtasksEdit${index}`).classList.add('subtasks-input-edit');
     
     let position = document.getElementById(`subtasksControl${index}`);
-    position.innerHTML = `<button onclick="resetSubtaskInputEdit(${index})" type="button" class="subtask-button-edit">
+    position.innerHTML = `<button onclick="resetSubtaskInputEdit('${index}','${subtasks}')" type="button" class="subtask-button-edit">
                                 <img src="../public/img/closeAddTask.png" alt="Reset">
                             </button>
                             <div class="seperator-subtasks"></div>
-                            <button onclick="addSubtaskEdit(${index})" type="button" class="subtask-button-edit">
+                            <button onclick="addSubtaskEdit('${index}','${subtasks}')" type="button" class="subtask-button-edit">
                                 <img src="../public/img/checkAddTask.png" alt="Add">
                             </button>`;
 }
