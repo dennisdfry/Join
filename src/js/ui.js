@@ -56,3 +56,14 @@ function hideDropdown() {
     element.classList.add("d-none");
   }
 }
+
+/**
+ * Hides the task dropdown menu by adding the "d-none" class.
+ * This function checks if the dropdown is currently visible, and if so, hides it.
+ */
+function hideDropdownTask() {
+  const element = document.querySelector(".task-dropdown");
+  if (!element.classList.contains("d-none")) {
+    element.classList.add("d-none");
+  }
+}
