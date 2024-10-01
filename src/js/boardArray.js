@@ -146,7 +146,7 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
             </div>
             <div id="hideProgressAmount${index}" class="d-flex">
                 <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
-                <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
+                <div id="subtasks${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
             </div>
         </div>
         <div class="d-flex-between width220">
@@ -246,20 +246,13 @@ function calculateProgress(index, subtasks, subtaskStatus) {
     console.warn(`Subtasks ist kein gültiges Array für Task ${index}`);
     return { trueCount: 0, totalCount: 0 };
   }
-  
-  let totalCount = subtasks.length;
 
-  if (subtaskStatus && subtaskStatus[index]) {
-    const data = subtaskStatus[index];
-    for (let i = 0; i < data.length; i++) {
-      if (data[i] === true) {
-        trueCount++;
-      }
+  let totalCount = subtasks.length;
+  for (let i = 0; i < totalCount; i++) {
+    if (subtaskStatus[i] === true) {
+      trueCount++;
     }
-  } else {
-    console.log('Kein Subtask-Status gefunden');
   }
-  
   return { trueCount, totalCount };
 }
 
