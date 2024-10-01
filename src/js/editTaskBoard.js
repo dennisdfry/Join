@@ -55,7 +55,7 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     position.innerHTML = editTaskHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
     CategoryColorOpenEdit(index, category);
     subtasksRenderOpenEdit(index, subtasks);
-    prioEdit(index, prio);
+    
     // searchIndexUrlOpenEdit(index, assignedTo);
     // searchprioBoardOpenEdit(index, prio);
     // loadSubtaskStatus(index, subtaskStatus);
@@ -191,13 +191,14 @@ function showCheckboxesEdit(index) {
  *
  * @param {number} id - The ID of the priority button clicked.
  */
-function prioEdit(index, prio) {
+function prioEdit(id) {
   const buttons = document.querySelectorAll(".add-task-prio-button-container button");
   buttons.forEach((button) => {
     button.classList.remove("add-task-prio-button-urgent", "add-task-prio-button-medium", "add-task-prio-button-low");
     button.classList.add("add-task-prio-button");
   });
-  prioIdCheck(index,prio);
+  let position = document.getElementById(`prioButtonEdit${id}`);
+  prioIdCheck(id, position);
   selectedPrioEdit = true;
 }
 
@@ -207,18 +208,15 @@ function prioEdit(index, prio) {
  * @param {number} id - The ID of the priority.
  * @param {HTMLElement} position - The DOM element of the priority button.
  */
-function prioIdCheck(index, prio) {
-  if (prio == "Urgent") {
+function prioIdCheck(id, position) {
+  if (id == 1) {
     prioArray.push("Urgent");
-    let position = document.getElementById(`prioButtonEdit${1}`);
     position.classList.add("add-task-prio-button-urgent");
-  } else if (prio == "Medium") {
+  } else if (id == 2) {
     prioArray.push("Medium");
-    let position = document.getElementById(`prioButtonEdit${2}`);
     position.classList.add("add-task-prio-button-medium");
-  } else if (prio == "Low") {
+  } else if (id ==3) {
     prioArray.push("Low");
-    let position = document.getElementById(`prioButtonEdit${3}`);
     position.classList.add("add-task-prio-button-low");
   }
   position.classList.remove("add-task-prio-button");
