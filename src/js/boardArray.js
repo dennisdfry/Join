@@ -114,9 +114,16 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
     let position = document.getElementById(`${boardCategory}`);
     position.innerHTML += `
     <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
-        <div class="d-flex-between">
-            <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
-            <img src="/public/img/dots.png" id="dots-parent-container" class="d-none">
+        <div class="d-flex-between" style="position: relative;">
+              <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
+              <img src="/public/img/dots.png" id="dots-parent-container${index}" onclick="toggleElement('#taskDropdown${index}', 'd-none')">
+              <div id="taskDropdown${index}" class="task-dropdown d-flex-start flex-d-col p-10 d-none">
+                  <span>Move to:</span>
+                  <a href="#">ToDo</a>
+                  <a href="#">Progress</a>
+                  <a href="#">Feedback</a>
+                  <a href="#">Done</a>
+                </div>
             <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
         </div>
         <div class="width220 mg-top-4">
