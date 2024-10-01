@@ -57,7 +57,7 @@ function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
     position.innerHTML = `
         <input id="inputEditSubtasks${i}" class="" value="${subtask}">
         <div>
-            <img class="img-24" onclick="deleteSubtaskEdit('${i}','${indexHTML}')" src="../public/img/delete.png">
+            <img class="img-24" onclick="deleteSubtaskEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/delete.png">
             <img class="img-24" onclick="finishSubtaskEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/checkAddTask.png" alt="Add">
         </div>`;
 }

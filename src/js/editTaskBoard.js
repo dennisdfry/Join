@@ -63,26 +63,28 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
    
 }
 
-function deleteSubtaskEdit(i, indexHTML) {
+function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
+  let subtasksEditArrayDelete = subtasksEditArrayOrigin.split(',').map(subtasksEditArrayOrigin => subtasksEditArrayOrigin.trim());
+  console.log(subtasksEditArrayOrigin)
   let position = document.getElementById(`supplementarySubtaskEdit${i}`);
   position.innerHTML = "";
-  subtasksArrayEdit.splice([i], 1);
+  subtasksEditArrayDelete.splice([i], 1);
+  console.log(subtasksEditArrayDelete)
   subtasksStatusArrayEdit.splice([i], 1);
-  subtasksRenderEdit(indexHTML);
+  subtasksRenderOpenEdit(indexHTML, subtasksEditArrayDelete);
 }
 
 function addSubtaskEdit(index, subtasks) {
   let showSubtasksEdit = subtasks.split(',').map(subtasks => subtasks.trim());
     console.log(showSubtasksEdit);
   let input = document.getElementById(`subtasksEdit${index}`);
-  console.log(subtasksEditArrayOrigin)
   if (input.value.trim() !== "") {
-    subtasksArrayEdit.push(input.value.trim());
+    showSubtasksEdit.push(input.value.trim());
+    console.log(showSubtasksEdit);
     input.value = "";
     subtasksStatusArrayEdit.push(false);
     resetSubtaskInputEdit(index);
-    subtasksRenderEdit(index);
-   
+    subtasksRenderOpenEdit(index, showSubtasksEdit);
   }
 }
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
@@ -90,7 +92,7 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
   <li id="supplementarySubtaskEdit${index}" class="d-flex-between subtasksEdit bradius8">
       <span>${subtask}</span>
       <div>
-          <img class="pointer" onclick="deleteSubtaskEdit('${index}','${indexHTML}')" src="../public/img/delete.png">
+          <img class="pointer" onclick="deleteSubtaskEdit('${index}','${indexHTML}','${subtask}', '${subtasksEditArrayOrigin}')" src="../public/img/delete.png">
           <img class="pointer" onclick="editSubtaskEdit('${index}','${indexHTML}','${subtask}', '${subtasksEditArrayOrigin}')" src="../public/img/edit.png">
       </div>
   </li>`;

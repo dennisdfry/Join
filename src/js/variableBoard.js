@@ -14,7 +14,7 @@ let usersEdit = [];
 let fetchImagesEdit = [];
 let assignedToUserArrayEdit = [];
 let assignedToUserArrayNamesGlobalEdit = [];
-let subtasksStatusArrayEdit = [];
+
 let opentaskIndex;
 let taskInfo;
 let isSaving = false;
