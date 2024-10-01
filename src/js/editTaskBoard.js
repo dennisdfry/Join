@@ -71,8 +71,11 @@ function deleteSubtaskEdit(i, indexHTML) {
   subtasksRenderEdit(indexHTML);
 }
 
-function addSubtaskEdit(index) {
+function addSubtaskEdit(index, subtasks) {
+  let showSubtasksEdit = subtasks.split(',').map(subtasks => subtasks.trim());
+    console.log(showSubtasksEdit);
   let input = document.getElementById(`subtasksEdit${index}`);
+  console.log(subtasksEditArrayOrigin)
   if (input.value.trim() !== "") {
     subtasksArrayEdit.push(input.value.trim());
     input.value = "";
