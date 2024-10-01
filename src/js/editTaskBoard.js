@@ -56,11 +56,7 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     CategoryColorOpenEdit(index, category);
     subtasksRenderOpenEdit(index, subtasks);
     checkboxIndexFalse(index);
-    dueDateEditTask(index, dueDate);
-    // searchIndexUrlOpenEdit(index, assignedTo);
-    // searchprioBoardOpenEdit(index, prio);
-    // loadSubtaskStatus(index, subtaskStatus);
-   
+    dueDateEditTask(index, dueDate); 
 }
 
 function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
@@ -72,6 +68,7 @@ function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
   console.log(subtasksEditArrayDelete)
   subtasksStatusArrayEdit.splice([i], 1);
   subtasksRenderOpenEdit(indexHTML, subtasksEditArrayDelete);
+  subtasksEditArrayDelete = [];
 }
 
 function addSubtaskEdit(index, subtasks) {
@@ -85,7 +82,9 @@ function addSubtaskEdit(index, subtasks) {
     subtasksStatusArrayEdit.push(false);
     resetSubtaskInputEdit(index);
     subtasksRenderOpenEdit(index, showSubtasksEdit);
+    console.log(showSubtasksEdit);
   }
+  showSubtasksEdit = [];
 }
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
   return `
@@ -100,6 +99,7 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
 
 
 function subtasksRenderOpenEdit(indexHtml, subtasks) {
+  console.log(subtasks)
   let subtasksEditArrayOrigin;
   if (Array.isArray(subtasks)) {
     subtasksEditArrayOrigin = subtasks;
@@ -111,31 +111,12 @@ function subtasksRenderOpenEdit(indexHtml, subtasks) {
   for (let index = 0; index < subtasksEditArrayOrigin.length; index++) {
     const element = subtasksEditArrayOrigin[index];
     position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin);
+
   }
+  subtasksEditArrayOrigin = [];
 }
 
 
-function assignedToEdit(contacts, imageUrls, index) {
-  try {
-    const extractNames = (contacts) => {
-      return Object.values(contacts).map((entry) => ({ name: entry.name }));
-    };
-    const names = extractNames(contacts);
-    checkboxInitEdit(names, imageUrls, index);
-    console.log(names)
-    console.log(imageUrls)
-    console.log(names)
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-/**
- * Initializes the checkboxes for assigning users to the task during editing.
- * @param {Array<Object>} names - The names of the contacts.
- * @param {Array<string>} imageUrls - The image URLs of the contacts.
- * @param {number} indexHTML - The index of the task being edited.
- */
 function checkboxInitEdit(names, imageUrls, indexHTML) {
   let position = document.getElementById(`checkboxesEdit${indexHTML}`);
   let list = "";

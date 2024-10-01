@@ -69,6 +69,7 @@ function finishSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
 
     console.log(subtasksEditArrayFinish)
     subtasksRenderOpenEdit(indexHTML, subtasksEditArrayFinish);
+    subtasksEditArrayFinish =[];
   }
 /**
  * Resets the subtask input field to its original state during task editing.
