@@ -6,13 +6,15 @@
  * @param {string} element - The name of the contact.
  * @returns {string} - The HTML string for the checkbox.
  */
-function checkBoxRenderEdit(index, imgSrc, element) {
+function checkBoxRenderEdit(index, names, urls) {
+    console.log(urls)
+    console.log(names)
     return `<label class="checkBoxFlex" for="checkbox-${index}">
                 <div class="checkBoxImg">
-                    <img src="${imgSrc}" alt="" />
-                    ${element}
+                     <img src="${urls}" alt="" />
+                    ${names}
                 </div>
-                <input type="checkbox" id="checkbox-${index}" value="${element}" onclick="assignedToUserEdit('${index}','${element}')" />
+                <input type="checkbox" id="checkbox-${index}" value="${names}" onclick="assignedToUserEdit('${index}')" />
             </label>`;
 }
 

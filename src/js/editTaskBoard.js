@@ -164,27 +164,37 @@ function assignedToUserEdit(index, element) {
  *
  * @param {number} index - The index of the task being edited.
  */
-function checkboxIndexFalse(index) {
-  let checkboxes = document.getElementById(`checkboxesEdit${index}`);
-  checkboxes.style.display = "none";
-  expandedEdit = false;
-}
+// function checkboxIndexFalse(index) {
+//   let checkboxes = document.getElementById(`checkboxesEdit${index}`);
+//   checkboxes.style.display = "none";
+//   expandedEdit = false;
+// }
 
 /**
  * Toggles the visibility of the checkboxes for assigning users during task editing.
  *
  * @param {number} index - The index of the task being edited.
  */
-function showCheckboxesEdit(index) {
-  let checkboxes = document.getElementById(`checkboxesEdit${index}`);
+function showCheckboxesEdit(indexHTML) {
+  let checkboxes = document.getElementById(`checkboxesEdit${indexHTML}`);
+
   if (!expandedEdit) {
     checkboxes.style.display = "block";
     expandedEdit = true;
+    if (checkboxes.innerHTML.trim() === "") {
+      for (let index = 0; index < userNamesBoard.length; index++) {
+        const names = userNamesBoard[index];
+        const urls = imageUrlBoard[index];
+        
+        checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls);
+      }
+    }
   } else {
     checkboxes.style.display = "none";
     expandedEdit = false;
   }
 }
+
 
 /**
  * Sets the priority of the task during editing based on the selected priority button.
