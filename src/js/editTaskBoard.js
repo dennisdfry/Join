@@ -42,9 +42,9 @@ function CategoryColorOpenEdit(index, category) {
  * @param {string} date - The due date of the task.
  */
 
-function dueDateEditTask(index, date) {
+function dueDateEditTask(index, dueDate) {
   let position = document.getElementById(`dueDateEdit${index}`);
-  position.value = date;
+  position.value = dueDate;
 }
 
 
@@ -56,6 +56,7 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     CategoryColorOpenEdit(index, category);
     subtasksRenderOpenEdit(index, subtasks);
     checkboxIndexFalse(index);
+    dueDateEditTask(index, dueDate);
     // searchIndexUrlOpenEdit(index, assignedTo);
     // searchprioBoardOpenEdit(index, prio);
     // loadSubtaskStatus(index, subtaskStatus);
