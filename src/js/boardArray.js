@@ -88,7 +88,8 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       subtaskStatus: subtaskStatus
     })
   }
-  upstreamHTMLrender()}
+  upstreamHTMLrender();
+}
 
   function upstreamHTMLrender(){
     for (let index = 0; index < taskArrayBoard.length; index++) {
@@ -207,17 +208,18 @@ function CategoryColor(index, category) {
 function progressBar(index, subtasks, subtaskStatus) {
   let progressBar = document.getElementById(`progressBar${index}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
-  let { trueCount, totalCount } = calculateProgress(index, subtasks, subtaskStatus);
-  
-  if (totalCount == 0) {
-    document.getElementById(`hideProgressBar${index}`).classList.add('d-none');
-    document.getElementById(`hideProgressAmount${index}`).classList.add('d-none');
+
+  if (!subtasks || subtasks.length === 0) {
+    positionOfTrueAmount.innerHTML = "0/0";
+    progressBar.style.width = "0%";
     return;
-  } else {
-    positionOfTrueAmount.innerHTML = `<div>${trueCount}/${totalCount}</div>`;
-    let progressPercentage = (trueCount / totalCount) * 100;
-    updateProgressBar(index, progressPercentage);
   }
+
+  let { trueCount, totalCount } = calculateProgress(index, subtasks, subtaskStatus);
+  positionOfTrueAmount.innerHTML = `${trueCount}/${totalCount}`;
+  
+  let progressPercentage = (trueCount / totalCount) * 100;
+  updateProgressBar(index, progressPercentage);
 }
 
 /**
