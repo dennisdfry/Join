@@ -17,7 +17,7 @@ function goToSummary() {
 /**
  * Handles the login form submission. Authenticates the user with Firebase based on email and password.
  * Sets persistence based on the "Remember Me" checkbox.
- * 
+ *
  * @param {Event} e - The submit event triggered by the login form.
  * @async
  */
@@ -35,9 +35,9 @@ document.getElementById("login-form").addEventListener("submit", async function 
     await firebase.auth().signInWithEmailAndPassword(email, password);
     goToSummary();
   } catch (error) {
-    toggleElement(".error-message", "d-none");
-    toggleElement(".input-password", "input-invalid");
-    toggleElement(".input-mail", "input-invalid");
+    toggleElement(e, ".error-message", "d-none");
+    toggleElement(e, ".input-password", "input-invalid");
+    toggleElement(e, ".input-mail", "input-invalid");
   }
 });
 
