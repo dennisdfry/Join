@@ -54,40 +54,62 @@
           </button>
         </div>
       </section>
+<section class="board-render-section" id="renderSectionBoard">
+  <div class="board-column">
+    <div class="board-task-column">
+      <h4 class="mg-block-inline">To do</h4>
+      <img onclick="changeSite('addTask.html')" src="./img/plus button.png" alt="" />
+    </div>
+    <div class="status-message">No tasks To Do</div>
+    <div class="board-render-status-container drag-area" 
+         id="todo" 
+         ondrop="moveTo('todo')" 
+         ondragover="allowDrop(event)"
+         ondragenter="handleDragEnter(event, 'todo')" 
+         ondragleave="handleDragLeave(event, 'todo')"></div>
+  </div>
 
-      <section class="board-render-section" id="renderSectionBoard">
-        <div class="board-column">
-          <div class="board-task-column">
-            <h4 class="mg-block-inline">To do</h4>
-            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" alt="" />
-          </div>
-          <div class="status-message">No tasks To Do</div>
-          <div class="board-render-status-container drag-area" id="todo" ondrop="moveTo('todo')" ondragover="allowDrop(event)"></div>
-        </div>
-        <div class="board-column">
-          <div class="board-task-column">
-            <h4 class="mg-block-inline">In progress</h4>
-            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
-          </div>
-          <div class="status-message">No tasks in progress</div>
-          <div class="board-render-status-container drag-area" id="progress" ondrop="moveTo('progress')" ondragover="allowDrop(event)"></div>
-        </div>
-        <div class="board-column">
-          <div class="board-task-column">
-            <h4 class="mg-block-inline">Await feedback</h4>
-            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
-          </div>
-          <div class="status-message">No tasks in feedback</div>
-          <div class="board-render-status-container drag-area" id="feedback" ondrop="moveTo('feedback')" ondragover="allowDrop(event)"></div>
-        </div>
-        <div class="board-column">
-          <div class="board-task-column">
-            <h4 class="mg-block-inline">Done</h4>
-          </div>
-          <div class="status-message">No tasks done</div>
-          <div class="board-render-status-container drag-area" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
-        </div>
-      </section>
+  <div class="board-column">
+    <div class="board-task-column">
+      <h4 class="mg-block-inline">In progress</h4>
+      <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
+    </div>
+    <div class="status-message">No tasks in progress</div>
+    <div class="board-render-status-container drag-area" 
+         id="progress" 
+         ondrop="moveTo('progress')" 
+         ondragover="allowDrop(event)"
+         ondragenter="handleDragEnter(event, 'progress')" 
+         ondragleave="handleDragLeave(event, 'progress')"></div>
+  </div>
+
+  <div class="board-column">
+    <div class="board-task-column">
+      <h4 class="mg-block-inline">Await feedback</h4>
+      <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
+    </div>
+    <div class="status-message">No tasks in feedback</div>
+    <div class="board-render-status-container drag-area" 
+         id="feedback" 
+         ondrop="moveTo('feedback')" 
+         ondragover="allowDrop(event)"
+         ondragenter="handleDragEnter(event, 'feedback')" 
+         ondragleave="handleDragLeave(event, 'feedback')"></div>
+  </div>
+
+  <div class="board-column">
+    <div class="board-task-column">
+      <h4 class="mg-block-inline">Done</h4>
+    </div>
+    <div class="status-message">No tasks done</div>
+    <div class="board-render-status-container drag-area" 
+         id="done" 
+         ondrop="moveTo('done')" 
+         ondragover="allowDrop(event)"
+         ondragenter="handleDragEnter(event, 'done')" 
+         ondragleave="handleDragLeave(event, 'done')"></div>
+  </div>
+</section>
     </div>
     <div onclick="oneClickClose(event)" id="openTask" class="d-none d-flex-center"></div>
 

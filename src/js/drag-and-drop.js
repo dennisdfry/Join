@@ -101,3 +101,15 @@ async function updateTaskInFirebase(task) {
   }
 }
 
+function handleDragEnter(event, areaId) {
+  event.preventDefault();
+  const dragArea = document.getElementById(areaId);
+  dragArea.classList.add("highlight");
+}
+
+function handleDragLeave(event, areaId) {
+  event.preventDefault();
+  const dragArea = document.getElementById(areaId);
+  dragArea.classList.remove("highlight");
+}
+
