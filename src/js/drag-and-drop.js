@@ -140,6 +140,7 @@ function handleDragLeave(event, areaId) {
  * @param {string} newCategory - The new category to move the task to.
  */
 async function moveTaskToCategory(taskKey, newCategory) {
+  event.stopPropagation();
   try {
     task[taskKey]["boardCategory"] = newCategory;
     await updateTaskInFirebase({
