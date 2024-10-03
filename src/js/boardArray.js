@@ -89,7 +89,8 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       subtaskStatus: subtaskStatus
     })
   }
-  upstreamHTMLrender()}
+  upstreamHTMLrender();
+}
 
   function upstreamHTMLrender(){
     for (let index = 0; index < taskArrayBoard.length; index++) {
@@ -119,45 +120,57 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       }
     }
 
-  function positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus){
-    let position = document.getElementById(`${boardCategory}`);
-    position.innerHTML += `
-    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
-        <div class="d-flex-between" style="position: relative;">
-              <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
-              <img src="/public/img/dots.png" id="dots-parent-container${index}" onclick="toggleElement('#taskDropdown${index}', 'd-none')">
-              <div id="taskDropdown${index}" class="task-dropdown d-flex-start flex-d-col p-10 d-none">
-                  <span>Move to:</span>
-                  <a href="#">ToDo</a>
-                  <a href="#">Progress</a>
-                  <a href="#">Feedback</a>
-                  <a href="#">Done</a>
-                </div>
-            <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
+/**
+ * Positions an HTML block for the board.
+ * 
+ * @param {number} index - The index of the task.
+ * @param {string} category - The category of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} dueDate - The due date of the task.
+ * @param {string} prio - The priority of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} boardCategory - The board category of the task.
+ * @param {string} assignedTo - The user assigned to the task.
+ * @param {string} subtasks - The subtasks associated with the task.
+ * @param {string} subtaskStatus - The status of the subtasks.
+ */
+function positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks, subtaskStatus) {
+  let position = document.getElementById(`${boardCategory}`);
+  position.innerHTML += `
+    <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}', '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
+      <div class="d-flex-between" style="position: relative;">
+        <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
+        <img src="/public/img/dots.png" id="dots-parent-container${index}" onclick="toggleElementDropDown(event, '#taskDropdown${index}', 'd-none')">
+        <div id="taskDropdown${index}" class="task-dropdown d-flex-start flex-d-col p-10 d-none">
+          <span>Move to:</span>
+          <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'todo')">ToDo</a>
+          <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'progress')">Progress</a>
+          <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'feedback')">Feedback</a>
+          <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'done')">Done</a>
         </div>
-        <div class="width220 mg-top-4">
-            <h2 class="mg-block-none fs-16 fw-700">${title}</h2> 
+        <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
+      </div>
+      <div class="width220 mg-top-4">
+        <h2 class="mg-block-none fs-16 fw-700">${title}</h2> 
+      </div>
+      <div class="mg-bot-4 mg-top-4">  
+        <p class="mg-block-none fs-16 fw-400 color-gr width220" id="limitTextDesciption${index}">${description}</p>
+      </div> 
+      <div class="progress-container d-flex-between width220">
+        <div id="hideProgressBar${index}" class="width128">
+          <div id="progressBar${index}" class="progress-bar pointer"></div>
         </div>
-        <div class="mg-bot-4 mg-top-4">  
-            <p class="mg-block-none fs-16 fw-400 color-gr width220" id="limitTextDesciption${index}">${description}</p>
-        </div> 
-        <div class="progress-container d-flex-between width220">
-            <div id="hideProgressBar${index}" class="width128">
-                <div id="progressBar${index}" class="progress-bar pointer"></div>
-            </div>
-            <div id="hideProgressAmount${index}" class="d-flex">
-                <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
-                <div id="subtasks${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
-            </div>
+        <div id="hideProgressAmount${index}" class="d-flex">
+          <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
+          <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
         </div>
-        <div class="d-flex-between width220">
-            <div class="user-image-bord-container" id="userImageBoard${index}">
-            </div>
-            <div class="img-32 d-flex-center" id="prioPosition${index}">
-            </div>
-        </div>  
+      </div>
+      <div class="d-flex-between width220">
+        <div class="user-image-bord-container" id="userImageBoard${index}"></div>
+        <div class="img-32 d-flex-center" id="prioPosition${index}"></div>
+      </div>  
     </div>`;
-  }
+}
 
 function searchIndexUrlBoard(indexHTML, assignedTo) {
   let position = document.getElementById(`userImageBoard${indexHTML}`);
@@ -208,17 +221,18 @@ function CategoryColor(index, category) {
 function progressBar(index, subtasks, subtaskStatus) {
   let progressBar = document.getElementById(`progressBar${index}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
-  let { trueCount, totalCount } = calculateProgress(index, subtasks, subtaskStatus);
-  
-  if (totalCount == 0) {
-    document.getElementById(`hideProgressBar${index}`).classList.add('d-none');
-    document.getElementById(`hideProgressAmount${index}`).classList.add('d-none');
+
+  if (!subtasks || subtasks.length === 0) {
+    positionOfTrueAmount.innerHTML = "0/0";
+    progressBar.style.width = "0%";
     return;
-  } else {
-    positionOfTrueAmount.innerHTML = `<div>${trueCount}/${totalCount}</div>`;
-    let progressPercentage = (trueCount / totalCount) * 100;
-    updateProgressBar(index, progressPercentage);
   }
+
+  let { trueCount, totalCount } = calculateProgress(index, subtasks, subtaskStatus);
+  positionOfTrueAmount.innerHTML = `${trueCount}/${totalCount}`;
+  
+  let progressPercentage = (trueCount / totalCount) * 100;
+  updateProgressBar(index, progressPercentage);
 }
 
 /**

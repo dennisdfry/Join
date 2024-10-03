@@ -74,6 +74,9 @@ async function moveTo(category) {
     });
 
     await updateHTML();
+
+    let dragArea = document.getElementById(category);
+    dragArea.classList.remove("highlight");
   } else {
     console.error("No task is being dragged.");
   }
@@ -101,3 +104,52 @@ async function updateTaskInFirebase(task) {
   }
 }
 
+/**
+ * to the specified drag area, visually indicating that the area is a valid drop target.
+ *
+ * @param {DragEvent} event - The drag event triggered when the draggable element enters the drop area.
+ * @param {string} areaId - The ID of the drop area where the draggable element is entering.
+ */
+function handleDragEnter(event, areaId) {
+  event.preventDefault();
+  let dragArea = document.getElementById(areaId);
+  dragArea.classList.add("highlight");
+}
+
+/**
+ * Handles the drag leave event by removing the highlight effect from the drop area.
+ * This function is triggered when a draggable element leaves the drop zone.
+ * is not contained within the drop area. If it is not, it removes the "highlight"
+ *
+ * @param {DragEvent} event - The drag event triggered when the draggable element leaves the drop area.
+ * @param {string} areaId - The ID of the drop area where the draggable element is leaving.
+ */
+function handleDragLeave(event, areaId) {
+  event.preventDefault();
+  let dragArea = document.getElementById(areaId);
+  if (!dragArea.contains(event.relatedTarget)) {
+    dragArea.classList.remove("highlight");
+  }
+}
+
+
+/**
+ * Moves a task to a specified category when a link is clicked.
+ *
+ * @param {string} taskKey - The unique key of the task being moved.
+ * @param {string} newCategory - The new category to move the task to.
+ */
+async function moveTaskToCategory(taskKey, newCategory) {
+  event.stopPropagation();
+  try {
+    task[taskKey]["boardCategory"] = newCategory;
+    await updateTaskInFirebase({
+      id: taskKey,
+      boardCategory: newCategory,
+    });
+    await updateHTML();
+    updateStatusMessages();
+  } catch (error) {
+    console.error("Error moving task:", error);
+  }
+}

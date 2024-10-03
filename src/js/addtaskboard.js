@@ -1,4 +1,69 @@
-   
+/**
+ * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
+ * @param {object} contacts - The contacts object.
+ * @param {string[]} imageUrls - An array of image URLs for the contacts.
+ * @returns {Promise<void>}
+ */
+async function assignedTo2(contacts, imageUrls) {
+  try {
+    const extractNames = (contacts) => {
+      return Object.values(contacts).map((entry) => ({ name: entry.name }));
+    };
+    const names = extractNames(contacts);
+    await checkboxInit2(names, imageUrls);
+  } catch (error) {
+    console.error(error);
+  }
+}
+async function assignedToUser2(index, element, imgSrc) {
+  const image = imageUrlsGlobal[index];
+  const arrayIndex = assignedToUserArray.indexOf(index);
+  if (arrayIndex !== -1) {
+    assignedToUserArray.splice(arrayIndex, 1);
+    assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+    imageUrlsGlobal.splice(arrayIndex, 1);
+    assignedtoUserHighlightRemove2(index);
+  } else {
+    assignedToUserArray.push(index);
+    assignedToUserArrayNamesGlobal.push(element);
+    imageUrlsGlobal.push(imgSrc);
+    assignedtoUserHighlightAdd2(index);
+  }
+}
+
+function assignedtoUserHighlightAdd2(index) {
+  let position = document.getElementById(`checkboxColor${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  positionOfImage.classList.add('assignedToUserImage');
+  position.style.backgroundColor = '#2a3647';
+  position.style.color = '#ffffff';
+}
+
+function assignedtoUserHighlightRemove2(index) {
+  let position = document.getElementById(`checkboxColor${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  positionOfImage.classList.remove('assignedToUserImage');
+  position.style.backgroundColor = '#ffffff';
+  position.style.color = '#2a3647';
+}
+
+/**
+ * Renders checkboxes with contact images and names for assigning users to tasks.
+ * @param {object[]} names - An array of contact names.
+ * @param {string[]} imageUrls - An array of image URLs for the contacts.
+ */
+async function checkboxInit2(names, imageUrls) {
+  let position = document.getElementById("checkboxes2");
+  position.innerHTML = "";
+
+  let list = "";
+  for (let index = 0; index < names.length; index++) {
+    const element = names[index].name;
+    const imgSrc = imageUrls[index];
+    list += checkBoxRender2(index, imgSrc, element);
+  }
+  position.innerHTML = list;
+}   
 /**
  * Returns a string of HTML to render a checkbox with an image and name.
  * @param {number} index - The index of the checkbox.
@@ -8,16 +73,13 @@
  */
 function checkBoxRender2(index, imgSrc, element) {
     return`
-      <label class="checkBoxFlex" for="checkbox2-${index}">
-          <div class="checkBoxImg">
-              <img src="${imgSrc}" alt="" />
-              ${element}
-          </div>
-           <input type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}','${imgSrc}')" />
-      </label>`;
+    <label class="checkBoxFlex" for="checkbox2-${index}" id="checkboxColor2${index}">
+        <div class="checkBoxImg">
+            <img id="assignedToUserImageBorder2${index}" src="${imgSrc}" alt="" />
+            ${element}
+        </div>
+ <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser('${index}','${element}','${imgSrc}')" />      </label>`;
   }
-    
- 
 
   /**
    * Toggles the visibility of the "Assigned To" dropdown.

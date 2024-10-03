@@ -45,6 +45,7 @@ async function whichChangeSite(resp, element, file) {
       await initContacts();
     } else if (file.includes("board.html")) {
       await initDataBoard();
+      updateStatusMessages();
     } else if (file.includes("summary.html")) {
       await initSmry();
     } 
@@ -71,7 +72,7 @@ async function changeSite(page, clickedElement) {
   }
   document.querySelector(".main-content").setAttribute("w3-include-html", page);
   await includeHTML();
-  if (page === 'contacts.html') {
+  if (page === 'contacts.html') {       // verursacht eine fehlermeldung wenn auf kontakte geklickt wird.
     toggleElement('.contactlist-section-responsive', 'd-none');
   }
 }

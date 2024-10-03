@@ -207,6 +207,13 @@
   transition: background-color 0.3s ease;
 }
 
+.highlight {
+  background-color: rgba(231, 233, 236, 0.2);
+  opacity: 60%;
+  border: 1px dashed #d1d1d1;
+  border-radius: 30px;
+}
+
 .todo {
   background-color: white;
   border: 1px solid black;
