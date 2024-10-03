@@ -1,9 +1,9 @@
 .add-Task-Container2 {
   width: 1116px;
-  height: 766px;
+  height: 764px;
   position: absolute;
-  top: 8px;
-  left: 212px;
+  top: 104px;
+  left: 186px;
   border-radius: 30px !important;
   background-color: #ffffff !important;
   animation: moveIn 200ms ease-in 100ms forwards;
@@ -35,7 +35,7 @@
 .add-task-form-left-section2 {
   width: 440px;
   position: absolute;
-  top: 189px;
+  top: 163px;
   left: 74px;
   gap: 12px;
   display: flex;
@@ -48,7 +48,7 @@
 .add-task-form-right-section2 {
   width: 440px;
   position: absolute;
-  top: 190px;
+  top: 165px;
   left: 589.25px;
   gap: 16px;
   display: flex;
@@ -122,7 +122,7 @@
 }
 
 .add-task-select3 {
-  width: 420px;
+  width: 440px;
   height: 48px;
   border-radius: 10px;
   margin-top: -7px;
@@ -221,13 +221,20 @@ input[type="text" i] {
   font-weight: 400;
   cursor: pointer;
 }
+.add-task-finish-section2 {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 688px;
+  left: 496px;
+}
 
 .selectBox2 select {
   overflow: hidden;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 475px;
+  width: 440px;
   padding-left: 16px;
   padding-top: 5px;
   padding-bottom: 5px;
