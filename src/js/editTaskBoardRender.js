@@ -22,7 +22,7 @@ function checkBoxRenderEdit(index, names, urls) {
  * @param {number} index - The index of the task for which subtasks are being edited.
  */
 function showSubtaskControlsEdit(index, subtasks) {
-    
+    console.log(index)
     document.getElementById(`subtasksEdit${index}`).classList.remove('add-task-input-edit');
     document.getElementById(`subtasksEdit${index}`).classList.add('subtasks-input-edit');
     

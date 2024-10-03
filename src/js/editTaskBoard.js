@@ -84,7 +84,7 @@ function addSubtaskEdit(index, subtasks) {
     subtasksRenderOpenEdit(index, showSubtasksEdit);
     console.log(showSubtasksEdit);
   }
-  showSubtasksEdit = [];
+ console.log(showSubtasksEdit);
 }
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
   return `
@@ -103,17 +103,20 @@ function subtasksRenderOpenEdit(indexHtml, subtasks) {
   let subtasksEditArrayOrigin;
   if (Array.isArray(subtasks)) {
     subtasksEditArrayOrigin = subtasks;
+    console.log(subtasksEditArrayOrigin);
   } else {
     subtasksEditArrayOrigin = subtasks.split(',').map(subtask => subtask.trim());
+    console.log(subtasksEditArrayOrigin);
   }
   let position = document.getElementById(`subtasksPosition${indexHtml}`);
   position.innerHTML = "";
   for (let index = 0; index < subtasksEditArrayOrigin.length; index++) {
     const element = subtasksEditArrayOrigin[index];
+    console.log(element);
     position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin);
-
+    console.log(subtasksEditArrayOrigin);
   }
-  subtasksEditArrayOrigin = [];
+ 
 }
 
 

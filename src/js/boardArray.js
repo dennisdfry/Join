@@ -15,6 +15,7 @@ let showSubtasksEdit = [];
 let subtasksStatusArrayEdit = [];
 let subtasksEditArrayDelete = [];
 
+
 async function initDataBoard(){
   taskArrayBoard = [];
     try {
