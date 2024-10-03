@@ -74,6 +74,9 @@ async function moveTo(category) {
     });
 
     await updateHTML();
+
+    let dragArea = document.getElementById(category);
+    dragArea.classList.remove("highlight");
   } else {
     console.error("No task is being dragged.");
   }
@@ -101,15 +104,34 @@ async function updateTaskInFirebase(task) {
   }
 }
 
+/**
+ * Handles the drag enter event by adding a highlight effect to the drop area.
+ *
+ * This function is triggered when a draggable element enters a valid drop zone.
+ * It prevents the default behavior of the event and adds a "highlight" class
+ * to the specified drag area, visually indicating that the area is a valid drop target.
+ *
+ * @param {DragEvent} event - The drag event triggered when the draggable element enters the drop area.
+ * @param {string} areaId - The ID of the drop area where the draggable element is entering.
+ */
 function handleDragEnter(event, areaId) {
   event.preventDefault();
-  const dragArea = document.getElementById(areaId);
+  let dragArea = document.getElementById(areaId);
   dragArea.classList.add("highlight");
 }
 
+/**
+ * Handles the drag leave event by removing the highlight effect from the drop area.
+ * This function is triggered when a draggable element leaves the drop zone.
+ * is not contained within the drop area. If it is not, it removes the "highlight"
+ *
+ * @param {DragEvent} event - The drag event triggered when the draggable element leaves the drop area.
+ * @param {string} areaId - The ID of the drop area where the draggable element is leaving.
+ */
 function handleDragLeave(event, areaId) {
   event.preventDefault();
-  const dragArea = document.getElementById(areaId);
-  dragArea.classList.remove("highlight");
+  let dragArea = document.getElementById(areaId);
+  if (!dragArea.contains(event.relatedTarget)) {
+    dragArea.classList.remove("highlight");
+  }
 }
-
