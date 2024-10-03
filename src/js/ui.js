@@ -2,11 +2,27 @@
  * Toggles a CSS class on an HTML element.
  * If the element has the specified class, it removes it; otherwise, it adds it.
  *
+ * @param {string} elementClass - The CSS selector of the element to toggle.
+ * @param {string} className - The class name to be toggled on the element.
+ */
+function toggleElement(elementClass, className) {
+  const element = document.querySelector(elementClass);
+  if (element.classList.contains(className)) {
+    element.classList.remove(className);
+  } else {
+    element.classList.add(className);
+  }
+}
+
+/**
+ * Toggles a CSS class on an HTML element.
+ * If the element has the specified class, it removes it; otherwise, it adds it.
+ *
  * @param {Event} event - The event object.
  * @param {string} elementClass - The CSS selector of the element to toggle.
  * @param {string} className - The class name to be toggled on the element.
  */
-function toggleElement(event, elementClass, className) {
+function toggleElementDropDown(event, elementClass, className) {
   event.stopPropagation();
   const element = document.querySelector(elementClass);
   if (element.classList.contains(className)) {
