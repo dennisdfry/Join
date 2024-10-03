@@ -131,3 +131,24 @@ function handleDragLeave(event, areaId) {
     dragArea.classList.remove("highlight");
   }
 }
+
+
+/**
+ * Moves a task to a specified category when a link is clicked.
+ *
+ * @param {string} taskKey - The unique key of the task being moved.
+ * @param {string} newCategory - The new category to move the task to.
+ */
+async function moveTaskToCategory(taskKey, newCategory) {
+  try {
+    task[taskKey]["boardCategory"] = newCategory;
+    await updateTaskInFirebase({
+      id: taskKey,
+      boardCategory: newCategory,
+    });
+    await updateHTML();
+    updateStatusMessages();
+  } catch (error) {
+    console.error("Error moving task:", error);
+  }
+}
