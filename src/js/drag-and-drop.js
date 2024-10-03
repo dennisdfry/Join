@@ -105,10 +105,6 @@ async function updateTaskInFirebase(task) {
 }
 
 /**
- * Handles the drag enter event by adding a highlight effect to the drop area.
- *
- * This function is triggered when a draggable element enters a valid drop zone.
- * It prevents the default behavior of the event and adds a "highlight" class
  * to the specified drag area, visually indicating that the area is a valid drop target.
  *
  * @param {DragEvent} event - The drag event triggered when the draggable element enters the drop area.

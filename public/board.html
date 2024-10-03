@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/style.css" />
     <link rel="stylesheet" href="../src/css/board.css" />
     <link rel="stylesheet" href="../src/css/board2.css" />
     <link rel="stylesheet" href="/src/css/boardmedia.css" />
     <link rel="stylesheet" href="../src/css/addtaskmedia.css" />
-    <link rel="stylesheet" href="../src/css/addTask2.css">
+    <link rel="stylesheet" href="../src/css/addTask2.css" />
     <link rel="stylesheet" href="../src/css/utils.css" />
     <link rel="stylesheet" href="../src/css/utils2.css" />
     <link rel="stylesheet" href="../src/css/addTask.css" />
     <link rel="stylesheet" href="../src/css/edittask.css" />
-    <link rel="stylesheet" href="../src/css/addTaskBoard.css">
+    <link rel="stylesheet" href="../src/css/addTaskBoard.css" />
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -27,7 +27,6 @@
     <script src="/src/js/addtaskboard.js"></script>
     <script src="/src/js/openTaskBoard.js"></script>
 
-
     <link rel="icon" href="./img/user_logo.png" type="image/png" />
 
     <title>Board</title>
@@ -39,12 +38,12 @@
         <div class="responsive-board-head">
           <h1 class="board-headline">Board</h1>
           <button onclick="changeSite('addTask.html')" class="add-task-button-head">
-            <img src="../public/img/add.png"/>
+            <img src="../public/img/add.png" />
           </button>
         </div>
         <div class="search-task-container">
           <form class="search-task-section" action="">
-        <input class="search-task-web" type="text" placeholder="Find Task" oninput="searchTasks()" />
+            <input class="search-task-web" type="text" placeholder="Find Task" oninput="searchTasks()" />
             <div class="search-task-seperator"></div>
             <img src="./img/search.png" alt="" />
           </form>
@@ -54,62 +53,70 @@
           </button>
         </div>
       </section>
-<section class="board-render-section" id="renderSectionBoard">
-  <div class="board-column">
-    <div class="board-task-column">
-      <h4 class="mg-block-inline">To do</h4>
-      <img onclick="changeSite('addTask.html')" src="./img/plus button.png" alt="" />
-    </div>
-    <div class="status-message">No tasks To Do</div>
-    <div class="board-render-status-container drag-area" 
-         id="todo" 
-         ondrop="moveTo('todo')" 
-         ondragover="allowDrop(event)"
-         ondragenter="handleDragEnter(event, 'todo')" 
-         ondragleave="handleDragLeave(event, 'todo')"></div>
-  </div>
+      <section class="board-render-section" id="renderSectionBoard">
+        <div class="board-column">
+          <div class="board-task-column">
+            <h4 class="mg-block-inline">To do</h4>
+            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" alt="" />
+          </div>
+          <div class="status-message">No tasks To Do</div>
+          <div
+            class="board-render-status-container drag-area"
+            id="todo"
+            ondrop="moveTo('todo')"
+            ondragover="allowDrop(event)"
+            ondragenter="handleDragEnter(event, 'todo')"
+            ondragleave="handleDragLeave(event, 'todo')"
+          ></div>
+        </div>
 
-  <div class="board-column">
-    <div class="board-task-column">
-      <h4 class="mg-block-inline">In progress</h4>
-      <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
-    </div>
-    <div class="status-message">No tasks in progress</div>
-    <div class="board-render-status-container drag-area" 
-         id="progress" 
-         ondrop="moveTo('progress')" 
-         ondragover="allowDrop(event)"
-         ondragenter="handleDragEnter(event, 'progress')" 
-         ondragleave="handleDragLeave(event, 'progress')"></div>
-  </div>
+        <div class="board-column">
+          <div class="board-task-column">
+            <h4 class="mg-block-inline">In progress</h4>
+            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
+          </div>
+          <div class="status-message">No tasks in progress</div>
+          <div
+            class="board-render-status-container drag-area"
+            id="progress"
+            ondrop="moveTo('progress')"
+            ondragover="allowDrop(event)"
+            ondragenter="handleDragEnter(event, 'progress')"
+            ondragleave="handleDragLeave(event, 'progress')"
+          ></div>
+        </div>
 
-  <div class="board-column">
-    <div class="board-task-column">
-      <h4 class="mg-block-inline">Await feedback</h4>
-      <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
-    </div>
-    <div class="status-message">No tasks in feedback</div>
-    <div class="board-render-status-container drag-area" 
-         id="feedback" 
-         ondrop="moveTo('feedback')" 
-         ondragover="allowDrop(event)"
-         ondragenter="handleDragEnter(event, 'feedback')" 
-         ondragleave="handleDragLeave(event, 'feedback')"></div>
-  </div>
+        <div class="board-column">
+          <div class="board-task-column">
+            <h4 class="mg-block-inline">Await feedback</h4>
+            <img onclick="changeSite('addTask.html')" src="./img/plus button.png" />
+          </div>
+          <div class="status-message">No tasks in feedback</div>
+          <div
+            class="board-render-status-container drag-area"
+            id="feedback"
+            ondrop="moveTo('feedback')"
+            ondragover="allowDrop(event)"
+            ondragenter="handleDragEnter(event, 'feedback')"
+            ondragleave="handleDragLeave(event, 'feedback')"
+          ></div>
+        </div>
 
-  <div class="board-column">
-    <div class="board-task-column">
-      <h4 class="mg-block-inline">Done</h4>
-    </div>
-    <div class="status-message">No tasks done</div>
-    <div class="board-render-status-container drag-area" 
-         id="done" 
-         ondrop="moveTo('done')" 
-         ondragover="allowDrop(event)"
-         ondragenter="handleDragEnter(event, 'done')" 
-         ondragleave="handleDragLeave(event, 'done')"></div>
-  </div>
-</section>
+        <div class="board-column">
+          <div class="board-task-column">
+            <h4 class="mg-block-inline">Done</h4>
+          </div>
+          <div class="status-message">No tasks done</div>
+          <div
+            class="board-render-status-container drag-area"
+            id="done"
+            ondrop="moveTo('done')"
+            ondragover="allowDrop(event)"
+            ondragenter="handleDragEnter(event, 'done')"
+            ondragleave="handleDragLeave(event, 'done')"
+          ></div>
+        </div>
+      </section>
     </div>
     <div onclick="oneClickClose(event)" id="openTask" class="d-none d-flex-center"></div>
 
@@ -126,38 +133,79 @@
         <div class="add-task-middle-section2" action="">
           <div class="add-task-form-left-section2">
             <label for="title">Title <span class="red-star">*</span></label>
-            <input required minlength="2" class="add-task-title-inputfield2" type="text" placeholder="Enter a title" name="title" id="title2" />
+            <input
+              required
+              minlength="2"
+              class="add-task-title-inputfield2"
+              type="text"
+              placeholder="Enter a title"
+              name="title"
+              id="title2"
+            />
 
             <label for="description">Description</label>
-            <textarea required minlength="2" class="add-task-textarea" placeholder="Enter a description" name="description" id="description2"></textarea>
+            <textarea
+              required
+              minlength="2"
+              class="add-task-textarea"
+              placeholder="Enter a description"
+              name="description"
+              id="description2"
+            ></textarea>
             <label for="assignedTo">Assigned to</label>
-            <div class="multiselect2 pointer"  onclick="showCheckboxes2(event)">
+            <div class="multiselect2 pointer" onclick="showCheckboxes2(event)">
               <div class="selectBox2">
                 <select required class="add-task-select">
                   <option>Select an option</option>
                 </select>
                 <div class="overSelect2"></div>
               </div>
-              <div id="checkboxes2" class="checkboxes-hidden">
-                
-              </div>
+              <div id="checkboxes2" class="checkboxes-hidden"></div>
             </div>
             <div id="userImageShow2"></div>
           </div>
           <div class="add-task-seperator2"></div>
           <div class="add-task-form-right-section2">
             <label for="dueDate">Due date <span class="red-star">*</span></label>
-            <input required class="add-task-select3" type="date" id="dueDate2" name="dueDate" onclick="setTodayDate()" />
+            <input
+              required
+              class="add-task-select3"
+              type="date"
+              id="dueDate2"
+              name="dueDate"
+              onclick="setTodayDate()"
+            />
             <label id="prioSection2" for="prio">Prio</label>
             <div class="add-task-prio-button-container">
-              <button onclick="prio2(1)" id="prio2Button1" value="1" data-prio="urgent" type="button" class="add-task-prio-button">
+              <button
+                onclick="prio2(1)"
+                id="prio2Button1"
+                value="1"
+                data-prio="urgent"
+                type="button"
+                class="add-task-prio-button"
+              >
                 <span>Urgent</span>
                 <img src="../public/img/Prio alta.png" alt="" />
               </button>
-              <button onclick="prio2(2)" id="prio2Button2" value="2" data-prio="medium" type="button" class="add-task-prio-button">
+              <button
+                onclick="prio2(2)"
+                id="prio2Button2"
+                value="2"
+                data-prio="medium"
+                type="button"
+                class="add-task-prio-button"
+              >
                 <span>Medium =</span>
               </button>
-              <button onclick="prio2(3)" id="prio2Button3" value="3" data-prio="low" type="button" class="add-task-prio-button">
+              <button
+                onclick="prio2(3)"
+                id="prio2Button3"
+                value="3"
+                data-prio="low"
+                type="button"
+                class="add-task-prio-button"
+              >
                 <span>Low</span>
                 <img src="../public/img/Prio baja.png" />
               </button>
@@ -171,9 +219,18 @@
             </select>
             <label for="subtasks">Subtasks</label>
             <div class="input-with-button bradius10">
-              <input type="text" minlength="2" class="add-task-input-board" placeholder="Add item" id="subtasks2" name="subtasks" />
+              <input
+                type="text"
+                minlength="2"
+                class="add-task-input-board"
+                placeholder="Add item"
+                id="subtasks2"
+                name="subtasks"
+              />
               <div id="subtasksControl2" class="subtasks-control2">
-                <button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button-board">+</button>
+                <button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button-board">
+                  +
+                </button>
               </div>
             </div>
             <div class="subtasksList2" id="subtasksPosition2"></div>
