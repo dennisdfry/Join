@@ -139,7 +139,7 @@ function positionOfHTMLBlockBoard(index, category, description, dueDate, prio, t
     <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}', '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
       <div class="d-flex-between" style="position: relative;">
         <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
-        <img src="/public/img/dots.png" id="dots-parent-container${index}" onclick="toggleElement(event, '#taskDropdown${index}', 'd-none')">
+        <img src="/public/img/dots.png" id="dots-parent-container${index}" onclick="toggleElementDropDown(event, '#taskDropdown${index}', 'd-none')">
         <div id="taskDropdown${index}" class="task-dropdown d-flex-start flex-d-col p-10 d-none">
           <span>Move to:</span>
           <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'todo')">ToDo</a>

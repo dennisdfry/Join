@@ -40,7 +40,7 @@ function toggleElementDropDown(event, elementClass, className) {
  */
 function toggleDropdown(event) {
   event.stopPropagation();
-  toggleElement(event, '.user-icon-dropdown', 'd-none');
+  toggleElement('.user-icon-dropdown', 'd-none');
 }
 
 /**
