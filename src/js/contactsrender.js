@@ -11,7 +11,6 @@ function renderLetterArea(contactList, letter) {
   `;
 }
 
-
 /**
  * Inserts a single contact into the contact list.
  *
@@ -104,6 +103,7 @@ function generateProfileImage(name) {
 </svg>`;
   return `data:image/svg+xml;base64,${btoa(svgImage)}`;
 }
+
 /**
  * Renders the Edit and Delete buttons inside the element with the class 'contact-section-btn-box-resp'.
  * 
