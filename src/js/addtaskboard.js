@@ -12,7 +12,6 @@ async function initBoard() {
   }
 }
 
-
 /**
  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
  * @param {object} contacts - The contacts object.
@@ -30,6 +29,14 @@ async function assignedToBoard(contacts, imageUrls) {
     console.error(error);
   }
 }
+
+/**
+ * Toggles user assignment by adding or removing the user from the assigned list.
+ * 
+ * @param {number} index - The index of the user.
+ * @param {string} element - The name of the user.
+ * @param {string} imgSrc - The image URL of the user.
+ */
 async function assignedToUser2(index, element, imgSrc) {
   const image = imageUrlsGlobal[index];
   const arrayIndex = assignedToUserArray.indexOf(index);
@@ -46,6 +53,11 @@ async function assignedToUser2(index, element, imgSrc) {
   }
 }
 
+/**
+ * Adds a highlight to the assigned user's checkbox and image.
+ * 
+ * @param {number} index - The index of the user element.
+ */
 function assignedtoUserHighlightAdd2(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
@@ -54,6 +66,11 @@ function assignedtoUserHighlightAdd2(index) {
   position.style.color = '#ffffff';
 }
 
+/**
+ * Removes the highlight from the assigned user's checkbox and image.
+ * 
+ * @param {number} index - The index of the user element.
+ */
 function assignedtoUserHighlightRemove2(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
@@ -79,6 +96,7 @@ async function checkboxInit2(names, imageUrls) {
   }
   position.innerHTML = list;
 }   
+
 /**
  * Returns a string of HTML to render a checkbox with an image and name.
  * @param {number} index - The index of the checkbox.
@@ -144,7 +162,6 @@ function checkBoxRender2(index, imgSrc, element) {
     }
   }
   
-  
   /**
    * Creates a new task based on form input.
    * 
@@ -167,7 +184,6 @@ function checkBoxRender2(index, imgSrc, element) {
     imageUrlsGlobal = [];
     await changeSite("board.html");
   }
-  
   
   /**
    * Resets the internal state of the form and clears stored data.
@@ -270,7 +286,6 @@ function checkBoxRender2(index, imgSrc, element) {
     selectedPrio = id;
   }
   
-  
   /**
    * Updates the priority array and button styles based on the selected priority.
    * @param {number} id - The ID of the selected priority button.
@@ -359,39 +374,52 @@ function updateSubtasksList2() {
   }
 }
 
-  function editSubtask2(index) {
-    let position = document.getElementById(`supplementarySubtask2${index}`);
-    let arrayPosition = subtasksArray[index];
-    position.innerHTML = `
-        <input id="inputAddTaskSubtasks2${index}" class="" value="${arrayPosition}">
-        <div>
-            <img class="img-24" onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
-            <img class="img-24" onclick="finishSubtask2(${index})" src="../public/img/checkAddTask.png" alt="Add">
-        </div>`;
-  }
+/**
+ * Edits an existing subtask by replacing its content with an input field and action buttons.
+ * 
+ * @param {number} index - The index of the subtask to edit.
+ */
+function editSubtask2(index) {
+  let position = document.getElementById(`supplementarySubtask2${index}`);
+  let arrayPosition = subtasksArray[index];
+  position.innerHTML = `
+      <input id="inputAddTaskSubtasks2${index}" class="" value="${arrayPosition}">
+      <div>
+          <img class="img-24" onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
+          <img class="img-24" onclick="finishSubtask2(${index})" src="../public/img/checkAddTask.png" alt="Add">
+      </div>`;
+}
+ 
+/**
+ * Deletes a subtask and updates the UI by re-rendering the subtasks list.
+ * 
+ * @param {number} index - The index of the subtask to delete.
+ */
+function deleteSubtask2(index) {
+  let position = document.getElementById(`supplementarySubtask2${index}`);
+  position.innerHTML = "";
+  subtasksArray.splice([index], 1);
+  subtasksRender(index);
+}
   
-  function deleteSubtask2(index) {
-    let position = document.getElementById(`supplementarySubtask2${index}`);
-    position.innerHTML = "";
-    subtasksArray.splice([index], 1);
-    subtasksRender(index);
-  }
-  
-  /**
-   * Clears the subtasks display.
-   *
-   * Removes all HTML content from the subtasks position element.
-   */
-  function clearSubtask2() {
-    let position = document.getElementById("subtasksPosition2");
-    position.innerHTML = "";
-    subtasksStatusArray = [];
-  }
+/**
+  * Clears the subtasks display.
+  *
+  * Removes all HTML content from the subtasks position element.
+  */
+function clearSubtask2() {
+  let position = document.getElementById("subtasksPosition2");
+  position.innerHTML = "";
+  subtasksStatusArray = [];
+}
 
-  function setTodayDate() {
-    const dateInput = document.getElementById('dueDate2');
-    const today = new Date().toISOString().split('T')[0]; 
-    if (!dateInput.value) { 
-      dateInput.value = today;
-    }
+/**
+ * Sets the current date as the default value for the due date input if it's empty.
+ */
+function setTodayDate() {
+  const dateInput = document.getElementById('dueDate2');
+  const today = new Date().toISOString().split('T')[0]; 
+  if (!dateInput.value) { 
+    dateInput.value = today;
   }
+}
