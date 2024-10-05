@@ -47,12 +47,25 @@ async function initDataBoard(){
     console.error("Error loading tasks:", error);
   }
 }
+
+/**
+ * Loads data from the specified path and returns the parsed JSON response.
+ * 
+ * @param {string} [path=""] - The path to the JSON data.
+ * @returns {Promise<Object>} - A promise that resolves to the parsed JSON data.
+ */
 async function onloadDataBoard(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
   return responseToJson;
 }
 
+/**
+ * Fetches image URLs from the contacts in the JSON data at the specified path.
+ * 
+ * @param {string} [path=""] - The path to the JSON data.
+ * @returns {Promise<string[]>} - A promise that resolves to an array of image URLs.
+ */
 async function fetchImagesUrlsBoardNew(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
@@ -61,6 +74,12 @@ async function fetchImagesUrlsBoardNew(path = "") {
   return imageUrl;
 }
 
+/**
+ * Fetches user names from the contacts in the JSON data at the specified path.
+ * 
+ * @param {string} [path=""] - The path to the JSON data.
+ * @returns {Promise<Object[]>} - A promise that resolves to an array of objects containing user names.
+ */
 async function fetchUserNamesBoardNew(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
@@ -75,7 +94,6 @@ async function fetchUserNamesBoardNew(path = "") {
       console.error(error);
     }
   }
-
 
 async function generateHTMLObjectsBoard(taskkeys, task) {
   for (let index = 0; index < taskkeys.length; index++) {
@@ -95,11 +113,17 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
   upstreamHTMLrender();
 }
 
-  function upstreamHTMLrender(){
-    let position = document.getElementById('todo') ||
-               document.getElementById('progress') ||
-               document.getElementById('feedback') ||
-               document.getElementById('done');
+/**
+ * Generates HTML objects for the task board based on provided task keys and task data.
+ * 
+ * @param {Array<string>} taskkeys - An array of keys representing tasks.
+ * @param {Object} task - An object containing task details for each key.
+ */
+function upstreamHTMLrender(){
+  let position = document.getElementById('todo') ||
+              document.getElementById('progress') ||
+              document.getElementById('feedback') ||
+              document.getElementById('done');
 
 if (position) {
   position.innerHTML = '';
@@ -114,22 +138,28 @@ if (position) {
       CategoryColor(index, category);
       progressBar(index, subtasks, subtaskStatus);
     }}
-    
-    function searchprioBoard(index, prio) {
-      let position = document.getElementById(`prioPosition${index}`);
-      position.innerHTML = "";
-      if (prio == "Urgent") {
-        position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
-      } else {
-        if (prio == "Medium") {
-          position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
-        } else {
-          if (prio == "Low") {
-            position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
-          }
-        }
+
+/**
+ * Updates the priority display for a specific task on the board based on the given priority level.
+ * 
+ * @param {number} index - The index of the task for which to display the priority.
+ * @param {string} prio - The priority level of the task (e.g., "Urgent", "Medium", "Low").
+ */    
+function searchprioBoard(index, prio) {
+  let position = document.getElementById(`prioPosition${index}`);
+  position.innerHTML = "";
+  if (prio == "Urgent") {
+    position.innerHTML = `<img  src="../public/img/Prio alta.png" alt="">`;
+  } else {
+    if (prio == "Medium") {
+      position.innerHTML = `<img  src="../public/img/prioOrange.png" alt="">`;
+    } else {
+      if (prio == "Low") {
+        position.innerHTML = `<img src="../public/img/Prio baja.png" alt="">`;
       }
     }
+  }
+}
 
 /**
  * Positions an HTML block for the board.
@@ -204,6 +234,12 @@ function searchIndexUrlBoard(indexHTML, assignedTo) {
   }
 }
 
+/**
+ * Updates the user image display on the board for a specific task based on assigned users.
+ * 
+ * @param {number} indexHTML - The index of the task in the HTML to display user images.
+ * @param {Array<number>} assignedTo - An array of indices representing users assigned to the task.
+ */
 function subtasksRenderBoard(indexHtml, subtasks) {
   let positionOfSubtasksLength = document.querySelector(`.subtasksLength${indexHtml}`);
   if (positionOfSubtasksLength) {
@@ -215,6 +251,12 @@ function subtasksRenderBoard(indexHtml, subtasks) {
   }
 }
 
+/**
+ * Sets the background color of a category element based on the specified category.
+ * 
+ * @param {number} index - The index of the category element to update.
+ * @param {string} category - The category type (e.g., "TechnicalTask").
+ */
 function CategoryColor(index, category) {
   let position = document.getElementById(`categoryColor${index}`);
   if (category == TechnicalTask) {
@@ -224,7 +266,13 @@ function CategoryColor(index, category) {
   }
 }
 
-
+/**
+ * Updates the progress bar and displayed count of completed subtasks for a specific task.
+ * 
+ * @param {number} index - The index of the task for which to update the progress bar.
+ * @param {Array} subtasks - An array of subtasks associated with the task.
+ * @param {Array} subtaskStatus - An array representing the completion status of each subtask.
+ */
 function progressBar(index, subtasks, subtaskStatus) {
   let progressBar = document.getElementById(`progressBar${index}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
@@ -241,8 +289,6 @@ function progressBar(index, subtasks, subtaskStatus) {
   let progressPercentage = (trueCount / totalCount) * 100;
   updateProgressBar(index, progressPercentage);
 }
-
-
 
 /**
  * Updates the progress bar width and color based on the percentage of completed subtasks.
@@ -264,6 +310,14 @@ function updateProgressBar(index, progressPercentage, subtasks) {
   }
 }
 
+/**
+ * Calculates the count of completed subtasks and the total number of subtasks for a given task.
+ * 
+ * @param {number} index - The index of the task for which to calculate progress.
+ * @param {Array} subtasks - An array of subtasks associated with the task.
+ * @param {Array} subtaskStatus - An array representing the completion status of each subtask.
+ * @returns {{ trueCount: number, totalCount: number }} - An object containing the counts of completed and total subtasks.
+ */
 function calculateProgress(index, subtasks, subtaskStatus) {
   let trueCount = 0;
   if (!Array.isArray(subtasks)) {
@@ -281,7 +335,20 @@ function calculateProgress(index, subtasks, subtaskStatus) {
   return { trueCount, totalCount };
 }
 
-
+/**
+ * Renders the details of a task in a modal overlay on the board, displaying various task attributes.
+ * 
+ * @param {number} index - The index of the task to be opened.
+ * @param {string} category - The category of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} dueDate - The due date of the task.
+ * @param {string} prio - The priority level of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} boardCategory - The board category to which the task belongs.
+ * @param {Array<number>} assignedTo - An array of user indices assigned to the task.
+ * @param {Array<string>} subtasks - An array of subtasks related to the task.
+ * @param {Array<boolean>} subtaskStatus - An array representing the completion status of each subtask.
+ */
 function openTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
   opentaskIndex = index;
   let position = document.getElementById("openTask");
@@ -298,10 +365,15 @@ function openTaskToBoardRender(index, category, description, dueDate, prio, titl
     searchprioBoardOpen(index, prio);
     loadSubtaskStatus(index, subtaskStatus);
     console.log(subtaskStatus)
-   
-}}
+  }
+}
 
-
+/**
+ * Loads and updates the completion status of subtasks based on the provided status string.
+ * 
+ * @param {number} indexHtml - The index of the HTML element associated with the subtasks.
+ * @param {string} subtaskStatus - A comma-separated string representing the completion status of each subtask.
+ */
 function loadSubtaskStatus(indexHtml, subtaskStatus) {
   console.log(subtaskStatus)
   let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
@@ -325,12 +397,25 @@ function loadSubtaskStatus(indexHtml, subtaskStatus) {
   }
 }
 
+/**
+ * Saves the completion status of a subtask to Firebase based on the checkbox state.
+ * 
+ * @param {number} indexHtml - The index of the HTML element associated with the subtask.
+ * @param {number} index - The index of the subtask to update.
+ * @returns {Promise<void>} - A promise that resolves when the status is saved.
+ */
 async function subtaskStatus(indexHtml, index) {
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
   const isChecked = checkbox.checked;
   await statusSubtaskSaveToFirebase(isChecked, indexHtml, index);
 }
 
+/**
+ * Displays the priority icon for a task in the open task view based on the given priority level.
+ * 
+ * @param {number} index - The index of the task for which to display the priority.
+ * @param {string} prio - The priority level of the task (e.g., "Urgent", "Medium", "Low").
+ */
 function searchprioBoardOpen(index, prio) {
   let position = document.getElementById(`prioPositionOpenTask${index}`);
   position.innerHTML = "";
@@ -347,6 +432,12 @@ function searchprioBoardOpen(index, prio) {
   }
 }
 
+/**
+ * Displays user images and names for a specific task in the open task view based on the assigned users.
+ * 
+ * @param {number} index - The index of the task for which to display assigned user information.
+ * @param {string} assignedTo - A comma-separated string of user IDs assigned to the task.
+ */
 function searchIndexUrlOpen(index, assignedTo) {
  console.log(assignedTo)
  if(assignedTo == 'undefined'){
@@ -361,12 +452,19 @@ function searchIndexUrlOpen(index, assignedTo) {
     const images = imageUrlBoard[element];
     const names = userNamesBoard[element]
     position.innerHTML +=  htmlBoardImageOpen(images,names, i);
-
   }
   assignedToArray = [];
   assignedToUserArrayOpen = [];
 }
 
+/**
+ * Generates HTML for displaying a user's image and name in the open task view.
+ * 
+ * @param {string} images - The URL of the user's image.
+ * @param {string} names - The name of the user.
+ * @param {number} i - The index of the user in the assigned list.
+ * @returns {string} - The HTML string for the user's image and name.
+ */
 function htmlBoardImageOpen(images,names, i) {
   return `
     <div class="d-flex pa-7-16">
@@ -375,6 +473,12 @@ function htmlBoardImageOpen(images,names, i) {
     </div>`;
 }
 
+/**
+ * Renders the subtasks for a specific task in the open task view.
+ * 
+ * @param {number} indexHtml - The index of the task for which to render subtasks.
+ * @param {string} subtasks - A comma-separated string of subtasks associated with the task.
+ */
 function subtasksRenderOpen(indexHtml, subtasks) {
  console.log(subtasks)
   if(subtasks == 'undefined'){
@@ -391,6 +495,13 @@ function subtasksRenderOpen(indexHtml, subtasks) {
   subtasksOpenArray = [];
 }
 
+/**
+ * Saves the status of a subtask to Firebase.
+ * 
+ * @param {boolean} isChecked - The checked status of the subtask.
+ * @param {number} indexHtml - The index of the task in the global task keys.
+ * @param {number} index - The index of the subtask.
+ */
 function subtasksRenderOpenHtml(indexHtml, index, element) {
   return `
     <div class="d-flex item-center pa-7-16">
@@ -399,6 +510,12 @@ function subtasksRenderOpenHtml(indexHtml, index, element) {
     </div>`;
 }
 
+/**
+ * Sets the background color of the category element based on the category type.
+ * 
+ * @param {number} index - The index of the task.
+ * @param {string} category - The category of the task.
+ */
 async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
   for (const taskKeyId of taskkeysGlobal.map((el) => el[indexHtml])) {
     const path = `/tasks/${taskKeyId}/0/subtaskStatus/${index}`;
@@ -419,6 +536,12 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
 
 }
 
+/**
+ * Sets the background color of the category element based on the category type.
+ *
+ * @param {number} index - The index of the task.
+ * @param {string} category - The category of the task.
+ */
 function CategoryColorOpen(index, category) {
   let position = document.getElementById(`categoryColorOpen${index}`);
   if (category == "Technical Task") {
@@ -428,7 +551,11 @@ function CategoryColorOpen(index, category) {
   }
 }
 
-
+/**
+ * Closes the task modal when the modal overlay is clicked.
+ * 
+ * @param {Event} event - The click event that triggered the function.
+ */
 function oneClickClose(event) {
   let openPosition = document.getElementById("openTask");
   if (event.target.classList.contains("modal-overlay")) {
@@ -444,6 +571,23 @@ function oneClickClose(event) {
     resetFormStateEdit();
   }
 }
+
+/**
+ * Generates HTML for displaying an open task on the board.
+ *
+ * @param {number} index - The index of the task.
+ * @param {string} category - The category of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} dueDate - The due date of the task.
+ * @param {string} prio - The priority level of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} boardCategory - The category for the board.
+ * @param {string} assignedTo - A comma-separated list of users assigned to the task.
+ * @param {string} subtasks - A comma-separated list of subtasks.
+ * @param {string} subtaskStatus - A comma-separated list of subtask statuses.
+ * 
+ * @returns {string} The generated HTML markup for the open task.
+ */
 function openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
   return `
     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
