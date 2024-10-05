@@ -447,7 +447,7 @@ function oneClickClose(event) {
 function openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
   return `
     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
-        <div class="width445">  
+        <div class="task-responsive width445">  
           <div class="d-flex-between margin-bt8">
               <h1 id="categoryColorOpen${index}" class=" txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
               <img onclick="closeOpenTask(event, ${index})" id="closeOpenTask${index}" class="close-open-task-img" src="../public/img/Close.png">
