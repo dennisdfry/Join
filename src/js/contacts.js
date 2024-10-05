@@ -41,9 +41,6 @@ function handleFormSubmit(event) {
   closeFormField();
 }
 
-
-
-
 /**
 * Validates a single field and shows error messages if invalid, without blocking focus.
 * @param {HTMLElement} field - The form field to validate.
@@ -149,7 +146,6 @@ function closeFormField(formId = "add-form-section", overlayId = "add-overlay", 
   document.removeEventListener("click", handleOutsideFormClick);
 }
 
-
 /**
  * Initializes event listeners for the contact edit form.
  * - Adds a submit listener to process the edit form.
@@ -174,6 +170,7 @@ function setupEditForm() {
   });
   checkEditFormFields();
 }
+
 /**
  * Handles the submission of the edit form for contacts.
  * @async
@@ -269,6 +266,7 @@ function validatePhone(phone) {
   const phoneRegex = /^(0\d{1,14}|\+[1-9]\d{0,14})(\s?\d+)*$/;
   return phoneRegex.test(phone.trim());
 }
+
 /**
  * Validates an email address using a regular expression.
  * @param {string} email - The email address to validate.
@@ -278,7 +276,6 @@ function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(String(email).toLowerCase());
 }
-
 
 /**
  * Loads contact data into the edit form fields.
@@ -310,7 +307,6 @@ function handleEditEnterPress(event) {
     handleEditFormSubmit(event);
   }
 }
-
 
 /**
  * Displays the edit form for an existing contact.
@@ -350,7 +346,6 @@ async function getUpdatedContact(contactId) {
          : document.getElementById("prof2-img").querySelector("img")?.src || oldContact.img,
   };
 }
-
 
 /**
  * Closes the form when a click outside the form occurs.
@@ -507,4 +502,3 @@ function capitalizeFirstLetter(name) {
 function capitalizeSecondLetter(words) {
   return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
 }
-
