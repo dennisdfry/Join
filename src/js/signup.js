@@ -84,6 +84,9 @@ function validatePassword() {
 
 document.getElementById('mail').addEventListener('blur', validateEmail);
 
+/**
+ * Validates the email input field and displays a message if the email format is invalid.
+ */
 function validateEmail() {
   const email = document.getElementById('mail').value;
   const validationMessage = document.getElementById('validation-email-message');
@@ -95,7 +98,6 @@ function validateEmail() {
     validationMessage.classList.remove('d-none');
   }
 }
-
 
 /**
  * Validates the password and checkbox fields during sign-up.
