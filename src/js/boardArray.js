@@ -162,7 +162,7 @@ function positionOfHTMLBlockBoard(index, category, description, dueDate, prio, t
         </div>
         <div id="hideProgressAmount${index}" class="d-flex">
           <div id="subtasksAmountTrue${index}" class="d-flex-center fs-12 fw-400 color-bl"></div>
-          <div id="subtasksLength${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
+          <div id="subtasks${index}" class="subtasksLength fs-12 fw-400 color-bl"></div>
         </div>
       </div>
       <div class="d-flex-between width220">
@@ -193,18 +193,18 @@ function searchIndexUrlBoard(indexHTML, assignedTo) {
   }
 }
 
-
-
-async function subtasksRenderBoard(indexHtml, subtasks) {
+function subtasksRenderBoard(indexHtml, subtasks) {
   subtasksLengthArray.push({
     position: indexHtml,
     subs: subtasks,
   });
-  let positionOfSubtasksLength = document.getElementById(`subtasksLength${indexHtml}`);
-  if (Array.isArray(subtasks)) {
-    positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
-  } else {
-    positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
+  let positionOfSubtasksLength = document.querySelector(`.subtasksLength${indexHtml}`);
+  if (positionOfSubtasksLength) {
+    if (Array.isArray(subtasks)) {
+      positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
+    } else {
+      positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
+    }
   }
 }
 
