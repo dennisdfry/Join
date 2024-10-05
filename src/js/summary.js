@@ -32,6 +32,10 @@ async function summaryGreeting() {
   }
 }
 
+/**
+ * Displays a personalized greeting message based on the current hour and the user's status.
+ * The function also updates the greeting elements in the DOM with the appropriate message and user image.
+ */
 async function summaryGreetingResp() {
   const hour = new Date().getHours();
   const greetingElement = document.querySelector(".summary-user-greeting-resp");
@@ -382,6 +386,14 @@ async function loadTasksAndFindClosestDueDate() {
   }
 }
 
+/**
+ * Adds the class `d-none` to the element with class `greet-responsive` after a 2-second delay,
+ * unless it has already been added. 
+ *
+ * The function checks `localStorage` to determine if the class has been added before. 
+ * If not, it waits 2 seconds to add the class and sets a flag in `localStorage`.
+ * If the class is already added, it applies `d-none` immediately.
+ */
 function addClassAfterDelay() {
   const element = document.querySelector(".greet-responsive");
   if (element) {
