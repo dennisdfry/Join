@@ -93,6 +93,14 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
 }
 
   function upstreamHTMLrender(){
+    let position = document.getElementById('todo') ||
+               document.getElementById('progress') ||
+               document.getElementById('feedback') ||
+               document.getElementById('done');
+
+if (position) {
+  position.innerHTML = '';
+}
     for (let index = 0; index < taskArrayBoard.length; index++) {
       const element = taskArrayBoard[index];
       const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus} = element;
@@ -220,6 +228,7 @@ function CategoryColor(index, category) {
 
 function progressBar(index, subtasks, subtaskStatus) {
   console.log(index)
+  console.log(subtasks)
   let progressBar = document.getElementById(`progressBar${index}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
 
@@ -435,6 +444,7 @@ function oneClickClose(event) {
       openPosition.style.cssText =
         "visibility: hidden; transform: translateX(100vw)";
     }, 100);
+    initDataBoard();
     progressBar(opentaskIndex);
    console.log(opentaskIndex)
     resetFormStateEdit();
