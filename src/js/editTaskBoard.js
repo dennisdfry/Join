@@ -77,7 +77,6 @@ function addSubtaskEdit(index, subtasks) {
   let showSubtasksEdit = subtasks.split(',').map(subtasks => subtasks.trim());
     console.log(showSubtasksEdit);
   let input = document.getElementById(`subtasksEdit${index}`);
-  if (input.value.trim() !== "") {
     showSubtasksEdit.push(input.value.trim());
     console.log(showSubtasksEdit);
     input.value = "";
@@ -85,10 +84,14 @@ function addSubtaskEdit(index, subtasks) {
     resetSubtaskInputEdit(index);
     subtasksRenderOpenEdit(index, showSubtasksEdit);
     console.log(showSubtasksEdit);
-  }
+  
  console.log(showSubtasksEdit);
 }
+
+
+
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
+  console.log(subtasksEditArrayOrigin);
   return `
   <li id="supplementarySubtaskEdit${index}" class="d-flex-between subtasksEdit bradius8">
       <span>${subtask}</span>
@@ -101,15 +104,13 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
 
 
 function subtasksRenderOpenEdit(indexHtml, subtasks) {
-  console.log(subtasks)
+  arrayForSubtasks = [];
   let subtasksEditArrayOrigin;
   if (Array.isArray(subtasks)) {
     subtasksEditArrayOrigin = subtasks;
-    console.log(subtasksEditArrayOrigin);
-  } else {
+} else {
     subtasksEditArrayOrigin = subtasks.split(',').map(subtask => subtask.trim());
-    console.log(subtasksEditArrayOrigin);
-  }
+}
   let position = document.getElementById(`subtasksPosition${indexHtml}`);
   position.innerHTML = "";
   for (let index = 0; index < subtasksEditArrayOrigin.length; index++) {
@@ -117,8 +118,10 @@ function subtasksRenderOpenEdit(indexHtml, subtasks) {
     console.log(element);
     position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin);
     console.log(subtasksEditArrayOrigin);
+    arrayForSubtasks.push(element)
   }
- 
+  
+  console.log(arrayForSubtasks)
 }
 
 
@@ -193,6 +196,8 @@ function showCheckboxesEdit(indexHTML) {
     expandedEdit = false;
   }
 }
+
+
 function prioFilter(prio){
   if(prio =='Low'){
     id = 3
@@ -207,6 +212,8 @@ function prioFilter(prio){
   }
   prioEdit(id);
 }
+
+
 /**
  * Sets the priority of the task during editing based on the selected priority button.
  *
@@ -338,6 +345,18 @@ function defineTaskObjectsEdit(index, category) {
  * @param {string} lastString - The last priority string value.
  */
 function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString) {
+ console.log(taskTitle)
+ console.log(taskDescription)
+ console.log(dueDateTask)
+ console.log(taskCategory)
+ console.log(lastString)
+ console.log(assignedToUserArray)
+ console.log(assignedToUserArrayNamesGlobal)
+ console.log(imageUrlsGlobal)
+ console.log(arrayForSubtasks)
+ console.log(subtasksStatusArrayEdit)
+ console.log()
+ 
   if (assignedToUserEditNull == null) {
     assignedToUserArray = [];
     assignedToUserArrayNamesGlobal = [];

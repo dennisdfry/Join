@@ -14,6 +14,8 @@ let asiignedToEditUrl = [];
 let showSubtasksEdit = [];
 let subtasksStatusArrayEdit = [];
 let subtasksEditArrayDelete = [];
+let showSubtaskConrolFalse = false;
+let subtasksControlGlobal = [];
 
 
 async function initDataBoard(){

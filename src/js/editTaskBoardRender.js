@@ -1,5 +1,4 @@
-
-
+let arrayForSubtasks = [];
 function checkBoxRenderEdit(index, names, urls) {
     return `<label class="checkBoxFlex" for="checkbox-${index}" id="checkboxColor${index}">
                 <div class="checkBoxImg">
@@ -12,7 +11,9 @@ function checkBoxRenderEdit(index, names, urls) {
 
 
 function showSubtaskControlsEdit(index, subtasks) {
-    console.log(index)
+    if (subtasks === undefined) {
+        subtasks = arrayForSubtasks.join(',');
+    }
     document.getElementById(`subtasksEdit${index}`).classList.remove('add-task-input-edit');
     document.getElementById(`subtasksEdit${index}`).classList.add('subtasks-input-edit');
     
