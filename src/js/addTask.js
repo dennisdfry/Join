@@ -1,4 +1,3 @@
-
 let BASE_URL = "https://join-19628-default-rtdb.firebaseio.com";
 let subtasksArray = [];
 let subtasksStatusArray = [];
@@ -125,7 +124,6 @@ function checkBoxRender(index, imgSrc, element) {
  * @param {number} index - The index of the user.
  * @param {string} element - The name of the user.
  */
-
   async function assignedToUser(index, element, imgSrc) {
     const image = imageUrlsGlobal[index];
     const arrayIndex = assignedToUserArray.indexOf(index);
@@ -141,6 +139,12 @@ function checkBoxRender(index, imgSrc, element) {
       assignedtoUserHighlightAdd(index);
     }
   }
+
+/**
+ * Adds highlight to the user's assigned checkbox and image.
+ * 
+ * @param {number} index - The index of the user element.
+ */
 function assignedtoUserHighlightAdd(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
@@ -149,6 +153,11 @@ function assignedtoUserHighlightAdd(index) {
   position.style.color = '#ffffff';
 }
 
+/**
+ * Removes highlight from the user's assigned checkbox and image.
+ * 
+ * @param {number} index - The index of the user element.
+ */
 function assignedtoUserHighlightRemove(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
@@ -156,9 +165,6 @@ function assignedtoUserHighlightRemove(index) {
   position.style.backgroundColor = '#ffffff';
   position.style.color = '#2a3647';
 }
-/**
- * Toggles the visibility of the "Assigned To" dropdown.
- */
 
 /**
  * Toggles the visibility of the checkbox dropdown.
@@ -198,7 +204,6 @@ function handleAddTaskClick(event) {
 /**
  * Updates the user interface to show selected users in the dropdown.
  */
-
 function showUserAdd() {
   let position = document.getElementById('userImageShow');
   position.innerHTML = '';
@@ -215,12 +220,12 @@ function showUserAdd() {
     position.innerHTML += `<img class="img-48" src="${element}" alt="" />`;
   }
 }
+
 /**
  * Handles the submission of the task form, including validation and saving the task data to Firebase.
  * @param {Event} event - The form submit event.
  * @returns {Promise<void>}
  */
-
 async function createTask(event) {
   event.preventDefault();
   if (!validateFormAddTask(event.target)) return;
@@ -231,6 +236,12 @@ async function createTask(event) {
   changeSite("board.html");
 }
 
+/**
+ * Validates the task form before submission.
+ * 
+ * @param {HTMLFormElement} form - The form element to validate.
+ * @returns {boolean} - Returns true if valid, false otherwise.
+ */
 function validateFormAddTask(form) {
   if (!form.checkValidity()) {
     form.reportValidity();
@@ -239,6 +250,11 @@ function validateFormAddTask(form) {
   return true;
 }
 
+/**
+ * Checks if a priority has been selected before submitting the form.
+ * 
+ * @returns {boolean} - Returns true if a priority is selected, false otherwise.
+ */
 function validatePriorityAddTask() {
   if (!selectedPrio) {
     alert("Please select a priority before submitting the form.");
@@ -247,6 +263,11 @@ function validatePriorityAddTask() {
   return true;
 }
 
+/**
+ * Resets the task form and UI elements.
+ * 
+ * @param {HTMLFormElement} form - The form element to reset.
+ */
 function resetUIAddTask(form) {
   form.reset();
   resetFormStateAddTask();
@@ -376,14 +397,8 @@ function prioIdCheck(id, position) {
 }
 
 /**
- * Shows the subtask input controls when adding a new subtask.
- */
-
-
-/**
  * Adds a subtask to the subtask array and updates the displayed list.
  */
-
 function clearAddTask() {
   document.getElementById("title").value = '';
   document.getElementById("description").value = '';
@@ -399,7 +414,9 @@ function clearAddTask() {
   init();
 }
 
-
+/**
+ * Sets the minimum, maximum, and default values for the due date input.
+ */
 function setTodayDateAddTask() {
   const dateInput = document.getElementById('dueDate');
   const today = new Date().toISOString().split('T')[0];
