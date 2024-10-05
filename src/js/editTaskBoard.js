@@ -25,7 +25,6 @@ function editDescription(index) {
  * @param {number} index - The index of the task being edited.
  * @param {string} category - The category of the task.
  */
-
 function CategoryColorOpenEdit(index, category) {
   let position = document.getElementById(`categoryColorEdit${index}`);
   if (category == TechnicalTask) {
@@ -47,8 +46,22 @@ function dueDateEditTask(index, dueDate) {
   position.value = dueDate;
 }
 
-
-
+/**
+ * Renders the HTML for editing a task on the board.
+ *
+ * @param {number} index - The index of the task to be edited.
+ * @param {string} category - The category of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} dueDate - The due date of the task.
+ * @param {string} prio - The priority level of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} boardCategory - The category for the board.
+ * @param {string} assignedTo - A comma-separated list of users assigned to the task.
+ * @param {string} subtasks - A comma-separated list of subtasks.
+ * @param {string} subtaskStatus - A comma-separated list of subtask statuses.
+ * 
+ * @returns {void} This function does not return a value.
+ */
 function EditTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
     let position = document.getElementById("openTask");
     position.innerHTML = "";
@@ -64,6 +77,16 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     prioFilter(prio);
 }
 
+/**
+ * Deletes a subtask from the edit view and updates the displayed subtasks.
+ *
+ * @param {number} i - The index of the subtask to be deleted.
+ * @param {number} indexHTML - The index of the main task being edited.
+ * @param {string} subtask - The subtask to be deleted (not used in the function body).
+ * @param {string} subtasksEditArrayOrigin - The original comma-separated list of subtasks.
+ * 
+ * @returns {void} This function does not return a value.
+ */
 function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
   let subtasksEditArrayDelete = subtasksEditArrayOrigin.split(',').map(subtasksEditArrayOrigin => subtasksEditArrayOrigin.trim());
   console.log(subtasksEditArrayOrigin)
@@ -76,8 +99,14 @@ function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
   subtasksEditArrayDelete = [];
 }
 
-
-
+/**
+ * Adds a new subtask to the edit view and updates the displayed subtasks.
+ *
+ * @param {number} index - The index of the main task being edited.
+ * @param {string} subtasks - A comma-separated list of existing subtasks.
+ * 
+ * @returns {void} This function does not return a value.
+ */
 function addSubtaskEdit(index, subtasks) {
   console.log(subtasks);
   let showSubtasksEdit = subtasks.split(',')
@@ -97,6 +126,16 @@ function addSubtaskEdit(index, subtasks) {
   console.log(showSubtasksEdit);
 }
 
+/**
+ * Generates the HTML for a supplementary subtask in the edit view.
+ *
+ * @param {string} subtask - The subtask to display.
+ * @param {number} index - The index of the subtask in the list.
+ * @param {number} indexHTML - The index of the main task being edited.
+ * @param {string} subtasksEditArrayOrigin - The original array of subtasks in string format.
+ * 
+ * @returns {string} The generated HTML string for the subtask.
+ */
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
   console.log(subtasksEditArrayOrigin);
   return `
@@ -109,7 +148,12 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
   </li>`;
 }
 
-
+/**
+ * Renders the subtasks for editing in the specified HTML element.
+ *
+ * @param {number} indexHtml - The index of the main task being edited, used for identifying the correct HTML element.
+ * @param {(string|Array<string>)} subtasks - The subtasks to render, either as a string (comma-separated) or an array of subtasks.
+ */
 function subtasksRenderOpenEdit(indexHtml, subtasks) {
   console.log(subtasks)
  
@@ -129,11 +173,17 @@ function subtasksRenderOpenEdit(indexHtml, subtasks) {
     console.log(subtasksEditArrayOrigin);
     arrayForSubtasks.push(element)
   }
-  
   console.log(arrayForSubtasks)
 }
 
-
+/**
+ * Initializes and renders a list of checkboxes for editing tasks.
+ *
+ * @param {Array<{name: string}>} names - An array of objects containing names for the checkboxes.
+ * Each object should have a 'name' property that is a string.
+ * @param {Array<string>} imageUrls - An array of image URLs corresponding to each checkbox.
+ * @param {number} indexHTML - The index used to identify the target DOM element for rendering checkboxes.
+ */
 function checkboxInitEdit(names, imageUrls, indexHTML) {
   let position = document.getElementById(`checkboxesEdit${indexHTML}`);
   let list = "";
@@ -145,7 +195,16 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
   position.innerHTML = list;
 }
 
-
+/**
+ * Toggles the assignment of a user to a task based on the provided index.
+ *
+ * @param {number} index - The index of the user in the global user list.
+ * @param {string} element - The name of the user to be assigned or unassigned.
+ * @param {string} imgSrc - The image source URL associated with the user.
+ *
+ * @async
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
 async function assignedToUserEdit(index, element, imgSrc) {
   const image = imageUrlsGlobal[index];
   const arrayIndex = assignedToUserArray.indexOf(index);
@@ -161,6 +220,15 @@ async function assignedToUserEdit(index, element, imgSrc) {
     assignedtoUserHighlightAdd(index);
   }
 }
+
+/**
+ * Highlights the assigned user in the user interface by changing the styles of the associated elements.
+ *
+ * @param {number} index - The index of the user in the global user list, which is used to select 
+ * the corresponding elements in the DOM.
+ *
+ * @returns {void} - This function does not return a value.
+ */
 function assignedtoUserHighlightAdd(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
@@ -169,6 +237,14 @@ function assignedtoUserHighlightAdd(index) {
   position.style.color = '#ffffff';
 }
 
+/**
+ * Removes the highlight effect from the assigned user in the user interface.
+ *
+ * @param {number} index - The index of the user in the global user list, which is used to select 
+ * the corresponding elements in the DOM.
+ *
+ * @returns {void} - This function does not return a value.
+ */
 function assignedtoUserHighlightRemove(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
@@ -176,6 +252,7 @@ function assignedtoUserHighlightRemove(index) {
   position.style.backgroundColor = '#ffffff';
   position.style.color = '#2a3647';
 }
+
 /**
  * Hides the checkboxes for assigning users to the task during editing.
  *
@@ -187,7 +264,13 @@ function checkboxIndexFalse(index) {
   expandedEdit = false;
 }
 
-
+/**
+ * Toggles the display of the user checkboxes for editing.
+ * 
+ * @param {number} indexHTML - The index used to identify the specific set of checkboxes to show or hide.
+ *
+ * @returns {void} - This function does not return a value.
+ */
 function showCheckboxesEdit(indexHTML) {
   let checkboxes = document.getElementById(`checkboxesEdit${indexHTML}`);
   if (!expandedEdit) {
@@ -206,7 +289,15 @@ function showCheckboxesEdit(indexHTML) {
   }
 }
 
-
+/**
+ * Filters the priority level of a task and calls the corresponding edit function with the associated ID.
+ *
+ * After determining the ID, it calls the `prioEdit` function with the appropriate ID.
+ *
+ * @param {string} prio - The priority level of the task. It can be "Low", "Medium", or "Urgent".
+ *
+ * @returns {void} - This function does not return a value.
+ */
 function prioFilter(prio){
   if(prio =='Low'){
     id = 3
@@ -259,7 +350,13 @@ function prioIdCheckEdit(id, position) {
   position.classList.remove("add-task-prio-button");
 }
 
-
+/**
+ * Handles the Enter key press event to add a subtask.
+ *
+ * @param {KeyboardEvent} event - The keyboard event triggered by pressing a key.
+ *
+ * @returns {void} - This function does not return a value.
+ */
 function handleEditEnterKey(event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -271,12 +368,6 @@ function handleEditEnterKey(event) {
     } 
   }
 }
-
-/**
- * Adds a new subtask to the list of subtasks during task editing.
- * @param {number} index - The index of the task being edited.
- */
-
 
 /**
  * Updates the task board with edited task details and navigates to the board page.
@@ -311,7 +402,6 @@ function resetFormStateEdit() {
   assignedToUserArrayEdit = [];
   assignedToUserArrayNamesGlobalEdit = [];
 }
-
 
 /**
  * Saves the edited task data to Firebase.
@@ -377,4 +467,3 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
     subtaskStatus: subtasksStatusArrayEdit,
     boardCategory: "todo",});
 }
-
