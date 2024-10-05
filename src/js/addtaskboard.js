@@ -1,10 +1,25 @@
+async function initBoard() {
+  try {
+    let fireBaseData = await onloadData("/");
+    let contacts = await fetchContacts(fireBaseData);
+    let imageUrls = await fetchImages();
+    await assignedToBoard(contacts, imageUrls);
+    prio(2);
+    setTodayDateAddTask()
+
+  } catch (error) {
+    console.error("Error during initialization:", error);
+  }
+}
+
+
 /**
  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
  * @param {object} contacts - The contacts object.
  * @param {string[]} imageUrls - An array of image URLs for the contacts.
  * @returns {Promise<void>}
  */
-async function assignedTo2(contacts, imageUrls) {
+async function assignedToBoard(contacts, imageUrls) {
   try {
     const extractNames = (contacts) => {
       return Object.values(contacts).map((entry) => ({ name: entry.name }));
@@ -78,7 +93,7 @@ function checkBoxRender2(index, imgSrc, element) {
             <img id="assignedToUserImageBorder2${index}" src="${imgSrc}" alt="" />
             ${element}
         </div>
- <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser('${index}','${element}','${imgSrc}')" />      </label>`;
+ <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}','${imgSrc}')" />      </label>`;
   }
 
   /**

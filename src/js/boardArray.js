@@ -19,6 +19,7 @@ let subtasksEditArrayDelete = [];
 async function initDataBoard(){
   taskArrayBoard = [];
     try {
+        initBoard();
         taskkeysGlobal.length = 0;
         task = await onloadDataBoard("/tasks");
         let fetchImageUrls = await fetchImagesUrlsBoardNew("/");
