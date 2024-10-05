@@ -226,8 +226,6 @@ function CategoryColor(index, category) {
 
 
 function progressBar(index, subtasks, subtaskStatus) {
-  console.log(index)
-  console.log(subtasks)
   let progressBar = document.getElementById(`progressBar${index}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
 
@@ -243,6 +241,8 @@ function progressBar(index, subtasks, subtaskStatus) {
   let progressPercentage = (trueCount / totalCount) * 100;
   updateProgressBar(index, progressPercentage);
 }
+
+
 
 /**
  * Updates the progress bar width and color based on the percentage of completed subtasks.
@@ -273,10 +273,11 @@ function calculateProgress(index, subtasks, subtaskStatus) {
 
   let totalCount = subtasks.length;
   for (let i = 0; i < totalCount; i++) {
-    if (subtaskStatus[i] === true) {
+    if (subtaskStatus[i] === true || 0) {
       trueCount++;
     }
-  }
+  } 
+
   return { trueCount, totalCount };
 }
 
@@ -398,12 +399,6 @@ function subtasksRenderOpenHtml(indexHtml, index, element) {
     </div>`;
 }
 
-async function subtaskStatus(indexHtml, index) {
-  const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
-  const isChecked = checkbox.checked;
-  await statusSubtaskSaveToFirebase(isChecked, indexHtml, index);
-}
-
 async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
   for (const taskKeyId of taskkeysGlobal.map((el) => el[indexHtml])) {
     const path = `/tasks/${taskKeyId}/0/subtaskStatus/${index}`;
@@ -421,6 +416,7 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
     }
   }
   subtasksOpenArray = [];
+
 }
 
 function CategoryColorOpen(index, category) {
@@ -444,8 +440,7 @@ function oneClickClose(event) {
         "visibility: hidden; transform: translateX(100vw)";
     }, 100);
     initDataBoard();
-    progressBar(opentaskIndex);
-   console.log(opentaskIndex)
+   //console.log(opentaskIndex)
     resetFormStateEdit();
   }
 }
