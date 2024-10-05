@@ -1,7 +1,6 @@
 
 let currentDraggedElement;
 
-
 /**
  * Clears and updates the HTML content of task categories on the board.
  * The function clears the content of predefined task categories and then
