@@ -1,3 +1,6 @@
+/**
+ * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
+ */
 function addSubtask() {
     let input = document.getElementById("subtasks");
     if (input.value.trim() !== "") {
@@ -45,7 +48,11 @@ function addSubtask() {
     }
   }
 
-
+/**
+ * Enables editing mode for a specific subtask by updating its HTML content.
+ * 
+ * @param {number} index - The index of the subtask to edit.
+ */
   function editSubtask(index) {
     let position = document.getElementById(`supplementarySubtask${index}`);
     position.classList.remove('subtasks-edit');
@@ -53,6 +60,14 @@ function addSubtask() {
     let arrayPosition = subtasksArray[index];
     position.innerHTML = editSubtaskHTML(index, arrayPosition);
   }
+
+/**
+ * Generates and returns the HTML for the subtask editing mode.
+ * 
+ * @param {number} index - The index of the subtask.
+ * @param {string} arrayPosition - The current value of the subtask.
+ * @returns {string} - The HTML string for editing the subtask.
+ */
   function editSubtaskHTML(index, arrayPosition){
     return  `
     <input class="inputAddTaskSubtasks fs-16" id="inputAddTaskSubtasks${index}" required minlength="2" class="" value="${arrayPosition}">
@@ -63,13 +78,17 @@ function addSubtask() {
     </div> `
   }
 
+/**
+ * Validates the input length for the subtask and finishes editing if valid.
+ * 
+ * @param {number} index - The index of the subtask being edited.
+ */
   function validateAndFinish(index) {
     const input = document.getElementById(`inputAddTaskSubtasks${index}`);
     if (input.value.length >= 2) {
       finishSubtask(index);
     } 
   }
-  
   
   /**
    * Clears the list of displayed subtasks by resetting the innerHTML of the subtasksPosition element.
@@ -79,20 +98,33 @@ function addSubtask() {
     position.innerHTML = "";
     subtasksStatusArray = [];
   }
-  
+ 
+/**
+ * Deletes a subtask and updates the UI accordingly.
+ * 
+ * @param {number} index - The index of the subtask to delete.
+ */  
   function deleteSubtask(index) {
     let position = document.getElementById(`supplementarySubtask${index}`);
     position.innerHTML = "";
     subtasksArray.splice([index], 1);
     updateSubtasksList();
   }
-  
+
+/**
+ * Finishes editing a subtask and updates its value in the subtasks array.
+ * 
+ * @param {number} index - The index of the subtask being finished.
+ */  
   function finishSubtask(index) {
     let input = document.getElementById(`inputAddTaskSubtasks${index}`);
     subtasksArray[index] = input.value;
     updateSubtasksList();
   }
 
+/**
+ * Displays the controls for managing subtasks, updating the input field styles and controls.
+ */  
   function showSubtaskControls() {
     document.getElementById("subtasks").classList.remove("add-task-input");
     document.getElementById("subtasks").classList.add("subtasks-input");
