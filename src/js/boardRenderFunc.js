@@ -1,4 +1,3 @@
-
 /**
  * Renders the user names associated with a task.
  * @param {number} index - The index of the task for which user names are being rendered.
@@ -11,8 +10,6 @@ async function userNamesRender(index) {
     position.innerHTML += `<p class="d-flex item-center fs-20 fw-400">${element}</p>`;
   }
 }
-
-
 
 /**
  * Generates HTML for an edit task view.
