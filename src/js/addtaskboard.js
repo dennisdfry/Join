@@ -317,6 +317,7 @@ function checkBoxRender2(index, imgSrc, element) {
     if (input.value.trim() !== "") {
       subtasksArray.push(input.value.trim());
       input.value = "";
+      console.log(subtasksArray)
       subtasksStatusArray.push(false);
       updateSubtasksList2();
       resetSubtaskInput2();

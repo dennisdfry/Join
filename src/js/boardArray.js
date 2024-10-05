@@ -4,6 +4,7 @@ let descriptionBoard =[];
 let imageUrlBoard = [];
 let userNamesBoard = [];
 let ToDoBoard = [];
+
 let subtasksOpenArray = [];
 let subtasksEditArrayFinish = [];
 let subtasksEditArrayOrigin = [];

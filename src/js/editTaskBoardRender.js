@@ -12,8 +12,11 @@ function checkBoxRenderEdit(index, names, urls) {
 
 function showSubtaskControlsEdit(index, subtasks) {
     if (subtasks === undefined) {
+        if(arrayForSubtasks === undefined){
+            return
+        }else{
         subtasks = arrayForSubtasks.join(',');
-    }
+    }}
     document.getElementById(`subtasksEdit${index}`).classList.remove('add-task-input-edit');
     document.getElementById(`subtasksEdit${index}`).classList.add('subtasks-input-edit');
     

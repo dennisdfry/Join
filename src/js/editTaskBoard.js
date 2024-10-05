@@ -54,6 +54,9 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     position.innerHTML = "";
     position.innerHTML = editTaskHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
     CategoryColorOpenEdit(index, category);
+    // if (!subtasks === 'undefined'){
+      
+    // }
     subtasksRenderOpenEdit(index, subtasks);
     checkboxIndexFalse(index);
     dueDateEditTask(index, dueDate); 
@@ -73,22 +76,26 @@ function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
   subtasksEditArrayDelete = [];
 }
 
+
+
 function addSubtaskEdit(index, subtasks) {
-  let showSubtasksEdit = subtasks.split(',').map(subtasks => subtasks.trim());
-    console.log(showSubtasksEdit);
+  console.log(subtasks);
+  let showSubtasksEdit = subtasks.split(',')
+    .map(subtask => subtask.trim())
+    .filter(subtask => subtask !== 'undefined' && subtask !== "");
+  console.log(showSubtasksEdit);
   let input = document.getElementById(`subtasksEdit${index}`);
-    showSubtasksEdit.push(input.value.trim());
-    console.log(showSubtasksEdit);
-    input.value = "";
-    subtasksStatusArrayEdit.push(false);
-    resetSubtaskInputEdit(index);
-    subtasksRenderOpenEdit(index, showSubtasksEdit);
-    console.log(showSubtasksEdit);
-  
- console.log(showSubtasksEdit);
+  let newValue = input.value.trim();
+  if (newValue !== "") {
+    showSubtasksEdit.push(newValue);
+  }
+  console.log(showSubtasksEdit);
+  input.value = "";
+  subtasksStatusArrayEdit.push(false);
+  resetSubtaskInputEdit(index);
+  subtasksRenderOpenEdit(index, showSubtasksEdit);
+  console.log(showSubtasksEdit);
 }
-
-
 
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
   console.log(subtasksEditArrayOrigin);
@@ -104,6 +111,8 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
 
 
 function subtasksRenderOpenEdit(indexHtml, subtasks) {
+  console.log(subtasks)
+ 
   arrayForSubtasks = [];
   let subtasksEditArrayOrigin;
   if (Array.isArray(subtasks)) {
@@ -205,7 +214,7 @@ function prioFilter(prio){
     if(prio == 'Medium'){
       id = 2
     }else{
-      if(prio == ' Urgent'){
+      if(prio == 'Urgent'){
         id = 1
       }
     }
@@ -355,22 +364,16 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
  console.log(imageUrlsGlobal)
  console.log(arrayForSubtasks)
  console.log(subtasksStatusArrayEdit)
- console.log()
+ console.log(arrayForSubtasks)
  
-  if (assignedToUserEditNull == null) {
-    assignedToUserArray = [];
-    assignedToUserArrayNamesGlobal = [];
-    assignedToUserArray = assignedToUserArrayEdit;
-    assignedToUserArrayNamesGlobal = assignedToUserArrayNamesGlobalEdit;
-  }
   addTaskArrayEdit.push({title: taskTitle,
     description: taskDescription,
     assignedTo: assignedToUserArray,
-    assignedToNames: assignedToUserArrayNamesGlobal,
+    assignedToNames: imageUrlsGlobal,
     dueDate: dueDateTask,
     prio: lastString,
     category: taskCategory,
-    subtasks: subtasksArrayEdit,
+    subtasks: arrayForSubtasks,
     subtaskStatus: subtasksStatusArrayEdit,
     boardCategory: "todo",});
 }
