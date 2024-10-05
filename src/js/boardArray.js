@@ -19,7 +19,6 @@ let subtasksEditArrayDelete = [];
 async function initDataBoard(){
   taskArrayBoard = [];
     try {
-        initBoard();
         taskkeysGlobal.length = 0;
         task = await onloadDataBoard("/tasks");
         let fetchImageUrls = await fetchImagesUrlsBoardNew("/");
@@ -220,6 +219,7 @@ function CategoryColor(index, category) {
 
 
 function progressBar(index, subtasks, subtaskStatus) {
+  console.log(index)
   let progressBar = document.getElementById(`progressBar${index}`);
   let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
 
@@ -288,11 +288,13 @@ function openTaskToBoardRender(index, category, description, dueDate, prio, titl
     searchIndexUrlOpen(index, assignedTo);
     searchprioBoardOpen(index, prio);
     loadSubtaskStatus(index, subtaskStatus);
+    console.log(subtaskStatus)
    
 }}
 
 
 function loadSubtaskStatus(indexHtml, subtaskStatus) {
+  console.log(subtaskStatus)
   let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
   subtaskStatusArray.push(subtaskStatusArrayDev);
   for (let index = 0; index < subtaskStatusArray.length; index++) {
@@ -341,9 +343,10 @@ function searchIndexUrlOpen(index, assignedTo) {
   assignedToUserArrayOpen.push(assignedToArray);
   let position = document.getElementById(`userImageBoardOpen${index}`);
   position.innerHTML = "";
-  if (!assignedToUserArrayOpen|| assignedToUserArrayOpen.length === 0) {
-    return;
+  if(assignedToUserArrayOpen = 'undefined'){
+    return
   }
+
   for (let i = 0; i < assignedToArray.length; i++) {
     const element = assignedToArray[i];
     const images = imageUrlBoard[element];
@@ -364,6 +367,10 @@ function htmlBoardImageOpen(images,names, i) {
 }
 
 function subtasksRenderOpen(indexHtml, subtasks) {
+ console.log(subtasks)
+  if(subtasks == 'undefined'){
+    return
+  }
   let subtasksArray = subtasks.split(',').map(subtask => subtask.trim());
   subtasksOpenArray.push(subtasksArray);
   let position = document.getElementById(`subtasksBoardOpen${indexHtml}`);
@@ -429,6 +436,7 @@ function oneClickClose(event) {
         "visibility: hidden; transform: translateX(100vw)";
     }, 100);
     progressBar(opentaskIndex);
+   console.log(opentaskIndex)
     resetFormStateEdit();
   }
 }

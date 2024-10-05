@@ -191,7 +191,7 @@ function prioEdit(id) {
     button.classList.add("add-task-prio-button");
   });
   let position = document.getElementById(`prioButtonEdit${id}`);
-  prioIdCheck(id, position);
+  prioIdCheckEdit(id, position);
   selectedPrioEdit = true;
 }
 
@@ -201,7 +201,7 @@ function prioEdit(id) {
  * @param {number} id - The ID of the priority.
  * @param {HTMLElement} position - The DOM element of the priority button.
  */
-function prioIdCheck(id, position) {
+function prioIdCheckEdit(id, position) {
   if (id == 1) {
     prioArray.push("Urgent");
     position.classList.add("add-task-prio-button-urgent");
