@@ -1,11 +1,5 @@
-/**
- * Generates the HTML for a checkbox element used to assign a user to a task during editing.
- * 
- * @param {number} index - The index of the contact.
- * @param {string} imgSrc - The image URL of the contact.
- * @param {string} element - The name of the contact.
- * @returns {string} - The HTML string for the checkbox.
- */
+
+
 function checkBoxRenderEdit(index, names, urls) {
     return `<label class="checkBoxFlex" for="checkbox-${index}" id="checkboxColor${index}">
                 <div class="checkBoxImg">
@@ -16,11 +10,7 @@ function checkBoxRenderEdit(index, names, urls) {
             </label>`;
 }
 
-/**
- * Displays the controls for managing subtasks during task editing.
- * 
- * @param {number} index - The index of the task for which subtasks are being edited.
- */
+
 function showSubtaskControlsEdit(index, subtasks) {
     console.log(index)
     document.getElementById(`subtasksEdit${index}`).classList.remove('add-task-input-edit');
@@ -36,22 +26,7 @@ function showSubtaskControlsEdit(index, subtasks) {
                             </button>`;
 }
 
-/**
- * Generates the HTML for a supplementary subtask item during task editing.
- * 
- * @param {string} updatesubtasks - The text of the supplementary subtask.
- * @param {number} i - The index of the supplementary subtask.
- * @param {string} indexHTML - The index or identifier used in the HTML structure.
- * @returns {string} - The HTML string for the supplementary subtask item.
- */
 
-
-/**
- * Prepares an input field for editing a subtask, displaying controls to finish or delete the edit.
- * 
- * @param {number} i - The index of the subtask being edited.
- * @param {string} indexHTML - The index or identifier used in the HTML structure.
- */
 function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
     let position = document.getElementById(`supplementarySubtaskEdit${i}`);
     position.innerHTML = `
@@ -61,6 +36,7 @@ function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
             <img class="img-24" onclick="finishSubtaskEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/checkAddTask.png" alt="Add">
         </div>`;
 }
+
 function finishSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
    let subtasksEditArrayFinish = subtasksEditArrayOrigin.split(',').map(subtasksEditArrayOrigin => subtasksEditArrayOrigin.trim());
     let input = document.getElementById(`inputEditSubtasks${i}`);
@@ -71,11 +47,8 @@ function finishSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
     subtasksRenderOpenEdit(indexHTML, subtasksEditArrayFinish);
     subtasksEditArrayFinish =[];
   }
-/**
- * Resets the subtask input field to its original state during task editing.
- * 
- * @param {number} index - The index of the task being edited.
- */
+
+
 function resetSubtaskInputEdit(index) {
     let input = document.getElementById(`subtasksEdit${index}`);
     input.value = '';
@@ -88,11 +61,7 @@ function resetSubtaskInputEdit(index) {
                             </button>`;
 }
 
-/**
- * Renders user images for editing based on the current list of users.
- * 
- * @param {number} index - The index of the user image board being updated.
- */
+
 function userImageRenderEdit(index) {
     let position = document.getElementById(`userImageBoardOpenEdit${index}`);
     

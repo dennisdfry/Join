@@ -57,6 +57,8 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     subtasksRenderOpenEdit(index, subtasks);
     checkboxIndexFalse(index);
     dueDateEditTask(index, dueDate); 
+    console.log(prio)
+    prioFilter(prio);
 }
 
 function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
@@ -132,17 +134,6 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
 }
 
 
-// function assignedToUserEdit(index, url, name) {
-//   assignedToUserEditNull = true;
-//   const arrayIndex = assignedToEditName.indexOf(name);
-//   if (arrayIndex !== -1) {
-//     assignedToEditName.splice(arrayIndex, 1);
-//     asiignedToEditUrl.splice(arrayIndex, 1);
-//   } else {
-//     assignedToEditName.push(name);
-//     asiignedToEditUrl.push(url);
-//   }
-// }
 async function assignedToUserEdit(index, element, imgSrc) {
   const image = imageUrlsGlobal[index];
   const arrayIndex = assignedToUserArray.indexOf(index);
@@ -184,11 +175,7 @@ function checkboxIndexFalse(index) {
   expandedEdit = false;
 }
 
-/**
- * Toggles the visibility of the checkboxes for assigning users during task editing.
- *
- * @param {number} index - The index of the task being edited.
- */
+
 function showCheckboxesEdit(indexHTML) {
   let checkboxes = document.getElementById(`checkboxesEdit${indexHTML}`);
   if (!expandedEdit) {
@@ -206,8 +193,20 @@ function showCheckboxesEdit(indexHTML) {
     expandedEdit = false;
   }
 }
-
-
+function prioFilter(prio){
+  if(prio =='Low'){
+    id = 3
+  }else{
+    if(prio == 'Medium'){
+      id = 2
+    }else{
+      if(prio == ' Urgent'){
+        id = 1
+      }
+    }
+  }
+  prioEdit(id);
+}
 /**
  * Sets the priority of the task during editing based on the selected priority button.
  *
