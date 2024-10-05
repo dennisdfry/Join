@@ -202,10 +202,6 @@ function searchIndexUrlBoard(indexHTML, assignedTo) {
 }
 
 function subtasksRenderBoard(indexHtml, subtasks) {
-  subtasksLengthArray.push({
-    position: indexHtml,
-    subs: subtasks,
-  });
   let positionOfSubtasksLength = document.querySelector(`.subtasksLength${indexHtml}`);
   if (positionOfSubtasksLength) {
     if (Array.isArray(subtasks)) {

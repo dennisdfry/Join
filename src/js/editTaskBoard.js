@@ -132,18 +132,47 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
 }
 
 
-function assignedToUserEdit(index, url, name) {
-  assignedToUserEditNull = true;
-  const arrayIndex = assignedToEditName.indexOf(name);
+// function assignedToUserEdit(index, url, name) {
+//   assignedToUserEditNull = true;
+//   const arrayIndex = assignedToEditName.indexOf(name);
+//   if (arrayIndex !== -1) {
+//     assignedToEditName.splice(arrayIndex, 1);
+//     asiignedToEditUrl.splice(arrayIndex, 1);
+//   } else {
+//     assignedToEditName.push(name);
+//     asiignedToEditUrl.push(url);
+//   }
+// }
+async function assignedToUserEdit(index, element, imgSrc) {
+  const image = imageUrlsGlobal[index];
+  const arrayIndex = assignedToUserArray.indexOf(index);
   if (arrayIndex !== -1) {
-    assignedToEditName.splice(arrayIndex, 1);
-    asiignedToEditUrl.splice(arrayIndex, 1);
+    assignedToUserArray.splice(arrayIndex, 1);
+    assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+    imageUrlsGlobal.splice(arrayIndex, 1);
+    assignedtoUserHighlightRemove(index);
   } else {
-    assignedToEditName.push(name);
-    asiignedToEditUrl.push(url);
+    assignedToUserArray.push(index);
+    assignedToUserArrayNamesGlobal.push(element);
+    imageUrlsGlobal.push(imgSrc);
+    assignedtoUserHighlightAdd(index);
   }
 }
+function assignedtoUserHighlightAdd(index) {
+  let position = document.getElementById(`checkboxColor${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  positionOfImage.classList.add('assignedToUserImage');
+  position.style.backgroundColor = '#2a3647';
+  position.style.color = '#ffffff';
+}
 
+function assignedtoUserHighlightRemove(index) {
+  let position = document.getElementById(`checkboxColor${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  positionOfImage.classList.remove('assignedToUserImage');
+  position.style.backgroundColor = '#ffffff';
+  position.style.color = '#2a3647';
+}
 /**
  * Hides the checkboxes for assigning users to the task during editing.
  *

@@ -7,12 +7,12 @@
  * @returns {string} - The HTML string for the checkbox.
  */
 function checkBoxRenderEdit(index, names, urls) {
-    return `<label class="checkBoxFlex" for="checkbox-${index}">
+    return `<label class="checkBoxFlex" for="checkbox-${index}" id="checkboxColor${index}">
                 <div class="checkBoxImg">
-                     <img src="${urls}" alt="" />
+                     <img id="assignedToUserImageBorder${index}" src="${urls}" alt="" />
                     ${names}
                 </div>
-                <input type="checkbox" id="checkbox-${index}" value="${names}" onclick="assignedToUserEdit('${index}','${urls}','${names}')" />
+                <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox-${index}" value="${names}" onclick="assignedToUserEdit('${index}','${urls}','${names}')" />
             </label>`;
 }
 

@@ -126,21 +126,21 @@ function checkBoxRender(index, imgSrc, element) {
  * @param {string} element - The name of the user.
  */
 
-async function assignedToUser(index, element, imgSrc) {
-  const image = imageUrlsGlobal[index];
-  const arrayIndex = assignedToUserArray.indexOf(index);
-  if (arrayIndex !== -1) {
-    assignedToUserArray.splice(arrayIndex, 1);
-    assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
-    imageUrlsGlobal.splice(arrayIndex, 1);
-    assignedtoUserHighlightRemove(index);
-  } else {
-    assignedToUserArray.push(index);
-    assignedToUserArrayNamesGlobal.push(element);
-    imageUrlsGlobal.push(imgSrc);
-    assignedtoUserHighlightAdd(index);
+  async function assignedToUser(index, element, imgSrc) {
+    const image = imageUrlsGlobal[index];
+    const arrayIndex = assignedToUserArray.indexOf(index);
+    if (arrayIndex !== -1) {
+      assignedToUserArray.splice(arrayIndex, 1);
+      assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+      imageUrlsGlobal.splice(arrayIndex, 1);
+      assignedtoUserHighlightRemove(index);
+    } else {
+      assignedToUserArray.push(index);
+      assignedToUserArrayNamesGlobal.push(element);
+      imageUrlsGlobal.push(imgSrc);
+      assignedtoUserHighlightAdd(index);
+    }
   }
-}
 function assignedtoUserHighlightAdd(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
