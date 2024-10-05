@@ -339,14 +339,14 @@ function searchprioBoardOpen(index, prio) {
 }
 
 function searchIndexUrlOpen(index, assignedTo) {
+ console.log(assignedTo)
+ if(assignedTo == 'undefined'){
+  return
+ }
   let assignedToArray = assignedTo.split(',').map(assignedTo => assignedTo.trim());
   assignedToUserArrayOpen.push(assignedToArray);
   let position = document.getElementById(`userImageBoardOpen${index}`);
   position.innerHTML = "";
-  if(assignedToUserArrayOpen = 'undefined'){
-    return
-  }
-
   for (let i = 0; i < assignedToArray.length; i++) {
     const element = assignedToArray[i];
     const images = imageUrlBoard[element];
