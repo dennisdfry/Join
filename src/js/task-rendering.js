@@ -17,15 +17,7 @@ function setTaskColor() {
       element.style.backgroundColor = taskColor;
     });
   }
-  
-  /**
-   * Sets the background color of a specific category element based on its category.
-   * 
-   * @param {number} index - The index of the element to be targeted. Used to construct the element ID.
-   * @param {string} category - The category of the task (e.g., "TechnicalTask").
-   */
 
-  
   /**
    * Limits the text content of an element to 50 characters.
    * If the text exceeds 50 characters, it is truncated and appended with "...".
