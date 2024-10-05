@@ -1,4 +1,3 @@
-
 /**
  * Closes the open task view and navigates back to the main board.
  *
@@ -17,9 +16,6 @@ function closeOpenTask(event, indexHTML) {
   }, 100);
 }
 
-
-
-
 // /**
 //  * Updates the background color of the task's category label in the open task view.
 //  *
@@ -34,8 +30,6 @@ function closeOpenTask(event, indexHTML) {
 //     position.style.backgroundColor = "#0038ff";
 //   }
 // }
-
-
 
 /**
  * Deletes a specific task from Firebase and updates the board view.
@@ -70,7 +64,6 @@ async function deleteOnFirebase(taskkey) {
   }
 }
 
-
 /**
  * Enables the Enter key to trigger the edit button click.
  */
@@ -92,7 +85,6 @@ function enableEnterKeyEdit(index) {
     }
   });
 }
-
 
 /**
  * Verarbeitet das Absenden des Formulars, aktualisiert die Taskdaten und speichert sie in Firebase.
@@ -154,5 +146,3 @@ function closeOpenTaskEdit(event, index) {
   openPosition.innerHTML = "";
   resetFormStateEdit();
 }
-
-
