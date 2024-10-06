@@ -36,7 +36,7 @@ function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
     let position = document.getElementById(`supplementarySubtaskEdit${i}`);
     position.classList.remove('subtasks-edit');
     position.classList.add('subtasks-edit-input');
-    let arrayForSubtasks = subtask.split(',')
+    let arrayForSubtasks = subtasksEditArrayOrigin.split(',')
     .map(subtask => subtask.trim())
     .filter(subtask => subtask !== 'undefined' && subtask !== "");
   console.log(arrayForSubtasks);
