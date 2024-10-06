@@ -54,17 +54,13 @@ function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
  * @param {string} subtasksEditArrayOrigin - The original array of subtasks used for reference.
  */
 function editSubtaskHTMLEdit(i, indexHTML, subtask, subtasksEditArrayOrigin, arrayPosition) {
-    console.log(arrayPosition)
-    let position = document.getElementById(`supplementarySubtaskEdit${i}`);
-    position.innerHTML = `
-        <input id="inputEditSubtasks${i}" class="inputAddTaskSubtasks fs-16" >
+   return`
+        <input id="inputEditSubtasks${i}" class="inputAddTaskSubtasks fs-16" value="${arrayPosition}" >
         <div class="d-flex item-center">
             <img class="img-24 pointer p-4" onclick="deleteSubtaskEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/delete.png">
             <div class="seperator-subtasks"></div>
             <img class="img-24 pointer p-4" onclick="validateAndFinishEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/checkAddTask.png" alt="Add">
         </div>`;
-        let input = document.getElementById(`inputEditSubtasks${i}`);
-    input.value = arrayPosition;
 }
 
 /**
