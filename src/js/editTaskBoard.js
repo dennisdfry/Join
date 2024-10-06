@@ -1,4 +1,4 @@
-
+let arrayForSubtasks = [];
 /**
  * Clears the placeholder of the task title input field during editing.
  *
@@ -153,8 +153,8 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
  */
 function subtasksRenderOpenEdit(indexHtml, subtasks) {
   console.log(subtasks)
+ arrayForSubtasks =[];
  
-  arrayForSubtasks = [];
   let subtasksEditArrayOrigin;
   if (Array.isArray(subtasks)) {
     subtasksEditArrayOrigin = subtasks;

@@ -69,9 +69,9 @@ function editSubtaskHTMLEdit(i, indexHTML, subtask, subtasksEditArrayOrigin, arr
  * @param {number} index - The index of the subtask being edited.
  */
 function validateAndFinishEdit(i, indexHTML, subtasksEditArrayOrigin) {
-    const input = document.getElementById(`inputAddTaskSubtasks${i}`);
+    const input = document.getElementById(`inputEditSubtasks${i}`);
     if (input.value.length >= 2) {
-      finishSubtask(i, indexHTML, subtasksEditArrayOrigin);
+        finishSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin);
     } 
   }
   
@@ -83,14 +83,11 @@ function validateAndFinishEdit(i, indexHTML, subtasksEditArrayOrigin) {
  * @param {string} subtasksEditArrayOrigin - The original array of subtasks as a comma-separated string.
  */
 function finishSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
-   let subtasksEditArrayFinish = subtasksEditArrayOrigin.split(',').map(subtasksEditArrayOrigin => subtasksEditArrayOrigin.trim());
+   
     let input = document.getElementById(`inputEditSubtasks${i}`);
-    console.log(subtasksEditArrayFinish)
-    subtasksEditArrayFinish[i] = input.value;
-
-    console.log(subtasksEditArrayFinish)
-    subtasksRenderOpenEdit(indexHTML, subtasksEditArrayFinish);
-    subtasksEditArrayFinish =[];
+    arrayForSubtasks[i] = input.value;
+    console.log(arrayForSubtasks)
+    subtasksRenderOpenEdit(indexHTML, arrayForSubtasks);
 }
 
 /**
