@@ -248,16 +248,10 @@
   }
 
   .task-title{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 28px !important;
   }
 
   .description-open-task {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 18px !important;
   }
 }

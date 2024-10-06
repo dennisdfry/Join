@@ -251,3 +251,15 @@ body {
   font-size: 10px;
   padding: 8px;
 }
+
+.task-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description-open-task {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
