@@ -28,6 +28,24 @@ function showSubtaskControlsEdit(index, subtasks) {
 }
 
 /**
+ * Enables editing mode for a specific subtask by updating its HTML content.
+ * 
+ * @param {number} index - The index of the subtask to edit.
+ */
+function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
+    let position = document.getElementById(`supplementarySubtaskEdit${i}`);
+    position.classList.remove('subtasks-edit');
+    position.classList.add('subtasks-edit-input');
+    let arrayForSubtasks = subtask.split(',')
+    .map(subtask => subtask.trim())
+    .filter(subtask => subtask !== 'undefined' && subtask !== "");
+  console.log(arrayForSubtasks);
+    let arrayPosition = arrayForSubtasks[i];
+    console.log(arrayPosition)
+  
+    position.innerHTML = editSubtaskHTMLEdit(i, indexHTML, subtask, subtasksEditArrayOrigin, arrayPosition);
+  }
+/**
  * Renders an editable input field for a subtask with options to delete or finish editing.
  *
  * @param {number} i - The index of the subtask being edited.
@@ -35,16 +53,32 @@ function showSubtaskControlsEdit(index, subtasks) {
  * @param {string} subtask - The current value of the subtask that is being edited.
  * @param {string} subtasksEditArrayOrigin - The original array of subtasks used for reference.
  */
-function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
+function editSubtaskHTMLEdit(i, indexHTML, subtask, subtasksEditArrayOrigin, arrayPosition) {
+    console.log(arrayPosition)
     let position = document.getElementById(`supplementarySubtaskEdit${i}`);
     position.innerHTML = `
-        <input id="inputEditSubtasks${i}" class="" value="${subtask}">
-        <div>
-            <img class="img-24" onclick="deleteSubtaskEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/delete.png">
-            <img class="img-24" onclick="finishSubtaskEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/checkAddTask.png" alt="Add">
+        <input id="inputEditSubtasks${i}" class="inputAddTaskSubtasks fs-16" >
+        <div class="d-flex item-center">
+            <img class="img-24 pointer p-4" onclick="deleteSubtaskEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/delete.png">
+            <div class="seperator-subtasks"></div>
+            <img class="img-24 pointer p-4" onclick="validateAndFinishEdit('${i}','${indexHTML}', '${subtasksEditArrayOrigin}')" src="../public/img/checkAddTask.png" alt="Add">
         </div>`;
+        let input = document.getElementById(`inputEditSubtasks${i}`);
+    input.value = arrayPosition;
 }
 
+/**
+ * Validates the input length for the subtask and finishes editing if valid.
+ * 
+ * @param {number} index - The index of the subtask being edited.
+ */
+function validateAndFinishEdit(i, indexHTML, subtasksEditArrayOrigin) {
+    const input = document.getElementById(`inputAddTaskSubtasks${i}`);
+    if (input.value.length >= 2) {
+      finishSubtask(i, indexHTML, subtasksEditArrayOrigin);
+    } 
+  }
+  
 /**
  * Finishes editing a subtask by updating its value in the subtasks array and re-rendering the list of subtasks.
  *

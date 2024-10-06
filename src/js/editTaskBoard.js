@@ -67,9 +67,6 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     position.innerHTML = "";
     position.innerHTML = editTaskHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
     CategoryColorOpenEdit(index, category);
-    // if (!subtasks === 'undefined'){
-      
-    // }
     subtasksRenderOpenEdit(index, subtasks);
     checkboxIndexFalse(index);
     dueDateEditTask(index, dueDate); 
@@ -139,7 +136,7 @@ function addSubtaskEdit(index, subtasks) {
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
   console.log(subtasksEditArrayOrigin);
   return `
-  <li id="supplementarySubtaskEdit${index}" class="d-flex-between subtasksEdit bradius8">
+  <li id="supplementarySubtaskEdit${index}" class="d-flex-between subtasks-edit bradius8">
       <span>${subtask}</span>
       <div>
           <img class="pointer" onclick="deleteSubtaskEdit('${index}','${indexHTML}','${subtask}', '${subtasksEditArrayOrigin}')" src="../public/img/delete.png">
