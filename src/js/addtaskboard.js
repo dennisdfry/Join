@@ -399,6 +399,7 @@ function deleteSubtask2(index) {
   let position = document.getElementById(`supplementarySubtask2${index}`);
   position.innerHTML = "";
   subtasksArray.splice([index], 1);
+  subtasksStatusArray.splice([index], 1);
   subtasksRender(index);
 }
   
