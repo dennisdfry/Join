@@ -133,17 +133,28 @@ function addSubtaskEdit(index, subtasks) {
  * 
  * @returns {string} The generated HTML string for the subtask.
  */
-function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
+function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin, isChecked) {
   console.log(subtasksEditArrayOrigin);
+  const checkedAttribute = isChecked ? 'checked' : '';
+
   return `
   <li id="supplementarySubtaskEdit${index}" class="d-flex-between subtasks-edit bradius8">
-      <span>${subtask}</span>
+      <span>
+        <input type="checkbox" ${checkedAttribute} onchange="toggleSubtaskStatus(${index}, ${indexHTML})">
+        ${subtask}
+      </span>
       <div>
           <img class="pointer" onclick="deleteSubtaskEdit('${index}','${indexHTML}','${subtask}', '${subtasksEditArrayOrigin}')" src="../public/img/delete.png">
           <img class="pointer" onclick="editSubtaskEdit('${index}','${indexHTML}','${subtask}', '${subtasksEditArrayOrigin}')" src="../public/img/edit.png">
       </div>
   </li>`;
 }
+
+function toggleSubtaskStatus(subtaskIndex, indexHTML) {
+  subtasksStatusArrayEdit[subtaskIndex] = !subtasksStatusArrayEdit[subtaskIndex];
+  console.log(`Subtask ${subtaskIndex} status: ${subtasksStatusArrayEdit[subtaskIndex]}`);
+}
+
 
 /**
  * Renders the subtasks for editing in the specified HTML element.
@@ -152,25 +163,27 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
  * @param {(string|Array<string>)} subtasks - The subtasks to render, either as a string (comma-separated) or an array of subtasks.
  */
 function subtasksRenderOpenEdit(indexHtml, subtasks) {
-  console.log(subtasks)
- arrayForSubtasks =[];
- 
+  console.log(subtasks);
+  arrayForSubtasks = [];
+
   let subtasksEditArrayOrigin;
   if (Array.isArray(subtasks)) {
     subtasksEditArrayOrigin = subtasks;
-} else {
+  } else {
     subtasksEditArrayOrigin = subtasks.split(',').map(subtask => subtask.trim());
-}
+  }
+  
   let position = document.getElementById(`subtasksPosition${indexHtml}`);
   position.innerHTML = "";
+
   for (let index = 0; index < subtasksEditArrayOrigin.length; index++) {
-    const element = subtasksEditArrayOrigin[index];
+    let element = subtasksEditArrayOrigin[index];
+    let isChecked = subtasksStatusArrayEdit[index];
     console.log(element);
-    position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin);
-    console.log(subtasksEditArrayOrigin);
-    arrayForSubtasks.push(element)
+    position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin, isChecked);
+    arrayForSubtasks.push(element);
   }
-  console.log(arrayForSubtasks)
+  console.log(arrayForSubtasks);
 }
 
 /**

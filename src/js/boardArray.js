@@ -388,10 +388,10 @@ function loadSubtaskStatus(indexHtml, subtaskStatus) {
       const subStatus = element[i];
       console.log(subStatus)
       subtasksStatusArray.push(subStatus);
-        let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
-        if (subStatus === 'true' && checkbox) {
-          checkbox.checked = subStatus;
-        }
+      let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
+      if (checkbox) {
+        checkbox.checked = (subStatus === 'true');
+      }
     }
     subtaskStatusArray = [];
   }
