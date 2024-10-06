@@ -45,6 +45,7 @@ function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
   
     position.innerHTML = editSubtaskHTMLEdit(i, indexHTML, subtask, subtasksEditArrayOrigin, arrayPosition);
   }
+  
 /**
  * Renders an editable input field for a subtask with options to delete or finish editing.
  *
