@@ -76,11 +76,6 @@ function enableEnterKeyEdit(index) {
 
       if (activeElement === subtaskInputEdit) {
         addSubtaskEdit(index);
-      } else {
-        let editButton = document.getElementById("edit-Add-Btn");
-        if (editButton) {
-          editButton.click();
-        }
       }
     }
   });
