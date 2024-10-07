@@ -22,6 +22,7 @@ async function userNamesRender(index) {
  * @returns {string} - The HTML string for the edit task view.
  */
 window.editTaskHtml = function (index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+    console.log(subtaskStatus)
   return `
   <form onsubmit="handleFormSubmitEdit(event, ${index}, '${category}')">
     <div class="board-task-container-open edit-board-form bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">

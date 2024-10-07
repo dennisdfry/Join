@@ -351,6 +351,7 @@ function calculateProgress(index, subtasks, subtaskStatus) {
  */
 function openTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
   opentaskIndex = index;
+  console.log(subtaskStatus)
   let position = document.getElementById("openTask");
   if (position.classList.contains("modal-overlay")) {
     return;
