@@ -12,6 +12,9 @@ async function initBoard() {
   }
 }
 
+
+
+
 /**
  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
  * @param {object} contacts - The contacts object.
@@ -31,55 +34,6 @@ async function assignedToBoard(contacts, imageUrls) {
 }
 
 /**
- * Toggles user assignment by adding or removing the user from the assigned list.
- * 
- * @param {number} index - The index of the user.
- * @param {string} element - The name of the user.
- * @param {string} imgSrc - The image URL of the user.
- */
-async function assignedToUser2(index, element, imgSrc) {
-  const image = imageUrlsGlobal[index];
-  const arrayIndex = assignedToUserArray.indexOf(index);
-  if (arrayIndex !== -1) {
-    assignedToUserArray.splice(arrayIndex, 1);
-    assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
-    imageUrlsGlobal.splice(arrayIndex, 1);
-    assignedtoUserHighlightRemove2(index);
-  } else {
-    assignedToUserArray.push(index);
-    assignedToUserArrayNamesGlobal.push(element);
-    imageUrlsGlobal.push(imgSrc);
-    assignedtoUserHighlightAdd2(index);
-  }
-}
-
-/**
- * Adds a highlight to the assigned user's checkbox and image.
- * 
- * @param {number} index - The index of the user element.
- */
-function assignedtoUserHighlightAdd2(index) {
-  let position = document.getElementById(`checkboxColor2${index}`);
-  let positionOfImage = document.getElementById(`assignedToUserImageBorder2${index}`)
-  positionOfImage.classList.add('assignedToUserImage');
-  position.style.backgroundColor = '#2a3647';
-  position.style.color = '#ffffff';
-}
-
-/**
- * Removes the highlight from the assigned user's checkbox and image.
- * 
- * @param {number} index - The index of the user element.
- */
-function assignedtoUserHighlightRemove2(index) {
-  let position = document.getElementById(`checkboxColor2${index}`);
-  let positionOfImage = document.getElementById(`id="assignedToUserImageBorder2${index}`)
-  positionOfImage.classList.remove('assignedToUserImage');
-  position.style.backgroundColor = '#ffffff';
-  position.style.color = '#2a3647';
-}
-
-/**
  * Renders checkboxes with contact images and names for assigning users to tasks.
  * @param {object[]} names - An array of contact names.
  * @param {string[]} imageUrls - An array of image URLs for the contacts.
@@ -95,7 +49,7 @@ async function checkboxInit2(names, imageUrls) {
     list += checkBoxRender2(index, imgSrc, element);
   }
   position.innerHTML = list;
-}   
+}  
 
 /**
  * Returns a string of HTML to render a checkbox with an image and name.
@@ -105,50 +59,100 @@ async function checkboxInit2(names, imageUrls) {
  * @returns {string} - The HTML string for the checkbox.
  */
 function checkBoxRender2(index, imgSrc, element) {
-    return`
+  return `
     <label class="checkBoxFlex" for="checkbox2-${index}" id="checkboxColor2${index}">
         <div class="checkBoxImg">
-            <img id="assignedToUserImageBorder2${index}" src="${imgSrc}" alt="" />
+            <img id="assignedToUserImageBorde2r${index}" src="${imgSrc}" alt="" />
             ${element}
         </div>
- <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}','${imgSrc}')" />      </label>`;
-  }
+        <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}','${imgSrc}')" />
+    </label>`;
+}
 
   /**
-   * Toggles the visibility of the "Assigned To" dropdown.
-   */
-  function showCheckboxes2(event) {
-    let checkboxes = document.getElementById("checkboxes2");
-    if (!expanded) {
-      checkboxes.style.display = "block";
-      expanded = true;
-      checkbox2ClickHandler(); 
-    }
-    event.stopPropagation();
-  }
-  
-  /**
-   * Attaches the document click handler to handle clicks outside the checkboxes.
-   */
-  function checkbox2ClickHandler() {
-    document.onclick = handleDocumentClick;
-  }
-  
-  /**
-   * Handles document click events to toggle the visibility of the checkboxes.
-   * 
-   * @param {Event} event - The click event to handle.
-   */
-  function handleDocumentClick(event) {
-    let checkboxes2 = document.getElementById("checkboxes2");
-    let multiselect = document.getElementsByClassName('multiselect2');
-  
-    if (expanded && !Array.from(multiselect).some(element => element.contains(event.target))) {
-      checkboxes2.style.display = "none";
-      expanded = false;
-      showUserAdd2();
+ * Updates the arrays that store the indices and names of users assigned to the task.
+ * @param {number} index - The index of the user.
+ * @param {string} element - The name of the user.
+ */
+  async function assignedToUser2(index, element, imgSrc) {
+    const image = imageUrlsGlobal[index];
+    const arrayIndex = assignedToUserArray.indexOf(index);
+    if (arrayIndex !== -1) {
+      assignedToUserArray.splice(arrayIndex, 1);
+      assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+      imageUrlsGlobal.splice(arrayIndex, 1);
+      assignedtoUserHighlightRemove2(index);
+    } else {
+      assignedToUserArray.push(index);
+      assignedToUserArrayNamesGlobal.push(element);
+      imageUrlsGlobal.push(imgSrc);
+      assignedtoUserHighlightAdd2(index);
     }
   }
+
+/**
+ * Adds highlight to the user's assigned checkbox and image.
+ * 
+ * @param {number} index - The index of the user element.
+ */
+function assignedtoUserHighlightAdd2(index) {
+  let position = document.getElementById(`checkboxColor2${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder2${index}`)
+  positionOfImage.classList.add('assignedToUserImage');
+  position.style.backgroundColor = '#2a3647';
+  position.style.color = '#ffffff';
+}
+
+/**
+ * Removes highlight from the user's assigned checkbox and image.
+ * 
+ * @param {number} index - The index of the user element.
+ */
+function assignedtoUserHighlightRemove2(index) {
+  let position = document.getElementById(`checkboxColor2${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder2${index}`)
+  positionOfImage.classList.remove('assignedToUserImage');
+  position.style.backgroundColor = '#ffffff';
+  position.style.color = '#2a3647';
+}
+
+
+
+
+/**
+ * Toggles the visibility of the checkbox dropdown.
+ */
+function showCheckboxes2(event) {
+  let checkboxes = document.getElementById("checkboxes2");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+    checkbox2ClickHandler();
+  }
+  event.stopPropagation();
+}
+  
+/**
+ * Attaches the document click handler to handle clicks outside the checkboxes.
+ */
+function checkbox2ClickHandler() {
+  document.onclick = handleAddTaskClick2;
+}
+  
+/**
+ * Handles document click events to toggle the visibility of the checkboxes.
+ * 
+ * @param {Event} event - The click event to handle.
+ */
+function handleAddTaskClick2(event) {
+  let checkboxes = document.getElementById("checkboxes2");
+
+  if (expanded && !document.querySelector('.multiselect2').contains(event.target)) {
+    checkboxes.style.display = "none";
+    expanded = false;
+    showUserAdd2();
+  }
+}
   
   /**
    * Updates the user interface to show selected users in the dropdown.
@@ -162,6 +166,19 @@ function checkBoxRender2(index, imgSrc, element) {
     }
   }
   
+
+
+
+
+
+
+
+
+
+
+//task creating
+
+
 /**
  * Handles the submission of the task form, including validation and saving the task data to Firebase.
  * @param {Event} event - The form submit event.
