@@ -155,14 +155,12 @@ function addSubtaskEdit(index, subtasks) {
  * 
  * @returns {string} The generated HTML string for the subtask.
  */
-function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin, isChecked) {
+function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
   console.log(subtasksEditArrayOrigin);
-  const checkedAttribute = isChecked ? 'checked' : '';
 
   return `
   <li id="supplementarySubtaskEdit${index}" class="d-flex-between subtasks-edit bradius8">
       <span>
-        <input type="checkbox" ${checkedAttribute} onchange="toggleSubtaskStatus(${index}, ${indexHTML})">
         ${subtask}
       </span>
       <div>
@@ -170,11 +168,6 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
           <img class="pointer" onclick="editSubtaskEdit('${index}','${indexHTML}','${subtask}', '${subtasksEditArrayOrigin}')" src="../public/img/edit.png">
       </div>
   </li>`;
-}
-
-function toggleSubtaskStatus(subtaskIndex, indexHTML) {
-  subtasksStatusArrayEdit[subtaskIndex] = !subtasksStatusArrayEdit[subtaskIndex];
-  console.log(`Subtask ${subtaskIndex} status: ${subtasksStatusArrayEdit[subtaskIndex]}`);
 }
 
 
@@ -200,13 +193,11 @@ function subtasksRenderOpenEdit(indexHtml, subtasks) {
 
   for (let index = 0; index < subtasksEditArrayOrigin.length; index++) {
     let element = subtasksEditArrayOrigin[index];
-    let isChecked = subtasksStatusArrayEdit[index];
     console.log(element);
-    position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin, isChecked);
+    position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin);
     arrayForSubtasks.push(element);
   }
   console.log(arrayForSubtasks);
-  console.log(subtasksStatusArrayEdit);
 }
 
 /**
