@@ -85,6 +85,9 @@ function subtaskUpdateEdit(indexHTML, subtaskStatus){
     if (element === 'false') {
       subtasksStatusArrayEdit[index] = false;  
     }
+    if (element === 'true') {
+      subtasksStatusArrayEdit[index] = true;  
+    }
     console.log(subtasksStatusArrayEdit)
   }
 }
@@ -108,6 +111,7 @@ function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
   console.log(subtasksEditArrayDelete)
   subtasksStatusArrayEdit.splice([i], 1);
   subtasksRenderOpenEdit(indexHTML, subtasksEditArrayDelete);
+  console.log(subtasksStatusArrayEdit)
   subtasksEditArrayDelete = [];
 }
 
@@ -256,8 +260,8 @@ async function assignedToUserEdit(index, element, imgSrc) {
  * @returns {void} - This function does not return a value.
  */
 function assignedtoUserHighlightAdd(index) {
-  let position = document.getElementById(`checkboxColor${index}`);
-  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  let position = document.getElementById(`checkboxColorEdit${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorderEdit${index}`)
   positionOfImage.classList.add('assignedToUserImage');
   position.style.backgroundColor = '#2a3647';
   position.style.color = '#ffffff';
@@ -273,7 +277,7 @@ function assignedtoUserHighlightAdd(index) {
  */
 function assignedtoUserHighlightRemove(index) {
   let position = document.getElementById(`checkboxColor${index}`);
-  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  let positionOfImage = document.getElementById(`assignedToUserImageBorderEdit${index}`)
   positionOfImage.classList.remove('assignedToUserImage');
   position.style.backgroundColor = '#ffffff';
   position.style.color = '#2a3647';
@@ -313,6 +317,17 @@ function showCheckboxesEdit(indexHTML) {
     checkboxes.style.display = "none";
     expandedEdit = false;
   }
+}
+
+function checkBoxRenderEdit(index, names, urls) {
+  return `
+    <label class="checkBoxFlex" for="checkbox-${index}" id="checkboxColorEdit${index}">
+        <div class="checkBoxImg">
+            <img id="assignedToUserImageBorderEdit${index}" src="${urls}" alt="" />
+            ${names}
+        </div>
+        <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox-${index}" value="${names}" onclick="assignedToUserEdit('${index}','${names}','${urls}')" />
+    </label>`;
 }
 
 /**
@@ -420,6 +435,7 @@ function resetFormStateEdit() {
   assignedToUserArray = [];
   subtasksArray = [];
   subtasksStatusArray = [];
+  subtasksStatusArrayEdit = [];
   subtasksArrayEdit = [];
   subtasksedit = [];
   usersEdit = [];

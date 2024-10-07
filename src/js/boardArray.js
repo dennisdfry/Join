@@ -361,9 +361,9 @@ function openTaskToBoardRender(index, category, description, dueDate, prio, titl
     position.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
     position.innerHTML = openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
     CategoryColorOpen(index, category);
-    subtasksRenderOpen(index, subtasks);
     searchIndexUrlOpen(index, assignedTo);
     searchprioBoardOpen(index, prio);
+    subtasksRenderOpen(index, subtasks);
     loadSubtaskStatus(index, subtaskStatus);
     console.log(subtaskStatus)
   }
@@ -379,10 +379,11 @@ function loadSubtaskStatus(indexHtml, subtaskStatus) {
   console.log(subtaskStatus)
   let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
   subtaskStatusArray.push(subtaskStatusArrayDev);
+  console.log(subtaskStatusArray)
   for (let index = 0; index < subtaskStatusArray.length; index++) {
     const element = subtaskStatusArray[index];
    console.log(element)
-    if (element== null) {
+    if (element == null) {
       return;
     }
     for (let i = 0; i < element.length; i++) {
@@ -391,7 +392,7 @@ function loadSubtaskStatus(indexHtml, subtaskStatus) {
       subtasksStatusArray.push(subStatus);
       let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
       if (checkbox) {
-        checkbox.checked = (subStatus === 'true');
+        checkbox.checked = (subStatus === 'true' || subStatus === true);
       }
     }
     subtaskStatusArray = [];
@@ -534,7 +535,7 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
     }
   }
   subtasksOpenArray = [];
-
+  
 }
 
 /**
