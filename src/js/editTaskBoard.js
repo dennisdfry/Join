@@ -103,9 +103,10 @@ function subtaskUpdateEdit(indexHTML, subtaskStatus){
  * 
  * @returns {void} This function does not return a value.
  */
-function deleteSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
-  let subtasksEditArrayDelete = subtasksEditArrayOrigin.split(',').map(subtasksEditArrayOrigin => subtasksEditArrayOrigin.trim());
+function deleteSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
   console.log(subtasksEditArrayOrigin)
+  let subtasksEditArrayDelete = subtasksEditArrayOrigin.split(',').map(subtasksEditArrayOrigin => subtasksEditArrayOrigin.trim());
+  
   let position = document.getElementById(`supplementarySubtaskEdit${i}`);
   position.innerHTML = "";
   subtasksEditArrayDelete.splice([i], 1);
