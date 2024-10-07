@@ -121,7 +121,7 @@
     <div onclick="oneClickClose(event)" id="openTask" class="d-none d-flex-center"></div>
 
     <div id="overlay-form" class="overlay d-none"></div>
-    <form onsubmit=" return createTaskBoard(event)" id="add-task-form" class="add-Task-Container2 vis-hidden d-none">
+    <form onsubmit=" return createTask2(event)" id="add-task-form" class="add-Task-Container2 vis-hidden d-none">
       <div class="add-task-head2">
         <h1 class="mg-block-inline">Add Task</h1>
         <div class="add-task-close-button"></div>
@@ -173,7 +173,7 @@
               type="date"
               id="dueDate2"
               name="dueDate"
-              onclick="setTodayDate()"
+              onclick="setTodayDate2()"
             />
             <label id="prioSection2" for="prio">Prio</label>
             <div class="add-task-prio-button-container">

@@ -177,17 +177,21 @@ async function createTask2(event) {
   changeSite("board.html");
 }
   
-  /**
-   * Resets the internal state of the form and clears stored data.
-   */
-  function resetFormState() {
-    addTaskArray = [];
-    subtasksArray = [];
-    assignedToUserArray = [];
-    assignedToUserArrayNamesGlobal = [];
-    selectedPrio = null;
-    clearSubtasks();
-  }
+ /**
+ * Resets the internal state of the form and clears stored data.
+ */
+function resetFormStateAddTask2() {
+  addTaskArray = [];
+  subtasksArray = [];
+  assignedToUserArray = [];
+  assignedToUserArrayNamesGlobal = [];
+  selectedPrio = null;
+  imageUrlsGlobal = [];
+  subtasksArray = [];
+  clearSubtasks2();
+}
+
+
 
   /**
  * Resets the task form and UI elements.
@@ -196,7 +200,7 @@ async function createTask2(event) {
  */
 function resetUIAddTask2(form) {
   form.reset();
-  resetFormStateAddTask();
+  resetFormStateAddTask2();
   let subtasksPosition = document.getElementById("subtasksPosition2");
   if (subtasksPosition) {
     subtasksPosition.innerHTML = "";
@@ -465,7 +469,7 @@ function editSubtaskHTML2(index, arrayPosition){
 /**
  * Sets the current date as the default value for the due date input if it's empty.
  */
-function setTodayDate() {
+function setTodayDate2() {
   const dateInput = document.getElementById('dueDate2');
   const today = new Date().toISOString().split('T')[0]; 
   if (!dateInput.value) { 
