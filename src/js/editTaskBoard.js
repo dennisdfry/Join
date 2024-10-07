@@ -70,8 +70,23 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     subtasksRenderOpenEdit(index, subtasks);
     checkboxIndexFalse(index);
     dueDateEditTask(index, dueDate); 
+    subtaskUpdateEdit(index, subtaskStatus)
     console.log(prio)
     prioFilter(prio);
+}
+
+function subtaskUpdateEdit(indexHTML, subtaskStatus){
+  console.log(subtaskStatus);
+  subtasksStatusArrayEdit = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
+  console.log(subtasksStatusArrayEdit);
+  for (let index = 0; index < subtasksStatusArrayEdit.length; index++) {
+    let element = subtasksStatusArrayEdit[index];
+    console.log(element)
+    if (element === 'false') {
+      subtasksStatusArrayEdit[index] = false;  
+    }
+    console.log(subtasksStatusArrayEdit)
+  }
 }
 
 /**
@@ -121,6 +136,7 @@ function addSubtaskEdit(index, subtasks) {
   resetSubtaskInputEdit(index);
   subtasksRenderOpenEdit(index, showSubtasksEdit);
   console.log(showSubtasksEdit);
+  console.log(subtasksStatusArrayEdit);
 }
 
 /**
