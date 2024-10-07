@@ -162,28 +162,20 @@ function checkBoxRender2(index, imgSrc, element) {
     }
   }
   
-  /**
-   * Creates a new task based on form input.
-   * 
-   * Prevents default form submission, validates the form, and saves the task data.
-   * 
-   * @param {Event} event - The form submission event.
-   */
-  async function createTaskBoard(event) {
-    event.preventDefault();
-    let form = event.target;
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return false;
-    }
-    defineTaskObjects2();
-    await saveToFirebase2();
-    form.reset();
-    addTaskArray = [];
-    clearSubtask2();
-    imageUrlsGlobal = [];
-    await changeSite("board.html");
-  }
+/**
+ * Handles the submission of the task form, including validation and saving the task data to Firebase.
+ * @param {Event} event - The form submit event.
+ * @returns {Promise<void>}
+ */
+async function createTask2(event) {
+  event.preventDefault();
+  if (!validateFormAddTask(event.target)) return;
+  if (!validatePriorityAddTask()) return;
+  await defineTaskObjects2();
+  await saveToFirebase2();
+  resetUIAddTask2(event.target);
+  changeSite("board.html");
+}
   
   /**
    * Resets the internal state of the form and clears stored data.
@@ -196,26 +188,32 @@ function checkBoxRender2(index, imgSrc, element) {
     selectedPrio = null;
     clearSubtasks();
   }
-  
+
   /**
-   * Defines task objects for creation.
-   *
-   * Retrieves values from input fields and pushes them into the task array.
-   */
-  function defineTaskObjects2() {
-    let taskTitle = document.getElementById("title2").value;
-    let taskDescription = document.getElementById("description2").value;
-    let dueDateTask = document.getElementById("dueDate2").value;
-    let taskCategory = document.getElementById("taskCategory2").value;
-    let lastString = prioArray.pop();
-    pushTaskObjectsToArray2(
-      taskTitle,
-      taskDescription,
-      dueDateTask,
-      taskCategory,
-      lastString
-    );
+ * Resets the task form and UI elements.
+ * 
+ * @param {HTMLFormElement} form - The form element to reset.
+ */
+function resetUIAddTask2(form) {
+  form.reset();
+  resetFormStateAddTask();
+  let subtasksPosition = document.getElementById("subtasksPosition2");
+  if (subtasksPosition) {
+    subtasksPosition.innerHTML = "";
   }
+}
+  
+/**
+ * Gathers data from the form fields and prepares the task object to be saved.
+ */
+async function defineTaskObjects2() {
+  let taskTitle = document.getElementById("title2").value;
+  let taskDescription = document.getElementById("description2").value;
+  let dueDateTask = document.getElementById("dueDate2").value;
+  let taskCategory = document.getElementById("taskCategory2").value;
+  let lastString = prioArray.pop();
+  pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCategory, lastString);
+}
   
   /**
    * Pushes task objects into the global task array.
@@ -249,22 +247,20 @@ function checkBoxRender2(index, imgSrc, element) {
     });
   }
   
-  /**
-   * Saves the current task data to Firebase.
-   *
-   * Sends a POST request to add tasks to the Firebase database.
-   *
-   * @param {string} [path="/tasks"] - The path to save the tasks.
-   */
-  async function saveToFirebase2(path = "/tasks") {
-    let response = await fetch(BASE_URL + path + ".json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(addTaskArray),
-    });
-  }
+/**
+ * Saves the task data to Firebase.
+ * @param {string} [path="/tasks"] - The path where the data will be saved in Firebase.
+ * @returns {Promise<void>}
+ */
+async function saveToFirebase2(path = "/tasks") {
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(addTaskArray),
+  });
+}
   
   /**
    * Updates the priority button styling.
@@ -305,38 +301,53 @@ function checkBoxRender2(index, imgSrc, element) {
     position.classList.remove("add-task-prio-button");
   }
   
-  /**
-   * Shows the subtask input controls when adding a new subtask.
-   */
-  function showSubtaskControls2() {
-    document.getElementById("subtasks2").classList.remove("add-task-input");
-    document.getElementById("subtasks2").classList.add("subtasks-input");
-    let position = document.getElementById("subtasksControl2");
-    position.innerHTML = 
-          `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button">
-              <img src="../public/img/closeAddTask.png" alt="Reset">
-          </button>
-          <div class="seperator-subtasks"></div>
-          <button onclick="addSubtask2()" type="button" class="subtask-button">
-              <img src="../public/img/checkAddTask.png" alt="Add">
-          </button>`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ab hier beginnt sogesehen die addtaskboard.js // sollte soweit einwandfrei überarbeitet sein
+
+
+/**
+ * Displays the controls for managing subtasks, updating the input field styles and controls.
+ */  
+function showSubtaskControls2() {
+  document.getElementById("subtasks2").classList.remove("add-task-input");
+  document.getElementById("subtasks2").classList.add("subtasks-input");
+  let position = document.getElementById("subtasksControl2");
+  position.innerHTML = 
+        `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button">
+            <img class="img-24 " src="../public/img/closeAddTask.png" alt="Reset">
+        </button>
+        <div class="seperator-subtasks"></div>
+        <button onclick="addSubtask2()" type="button" class="subtask-button">
+            <img class="img-24 " src="../public/img/checkAddTask.png" alt="Add">
+        </button>`;
+}
+
+/**
+ * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
+ */
+function addSubtask2() {
+  let input = document.getElementById("subtasks2");
+  if (input.value.trim() !== "") {
+    subtasksArray.push(input.value.trim());
+    input.value = "";
+    subtasksStatusArray.push(false);
+    updateSubtasksList2();
+    resetSubtaskInput2();
   }
-  
-  /**
-   * Adds a new subtask to the list.
-   *
-   * Retrieves the value from the input field and updates the subtasks list.
-   */
-  function addSubtask2() {
-    let input = document.getElementById("subtasks2");
-    if (input.value.trim() !== "") {
-      subtasksArray.push(input.value.trim());
-      input.value = "";
-      subtasksStatusArray.push(false);
-      updateSubtasksList2();
-      resetSubtaskInput2();
-    }
-  }
+}
   
   /**
    * Resets the subtask input field and returns it to its initial state.
@@ -347,71 +358,109 @@ function checkBoxRender2(index, imgSrc, element) {
     document.getElementById("subtasks2").classList.add("add-task-input");
     document.getElementById("subtasks2").classList.remove("subtasks-input");
     let position = document.getElementById("subtasksControl2");
-    position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button-board">
+    position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button">
                                   +
                               </button>`;
   }
+  
 
-/**
- * Updates the displayed list of subtasks based on the current contents of the subtasksArray.
- */
-function updateSubtasksList2() {
-  let subtasksPosition = document.getElementById("subtasksPosition2");
-  if (subtasksPosition) {
-    subtasksPosition.innerHTML = "";
-    for (let index = 0; index < subtasksArray.length; index++) {
-      const element = subtasksArray[index];
-      subtasksPosition.innerHTML += `
-             <li id="supplementarySubtask2${index}" class="d-flex-between subtasks-edit bradius8">
-        <span>${element}</span>
-        <div>
-            <img class="pointer" onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
-            <img class="pointer" onclick="editSubtask2(${index})" src="../public/img/edit.png">
-        </div>
-    </li>`;
+  /**
+   * Updates the displayed list of subtasks based on the current contents of the subtasksArray.
+   */
+  function updateSubtasksList2() {
+    let subtasksPosition = document.getElementById("subtasksPosition2");
+    if (subtasksPosition) {
+      subtasksPosition.innerHTML = "";
+      for (let index = 0; index < subtasksArray.length; index++) {
+        const element = subtasksArray[index];
+        subtasksPosition.innerHTML += `
+               <li id="supplementarySubtask2${index}" class="d-flex-between subtasks-edit bradius8">
+          <span>${element}</span>
+          <div class="d-flex item-center">
+              <img class="pointer img-24 p-4 " onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
+              <div class="seperator-subtasks"></div>
+              <img class="pointer img-24 p-4 " onclick="editSubtask2(${index})" src="../public/img/edit.png">
+          </div>
+      </li>`;
+      }
     }
   }
-}
 
 /**
- * Edits an existing subtask by replacing its content with an input field and action buttons.
+ * Enables editing mode for a specific subtask by updating its HTML content.
  * 
  * @param {number} index - The index of the subtask to edit.
  */
 function editSubtask2(index) {
   let position = document.getElementById(`supplementarySubtask2${index}`);
+  position.classList.remove('subtasks-edit');
+  position.classList.add('subtasks-edit-input');
   let arrayPosition = subtasksArray[index];
-  position.innerHTML = `
-      <input id="inputAddTaskSubtasks2${index}" class="" value="${arrayPosition}">
-      <div>
-          <img class="img-24" onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
-          <img class="img-24" onclick="finishSubtask2(${index})" src="../public/img/checkAddTask.png" alt="Add">
-      </div>`;
+  position.innerHTML = editSubtaskHTML2(index, arrayPosition);
 }
- 
+
 /**
- * Deletes a subtask and updates the UI by re-rendering the subtasks list.
- * 
- * @param {number} index - The index of the subtask to delete.
- */
-function deleteSubtask2(index) {
-  let position = document.getElementById(`supplementarySubtask2${index}`);
-  position.innerHTML = "";
-  subtasksArray.splice([index], 1);
-  subtasksStatusArray.splice([index], 1);
-  subtasksRender(index);
+* Generates and returns the HTML for the subtask editing mode.
+* 
+* @param {number} index - The index of the subtask.
+* @param {string} arrayPosition - The current value of the subtask.
+* @returns {string} - The HTML string for editing the subtask.
+*/
+function editSubtaskHTML2(index, arrayPosition){
+  return  `
+  <input class="inputAddTaskSubtasks fs-16" id="inputAddTaskSubtasks2${index}" required minlength="2" class="" value="${arrayPosition}">
+  <div class="d-flex item-center">
+      <img class="img-24 pointer p-4" onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
+      <div class="seperator-subtasks"></div>
+      <img class="img-24 pointer p-4" onclick="validateAndFinish2(${index})" src="../public/img/checkAddTask.png" alt="Add">
+  </div> `
 }
+
+ 
+  /**
+   * Clears the list of displayed subtasks by resetting the innerHTML of the subtasksPosition element.
+   */
+  function clearSubtasks2() {
+    let position = document.getElementById("subtasksPosition2");
+    position.innerHTML = "";
+    subtasksStatusArray = [];
+  }
+
+  /**
+ * Validates the input length for the subtask and finishes editing if valid.
+ * 
+ * @param {number} index - The index of the subtask being edited.
+ */
+  function validateAndFinish2(index) {
+    const input = document.getElementById(`inputAddTaskSubtasks2${index}`);
+    if (input.value.length >= 2) {
+      finishSubtask2(index);
+    } 
+  }
   
 /**
-  * Clears the subtasks display.
-  *
-  * Removes all HTML content from the subtasks position element.
-  */
-function clearSubtask2() {
-  let position = document.getElementById("subtasksPosition2");
-  position.innerHTML = "";
-  subtasksStatusArray = [];
-}
+ * Finishes editing a subtask and updates its value in the subtasks array.
+ * 
+ * @param {number} index - The index of the subtask being finished.
+ */  
+  function finishSubtask2(index) {
+    let input = document.getElementById(`inputAddTaskSubtasks2${index}`);
+    subtasksArray[index] = input.value;
+    updateSubtasksList2();
+  }
+
+ 
+/**
+ * Deletes a subtask and updates the UI accordingly.
+ * 
+ * @param {number} index - The index of the subtask to delete.
+ */  
+  function deleteSubtask2(index) {
+    let position = document.getElementById(`supplementarySubtask2${index}`);
+    position.innerHTML = "";
+    subtasksArray.splice([index], 1);
+    updateSubtasksList2();
+  }
 
 /**
  * Sets the current date as the default value for the due date input if it's empty.
