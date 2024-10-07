@@ -1,4 +1,5 @@
 let arrayForSubtasks = [];
+let isEditingSubtask = false;
 /**
  * Clears the placeholder of the task title input field during editing.
  *
@@ -204,6 +205,7 @@ function subtasksRenderOpenEdit(indexHtml, subtasks) {
     arrayForSubtasks.push(element);
   }
   console.log(arrayForSubtasks);
+  console.log(subtasksStatusArrayEdit);
 }
 
 /**
@@ -443,6 +445,7 @@ function resetFormStateEdit() {
   assignedToUserEditNull = null;
   assignedToUserArrayEdit = [];
   assignedToUserArrayNamesGlobalEdit = [];
+  isEditingSubtask = false;
 }
 
 /**
