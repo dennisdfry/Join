@@ -244,12 +244,12 @@ async function assignedToUserEdit(index, element, imgSrc) {
     assignedToUserArray.splice(arrayIndex, 1);
     assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
     imageUrlsGlobal.splice(arrayIndex, 1);
-    assignedtoUserHighlightRemove(index);
+    assignedtoUserHighlightRemoveEdit(index);
   } else {
     assignedToUserArray.push(index);
     assignedToUserArrayNamesGlobal.push(element);
     imageUrlsGlobal.push(imgSrc);
-    assignedtoUserHighlightAdd(index);
+    assignedtoUserHighlightAddEdit(index);
   }
 }
 
@@ -261,7 +261,7 @@ async function assignedToUserEdit(index, element, imgSrc) {
  *
  * @returns {void} - This function does not return a value.
  */
-function assignedtoUserHighlightAdd(index) {
+function assignedtoUserHighlightAddEdit(index) {
   let position = document.getElementById(`checkboxColorEdit${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorderEdit${index}`)
   positionOfImage.classList.add('assignedToUserImage');
@@ -277,7 +277,7 @@ function assignedtoUserHighlightAdd(index) {
  *
  * @returns {void} - This function does not return a value.
  */
-function assignedtoUserHighlightRemove(index) {
+function assignedtoUserHighlightRemoveEdit(index) {
   let position = document.getElementById(`checkboxColor${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorderEdit${index}`)
   positionOfImage.classList.remove('assignedToUserImage');

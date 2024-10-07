@@ -59,8 +59,8 @@ async function assignedToUser2(index, element, imgSrc) {
  * @param {number} index - The index of the user element.
  */
 function assignedtoUserHighlightAdd2(index) {
-  let position = document.getElementById(`checkboxColor${index}`);
-  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  let position = document.getElementById(`checkboxColor2${index}`);
+  let positionOfImage = document.getElementById(`assignedToUserImageBorder2${index}`)
   positionOfImage.classList.add('assignedToUserImage');
   position.style.backgroundColor = '#2a3647';
   position.style.color = '#ffffff';
@@ -72,8 +72,8 @@ function assignedtoUserHighlightAdd2(index) {
  * @param {number} index - The index of the user element.
  */
 function assignedtoUserHighlightRemove2(index) {
-  let position = document.getElementById(`checkboxColor${index}`);
-  let positionOfImage = document.getElementById(`assignedToUserImageBorder${index}`)
+  let position = document.getElementById(`checkboxColor2${index}`);
+  let positionOfImage = document.getElementById(`id="assignedToUserImageBorder2${index}`)
   positionOfImage.classList.remove('assignedToUserImage');
   position.style.backgroundColor = '#ffffff';
   position.style.color = '#2a3647';

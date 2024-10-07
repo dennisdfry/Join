@@ -27,47 +27,26 @@ function showSubtaskControlsEdit(index, subtasks) {
                             </button>`;
 }
 
-// /**
-//  * Enables editing mode for a specific subtask by updating its HTML content.
-//  * 
-//  * @param {number} index - The index of the subtask to edit.
-//  */
-// function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
-//     let position = document.getElementById(`supplementarySubtaskEdit${i}`);
-//     position.classList.remove('subtasks-edit');
-//     position.classList.add('subtasks-edit-input');
-//     let arrayForSubtasks = subtasksEditArrayOrigin.split(',')
-//     .map(subtask => subtask.trim())
-//     .filter(subtask => subtask !== 'undefined' && subtask !== "");
-//   console.log(arrayForSubtasks);
-//     let arrayPosition = arrayForSubtasks[i];
-//     console.log(arrayPosition)
-  
-//     position.innerHTML = editSubtaskHTMLEdit(i, indexHTML, subtask, subtasksEditArrayOrigin, arrayPosition);
-//   }
+
 function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
     if (isEditingSubtask) {
-        // Wenn bereits eine Bearbeitung aktiv ist, verlasse die Funktion
         console.log("Eine Subtask-Bearbeitung läuft bereits.");
         return;
     }
-
-    // Setze die Kontrollvariable auf true, um anzuzeigen, dass die Bearbeitung läuft
     isEditingSubtask = true;
-
     let position = document.getElementById(`supplementarySubtaskEdit${i}`);
     position.classList.remove('subtasks-edit');
     position.classList.add('subtasks-edit-input');
     let arrayForSubtasks = subtasksEditArrayOrigin.split(',')
         .map(subtask => subtask.trim())
         .filter(subtask => subtask !== 'undefined' && subtask !== "");
-
     console.log(arrayForSubtasks);
     let arrayPosition = arrayForSubtasks[i];
     console.log(arrayPosition);
-
     position.innerHTML = editSubtaskHTMLEdit(i, indexHTML, subtask, subtasksEditArrayOrigin, arrayPosition);
 } 
+
+
 /**
  * Renders an editable input field for a subtask with options to delete or finish editing.
  *
