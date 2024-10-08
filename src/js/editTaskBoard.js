@@ -83,12 +83,14 @@ function assignedToDelivery(indexHTML, assignedTo){
   let position = document.getElementById(`userImageBoardOpenEdit${indexHTML}`);
   position.innerHTML = '';
   console.log(assignedTo)
+  if(assignedTo == 'undefined'){
+    return
+  }else{
   if (Array.isArray(assignedTo)) {
-    deliveryImage = assignedTo; // assignedTo direkt verwenden
+    deliveryImage = assignedTo; 
   } else {
-    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); // String in Array umwandeln
+    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); 
   }
-
   console.log(deliveryImage)
   for (let index = 0; index < deliveryImage.length; index++) {
     const element = deliveryImage[index];
@@ -96,7 +98,9 @@ function assignedToDelivery(indexHTML, assignedTo){
     console.log(url)
     position.innerHTML += `<img class="img-24" src="${url}">`;
     assignedToUserArray.push(element)
+
   }
+}
 }
 
 function subtaskUpdateEdit(indexHTML, subtaskStatus){
@@ -259,14 +263,11 @@ async function assignedToUserEdit(index, imgSrc, indexHTML) {
   console.log(arrayIndex)
   if (arrayIndex !== -1) {
     assignedToUserArray.splice(arrayIndex, 1);
-    // assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
     console.log( assignedToUserArray)
     imageUrlsGlobal.splice(arrayIndex, 1);
     assignedtoUserHighlightRemoveEdit(index);
-   
   } else {
     assignedToUserArray.push(index);
-    // assignedToUserArrayNamesGlobal.push(element);
     console.log(assignedToUserArray)
     imageUrlsGlobal.push(imgSrc);
     assignedtoUserHighlightAddEdit(index);
@@ -353,11 +354,14 @@ function showCheckboxesEdit(indexHTML, assignedTo) {
         const urls = imageUrlBoard[index];
         checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls, indexHTML);
       }
-      for (let index = 0; index < assignedToUserArray.length; index++) {
-        const highlight = assignedToUserArray[index];
+      for (let i = 0; i < assignedToUserArray.length; i++) {
+        const highlight = assignedToUserArray[i];
          assignedtoUserHighlightAddEdit(highlight);
+         let checkbox = document.getElementById(`checkbox-${highlight}`);
+         if (checkbox) {
+           checkbox.checked = true;
       }
-    }
+    }}
   } else {
     checkboxes.style.display = "none";
     expandedEdit = false;
