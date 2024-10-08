@@ -64,6 +64,7 @@ function openAddForm() {
     "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideClickHandler, true);
   document.addEventListener("keydown", handleEnterKey);
+  initBoard();
   prio2(2);
 }
 

@@ -322,23 +322,6 @@ async function saveToFirebase2(path = "/tasks") {
     position.classList.remove("add-task-prio-button");
   }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ab hier beginnt sogesehen die addtaskboard.js // sollte soweit einwandfrei überarbeitet sein
-
-
 /**
  * Displays the controls for managing subtasks, updating the input field styles and controls.
  */  
