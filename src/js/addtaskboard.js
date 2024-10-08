@@ -153,17 +153,24 @@ function handleAddTaskClick2(event) {
 }
   
   /**
-   * Updates the user interface to show selected users in the dropdown.
-   */
-  function showUserAdd2() {
-    let position = document.getElementById('userImageShow2');
-    position.innerHTML = '';
-    for (let index = 0; index < imageUrlsGlobal.length; index++) {
-      let element = imageUrlsGlobal[index];
-      position.innerHTML += `<img class="img-32 p-4" src="${element}" alt="" />`;
+ * Updates the user interface to show selected users in the dropdown.
+ */
+function showUserAdd2() {
+  let position = document.getElementById('userImageShow2');
+  position.innerHTML = '';
+  for (let index = 0; index < imageUrlsGlobal.length; index++) {
+    const element = imageUrlsGlobal[index];
+    if (index > 3) {
+      const remaining = imageUrlsGlobal.length - 4;
+      position.innerHTML += `
+        <div class="img-32 more-users">
+          +${remaining}
+        </div>`;
+      break;
     }
+    position.innerHTML += `<img class="img-48" src="${element}" alt="" />`;
   }
-  
+}
 
 /**
  * Handles the submission of the task form, including validation and saving the task data to Firebase.
