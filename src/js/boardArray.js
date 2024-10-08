@@ -292,7 +292,7 @@ function progressBar(index, subtasks, subtaskStatus) {
  * @param {number} indexHtml - The index of the task in the HTML structure.
  * @param {number} progressPercentage - The calculated percentage of completed subtasks.
  */
-function updateProgressBar(index, progressPercentage, subtasks) {
+function updateProgressBar(index, progressPercentage) {
   let progressBar = document.getElementById(`progressBar${index}`);
   if (!progressBar) {
     console.error(`Element nicht gefunden: progressBar${index}`);
@@ -368,6 +368,7 @@ async function subtaskStatus(indexHtml, index) {
   const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
   const isChecked = checkbox.checked;
   await statusSubtaskSaveToFirebase(isChecked, indexHtml, index);
+  //progressBar(indexHtml, subtasks, subtaskStatus);
 }
 
 
