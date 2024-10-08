@@ -168,7 +168,7 @@ function showUserAdd2() {
         </div>`;
       break;
     }
-    position.innerHTML += `<img class="img-48" src="${element}" alt="" />`;
+    position.innerHTML += `<img class="img-32" src="${element}" alt="" />`;
   }
 }
 
