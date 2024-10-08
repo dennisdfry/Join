@@ -65,7 +65,6 @@ function openAddForm() {
   document.addEventListener("click", outsideClickHandler, true);
   document.addEventListener("keydown", handleEnterKey);
   initBoard();
-  prio2(2);
 }
 
 /**
@@ -150,56 +149,56 @@ function handleEnterKey(event) {
   }
 }
 
-/**
- * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
- * @param {object} contacts - The contacts object.
- * @param {string[]} imageUrls - An array of image URLs for the contacts.
- * @returns {Promise<void>}
- */
-async function assignedTo2(contacts, imageUrls) {
-  try {
-    const extractNames2 = (contacts) => {
-      return Object.values(contacts).map((entry) => ({ name: entry.name }));
-    };
-    const names = extractNames2(contacts);
-    checkboxInit2(names, imageUrls);
-  } catch (error) {
-    console.error(error);
-  }
-}
+// /**
+//  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
+//  * @param {object} contacts - The contacts object.
+//  * @param {string[]} imageUrls - An array of image URLs for the contacts.
+//  * @returns {Promise<void>}
+//  */
+// async function assignedTo2(contacts, imageUrls) {
+//   try {
+//     const extractNames2 = (contacts) => {
+//       return Object.values(contacts).map((entry) => ({ name: entry.name }));
+//     };
+//     const names = extractNames2(contacts);
+//     checkboxInit2(names, imageUrls);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-/**
- * Renders checkboxes with contact images and names for assigning users to tasks.
- * @param {object[]} names - An array of contact names.
- * @param {string[]} imageUrls - An array of image URLs for the contacts.
- */
-function checkboxInit2(names, imageUrls) {
-  let position = document.getElementById("checkboxes2");
-  position.innerHTML = "";
-  let list = "";
-  for (let index = 0; index < names.length; index++) {
-    const element2 = names[index].name;
-    const imgSrc2 = imageUrls[index];
-    list += checkBoxRender2(index, imgSrc2, element2);
-  }
-  position.innerHTML = list;
-}
+// /**
+//  * Renders checkboxes with contact images and names for assigning users to tasks.
+//  * @param {object[]} names - An array of contact names.
+//  * @param {string[]} imageUrls - An array of image URLs for the contacts.
+//  */
+// function checkboxInit2(names, imageUrls) {
+//   let position = document.getElementById("checkboxes2");
+//   position.innerHTML = "";
+//   let list = "";
+//   for (let index = 0; index < names.length; index++) {
+//     const element2 = names[index].name;
+//     const imgSrc2 = imageUrls[index];
+//     list += checkBoxRender2(index, imgSrc2, element2);
+//   }
+//   position.innerHTML = list;
+// }
 
-/**
- * Updates the arrays that store the indices and names of users assigned to the task.
- * @param {number} index - The index of the user.
- * @param {string} element - The name of the user.
- */
-async function assignedToUser2(index, element, imgSrc) {
-  const image = imageUrlsGlobal[index];
-  const arrayIndex = assignedToUserArray.indexOf(index);
-  if (arrayIndex !== -1) {
-    assignedToUserArray.splice(arrayIndex, 1);
-    assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
-    imageUrlsGlobal.splice(arrayIndex, 1);
-  } else {
-    assignedToUserArray.push(index);
-    assignedToUserArrayNamesGlobal.push(element);
-    imageUrlsGlobal.push(imgSrc);
-  }
-}
+// /**
+//  * Updates the arrays that store the indices and names of users assigned to the task.
+//  * @param {number} index - The index of the user.
+//  * @param {string} element - The name of the user.
+//  */
+// async function assignedToUser2(index, element, imgSrc) {
+//   const image = imageUrlsGlobal[index];
+//   const arrayIndex = assignedToUserArray.indexOf(index);
+//   if (arrayIndex !== -1) {
+//     assignedToUserArray.splice(arrayIndex, 1);
+//     assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+//     imageUrlsGlobal.splice(arrayIndex, 1);
+//   } else {
+//     assignedToUserArray.push(index);
+//     assignedToUserArrayNamesGlobal.push(element);
+//     imageUrlsGlobal.push(imgSrc);
+//   }
+// }

@@ -4,8 +4,8 @@ async function initBoard() {
     let contacts = await fetchContacts(fireBaseData);
     let imageUrls = await fetchImages();
     await assignedToBoard(contacts, imageUrls);
-    prio(2);
-    setTodayDateAddTask()
+    prio2(2);
+    setTodayDateAddTaskBoard()
 
   } catch (error) {
     console.error("Error during initialization:", error);
@@ -166,18 +166,6 @@ function handleAddTaskClick2(event) {
     }
   }
   
-
-
-
-
-
-
-
-
-
-
-//task creating
-
 
 /**
  * Handles the submission of the task form, including validation and saving the task data to Firebase.
@@ -469,10 +457,15 @@ function editSubtaskHTML2(index, arrayPosition){
 /**
  * Sets the current date as the default value for the due date input if it's empty.
  */
-function setTodayDate2() {
+function setTodayDateAddTaskBoard() {
   const dateInput = document.getElementById('dueDate2');
-  const today = new Date().toISOString().split('T')[0]; 
-  if (!dateInput.value) { 
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.setAttribute('min', today);
+  const nextYear = new Date();
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+  const maxDate = nextYear.toISOString().split('T')[0];
+  dateInput.setAttribute('max', maxDate);
+  if (!dateInput.value) {
     dateInput.value = today;
   }
 }
