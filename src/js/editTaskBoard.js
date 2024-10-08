@@ -489,6 +489,7 @@ function resetFormStateEdit() {
   subtasksArrayEdit = [];
   subtasksedit = [];
   usersEdit = [];
+  imageUrlsGlobal = [];
   fetchImagesEdit = [];
   assignedToUserEditNull = null;
   assignedToUserArrayEdit = [];
