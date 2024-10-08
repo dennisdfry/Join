@@ -40,9 +40,7 @@ function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
     let arrayForSubtasks = subtasksEditArrayOrigin.split(',')
         .map(subtask => subtask.trim())
         .filter(subtask => subtask !== 'undefined' && subtask !== "");
-    console.log(arrayForSubtasks);
     let arrayPosition = arrayForSubtasks[i];
-    console.log(arrayPosition);
     position.innerHTML = editSubtaskHTMLEdit(i, indexHTML, subtask, subtasksEditArrayOrigin, arrayPosition);
 } 
 
@@ -86,10 +84,8 @@ function validateAndFinishEdit(i, indexHTML, subtasksEditArrayOrigin) {
  * @param {string} subtasksEditArrayOrigin - The original array of subtasks as a comma-separated string.
  */
 function finishSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
-   
     let input = document.getElementById(`inputEditSubtasks${i}`);
     arrayForSubtasks[i] = input.value;
-    console.log(arrayForSubtasks)
     subtasksRenderOpenEdit(indexHTML, arrayForSubtasks);
 }
 
@@ -109,4 +105,5 @@ function resetSubtaskInputEdit(index) {
                                 +
                             </button>`;
 }
+
 

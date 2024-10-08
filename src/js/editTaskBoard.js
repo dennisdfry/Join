@@ -74,49 +74,58 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     dueDateEditTask(index, dueDate); 
     subtaskUpdateEdit(index, subtaskStatus);
     assignedToDelivery(index, assignedTo);
-    console.log(prio)
     prioFilter(prio);
-    
 }
 
-function assignedToDelivery(indexHTML, assignedTo){
+
+/**
+ * Renders images for assigned users in a specified HTML position and clears the previous content.
+ * 
+ * This function takes an index and a list of assigned users. If the list is a string, 
+ * it splits the string into an array. It then loops through the list and, for each user, 
+ * fetches their image URL from the `imageUrlBoard` object. The function renders the image 
+ * in the specified HTML element (determined by `indexHTML`) and clears any existing content 
+ * in that element before rendering.
+ * 
+ * @param {number} indexHTML - The index used to find the HTML element where images will be rendered.
+ * @param {string|string[]} assignedTo - A string (comma-separated) or an array of assigned users. 
+ *                                       If it's a string, it will be split into an array. 
+ *                                       If it's 'undefined', the function will exit early.
+ */
+function assignedToDelivery(indexHTML, assignedTo) {
   let position = document.getElementById(`userImageBoardOpenEdit${indexHTML}`);
   position.innerHTML = '';
-  console.log(assignedTo)
-  if(assignedTo == 'undefined'){
-    return
-  }else{
-  if (Array.isArray(assignedTo)) {
-    deliveryImage = assignedTo; 
-  } else {
-    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); 
-  }
-  console.log(deliveryImage)
+  if (assignedTo === 'undefined') return;
+  let deliveryImage = Array.isArray(assignedTo) ? assignedTo : assignedTo.split(',').map(a => a.trim());
   for (let index = 0; index < deliveryImage.length; index++) {
     const element = deliveryImage[index];
     const url = imageUrlBoard[element];
-    console.log(url)
     position.innerHTML += `<img class="img-24" src="${url}">`;
-    assignedToUserArray.push(element)
-
+    assignedToUserArray.push(element);
   }
 }
-}
+
+/**
+ * Updates the subtask status array by converting a string of statuses into booleans.
+ * 
+ * This function takes a string of subtask statuses (comma-separated), splits it into an array, 
+ * and converts the string values of 'true' and 'false' into actual boolean `true` or `false` values. 
+ * It then updates the global `subtasksStatusArrayEdit` array with these boolean values.
+ * 
+ * @param {number} indexHTML - The index used for referencing a particular subtask group (not used directly in this function).
+ * @param {string} subtaskStatus - A comma-separated string of subtask statuses ('true' or 'false').
+ */
 
 function subtaskUpdateEdit(indexHTML, subtaskStatus){
-  console.log(subtaskStatus);
   subtasksStatusArrayEdit = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
-  console.log(subtasksStatusArrayEdit);
   for (let index = 0; index < subtasksStatusArrayEdit.length; index++) {
     let element = subtasksStatusArrayEdit[index];
-    console.log(element)
     if (element === 'false') {
       subtasksStatusArrayEdit[index] = false;  
     }
     if (element === 'true') {
       subtasksStatusArrayEdit[index] = true;  
     }
-    console.log(subtasksStatusArrayEdit)
   }
 }
 
@@ -131,16 +140,12 @@ function subtaskUpdateEdit(indexHTML, subtaskStatus){
  * @returns {void} This function does not return a value.
  */
 function deleteSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
-  console.log(subtasksEditArrayOrigin)
   let subtasksEditArrayDelete = subtasksEditArrayOrigin.split(',').map(subtasksEditArrayOrigin => subtasksEditArrayOrigin.trim());
-  
   let position = document.getElementById(`supplementarySubtaskEdit${i}`);
   position.innerHTML = "";
   subtasksEditArrayDelete.splice([i], 1);
-  console.log(subtasksEditArrayDelete)
   subtasksStatusArrayEdit.splice([i], 1);
   subtasksRenderOpenEdit(indexHTML, subtasksEditArrayDelete);
-  console.log(subtasksStatusArrayEdit)
   subtasksEditArrayDelete = [];
 }
 
@@ -153,23 +158,18 @@ function deleteSubtaskEdit(i, indexHTML, subtasksEditArrayOrigin) {
  * @returns {void} This function does not return a value.
  */
 function addSubtaskEdit(index, subtasks) {
-  console.log(subtasks);
   let showSubtasksEdit = subtasks.split(',')
     .map(subtask => subtask.trim())
-    .filter(subtask => subtask !== 'undefined' && subtask !== "");
-  console.log(showSubtasksEdit);
+    .filter(subtask => subtask !== 'undefined' && subtask !== "");;
   let input = document.getElementById(`subtasksEdit${index}`);
   let newValue = input.value.trim();
   if (newValue !== "") {
     showSubtasksEdit.push(newValue);
   }
-  console.log(showSubtasksEdit);
   input.value = "";
   subtasksStatusArrayEdit.push(false);
   resetSubtaskInputEdit(index);
   subtasksRenderOpenEdit(index, showSubtasksEdit);
-  console.log(showSubtasksEdit);
-  console.log(subtasksStatusArrayEdit);
 }
 
 /**
@@ -183,8 +183,6 @@ function addSubtaskEdit(index, subtasks) {
  * @returns {string} The generated HTML string for the subtask.
  */
 function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArrayOrigin) {
-  console.log(subtasksEditArrayOrigin);
-
   return `
   <li id="supplementarySubtaskEdit${index}" class="d-flex-between subtasks-edit bradius8">
       <span>
@@ -205,26 +203,20 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
  * @param {(string|Array<string>)} subtasks - The subtasks to render, either as a string (comma-separated) or an array of subtasks.
  */
 function subtasksRenderOpenEdit(indexHtml, subtasks) {
-  console.log(subtasks);
   arrayForSubtasks = [];
-
   let subtasksEditArrayOrigin;
   if (Array.isArray(subtasks)) {
     subtasksEditArrayOrigin = subtasks;
   } else {
     subtasksEditArrayOrigin = subtasks.split(',').map(subtask => subtask.trim());
   }
-  
   let position = document.getElementById(`subtasksPosition${indexHtml}`);
   position.innerHTML = "";
-
   for (let index = 0; index < subtasksEditArrayOrigin.length; index++) {
     let element = subtasksEditArrayOrigin[index];
-    console.log(element);
     position.innerHTML += supplementarySubtaskEditHTML(element, index, indexHtml, subtasksEditArrayOrigin);
     arrayForSubtasks.push(element);
   }
-  console.log(arrayForSubtasks);
 }
 
 /**
@@ -257,38 +249,43 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
  * @returns {Promise<void>} - A promise that resolves when the operation is complete.
  */
 async function assignedToUserEdit(index, imgSrc, indexHTML) {
-  console.log(imgSrc)
   const image = imageUrlsGlobal[index];
   const arrayIndex = assignedToUserArray.indexOf(index);
-  console.log(arrayIndex)
   if (arrayIndex !== -1) {
     assignedToUserArray.splice(arrayIndex, 1);
-    console.log( assignedToUserArray)
     imageUrlsGlobal.splice(arrayIndex, 1);
     assignedtoUserHighlightRemoveEdit(index);
   } else {
     assignedToUserArray.push(index);
-    console.log(assignedToUserArray)
     imageUrlsGlobal.push(imgSrc);
     assignedtoUserHighlightAddEdit(index);
   }
    assignedToDeliveryRender(indexHTML, assignedToUserArray);
 }
 
-
+/**
+ * Renders images for assigned users in a given HTML position and clears the previous content.
+ * 
+ * This function takes an index and a list of assigned users. If the list is a string, 
+ * it splits the string into an array. It then loops through the list and, for each user, 
+ * fetches their image URL from the `imageUrlBoard` object. It renders the image in the specified 
+ * HTML element (determined by `indexHTML`) and clears any existing content in that element before rendering.
+ * 
+ * @param {number} indexHTML - The index used to find the HTML element where images will be rendered.
+ * @param {string|string[]} assignedTo - A string (comma-separated) or an array of assigned users. 
+ *                                       If it's a string, it will be split into an array.
+ */
 function assignedToDeliveryRender(indexHTML, assignedTo){
   let position = document.getElementById(`userImageBoardOpenEdit${indexHTML}`);
   position.innerHTML = '';
-  console.log(assignedTo)
   if (Array.isArray(assignedTo)) {
-    deliveryImage = assignedTo; // assignedTo direkt verwenden
+    deliveryImage = assignedTo; 
   } else {
-    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); // String in Array umwandeln
+    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); 
   }
   for (let index = 0; index < deliveryImage.length; index++) {
     const element = deliveryImage[index];
     const url = imageUrlBoard[element];
-    console.log(url)
     position.innerHTML += `<img class="img-24" src="${url}">`;}
   }
 
@@ -480,7 +477,7 @@ async function updateTaskBoard(index, category) {
  */
 function resetFormStateEdit() {
   addTaskArrayEdit = [];
-  selectedPrioEdit = null;
+  selectedPrioEdit  = null;
   assignedToUserArrayNamesGlobal = [];
   assignedToUserArray = [];
   subtasksArray = [];
@@ -491,7 +488,6 @@ function resetFormStateEdit() {
   usersEdit = [];
   imageUrlsGlobal = [];
   fetchImagesEdit = [];
-  assignedToUserEditNull = null;
   assignedToUserArrayEdit = [];
   assignedToUserArrayNamesGlobalEdit = [];
   isEditingSubtask = false;
@@ -538,17 +534,6 @@ function defineTaskObjectsEdit(index, category) {
  * @param {string} lastString - The last priority string value.
  */
 function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString) {
- console.log(taskTitle)
- console.log(taskDescription)
- console.log(dueDateTask)
- console.log(taskCategory)
- console.log(lastString)
- console.log(assignedToUserArray)
- console.log(imageUrlsGlobal)
- console.log(arrayForSubtasks)
- console.log(subtasksStatusArrayEdit)
- console.log(arrayForSubtasks)
- 
   addTaskArrayEdit.push({title: taskTitle,
     description: taskDescription,
     assignedTo: assignedToUserArray,
