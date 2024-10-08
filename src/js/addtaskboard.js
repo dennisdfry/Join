@@ -13,8 +13,6 @@ async function initBoard() {
 }
 
 
-
-
 /**
  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
  * @param {object} contacts - The contacts object.
@@ -62,7 +60,7 @@ function checkBoxRender2(index, imgSrc, element) {
   return `
     <label class="checkBoxFlex" for="checkbox2-${index}" id="checkboxColor2${index}">
         <div class="checkBoxImg">
-            <img id="assignedToUserImageBorde2r${index}" src="${imgSrc}" alt="" />
+            <img id="assignedToUserImageBorde2${index}" src="${imgSrc}" alt="" />
             ${element}
         </div>
         <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}','${imgSrc}')" />
@@ -97,7 +95,7 @@ function checkBoxRender2(index, imgSrc, element) {
  */
 function assignedtoUserHighlightAdd2(index) {
   let position = document.getElementById(`checkboxColor2${index}`);
-  let positionOfImage = document.getElementById(`assignedToUserImageBorder2${index}`)
+  let positionOfImage = document.getElementById(`assignedToUserImageBorde2${index}`)
   positionOfImage.classList.add('assignedToUserImage');
   position.style.backgroundColor = '#2a3647';
   position.style.color = '#ffffff';
@@ -110,7 +108,7 @@ function assignedtoUserHighlightAdd2(index) {
  */
 function assignedtoUserHighlightRemove2(index) {
   let position = document.getElementById(`checkboxColor2${index}`);
-  let positionOfImage = document.getElementById(`assignedToUserImageBorder2${index}`)
+  let positionOfImage = document.getElementById(`assignedToUserImageBorde2${index}`)
   positionOfImage.classList.remove('assignedToUserImage');
   position.style.backgroundColor = '#ffffff';
   position.style.color = '#2a3647';
