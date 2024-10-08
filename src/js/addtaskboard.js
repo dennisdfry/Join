@@ -337,7 +337,9 @@ function showSubtaskControls2() {
  */
 function addSubtask2() {
   let input = document.getElementById("subtasks2");
+  console.log(input.value)
   if (input.value.trim() !== "") {
+    
     subtasksArray.push(input.value.trim());
     input.value = "";
     subtasksStatusArray.push(false);

@@ -157,6 +157,7 @@ function addSubtaskEdit(index, subtasks) {
  * @param {(string|Array<string>)} subtasks - The subtasks to render, either as a string (comma-separated) or an array of subtasks.
  */
 function subtasksRenderOpenEdit(indexHtml, subtasks) {
+  if(subtasks == 'undefined') return ;
   arrayForSubtasks = [];
   let subtasksEditArrayOrigin;
   if (Array.isArray(subtasks)) {
