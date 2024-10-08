@@ -133,6 +133,7 @@ if (position) {
       const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus} = element;
       positionOfHTMLBlockBoard(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus)
       searchIndexUrlBoard(index, assignedTo);
+      console.log(assignedTo)
       searchprioBoard(index, prio);
       subtasksRenderBoard(index, subtasks);
       CategoryColor(index, category);
@@ -591,6 +592,7 @@ function oneClickClose(event) {
  * @returns {string} The generated HTML markup for the open task.
  */
 function openTaskToBoardHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+  console.log(assignedTo)
   return `
     <div class="board-task-container-open bradius24 bg-color-ww d-flex content-centr" id="parentContainer${index}">
         <div class="task-responsive width445">  

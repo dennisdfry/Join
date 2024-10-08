@@ -110,23 +110,3 @@ function resetSubtaskInputEdit(index) {
                             </button>`;
 }
 
-/**
- * Renders user images in the edit mode based on the provided user data.
- *
- * @param {number} index - The index of the task for which user images are to be rendered.
- */
-function userImageRenderEdit(index) {
-    let position = document.getElementById(`userImageBoardOpenEdit${index}`);
-    
-    if (usersEdit == null) {
-        return;
-    } else {
-        position.innerHTML = '';
-        
-        for (let i = 0; i < usersEdit.length; i++) {
-            const usersAdd = usersEdit[i];
-            const urls = fetchImagesEdit[usersAdd];
-            position.innerHTML += `<img class="img-24" src="${urls}">`;
-        }
-    }
-}

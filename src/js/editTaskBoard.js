@@ -1,5 +1,6 @@
 let arrayForSubtasks = [];
 let isEditingSubtask = false;
+let deliveryImage = [];
 /**
  * Clears the placeholder of the task title input field during editing.
  *
@@ -71,9 +72,31 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
     subtasksRenderOpenEdit(index, subtasks);
     checkboxIndexFalse(index);
     dueDateEditTask(index, dueDate); 
-    subtaskUpdateEdit(index, subtaskStatus)
+    subtaskUpdateEdit(index, subtaskStatus);
+    assignedToDelivery(index, assignedTo);
     console.log(prio)
     prioFilter(prio);
+    
+}
+
+function assignedToDelivery(indexHTML, assignedTo){
+  let position = document.getElementById(`userImageBoardOpenEdit${indexHTML}`);
+  position.innerHTML = '';
+  console.log(assignedTo)
+  if (Array.isArray(assignedTo)) {
+    deliveryImage = assignedTo; // assignedTo direkt verwenden
+  } else {
+    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); // String in Array umwandeln
+  }
+
+  console.log(deliveryImage)
+  for (let index = 0; index < deliveryImage.length; index++) {
+    const element = deliveryImage[index];
+    const url = imageUrlBoard[element];
+    console.log(url)
+    position.innerHTML += `<img class="img-24" src="${url}">`;
+    assignedToUserArray.push(element)
+  }
 }
 
 function subtaskUpdateEdit(indexHTML, subtaskStatus){
@@ -229,21 +252,45 @@ function checkboxInitEdit(names, imageUrls, indexHTML) {
  * @async
  * @returns {Promise<void>} - A promise that resolves when the operation is complete.
  */
-async function assignedToUserEdit(index, element, imgSrc) {
+async function assignedToUserEdit(index, imgSrc, indexHTML) {
+  console.log(imgSrc)
   const image = imageUrlsGlobal[index];
   const arrayIndex = assignedToUserArray.indexOf(index);
+  console.log(arrayIndex)
   if (arrayIndex !== -1) {
     assignedToUserArray.splice(arrayIndex, 1);
-    assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+    // assignedToUserArrayNamesGlobal.splice(arrayIndex, 1);
+    console.log( assignedToUserArray)
     imageUrlsGlobal.splice(arrayIndex, 1);
     assignedtoUserHighlightRemoveEdit(index);
+   
   } else {
     assignedToUserArray.push(index);
-    assignedToUserArrayNamesGlobal.push(element);
+    // assignedToUserArrayNamesGlobal.push(element);
+    console.log(assignedToUserArray)
     imageUrlsGlobal.push(imgSrc);
     assignedtoUserHighlightAddEdit(index);
   }
+   assignedToDeliveryRender(indexHTML, assignedToUserArray);
 }
+
+
+function assignedToDeliveryRender(indexHTML, assignedTo){
+  let position = document.getElementById(`userImageBoardOpenEdit${indexHTML}`);
+  position.innerHTML = '';
+  console.log(assignedTo)
+  if (Array.isArray(assignedTo)) {
+    deliveryImage = assignedTo; // assignedTo direkt verwenden
+  } else {
+    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); // String in Array umwandeln
+  }
+  for (let index = 0; index < deliveryImage.length; index++) {
+    const element = deliveryImage[index];
+    const url = imageUrlBoard[element];
+    console.log(url)
+    position.innerHTML += `<img class="img-24" src="${url}">`;}
+  }
+
 
 /**
  * Highlights the assigned user in the user interface by changing the styles of the associated elements.
@@ -270,7 +317,7 @@ function assignedtoUserHighlightAddEdit(index) {
  * @returns {void} - This function does not return a value.
  */
 function assignedtoUserHighlightRemoveEdit(index) {
-  let position = document.getElementById(`checkboxColor${index}`);
+  let position = document.getElementById(`checkboxColorEdit${index}`);
   let positionOfImage = document.getElementById(`assignedToUserImageBorderEdit${index}`)
   positionOfImage.classList.remove('assignedToUserImage');
   position.style.backgroundColor = '#ffffff';
@@ -295,7 +342,7 @@ function checkboxIndexFalse(index) {
  *
  * @returns {void} - This function does not return a value.
  */
-function showCheckboxesEdit(indexHTML) {
+function showCheckboxesEdit(indexHTML, assignedTo) {
   let checkboxes = document.getElementById(`checkboxesEdit${indexHTML}`);
   if (!expandedEdit) {
     checkboxes.style.display = "block";
@@ -304,23 +351,28 @@ function showCheckboxesEdit(indexHTML) {
       for (let index = 0; index < userNamesBoard.length; index++) {
         const names = userNamesBoard[index];
         const urls = imageUrlBoard[index];
-        checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls);
+        checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls, indexHTML);
+      }
+      for (let index = 0; index < assignedToUserArray.length; index++) {
+        const highlight = assignedToUserArray[index];
+         assignedtoUserHighlightAddEdit(highlight);
       }
     }
   } else {
     checkboxes.style.display = "none";
     expandedEdit = false;
   }
+  
 }
 
-function checkBoxRenderEdit(index, names, urls) {
+function checkBoxRenderEdit(index, names, urls, indexHTML) {
   return `
     <label class="checkBoxFlex" for="checkbox-${index}" id="checkboxColorEdit${index}">
         <div class="checkBoxImg">
             <img id="assignedToUserImageBorderEdit${index}" src="${urls}" alt="" />
             ${names}
         </div>
-        <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox-${index}" value="${names}" onclick="assignedToUserEdit('${index}','${names}','${urls}')" />
+        <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox-${index}" value="${names}" onclick="assignedToUserEdit('${index}','${urls}','${indexHTML}')" />
     </label>`;
 }
 
@@ -487,7 +539,6 @@ function pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, tas
  console.log(taskCategory)
  console.log(lastString)
  console.log(assignedToUserArray)
- console.log(assignedToUserArrayNamesGlobal)
  console.log(imageUrlsGlobal)
  console.log(arrayForSubtasks)
  console.log(subtasksStatusArrayEdit)
