@@ -120,27 +120,35 @@ function checkboxIndexFalse(index) {
  *
  * @returns {void} - This function does not return a value.
  */
+/**
+ * Toggles the display of the user checkboxes for editing.
+ * 
+ * @param {number} indexHTML - The index used to identify the specific set of checkboxes to show or hide.
+ * @returns {void} - This function does not return a value.
+ */
 function showCheckboxesEdit(indexHTML, assignedTo) {
-    let checkboxes = document.getElementById(`checkboxesEdit${indexHTML}`);
-    if (!expandedEdit) {
+  let checkboxes = document.getElementById(`checkboxesEdit${indexHTML}`);
+  
+  if (!expandedEdit) {
       checkboxes.style.display = "block";
       expandedEdit = true;
       if (checkboxes.innerHTML.trim() === "") {
-        for (let index = 0; index < userNamesBoard.length; index++) {
-          const names = userNamesBoard[index];
-          const urls = imageUrlBoard[index];
-          checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls, indexHTML);
-        }
-        for (let i = 0; i < assignedToUserArray.length; i++) {
-          const highlight = assignedToUserArray[i];
-           assignedtoUserHighlightAddEdit(highlight);
-           let checkbox = document.getElementById(`checkbox-${highlight}`);
-           if (checkbox) {
-             checkbox.checked = true;
-        }
-      }}
-    } else {
+          for (let index = 0; index < userNamesBoard.length; index++) {
+              const names = userNamesBoard[index];
+              const urls = imageUrlBoard[index];
+              checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls, indexHTML);
+          }
+          for (let i = 0; i < assignedToUserArray.length; i++) {
+              const highlight = assignedToUserArray[i];
+              assignedtoUserHighlightAddEdit(highlight);
+              let checkbox = document.getElementById(`checkbox-${highlight}`);
+              if (checkbox) {
+                  checkbox.checked = true;
+              }
+          }
+      }
+  } else {
       checkboxes.style.display = "none";
       expandedEdit = false;
-    }
   }
+}
