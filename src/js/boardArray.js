@@ -338,24 +338,16 @@ function calculateProgress(index, subtasks, subtaskStatus) {
  * @param {string} subtaskStatus - A comma-separated string representing the completion status of each subtask.
  */
 function loadSubtaskStatus(indexHtml, subtaskStatus) {
-  let subtaskStatusArrayDev = subtaskStatus.split(',').map(subtaskStatus => subtaskStatus.trim());
-  subtaskStatusArray.push(subtaskStatusArrayDev);
-  for (let index = 0; index < subtaskStatusArray.length; index++) {
-    const element = subtaskStatusArray[index];
-    if (element == null) {
-      return;
+  let subtaskStatusArrayDev = subtaskStatus.split(',').map(status => status.trim());
+  for (let i = 0; i < subtaskStatusArrayDev.length; i++) {
+    let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
+    if (checkbox) {
+      checkbox.checked = (subtaskStatusArrayDev[i] === 'true' || subtaskStatusArrayDev[i] === true);
     }
-    for (let i = 0; i < element.length; i++) {
-      const subStatus = element[i];
-      subtasksStatusArray.push(subStatus);
-      let checkbox = document.getElementById(`subtask-${indexHtml}-${i}`);
-      if (checkbox) {
-        checkbox.checked = (subStatus === 'true' || subStatus === true);
-      }
-    }
-    subtaskStatusArray = [];
   }
 }
+
+
 
 /**
  * Saves the completion status of a subtask to Firebase based on the checkbox state.
@@ -364,13 +356,19 @@ function loadSubtaskStatus(indexHtml, subtaskStatus) {
  * @param {number} index - The index of the subtask to update.
  * @returns {Promise<void>} - A promise that resolves when the status is saved.
  */
-async function subtaskStatus(indexHtml, index) {
-  const checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
-  const isChecked = checkbox.checked;
-  await statusSubtaskSaveToFirebase(isChecked, indexHtml, index);
-  //progressBar(indexHtml, subtasks, subtaskStatus);
-}
+function subtaskStatus(indexHtml, index) {
+  let checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
+  let isChecked = checkbox.checked;
 
+  if (taskArrayBoard[indexHtml] && Array.isArray(taskArrayBoard[indexHtml].subtaskStatus)) {
+    taskArrayBoard[indexHtml].subtaskStatus[index] = isChecked;
+  }
+
+  statusSubtaskSaveToFirebase(isChecked, indexHtml, index).then(() => {
+    let { subtasks, subtaskStatus } = taskArrayBoard[indexHtml];
+    progressBar(indexHtml, subtasks, subtaskStatus);
+  });
+}
 
 /**
  * Sets the background color of the category element based on the category type.
@@ -389,11 +387,12 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
       });
       if (!response.ok) {
         console.error(`Error updating status of subtask checkbox ${index}:`, response.statusText);
+      } else {
+        console.log(`Subtask ${index} updated successfully!`);
       }
     } catch (error) {
       console.error(`Error saving status of subtask checkbox ${index}:`, error);
     }
   }
-  subtasksOpenArray = [];
-  
 }
+
