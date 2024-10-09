@@ -347,8 +347,6 @@ function loadSubtaskStatus(indexHtml, subtaskStatus) {
   }
 }
 
-
-
 /**
  * Saves the completion status of a subtask to Firebase based on the checkbox state.
  * 
