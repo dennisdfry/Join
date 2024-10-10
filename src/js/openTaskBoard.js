@@ -266,10 +266,9 @@ function oneClickClose(event) {
       openPosition.style.cssText =
         "visibility: hidden; transform: translateX(100vw)";
     }, 100);
-    //initDataBoard();
-    upstreamHTMLrender();
     resetFormStateEdit();
   }
+ // upstreamHTMLrender();
 }
 
 
