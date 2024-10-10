@@ -267,6 +267,7 @@ function oneClickClose(event) {
         "visibility: hidden; transform: translateX(100vw)";
     }, 100);
     //initDataBoard();
+    upstreamHTMLrender();
     resetFormStateEdit();
   }
 }
