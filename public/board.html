@@ -133,27 +133,27 @@
       <div>
         <div class="add-task-middle-section2" action="">
           <div class="add-task-form-left-section2">
-            <label for="title">Title <span class="red-star">*</span></label>
+            <label for="title2">Title <span class="red-star">*</span></label>
             <input
               required
               minlength="2"
               class="add-task-title-inputfield2"
               type="text"
               placeholder="Enter a title"
-              name="title"
+              name="title2"
               id="title2"
             />
 
-            <label for="description">Description</label>
+            <label for="description2">Description</label>
             <textarea
               required
               minlength="2"
               class="add-task-textarea"
               placeholder="Enter a description"
-              name="description"
+              name="description2"
               id="description2"
             ></textarea>
-            <label for="assignedTo">Assigned to</label>
+            <label for="assignedTo2">Assigned to</label>
             <div class="multiselect2 pointer" onclick="showCheckboxes2(event)">
               <div class="selectBox2">
                 <select required class="add-task-select">
@@ -167,16 +167,16 @@
           </div>
           <div class="add-task-seperator2"></div>
           <div class="add-task-form-right-section2">
-            <label for="dueDate">Due date <span class="red-star">*</span></label>
+            <label for="dueDate2">Due date <span class="red-star">*</span></label>
             <input
               required
               class="add-task-select3"
               type="date"
               id="dueDate2"
-              name="dueDate"
+              name="dueDate2"
               onclick="setTodayDateAddTaskBoard()"
             />
-            <label id="prioSection2" for="prio">Prio</label>
+            <label id="prioSection2" for="prio2">Prio</label>
             <div class="add-task-prio-button-container">
               <button
                 onclick="prio2(1)"
@@ -212,13 +212,13 @@
               </button>
             </div>
 
-            <label for="taskCategory">Category <span class="red-star">*</span></label>
+            <label for="taskCategory2">Category <span class="red-star">*</span></label>
             <select required class="add-task-select2" name="taskCategory" id="taskCategory2">
               <option value="" selected hidden>Select task category</option>
               <option value="Technical Task">Technical Task</option>
               <option value="User Story">User Story</option>
             </select>
-            <label for="subtasks">Subtasks</label>
+            <label for="subtasks2">Subtasks</label>
             <div class="input-with-button bradius10">
               <input
                 type="text"
@@ -226,10 +226,10 @@
                 class="add-task-input-board"
                 placeholder="Add item"
                 id="subtasks2"
-                name="subtasks"
+                name="subtasks2"
               />
               <div id="subtasksControl2" class="subtasks-control2">
-                <button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button-board">
+                <button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button2">
                   +
                 </button>
               </div>

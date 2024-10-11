@@ -12,6 +12,61 @@ async function initBoard() {
   }
 }
 
+/**
+ * Enables editing mode for a specific subtask by updating its HTML content.
+ * 
+ * @param {number} index - The index of the subtask to edit.
+ */
+function editSubtask2(index) {
+  let position = document.getElementById(`supplementarySubtask2${index}`);
+  position.classList.remove('subtasks-edit');
+  position.classList.add('subtasks-edit-input');
+  let arrayPosition = subtasksArray[index];
+  position.innerHTML = editSubtaskHTML2(index, arrayPosition);
+}
+
+/**
+ * Saves the task data to Firebase.
+ * @param {string} [path="/tasks"] - The path where the data will be saved in Firebase.
+ * @returns {Promise<void>}
+ */
+async function saveToFirebase2(path = "/tasks") {
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(addTaskArray),
+  });
+}
+
+/**
+ * Deletes a subtask and updates the UI accordingly.
+ * 
+ * @param {number} index - The index of the subtask to delete.
+ */  
+function deleteSubtask2(index) {
+  let position = document.getElementById(`supplementarySubtask2${index}`);
+  position.innerHTML = "";
+  subtasksArray.splice([index], 1);
+  updateSubtasksList2();
+}
+
+/**
+ * Handles the submission of the task form, including validation and saving the task data to Firebase.
+ * @param {Event} event - The form submit event.
+ * @returns {Promise<void>}
+ */
+async function createTask2(event) {
+  event.preventDefault();
+  if (!validateFormAddTask(event.target)) return;
+  if (!validatePriorityAddTask()) return;
+  await defineTaskObjects2();
+  await saveToFirebase2();
+  resetUIAddTask2(event.target);
+  changeSite("board.html");
+}
+
 
 /**
  * Extracts names from contacts and initializes the checkboxes for assigning users to tasks.
@@ -172,20 +227,7 @@ function showUserAdd2() {
   }
 }
 
-/**
- * Handles the submission of the task form, including validation and saving the task data to Firebase.
- * @param {Event} event - The form submit event.
- * @returns {Promise<void>}
- */
-async function createTask2(event) {
-  event.preventDefault();
-  if (!validateFormAddTask(event.target)) return;
-  if (!validatePriorityAddTask()) return;
-  await defineTaskObjects2();
-  await saveToFirebase2();
-  resetUIAddTask2(event.target);
-  changeSite("board.html");
-}
+
   
  /**
  * Resets the internal state of the form and clears stored data.
@@ -261,20 +303,7 @@ async function defineTaskObjects2() {
     });
   }
   
-/**
- * Saves the task data to Firebase.
- * @param {string} [path="/tasks"] - The path where the data will be saved in Firebase.
- * @returns {Promise<void>}
- */
-async function saveToFirebase2(path = "/tasks") {
-  let response = await fetch(BASE_URL + path + ".json", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(addTaskArray),
-  });
-}
+
   
   /**
    * Updates the priority button styling.
@@ -337,14 +366,19 @@ function showSubtaskControls2() {
  */
 function addSubtask2() {
   let input = document.getElementById("subtasks2");
-  if (input.value.trim() !== "") {
+  
+  // Überprüfen, ob das Eingabefeld vorhanden ist und einen Wert hat
+  if (input && input.value && input.value.trim() !== "") {
     subtasksArray.push(input.value.trim());
-    input.value = "";
-    subtasksStatusArray.push(false);
-    updateSubtasksList2();
-    resetSubtaskInput2();
+    input.value = ""; // Eingabefeld leeren
+    subtasksStatusArray.push(false); // Status des Subtasks hinzufügen
+    updateSubtasksList2(); // Liste der Subtasks aktualisieren
+    resetSubtaskInput2(); // Eingabefeld zurücksetzen
+  } else {
+    console.warn("Das Eingabefeld ist entweder nicht vorhanden oder leer.");
   }
 }
+
   
   /**
    * Resets the subtask input field and returns it to its initial state.
@@ -355,7 +389,7 @@ function addSubtask2() {
     document.getElementById("subtasks2").classList.add("add-task-input");
     document.getElementById("subtasks2").classList.remove("subtasks-input");
     let position = document.getElementById("subtasksControl2");
-    position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="add-task-button">
+    position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="subtask-button">
                                   +
                               </button>`;
   }
@@ -383,18 +417,7 @@ function addSubtask2() {
     }
   }
 
-/**
- * Enables editing mode for a specific subtask by updating its HTML content.
- * 
- * @param {number} index - The index of the subtask to edit.
- */
-function editSubtask2(index) {
-  let position = document.getElementById(`supplementarySubtask2${index}`);
-  position.classList.remove('subtasks-edit');
-  position.classList.add('subtasks-edit-input');
-  let arrayPosition = subtasksArray[index];
-  position.innerHTML = editSubtaskHTML2(index, arrayPosition);
-}
+
 
 /**
 * Generates and returns the HTML for the subtask editing mode.
@@ -447,17 +470,7 @@ function editSubtaskHTML2(index, arrayPosition){
   }
 
  
-/**
- * Deletes a subtask and updates the UI accordingly.
- * 
- * @param {number} index - The index of the subtask to delete.
- */  
-  function deleteSubtask2(index) {
-    let position = document.getElementById(`supplementarySubtask2${index}`);
-    position.innerHTML = "";
-    subtasksArray.splice([index], 1);
-    updateSubtasksList2();
-  }
+
 
 /**
  * Sets the current date as the default value for the due date input if it's empty.
