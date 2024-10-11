@@ -109,7 +109,7 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
       subtaskStatus: subtaskStatus,
     });
   }
-  upstreamHTMLrender();
+   upstreamHTMLrender();
 }
 
 /**
@@ -119,36 +119,32 @@ async function generateHTMLObjectsBoard(taskkeys, task) {
  * @param {Object} task - An object containing task details for each key.
  */
 function upstreamHTMLrender() {
-  let position =
-    document.getElementById("todo") ||
-    document.getElementById("progress") ||
-    document.getElementById("feedback") ||
-    document.getElementById("done");
+  document.getElementById("todo").innerHTML = "";
+  document.getElementById("progress").innerHTML = "";
+  document.getElementById("feedback").innerHTML = "";
+  document.getElementById("done").innerHTML = "";
 
-  if (position) {
-    position.innerHTML = "";
-  }
   for (let index = 0; index < taskArrayBoard.length; index++) {
-    const element = taskArrayBoard[index];
-    const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks, subtaskStatus } = element;
-    positionOfHTMLBlockBoard(
-      index,
-      category,
-      description,
-      dueDate,
-      prio,
-      title,
-      boardCategory,
-      assignedTo,
-      subtasks,
-      subtaskStatus
-    );
+      const element = taskArrayBoard[index];
+      const { category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks, subtaskStatus } = element;
+
+      positionOfHTMLBlockBoard(
+          index,
+          category,
+          description,
+          dueDate,
+          prio,
+          title,
+          boardCategory,
+          assignedTo,
+          subtasks,
+          subtaskStatus
+      );
     searchIndexUrlBoard(index, assignedTo);
     searchprioBoard(index, prio);
     subtasksRenderBoard(index, subtasks);
     CategoryColor(index, category);
     progressBar(index, subtasks, subtaskStatus);
-    
   }
 }
 
@@ -377,7 +373,7 @@ function loadSubtaskStatus(indexHtml, subtaskStatus) {
  * @param {number} index - The index of the subtask to update.
  * @returns {Promise<void>} - A promise that resolves when the status is saved.
  */
-function subtaskStatus(indexHtml, index) {
+async function subtaskStatus(indexHtml, index) {
   let checkbox = document.getElementById(`subtask-${indexHtml}-${index}`);
   let isChecked = checkbox.checked;
 
@@ -385,7 +381,7 @@ function subtaskStatus(indexHtml, index) {
     taskArrayBoard[indexHtml].subtaskStatus[index] = isChecked;
   }
 
-  statusSubtaskSaveToFirebase(isChecked, indexHtml, index).then(() => {
+ await statusSubtaskSaveToFirebase(isChecked, indexHtml, index).then(() => {
     let { subtasks, subtaskStatus } = taskArrayBoard[indexHtml];
     progressBar(indexHtml, subtasks, subtaskStatus);
   });

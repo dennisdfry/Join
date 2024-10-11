@@ -14,6 +14,7 @@ function closeOpenTask(event, indexHTML) {
     openPosition.style.cssText =
       "visibility: hidden; transform: translateX(100vw)";
   }, 100);
+
 }
 
 /**
@@ -268,7 +269,7 @@ function oneClickClose(event) {
     }, 100);
     resetFormStateEdit();
   }
- // upstreamHTMLrender();
+  upstreamHTMLrender();
 }
 
 
