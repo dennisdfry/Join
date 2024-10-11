@@ -365,7 +365,7 @@ function showSubtaskControls2() {
  * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
  */
 function addSubtask2() {
-  let input = document.getElementById("subtasks3");
+  let input = document.getElementById("subtasks2");
   if (input.value.trim() !== "") {
     subtasksArray.push(input.value.trim());
     input.value = "";
