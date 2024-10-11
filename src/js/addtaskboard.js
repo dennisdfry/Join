@@ -365,17 +365,13 @@ function showSubtaskControls2() {
  * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
  */
 function addSubtask2() {
-  let input = document.getElementById("subtasks2");
-  
-  // Überprüfen, ob das Eingabefeld vorhanden ist und einen Wert hat
-  if (input && input.value && input.value.trim() !== "") {
+  let input = document.getElementById("subtasks3");
+  if (input.value.trim() !== "") {
     subtasksArray.push(input.value.trim());
-    input.value = ""; // Eingabefeld leeren
-    subtasksStatusArray.push(false); // Status des Subtasks hinzufügen
-    updateSubtasksList2(); // Liste der Subtasks aktualisieren
-    resetSubtaskInput2(); // Eingabefeld zurücksetzen
-  } else {
-    console.warn("Das Eingabefeld ist entweder nicht vorhanden oder leer.");
+    input.value = "";
+    subtasksStatusArray.push(false);
+    updateSubtasksList2();
+    resetSubtaskInput2();
   }
 }
 
