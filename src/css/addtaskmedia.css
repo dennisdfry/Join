@@ -47,6 +47,43 @@
   form::-webkit-scrollbar-thumb {
     height: 12px;
   }
+
+  .add-task-title-inputfield2 {
+    width: 220px !important;
+  }
+  .add-task-textarea {
+    width: 50% !important;
+  }
+  .selectBox2 select {
+    width: 220px !important;
+  }
+
+  .add-task-seperator2 {
+    left: 350px !important;
+  }
+
+  .add-task-form-right-section2 {
+    width: 300px !important;
+    left: 400px !important;
+  }
+
+  .add-task-select3,
+  .add-task-select2 {
+    width: 300px !important;
+  }
+
+  .add-Task-Container2 {
+    width: 800px !important;
+    left: 5% !important;
+  }
+
+  .add-task-finish-button-container {
+     left: 1px !important;
+  }
+
+  .add-task-finish-section2 {
+    left: 400px !important;
+  }
 }
 
 @media (max-width: 1050px) {
@@ -183,7 +220,7 @@
   }
 
   .add-task-textarea {
-    width:  100%;
+    width:  50% !important;
     min-height: 80px;
     max-height: 88px;
     gap: 8px;

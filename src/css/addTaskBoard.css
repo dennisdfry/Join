@@ -85,7 +85,7 @@
 .add-task-textarea2 {
   min-height: 124px;
   max-height: 240px;
-  width: 460px;
+  width: 100%;
   border-radius: 10px;
   outline: none;
   border: 1px solid #a8a8a8;
