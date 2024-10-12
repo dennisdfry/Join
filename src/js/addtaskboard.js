@@ -347,6 +347,9 @@ async function defineTaskObjects2() {
 /**
  * Displays the controls for managing subtasks, updating the input field styles and controls.
  */  
+/**
+ * Displays the controls for managing subtasks, updating the input field styles and controls.
+ */
 function showSubtaskControls2() {
   document.getElementById("subtasks2").classList.remove("add-task-input");
   document.getElementById("subtasks2").classList.add("subtasks-input");
@@ -365,15 +368,20 @@ function showSubtaskControls2() {
  * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
  */
 function addSubtask2() {
-  let input = document.getElementById("subtasks2");
-  if (input.value.trim() !== "") {
-    subtasksArray.push(input.value.trim());
-    input.value = "";
-    subtasksStatusArray.push(false);
-    updateSubtasksList2();
+  let input = document.getElementById("subtasks2"); 
+  let inputValue = input.value.trim(); 
+
+  if (inputValue !== "") {
+    subtasksArray.push(inputValue); 
+    input.value = ""; 
+    subtasksStatusArray.push(false); 
+    updateSubtasksList2(); 
     resetSubtaskInput2();
+  } else {
+    console.log("Input is empty, subtask not added.");
   }
 }
+
 
   
   /**

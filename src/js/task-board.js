@@ -62,9 +62,9 @@ function openAddForm() {
   formField.classList.remove("d-none", "hidden");
   formField.style.cssText =
     "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
+    
   document.addEventListener("click", outsideClickHandler, true);
   document.addEventListener("keydown", handleEnterKey);
-  initBoard();
 }
 
 /**
@@ -74,14 +74,14 @@ function openAddForm() {
 function closeAddForm() {
   document.getElementById("overlay-form").classList.add("d-none");
   let formField = document.getElementById("add-task-form");
+
   formField.classList.remove("d-none");
-
   formField.style.animation = "moveOut 200ms ease-out forwards";
-
   setTimeout(() => {
     formField.classList.add("hidden", "d-none");
     formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
   }, 100);
+
   document.removeEventListener("click", outsideClickHandler, true);
   document.removeEventListener("keydown", handleEnterKey);
 
@@ -118,7 +118,6 @@ function outsideClickHandler(event) {
   const isClickInsideForm = formField.contains(event.target);
 
   if (!isClickInsideForm) {
-    removeValues();
     closeAddForm();
   }
 }
@@ -137,14 +136,8 @@ function handleEnterKey(event) {
     event.preventDefault();
     let activeElement = document.activeElement;
     let subtaskInput = document.getElementById("subtasks2");
-
     if (activeElement === subtaskInput) {
       addSubtask2();
-    } else {
-      let addButton = document.getElementById("add-task-button");
-      if (addButton) {
-        addButton.click();
-      }
     }
   }
 }
