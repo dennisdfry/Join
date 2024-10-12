@@ -1,18 +1,114 @@
+
+/**
+ * Saves the task data to Firebase.
+ * @param {string} [path="/tasks"] - The path where the data will be saved in Firebase.
+ * @returns {Promise<void>}
+ */
+async function saveToFirebase2(path = "/tasks") {
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(addTaskArray),
+  });
+}
+
+/**
+ * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
+ */
+function addSubtask2() {
+  let input = document.getElementById("subtasks2"); 
+  let inputValue = input.value.trim(); 
+
+  if (inputValue !== "") {
+    subtasksArray.push(inputValue); 
+    input.value = ""; 
+    subtasksStatusArray.push(false); 
+    updateSubtasksList2(); 
+    resetSubtaskInput2();
+  } else {
+    console.log("Input is empty, subtask not added.");
+  }
+}
+
+/**
+ * Deletes a subtask and updates the UI accordingly.
+ * 
+ * @param {number} index - The index of the subtask to delete.
+ */  
+function deleteSubtask2(index) {
+  let position = document.getElementById(`supplementarySubtask2${index}`);
+  position.innerHTML = "";
+  subtasksArray.splice([index], 1);
+  updateSubtasksList2();
+}
+
+/**
+ * Enables editing mode for a specific subtask by updating its HTML content.
+ * 
+ * @param {number} index - The index of the subtask to edit.
+ */
+function editSubtask2(index) {
+  let position = document.getElementById(`supplementarySubtask2${index}`);
+  position.classList.remove('subtasks-edit');
+  position.classList.add('subtasks-edit-input');
+  let arrayPosition = subtasksArray[index];
+  position.innerHTML = editSubtaskHTML2(index, arrayPosition);
+}
+
+/**
+ * Handles the submission of the task form, including validation and saving the task data to Firebase.
+ * @param {Event} event - The form submit event.
+ * @returns {Promise<void>}
+ */
+async function createTask2(event) {
+  event.preventDefault();
+  if (!validateFormAddTask2(event.target)) return;
+  if (!validatePriorityAddTask2()) return;
+  await defineTaskObjects2();
+  await saveToFirebase2();
+  resetUIAddTask2(event.target);
+  changeSite("board.html");
+}
+
+
+function validateFormAddTask2(form) {
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Checks if a priority has been selected before submitting the form.
+ * 
+ * @returns {boolean} - Returns true if a priority is selected, false otherwise.
+ */
+function validatePriorityAddTask2() {
+  if (!selectedPrio) {
+    alert("Please select a priority before submitting the form.");
+    return false;
+  }
+  return true;
+}
+
 /**
  * Opens the form to add a new task.
  *
  * Removes the hidden and non-display classes from the add-task form to make it visible.
  */
-function openAddForm() {
+function openAddForm(event) {
+  event.preventDefault();
   document.getElementById("add-task-form").classList.remove("vis-hidden");
   document.getElementById("add-task-form").classList.remove("d-none");
   let overlay = document.getElementById("overlay-form");
   overlay.classList.remove("d-none");
   let formField = document.getElementById("add-task-form");
-  formField.classList.remove("d-none", "hidden");
-  formField.style.cssText =
-    "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
 
+  formField.classList.remove("d-none", "hidden");
+  formField.style.cssText = "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
   document.addEventListener("click", outsideClickHandler, true);
   document.addEventListener("keydown", handleEnterKey);
   prio2(2);
@@ -34,79 +130,91 @@ function closeAddForm() {
   }, 100);
   document.removeEventListener("click", outsideClickHandler, true);
   document.removeEventListener("keydown", handleEnterKey);
-  removeValues();
+  resetUIAddTask2(formField);
 }
 
 /**
- * removes all values.
+ * Handles outside click detection.
+ *
+ * This function listens for clicks outside the "add-task" form. If the click occurs
+ * outside the form but within the overlay, it triggers the form to close.
+ *
+ * @param {Event} event - The click event.
  */
-function removeValues() {
-  document.getElementById("title2").value = "";
-  document.getElementById("description2").value = "";
-  document.getElementById("dueDate2").value = "";
-  document.getElementById("taskCategory2").value = "";
-  document.getElementById("subtasks2").innerHTML = "";
-  document.getElementById("userImageShow2").innerHTML = "";
+function outsideClickHandler(event) {
+  const formField = document.getElementById("add-task-form");
+  const isClickInsideForm = formField.contains(event.target);
+
+  if (!isClickInsideForm) {
+    closeAddForm();
+  }
+}
+/**
+ * Handles the Enter key press event.
+ *
+ * This function listens for the Enter key being pressed. Depending on which element
+ * is active (focused), it either adds a new subtask or submits the task by clicking
+ * the corresponding button.
+ *
+ * @param {KeyboardEvent} event - The keyboard event for key press.
+ */
+function handleEnterKey(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    let activeElement = document.activeElement;
+    let subtaskInput = document.getElementById("subtasks2");
+    if (activeElement === subtaskInput) {
+      addSubtask2();
+    }
+  }
+}
+
+  /**
+ * Resets the task form and UI elements.
+ * 
+ * @param {HTMLFormElement} form - The form element to reset.
+ */
+function resetUIAddTask2(form) {
+  form.reset();
+  resetFormStateAddTask2();
+  let subtasksPosition = document.getElementById("subtasksPosition2");
+  if (subtasksPosition) {
+    subtasksPosition.innerHTML = "";
+  }
+}
+
+ /**
+ * Resets the internal state of the form and clears stored data.
+ */
+ function resetFormStateAddTask2() {
+  addTaskArray = [];
+  subtasksArray = [];
   assignedToUserArray = [];
-  assignedToUserArrayNamesGlobal = []; 
+  assignedToUserArrayNamesGlobal = [];
+  selectedPrio = null;
   imageUrlsGlobal = [];
   subtasksArray = [];
+  clearSubtasks2();
 }
 
-/**
- * Enables editing mode for a specific subtask by updating its HTML content.
- * 
- * @param {number} index - The index of the subtask to edit.
- */
-function editSubtask2(index) {
-  let position = document.getElementById(`supplementarySubtask2${index}`);
-  position.classList.remove('subtasks-edit');
-  position.classList.add('subtasks-edit-input');
-  let arrayPosition = subtasksArray[index];
-  position.innerHTML = editSubtaskHTML2(index, arrayPosition);
-}
 
-/**
- * Saves the task data to Firebase.
- * @param {string} [path="/tasks"] - The path where the data will be saved in Firebase.
- * @returns {Promise<void>}
- */
-async function saveToFirebase2(path = "/tasks") {
-  let response = await fetch(BASE_URL + path + ".json", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(addTaskArray),
-  });
-}
 
-/**
- * Deletes a subtask and updates the UI accordingly.
- * 
- * @param {number} index - The index of the subtask to delete.
- */  
-function deleteSubtask2(index) {
-  let position = document.getElementById(`supplementarySubtask2${index}`);
-  position.innerHTML = "";
-  subtasksArray.splice([index], 1);
-  updateSubtasksList2();
-}
 
-/**
- * Handles the submission of the task form, including validation and saving the task data to Firebase.
- * @param {Event} event - The form submit event.
- * @returns {Promise<void>}
- */
-async function createTask2(event) {
-  event.preventDefault();
-  if (!validateFormAddTask(event.target)) return;
-  if (!validatePriorityAddTask()) return;
-  await defineTaskObjects2();
-  await saveToFirebase2();
-  resetUIAddTask2(event.target);
-  changeSite("board.html");
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -217,22 +325,23 @@ function assignedtoUserHighlightRemove2(index) {
  * Toggles the visibility of the checkbox dropdown.
  */
 function showCheckboxes2(event) {
+  event.stopPropagation();
   let checkboxes = document.getElementById("checkboxes2");
   if (!expanded) {
     checkboxes.style.display = "block";
     expanded = true;
+    showUserAdd2();
     checkbox2ClickHandler();
   }
-  event.stopPropagation();
 }
-  
-/**
+  /**
  * Attaches the document click handler to handle clicks outside the checkboxes.
  */
 function checkbox2ClickHandler() {
   document.onclick = handleAddTaskClick2;
 }
   
+
 /**
  * Handles document click events to toggle the visibility of the checkboxes.
  * 
@@ -240,7 +349,6 @@ function checkbox2ClickHandler() {
  */
 function handleAddTaskClick2(event) {
   let checkboxes = document.getElementById("checkboxes2");
-
   if (expanded && !document.querySelector('.multiselect2').contains(event.target)) {
     checkboxes.style.display = "none";
     expanded = false;
@@ -267,38 +375,6 @@ function showUserAdd2() {
     position.innerHTML += `<img class="img-32" src="${element}" alt="" />`;
   }
 }
-
-
-  
- /**
- * Resets the internal state of the form and clears stored data.
- */
-function resetFormStateAddTask2() {
-  addTaskArray = [];
-  subtasksArray = [];
-  assignedToUserArray = [];
-  assignedToUserArrayNamesGlobal = [];
-  selectedPrio = null;
-  imageUrlsGlobal = [];
-  subtasksArray = [];
-  clearSubtasks2();
-}
-
-
-
-  /**
- * Resets the task form and UI elements.
- * 
- * @param {HTMLFormElement} form - The form element to reset.
- */
-function resetUIAddTask2(form) {
-  form.reset();
-  resetFormStateAddTask2();
-  let subtasksPosition = document.getElementById("subtasksPosition2");
-  if (subtasksPosition) {
-    subtasksPosition.innerHTML = "";
-  }
-}
   
 /**
  * Gathers data from the form fields and prepares the task object to be saved.
@@ -309,9 +385,12 @@ async function defineTaskObjects2() {
   let dueDateTask = document.getElementById("dueDate2").value;
   let taskCategory = document.getElementById("taskCategory2").value;
   let lastString = prioArray.pop();
-  pushTaskObjectsToArray(taskTitle, taskDescription, dueDateTask, taskCategory, lastString);
+  pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCategory, lastString);
 }
   
+
+
+
   /**
    * Pushes task objects into the global task array.
    *
@@ -405,26 +484,22 @@ function showSubtaskControls2() {
         </button>`;
 }
 
-/**
- * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
- */
-function addSubtask2() {
-  let input = document.getElementById("subtasks2"); 
-  let inputValue = input.value.trim(); 
-
-  if (inputValue !== "") {
-    subtasksArray.push(inputValue); 
-    input.value = ""; 
-    subtasksStatusArray.push(false); 
-    updateSubtasksList2(); 
-    resetSubtaskInput2();
-  } else {
-    console.log("Input is empty, subtask not added.");
-  }
-}
 
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
   /**
    * Resets the subtask input field and returns it to its initial state.
    */
@@ -515,6 +590,19 @@ function editSubtaskHTML2(index, arrayPosition){
   }
 
  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**

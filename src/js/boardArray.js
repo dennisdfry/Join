@@ -69,6 +69,7 @@ async function fetchImagesUrlsBoardNew(path = "") {
   let responseToJson = await response.json();
   let contacts = responseToJson.contacts;
   let imageUrl = Object.values(contacts).map((contact) => contact.img);
+  await assignedToBoard(contacts, imageUrl)
   return imageUrl;
 }
 

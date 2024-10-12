@@ -43,43 +43,6 @@ function searchTasks() {
   }
 }
 
-/**
- * Handles outside click detection.
- *
- * This function listens for clicks outside the "add-task" form. If the click occurs
- * outside the form but within the overlay, it triggers the form to close.
- *
- * @param {Event} event - The click event.
- */
-function outsideClickHandler(event) {
-  const formField = document.getElementById("add-task-form");
-  const isClickInsideForm = formField.contains(event.target);
-
-  if (!isClickInsideForm) {
-    closeAddForm();
-  }
-}
-
-/**
- * Handles the Enter key press event.
- *
- * This function listens for the Enter key being pressed. Depending on which element
- * is active (focused), it either adds a new subtask or submits the task by clicking
- * the corresponding button.
- *
- * @param {KeyboardEvent} event - The keyboard event for key press.
- */
-function handleEnterKey(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    let activeElement = document.activeElement;
-    let subtaskInput = document.getElementById("subtasks2");
-    if (activeElement === subtaskInput) {
-      addSubtask2();
-    }
-  }
-}
-
 
 /**
  * Sets the background color of a category element based on the specified category.
