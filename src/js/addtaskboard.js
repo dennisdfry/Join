@@ -18,7 +18,7 @@ async function saveToFirebase2(path = "/tasks") {
  * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
  */
 function addSubtask2() {
-  let input = document.getElementById("subtasks2"); 
+  let input = document.getElementById("subtasks-board"); 
   let inputValue = input.value.trim(); 
 
   if (inputValue !== "") {
@@ -162,7 +162,7 @@ function handleEnterKey(event) {
   if (event.key === "Enter") {
     event.preventDefault();
     let activeElement = document.activeElement;
-    let subtaskInput = document.getElementById("subtasks2");
+    let subtaskInput = document.getElementById("subtasks-board");
     if (activeElement === subtaskInput) {
       addSubtask2();
     }
@@ -471,8 +471,8 @@ async function defineTaskObjects2() {
  * Displays the controls for managing subtasks, updating the input field styles and controls.
  */
 function showSubtaskControls2() {
-  document.getElementById("subtasks2").classList.remove("add-task-input");
-  document.getElementById("subtasks2").classList.add("subtasks-input");
+  document.getElementById("subtasks-board").classList.remove("add-task-input");
+  document.getElementById("subtasks-board").classList.add("subtasks-input");
   let position = document.getElementById("subtasksControl2");
   position.innerHTML = 
         `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button2">
@@ -504,10 +504,10 @@ function showSubtaskControls2() {
    * Resets the subtask input field and returns it to its initial state.
    */
   function resetSubtaskInput2() {
-    let input = document.getElementById("subtasks2");
+    let input = document.getElementById("subtasks-board");
     input.value = "";
-    document.getElementById("subtasks2").classList.add("add-task-input");
-    document.getElementById("subtasks2").classList.remove("subtasks-input");
+    document.getElementById("subtasks-board").classList.add("add-task-input");
+    document.getElementById("subtasks-board").classList.remove("subtasks-input");
     let position = document.getElementById("subtasksControl2");
     position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="subtask-button2">
                                   +
