@@ -179,7 +179,6 @@ function resetUIAddTask2(form) {
     subtasksPosition.innerHTML = "";
   }
  document.getElementById('userImageShow2').innerHTML ="";
- assignedtoUserHighlightRemove2(index);
 }
 
 /**
