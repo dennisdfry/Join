@@ -72,7 +72,7 @@ async function changeSite(page, clickedElement) {
   }
   document.querySelector(".main-content").setAttribute("w3-include-html", page);
   await includeHTML();
-  if (page === 'contacts.html') {       // verursacht eine fehlermeldung wenn auf kontakte geklickt wird.
+  if (page === 'contacts.html') {
     toggleElement('.contactlist-section-responsive', 'd-none');
   }
 }
