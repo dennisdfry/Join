@@ -183,6 +183,7 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   flex-grow: 1;
   border-right: none;
 }
+
 .add-task-button {
   background: none;
   border: none;
@@ -200,6 +201,7 @@ label[for=subtasks],label[for="dueDate"],label[for=""],label[for=taskCategory] {
   font-weight: 400;
   cursor: pointer;
 }
+
 .add-task-button2 {
   background: none;
   border: none;

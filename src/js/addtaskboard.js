@@ -352,11 +352,11 @@ function showSubtaskControls2() {
   document.getElementById("subtasks2").classList.add("subtasks-input");
   let position = document.getElementById("subtasksControl2");
   position.innerHTML = 
-        `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button">
+        `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button2">
             <img class="img-24 " src="../public/img/closeAddTask.png" alt="Reset">
         </button>
         <div class="seperator-subtasks"></div>
-        <button onclick="addSubtask2()" type="button" class="subtask-button">
+        <button onclick="addSubtask2()" type="button" class="subtask-button2">
             <img class="img-24 " src="../public/img/checkAddTask.png" alt="Add">
         </button>`;
 }
@@ -385,7 +385,7 @@ function addSubtask2() {
     document.getElementById("subtasks2").classList.add("add-task-input");
     document.getElementById("subtasks2").classList.remove("subtasks-input");
     let position = document.getElementById("subtasksControl2");
-    position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="subtask-button">
+    position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="subtask-button2">
                                   +
                               </button>`;
   }
