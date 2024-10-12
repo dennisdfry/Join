@@ -93,7 +93,6 @@ async function replaceContact(contactId, updatedContact) {
  */
 async function handlePostDeleteOperations(contactId) {
   await updateContactList();
-  //await selectNextContact(contactId);
   document.getElementById('contact-section').innerHTML = "";
   closeEditField();
 }
@@ -108,7 +107,6 @@ async function handlePostDeleteOperations(contactId) {
 async function addContact(contact) {
     try {
       contact.img = contact.img || generateProfileImage(contact.name);
-      
       await postContact(contact);
       await updateContactList();
       let contactId = await getContactId(contact);
