@@ -84,6 +84,10 @@
   .add-task-finish-section2 {
     left: 400px !important;
   }
+
+  #checkboxes2 {
+    width: 220px !important;
+  }
 }
 
 @media (max-width: 1050px) {
