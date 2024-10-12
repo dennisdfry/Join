@@ -85,6 +85,8 @@ function handleFormSubmitEdit(event, index, category) {
     //.then(() => console.log("Task erfolgreich aktualisiert."))//
     .catch(error => console.error("Fehler beim Speichern der Aufgabe:", error))
     .finally(() => isSaving = false);
+    imageUrlBoard = [];
+    userNamesBoard= [];
 }
 
 

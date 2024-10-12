@@ -27,6 +27,7 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
   assignedToDelivery(index, assignedTo);
   prioFilter(prio);
 
+
 }
 
 /**
@@ -215,6 +216,4 @@ function resetFormStateEdit() {
   assignedToUserArrayNamesGlobalEdit = [];
   isEditingSubtask = false;
   assignedToUserArray = [];
-  imageUrlBoard = [];
-  userNamesBoard= [];
 }
