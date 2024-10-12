@@ -28,6 +28,16 @@ function showSubtaskControlsEdit(index, subtasks) {
 }
 
 
+/**
+ * Enables editing mode for a subtask and renders the corresponding input field.
+ *
+ * @param {number} i - The index of the subtask to be edited.
+ * @param {number} indexHTML - The index used to identify the specific HTML element.
+ * @param {string} subtask - The subtask content.
+ * @param {string} subtasksEditArrayOrigin - A comma-separated list of original subtasks.
+ * 
+ * @returns {void}
+ */
 function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
     if (isEditingSubtask) {
         console.log("Eine Subtask-Bearbeitung läuft bereits.");
