@@ -1,6 +1,5 @@
 
 let currentDraggedElement;
-
 /**
  * Clears and updates the HTML content of task categories on the board.
  * The function clears the content of predefined task categories and then
@@ -10,12 +9,10 @@ let currentDraggedElement;
  */
 async function updateHTML() {
   const categories = ["todo", "progress", "feedback", "done"];
-
   for (const category of categories) {
     const container = document.getElementById(category);
     container.innerHTML = "";
   }
-
   try {
     await initDataBoard();
   } catch (error) {
@@ -32,10 +29,8 @@ function searchTasks() {
   const searchInputElement = document.querySelector(".search-task-web");
   const searchInput = searchInputElement.value.toLowerCase();
   let allTasks = document.getElementsByTagName("div");
-
   for (let i = 0; i < allTasks.length; i++) {
     let task = allTasks[i];
-
     if (task.id.startsWith("parentContainer")) {
       let title = task.getElementsByTagName("h2")[0].innerHTML.toLowerCase();
       let discript = task.getElementsByTagName("p")[0].innerHTML.toLowerCase();
@@ -46,63 +41,6 @@ function searchTasks() {
       }
     }
   }
-}
-
-/**
- * Opens the form to add a new task.
- *
- * Removes the hidden and non-display classes from the add-task form to make it visible.
- */
-function openAddForm() {
-  document.getElementById("add-task-form").classList.remove("vis-hidden");
-  document.getElementById("add-task-form").classList.remove("d-none");
-  let overlay = document.getElementById("overlay-form");
-  overlay.classList.remove("d-none");
-  let formField = document.getElementById("add-task-form");
-  formField.classList.remove("d-none", "hidden");
-  formField.style.cssText =
-    "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-    
-  document.addEventListener("click", outsideClickHandler, true);
-  document.addEventListener("keydown", handleEnterKey);
-}
-
-/**
- * Closes the form.
- * Removes the non-display class from the add-task form, making it visible.
- */
-function closeAddForm() {
-  document.getElementById("overlay-form").classList.add("d-none");
-  let formField = document.getElementById("add-task-form");
-
-  formField.classList.remove("d-none");
-  formField.style.animation = "moveOut 200ms ease-out forwards";
-  setTimeout(() => {
-    formField.classList.add("hidden", "d-none");
-    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 100);
-
-  document.removeEventListener("click", outsideClickHandler, true);
-  document.removeEventListener("keydown", handleEnterKey);
-
-  removeValues();
-}
-
-/**
- * removes all values.
- */
-function removeValues() {
-  document.getElementById("title2").value = "";
-  document.getElementById("description2").value = "";
-  document.getElementById("dueDate2").value = "";
-  document.getElementById("taskCategory2").value = "";
-  document.getElementById("subtasksPosition2").innerHTML = "";
-  document.getElementById("userImageShow2").innerHTML = "";
-  assignedToUserArray = [];
-  assignedToUserArrayNamesGlobal = []; 
-  imageUrlsGlobal = [];
-  subtasksArray = [];
-  prio2(2);
 }
 
 /**
@@ -140,6 +78,86 @@ function handleEnterKey(event) {
       addSubtask2();
     }
   }
+}
+
+
+/**
+ * Sets the background color of a category element based on the specified category.
+ *
+ * @param {number} index - The index of the category element to update.
+ * @param {string} category - The category type (e.g., "TechnicalTask").
+ */
+function CategoryColor(index, category) {
+  let position = document.getElementById(`categoryColor${index}`);
+  if (category == TechnicalTask) {
+    position.style.backgroundColor = "#1fd7c1";
+  } else {
+    position.style.backgroundColor = "#0038ff";
+  }
+}
+
+/**
+ * Updates the progress bar and displayed count of completed subtasks for a specific task.
+ *
+ * @param {number} index - The index of the task for which to update the progress bar.
+ * @param {Array} subtasks - An array of subtasks associated with the task.
+ * @param {Array} subtaskStatus - An array representing the completion status of each subtask.
+ */
+function progressBar(index, subtasks, subtaskStatus) {
+  let progressBar = document.getElementById(`progressBar${index}`);
+  let positionOfTrueAmount = document.getElementById(`subtasksAmountTrue${index}`);
+  if (!subtasks || subtasks.length === 0) {
+    positionOfTrueAmount.innerHTML = "0/0";
+    progressBar.style.width = "0%";
+    return;
+  }
+  let { trueCount, totalCount } = calculateProgress(index, subtasks, subtaskStatus);
+  positionOfTrueAmount.innerHTML = `${trueCount}/${totalCount}`;
+  let progressPercentage = (trueCount / totalCount) * 100;
+  updateProgressBar(index, progressPercentage);
+}
+
+/**
+ * Updates the progress bar width and color based on the percentage of completed subtasks.
+ *
+ * @param {number} indexHtml - The index of the task in the HTML structure.
+ * @param {number} progressPercentage - The calculated percentage of completed subtasks.
+ */
+function updateProgressBar(index, progressPercentage) {
+  let progressBar = document.getElementById(`progressBar${index}`);
+  if (!progressBar) {
+    console.error(`Element nicht gefunden: progressBar${index}`);
+    return;
+  }
+  progressBar.style.width = `${progressPercentage}%`;
+  if (progressPercentage === 100) {
+    progressBar.style.backgroundColor = "#095a1b";
+  } else {
+    progressBar.style.backgroundColor = "";
+  }
+}
+
+/**
+ * Calculates the count of completed subtasks and the total number of subtasks for a given task.
+ *
+ * @param {number} index - The index of the task for which to calculate progress.
+ * @param {Array} subtasks - An array of subtasks associated with the task.
+ * @param {Array} subtaskStatus - An array representing the completion status of each subtask.
+ * @returns {{ trueCount: number, totalCount: number }} - An object containing the counts of completed and total subtasks.
+ */
+function calculateProgress(index, subtasks, subtaskStatus) {
+  let trueCount = 0;
+  if (!Array.isArray(subtasks)) {
+    console.warn(`Subtasks ist kein gültiges Array für Task ${index}`);
+    return { trueCount: 0, totalCount: 0 };
+  }
+  let totalCount = subtasks.length;
+  for (let i = 0; i < totalCount; i++) {
+    if (subtaskStatus[i] === true || 0) {
+      trueCount++;
+    }
+  }
+  return { trueCount, totalCount };
 }
 
 

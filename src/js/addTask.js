@@ -288,11 +288,6 @@ function checkEnterSubtasks(event) {
     let subtaskInput = document.getElementById('subtasks');
     if (activeElement === subtaskInput) {
       addSubtask();
-    } else {
-      let form = document.getElementById('createAdd');
-      if (form) {
-        form.submit();
-      }
     }
   }
 }

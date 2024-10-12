@@ -1,15 +1,56 @@
-async function initBoard() {
-  try {
-    let fireBaseData = await onloadData("/");
-    let contacts = await fetchContacts(fireBaseData);
-    let imageUrls = await fetchImages();
-    await assignedToBoard(contacts, imageUrls);
-    prio2(2);
-    setTodayDateAddTaskBoard()
+/**
+ * Opens the form to add a new task.
+ *
+ * Removes the hidden and non-display classes from the add-task form to make it visible.
+ */
+function openAddForm() {
+  document.getElementById("add-task-form").classList.remove("vis-hidden");
+  document.getElementById("add-task-form").classList.remove("d-none");
+  let overlay = document.getElementById("overlay-form");
+  overlay.classList.remove("d-none");
+  let formField = document.getElementById("add-task-form");
+  formField.classList.remove("d-none", "hidden");
+  formField.style.cssText =
+    "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
 
-  } catch (error) {
-    console.error("Error during initialization:", error);
-  }
+  document.addEventListener("click", outsideClickHandler, true);
+  document.addEventListener("keydown", handleEnterKey);
+  prio2(2);
+}
+
+/**
+ * Closes the form.
+ * Removes the non-display class from the add-task form, making it visible.
+ */
+function closeAddForm() {
+  document.getElementById("overlay-form").classList.add("d-none");
+  let formField = document.getElementById("add-task-form");
+
+  formField.classList.remove("d-none");
+  formField.style.animation = "moveOut 200ms ease-out forwards";
+  setTimeout(() => {
+    formField.classList.add("hidden", "d-none");
+    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
+  }, 100);
+  document.removeEventListener("click", outsideClickHandler, true);
+  document.removeEventListener("keydown", handleEnterKey);
+  removeValues();
+}
+
+/**
+ * removes all values.
+ */
+function removeValues() {
+  document.getElementById("title2").value = "";
+  document.getElementById("description2").value = "";
+  document.getElementById("dueDate2").value = "";
+  document.getElementById("taskCategory2").value = "";
+  document.getElementById("subtasks2").innerHTML = "";
+  document.getElementById("userImageShow2").innerHTML = "";
+  assignedToUserArray = [];
+  assignedToUserArrayNamesGlobal = []; 
+  imageUrlsGlobal = [];
+  subtasksArray = [];
 }
 
 /**
