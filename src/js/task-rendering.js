@@ -18,6 +18,7 @@ function setTaskColor() {
     });
   }
 
+  
   /**
    * Limits the text content of an element to 50 characters.
    * If the text exceeds 50 characters, it is truncated and appended with "...".

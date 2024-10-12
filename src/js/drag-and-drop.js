@@ -5,6 +5,7 @@ document.addEventListener("dragend", handleRotateEnd);
 
 let cachedElement = null;
 
+
 /**
  * Starts the dragging process by setting the current dragged task's key.
  *
@@ -13,6 +14,7 @@ let cachedElement = null;
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
 }
+
 
 /**
  * Adds the "rotate" class to the closest ".board-task-container" element when dragging starts.
@@ -26,6 +28,7 @@ function handleRotateStart(event) {
   }
 }
 
+
 /**
  * Removes the "rotate" class from the previously cached ".board-task-container" element.
  * 
@@ -38,6 +41,7 @@ function handleRotateEnd(event) {
   }
 }
 
+
 /**
  * Allows the dragged item to be dropped on a valid target by preventing the default behavior.
  *
@@ -46,6 +50,7 @@ function handleRotateEnd(event) {
 function allowDrop(ev) {
   ev.preventDefault();
 }
+
 
 /**
  * Handles the drop event by retrieving the target category and initiating the move.
@@ -57,6 +62,7 @@ function onDrop(event) {
   const newCategory = event.target.dataset.category;
   moveTo(newCategory);
 }
+
 
 /**
  * Moves the dragged task to a new category and updates the task in Firebase.
@@ -84,6 +90,7 @@ async function moveTo(category) {
   updateStatusMessages();
 }
 
+
 /**
  * Updates the task's category in Firebase.
  *
@@ -104,6 +111,7 @@ async function updateTaskInFirebase(task) {
   }
 }
 
+
 /**
  * to the specified drag area, visually indicating that the area is a valid drop target.
  *
@@ -115,6 +123,7 @@ function handleDragEnter(event, areaId) {
   let dragArea = document.getElementById(areaId);
   dragArea.classList.add("highlight");
 }
+
 
 /**
  * Handles the drag leave event by removing the highlight effect from the drop area.

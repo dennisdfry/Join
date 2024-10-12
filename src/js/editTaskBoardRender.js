@@ -40,7 +40,6 @@ function showSubtaskControlsEdit(index, subtasks) {
  */
 function editSubtaskEdit(i, indexHTML, subtask, subtasksEditArrayOrigin) {
     if (isEditingSubtask) {
-        console.log("Eine Subtask-Bearbeitung läuft bereits.");
         return;
     }
     isEditingSubtask = true;

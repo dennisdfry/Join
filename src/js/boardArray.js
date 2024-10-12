@@ -327,8 +327,6 @@ async function statusSubtaskSaveToFirebase(isChecked, indexHtml, index) {
       });
       if (!response.ok) {
         console.error(`Error updating status of subtask checkbox ${index}:`, response.statusText);
-      } else {
-        console.log(`Subtask ${index} updated successfully!`);
       }
     } catch (error) {
       console.error(`Error saving status of subtask checkbox ${index}:`, error);

@@ -17,6 +17,7 @@ function closeOpenTask(event, indexHTML) {
 
 }
 
+
 /**
  * Deletes a specific task from Firebase and updates the board view.
  *
@@ -31,6 +32,7 @@ async function deleteTask(indexHTML) {
   }
   changeSite("board.html");
 }
+
 
 /**
  * Deletes a task from Firebase using its unique key.
@@ -49,6 +51,7 @@ async function deleteOnFirebase(taskkey) {
   }
 }
 
+
 /**
  * Enables the Enter key to trigger the edit button click.
  */
@@ -66,6 +69,7 @@ function enableEnterKeyEdit(index) {
   });
 }
 
+
 /**
  * Verarbeitet das Absenden des Formulars, aktualisiert die Taskdaten und speichert sie in Firebase.
  *
@@ -82,7 +86,6 @@ function handleFormSubmitEdit(event, index, category) {
   }
   isSaving = true;
   updateTaskBoard(index, category)
-    //.then(() => console.log("Task erfolgreich aktualisiert."))//
     .catch(error => console.error("Fehler beim Speichern der Aufgabe:", error))
     .finally(() => isSaving = false);
     imageUrlBoard = [];
@@ -105,6 +108,7 @@ function closeOpenTaskEdit(event, index) {
   resetFormStateEdit();
   upstreamHTMLrender();
 }
+
 
 /**
  * Renders the details of a task in a modal overlay on the board, displaying various task attributes.
@@ -161,6 +165,7 @@ function searchprioBoardOpen(index, prio) {
   }
 }
 
+
 /**
  * Displays user images and names for a specific task in the open task view based on the assigned users.
  * 
@@ -184,6 +189,7 @@ function searchIndexUrlOpen(index, assignedTo) {
    assignedToArray = [];
    assignedToUserArrayOpen = [];
  }
+
 
  /**
  * Generates HTML for displaying a user's image and name in the open task view.
@@ -254,6 +260,7 @@ function CategoryColorOpen(index, category) {
     position.style.backgroundColor = "#0038ff";
   }
 }
+
 
 /**
  * Closes the task modal when the modal overlay is clicked.
