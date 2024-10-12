@@ -26,9 +26,8 @@ function EditTaskToBoardRender(index, category, description, dueDate, prio, titl
   subtaskUpdateEdit(index, subtaskStatus);
   assignedToDelivery(index, assignedTo);
   prioFilter(prio);
-
-
 }
+
 
 /**
  * Renders images for assigned users in a specified HTML position and clears the previous content.
@@ -52,6 +51,7 @@ function assignedToDelivery(indexHTML, assignedTo) {
       assignedToUserArray.push(element);
     }
   }
+
 
 /**
  * Renders images for assigned users in a given HTML position and clears the previous content.
@@ -104,6 +104,7 @@ async function assignedToUserEdit(index, imgSrc, indexHTML) {
      assignedToDeliveryRender(indexHTML, assignedToUserArray);
   }
 
+
   /**
  * Highlights the assigned user in the user interface by changing the styles of the associated elements.
  *
@@ -119,6 +120,7 @@ function assignedtoUserHighlightAddEdit(index) {
     position.style.backgroundColor = '#2a3647';
     position.style.color = '#ffffff';
   }
+
 
   /**
  * Removes the highlight effect from the assigned user in the user interface.
@@ -136,6 +138,7 @@ function assignedtoUserHighlightRemoveEdit(index) {
     position.style.color = '#2a3647';
   }
 
+
   /**
  * Hides the checkboxes for assigning users to the task during editing.
  *
@@ -147,6 +150,7 @@ function checkboxIndexFalse(index) {
     expandedEdit = false;
   }
   
+
 /**
  * Toggles the display of the user checkboxes for editing.
  * 
@@ -155,18 +159,15 @@ function checkboxIndexFalse(index) {
  */
 function showCheckboxesEdit(indexHTML, assignedTo) {
   let checkboxes = document.getElementById(`checkboxesEdit${indexHTML}`);
-  
   if (!expandedEdit) {
       checkboxes.style.display = "block";
       expandedEdit = true;
       checkboxes.innerHTML = "";
-
       for (let index = 0; index < userNamesBoard.length; index++) {
           const names = userNamesBoard[index];
           const urls = imageUrlBoard[index];
           checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls, indexHTML);
       }
-      
       for (let i = 0; i < assignedToUserArray.length; i++) {
           const highlight = assignedToUserArray[i];
           assignedtoUserHighlightAddEdit(highlight);
@@ -195,6 +196,7 @@ async function updateTaskBoard(index, category) {
   resetFormStateEdit();
   changeSite("board.html");
 }
+
 
 /**
  * Resets the form state after editing a task.

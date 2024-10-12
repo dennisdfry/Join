@@ -1,6 +1,8 @@
 let arrayForSubtasks = [];
 let isEditingSubtask = false;
 let deliveryImage = [];
+
+
 /**
  * Clears the placeholder of the task title input field during editing.
  *
@@ -11,6 +13,7 @@ function editTitle(index) {
   position.value = "";
 }
 
+
 /**
  * Clears the placeholder of the task description input field during editing.
  *
@@ -20,6 +23,7 @@ function editDescription(index) {
   let position = document.getElementById(`descriptionEdit${index}`);
   position.value = "";
 }
+
 
 /**
  * Sets the background color for the task category during editing.
@@ -36,6 +40,7 @@ function CategoryColorOpenEdit(index, category) {
   }
 }
 
+
 /**
  * Sets the due date input value during task editing.
  *
@@ -47,6 +52,7 @@ function dueDateEditTask(index, dueDate) {
   let position = document.getElementById(`dueDateEdit${index}`);
   position.value = dueDate;
 }
+
 
 /**
  * Updates the subtask status array by converting a string of statuses into booleans.
@@ -72,6 +78,7 @@ function subtaskUpdateEdit(indexHTML, subtaskStatus){
   }
 }
 
+
 /**
  * Deletes a subtask from the edit view and updates the displayed subtasks.
  *
@@ -91,6 +98,7 @@ function deleteSubtaskEdit(i, indexHTML, subtasks,  subtasksEditArrayOrigin) {
   subtasksRenderOpenEdit(indexHTML, subtasksEditArrayDelete);
   subtasksEditArrayDelete = [];
 }
+
 
 /**
  * Adds a new subtask to the edit view and updates the displayed subtasks.
@@ -115,6 +123,7 @@ function addSubtaskEdit(index, subtasks) {
   subtasksRenderOpenEdit(index, showSubtasksEdit);
 }
 
+
 /**
  * Renders the subtasks for editing in the specified HTML element.
  *
@@ -138,6 +147,7 @@ function subtasksRenderOpenEdit(indexHtml, subtasks) {
     arrayForSubtasks.push(element);
   }
 }
+
 
 /**
  * Filters the priority level of a task and calls the corresponding edit function with the associated ID.
@@ -180,6 +190,7 @@ function prioEdit(id) {
   selectedPrioEdit = true;
 }
 
+
 /**
  * Checks the priority ID and updates the button style accordingly.
  *
@@ -200,6 +211,7 @@ function prioIdCheckEdit(id, position) {
   position.classList.remove("add-task-prio-button");
 }
 
+
 /**
  * Handles the Enter key press event to add a subtask.
  *
@@ -219,6 +231,7 @@ function handleEditEnterKey(event) {
   }
 }
 
+
 /**
  * Saves the edited task data to Firebase.
  *
@@ -235,6 +248,7 @@ async function saveToFirebaseEdit(position) {
   });
 }
 
+
 /**
  * Defines the task objects during editing and pushes them to the array for saving.
  *
@@ -249,6 +263,7 @@ function defineTaskObjectsEdit(index, category) {
   let taskCategory = category;
   pushTaskObjectsToArrayEdit(taskTitle, taskDescription, dueDateTask, taskCategory, lastString);
 }
+
 
 /**
  * Pushes the defined task objects into the array for saving during task editing.
