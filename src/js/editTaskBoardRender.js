@@ -213,7 +213,7 @@ function supplementarySubtaskEditHTML(subtask, index, indexHTML, subtasksEditArr
           </div>
           <div class="multiselect margin-bt8 pointer">
             <div class="selectBox" onclick="showCheckboxesEdit('${index}','${assignedTo}')">
-                <select required class="add-task-select">
+                <select required="" class="add-task-select">
                     <option>Select an option</option>
                 </select>
                 <div class="overSelect"></div>

@@ -49,38 +49,6 @@ function dueDateEditTask(index, dueDate) {
 }
 
 /**
- * Renders the HTML for editing a task on the board.
- *
- * @param {number} index - The index of the task to be edited.
- * @param {string} category - The category of the task.
- * @param {string} description - The description of the task.
- * @param {string} dueDate - The due date of the task.
- * @param {string} prio - The priority level of the task.
- * @param {string} title - The title of the task.
- * @param {string} boardCategory - The category for the board.
- * @param {string} assignedTo - A comma-separated list of users assigned to the task.
- * @param {string} subtasks - A comma-separated list of subtasks.
- * @param {string} subtaskStatus - A comma-separated list of subtask statuses.
- * 
- * @returns {void} This function does not return a value.
- */
-function EditTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
-    let position = document.getElementById("openTask");
-    position.innerHTML = "";
-    position.innerHTML = editTaskHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
-    CategoryColorOpenEdit(index, category);
-    subtasksRenderOpenEdit(index, subtasks);
-    checkboxIndexFalse(index);
-    dueDateEditTask(index, dueDate); 
-    subtaskUpdateEdit(index, subtaskStatus);
-    assignedToDelivery(index, assignedTo);
-    prioFilter(prio);
-}
-
-
-
-
-/**
  * Updates the subtask status array by converting a string of statuses into booleans.
  * 
  * This function takes a string of subtask statuses (comma-separated), splits it into an array, 
@@ -147,9 +115,6 @@ function addSubtaskEdit(index, subtasks) {
   subtasksRenderOpenEdit(index, showSubtasksEdit);
 }
 
-
-
-
 /**
  * Renders the subtasks for editing in the specified HTML element.
  *
@@ -173,36 +138,6 @@ function subtasksRenderOpenEdit(indexHtml, subtasks) {
     arrayForSubtasks.push(element);
   }
 }
-
-
-
-
-/**
- * Renders images for assigned users in a given HTML position and clears the previous content.
- * 
- * This function takes an index and a list of assigned users. If the list is a string, 
- * it splits the string into an array. It then loops through the list and, for each user, 
- * fetches their image URL from the `imageUrlBoard` object. It renders the image in the specified 
- * HTML element (determined by `indexHTML`) and clears any existing content in that element before rendering.
- * 
- * @param {number} indexHTML - The index used to find the HTML element where images will be rendered.
- * @param {string|string[]} assignedTo - A string (comma-separated) or an array of assigned users. 
- *                                       If it's a string, it will be split into an array.
- */
-function assignedToDeliveryRender(indexHTML, assignedTo){
-  let position = document.getElementById(`userImageBoardOpenEdit${indexHTML}`);
-  position.innerHTML = '';
-  if (Array.isArray(assignedTo)) {
-    deliveryImage = assignedTo; 
-  } else {
-    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); 
-  }
-  for (let index = 0; index < deliveryImage.length; index++) {
-    const element = deliveryImage[index];
-    const url = imageUrlBoard[element];
-    position.innerHTML += `<img class="img-24" src="${url}">`;}
-  }
-
 
 /**
  * Filters the priority level of a task and calls the corresponding edit function with the associated ID.
@@ -282,42 +217,6 @@ function handleEditEnterKey(event) {
       addSubtaskEdit();
     } 
   }
-}
-
-/**
- * Updates the task board with edited task details and navigates to the board page.
- * 
- * @param {number} index - The index of the task being edited.
- * @param {string} category - The category of the task.
- * @async
- */
-async function updateTaskBoard(index, category) {
-  defineTaskObjectsEdit(index, category);
-  let positionTask = `/tasks/${taskkeys[index]}`;
-  await saveToFirebaseEdit(positionTask);
-  resetFormStateEdit();
-  changeSite("board.html");
-}
-
-/**
- * Resets the form state after editing a task.
- */
-function resetFormStateEdit() {
-  addTaskArrayEdit = [];
-  selectedPrioEdit  = null;
-  assignedToUserArrayNamesGlobal = [];
-  assignedToUserArray = [];
-  subtasksArray = [];
-  subtasksStatusArray = [];
-  subtasksStatusArrayEdit = [];
-  subtasksArrayEdit = [];
-  subtasksedit = [];
-  usersEdit = [];
-  imageUrlsGlobal = [];
-  fetchImagesEdit = [];
-  assignedToUserArrayEdit = [];
-  assignedToUserArrayNamesGlobalEdit = [];
-  isEditingSubtask = false;
 }
 
 /**

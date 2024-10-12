@@ -101,6 +101,7 @@ function closeOpenTaskEdit(event, index) {
   openPosition.classList.add("d-none");
   openPosition.innerHTML = "";
   resetFormStateEdit();
+  upstreamHTMLrender();
 }
 
 /**

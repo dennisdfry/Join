@@ -1,28 +1,36 @@
+
 /**
- * Initializes and renders a list of checkboxes for editing tasks.
+ * Renders the HTML for editing a task on the board.
  *
- * @param {Array<{name: string}>} names - An array of objects containing names for the checkboxes.
- * Each object should have a 'name' property that is a string.
- * @param {Array<string>} imageUrls - An array of image URLs corresponding to each checkbox.
- * @param {number} indexHTML - The index used to identify the target DOM element for rendering checkboxes.
+ * @param {number} index - The index of the task to be edited.
+ * @param {string} category - The category of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} dueDate - The due date of the task.
+ * @param {string} prio - The priority level of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} boardCategory - The category for the board.
+ * @param {string} assignedTo - A comma-separated list of users assigned to the task.
+ * @param {string} subtasks - A comma-separated list of subtasks.
+ * @param {string} subtaskStatus - A comma-separated list of subtask statuses.
+ * 
+ * @returns {void} This function does not return a value.
  */
-function checkboxInitEdit(names, imageUrls, indexHTML) {
-    let position = document.getElementById(`checkboxesEdit${indexHTML}`);
-    let list = "";
-    for (let index = 0; index < names.length; index++) {
-      const element = names[index].name;
-      const imgSrc = imageUrls[index];
-      list += checkBoxRenderEdit(index, imgSrc, element);
-    }
-    position.innerHTML = list;
-  }
+function EditTaskToBoardRender(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus) {
+  let position = document.getElementById("openTask");
+  position.innerHTML = "";
+  position.innerHTML = editTaskHtml(index, category, description, dueDate, prio, title, boardCategory, assignedTo, subtasks , subtaskStatus);
+  CategoryColorOpenEdit(index, category);
+  subtasksRenderOpenEdit(index, subtasks);
+  checkboxIndexFalse(index);
+  dueDateEditTask(index, dueDate); 
+  subtaskUpdateEdit(index, subtaskStatus);
+  assignedToDelivery(index, assignedTo);
+  prioFilter(prio);
+
+}
 
 /**
  * Renders images for assigned users in a specified HTML position and clears the previous content.
- * 
- * This function takes an index and a list of assigned users. If the list is a string, 
- * it splits the string into an array. It then loops through the list and, for each user, 
- * fetches their image URL from the `imageUrlBoard` object. The function renders the image 
  * in the specified HTML element (determined by `indexHTML`) and clears any existing content 
  * in that element before rendering.
  * 
@@ -42,6 +50,32 @@ function assignedToDelivery(indexHTML, assignedTo) {
       position.innerHTML += `<img class="img-24" src="${url}">`;
       assignedToUserArray.push(element);
     }
+  }
+
+/**
+ * Renders images for assigned users in a given HTML position and clears the previous content.
+ * 
+ * This function takes an index and a list of assigned users. If the list is a string, 
+ * it splits the string into an array. It then loops through the list and, for each user, 
+ * fetches their image URL from the `imageUrlBoard` object. It renders the image in the specified 
+ * HTML element (determined by `indexHTML`) and clears any existing content in that element before rendering.
+ * 
+ * @param {number} indexHTML - The index used to find the HTML element where images will be rendered.
+ * @param {string|string[]} assignedTo - A string (comma-separated) or an array of assigned users. 
+ *                                       If it's a string, it will be split into an array.
+ */
+function assignedToDeliveryRender(indexHTML, assignedTo){
+  let position = document.getElementById(`userImageBoardOpenEdit${indexHTML}`);
+  position.innerHTML = '';
+  if (Array.isArray(assignedTo)) {
+    deliveryImage = assignedTo; 
+  } else {
+    deliveryImage = assignedTo.split(',').map(assignedTo => assignedTo.trim()); 
+  }
+  for (let index = 0; index < deliveryImage.length; index++) {
+    const element = deliveryImage[index];
+    const url = imageUrlBoard[element];
+    position.innerHTML += `<img class="img-24" src="${url}">`;}
   }
 
   /**
@@ -112,14 +146,6 @@ function checkboxIndexFalse(index) {
     expandedEdit = false;
   }
   
-
-  /**
- * Toggles the display of the user checkboxes for editing.
- * 
- * @param {number} indexHTML - The index used to identify the specific set of checkboxes to show or hide.
- *
- * @returns {void} - This function does not return a value.
- */
 /**
  * Toggles the display of the user checkboxes for editing.
  * 
@@ -132,23 +158,63 @@ function showCheckboxesEdit(indexHTML, assignedTo) {
   if (!expandedEdit) {
       checkboxes.style.display = "block";
       expandedEdit = true;
-      if (checkboxes.innerHTML.trim() === "") {
-          for (let index = 0; index < userNamesBoard.length; index++) {
-              const names = userNamesBoard[index];
-              const urls = imageUrlBoard[index];
-              checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls, indexHTML);
-          }
-          for (let i = 0; i < assignedToUserArray.length; i++) {
-              const highlight = assignedToUserArray[i];
-              assignedtoUserHighlightAddEdit(highlight);
-              let checkbox = document.getElementById(`checkbox-${highlight}`);
-              if (checkbox) {
-                  checkbox.checked = true;
-              }
+      checkboxes.innerHTML = "";
+
+      for (let index = 0; index < userNamesBoard.length; index++) {
+          const names = userNamesBoard[index];
+          const urls = imageUrlBoard[index];
+          checkboxes.innerHTML += checkBoxRenderEdit(index, names, urls, indexHTML);
+      }
+      
+      for (let i = 0; i < assignedToUserArray.length; i++) {
+          const highlight = assignedToUserArray[i];
+          assignedtoUserHighlightAddEdit(highlight);
+          let checkbox = document.getElementById(`checkbox-${highlight}`);
+          if (checkbox) {
+              checkbox.checked = true;
           }
       }
   } else {
       checkboxes.style.display = "none";
       expandedEdit = false;
   }
+}
+
+/**
+ * Updates the task board with edited task details and navigates to the board page.
+ * 
+ * @param {number} index - The index of the task being edited.
+ * @param {string} category - The category of the task.
+ * @async
+ */
+async function updateTaskBoard(index, category) {
+  defineTaskObjectsEdit(index, category);
+  let positionTask = `/tasks/${taskkeys[index]}`;
+  await saveToFirebaseEdit(positionTask);
+  resetFormStateEdit();
+  changeSite("board.html");
+}
+
+/**
+ * Resets the form state after editing a task.
+ */
+function resetFormStateEdit() {
+  addTaskArrayEdit = [];
+  selectedPrioEdit  = null;
+  assignedToUserArrayNamesGlobal = [];
+  assignedToUserArray = [];
+  subtasksArray = [];
+  subtasksStatusArray = [];
+  subtasksStatusArrayEdit = [];
+  subtasksArrayEdit = [];
+  subtasksedit = [];
+  usersEdit = [];
+  imageUrlsGlobal = [];
+  fetchImagesEdit = [];
+  assignedToUserArrayEdit = [];
+  assignedToUserArrayNamesGlobalEdit = [];
+  isEditingSubtask = false;
+  assignedToUserArray = [];
+  imageUrlBoard = [];
+  userNamesBoard= [];
 }
