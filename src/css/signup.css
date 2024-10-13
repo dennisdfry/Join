@@ -111,8 +111,9 @@ body {
 #validation-email-message,
 #validation-message {
   font-family: "Inter";
-  font-weight: 400;
+  font-weight: 700;
   color: red;
+  font-size: 12px;
 }
 .submit-signup-btn:hover {
   background-color: #29abe2;

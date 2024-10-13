@@ -293,6 +293,10 @@ body {
     align-items: center;
     height: 50vh;
   }
+
+  .summary-urgent-left img {
+    width: 40px;
+  }
 }
 
 @media (max-width: 380px) {
@@ -408,10 +412,5 @@ body {
 
   .summary-tasks-mid-divider {
     height: 80px;
-  }
-
-  .nav {
-    position: fixed;
-    top: 590px;
   }
 }
