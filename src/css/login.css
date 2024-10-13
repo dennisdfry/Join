@@ -27,7 +27,7 @@ body {
   align-items: center;
   position: absolute;
   z-index: 10;
-  background-color:rgb(246, 247, 248);
+  background-color: rgb(246, 247, 248);
   width: 100vw;
   height: 100vh;
   transition: all 1s ease;
@@ -42,7 +42,7 @@ body {
   transform: scale(0.365) translate(77px, 80px);
   width: 200px;
   height: 240px;
-  background-color:  rgb(246, 247, 248);
+  background-color: rgb(246, 247, 248);
 }
 
 .login-signup button {
@@ -174,7 +174,7 @@ body {
 
 .login-info {
   position: absolute;
-  bottom: 5%;
+  top: 94%;
 }
 
 .login-info button {
@@ -186,9 +186,9 @@ body {
 }
 
 .input-mail input:focus {
-    outline: none !important;
-    border: 1px solid #29abe2;
-  }
+  outline: none !important;
+  border: 1px solid #29abe2;
+}
 
 .input-password input:focus {
   outline: none !important;
@@ -319,7 +319,7 @@ input[type="password"]::-webkit-password-field {
     transform: scale(0.365) translate(77px, 80px);
     width: 200px;
     height: 240px;
-    background-color:  rgb(246, 247, 248);
+    background-color: rgb(246, 247, 248);
     opacity: 0;
   }
 
@@ -331,6 +331,13 @@ input[type="password"]::-webkit-password-field {
     background-color: #2a3647;
   }
 
+  .logo-shrink {
+    transform: scale(0.365) translate(77px, 80px);
+    width: 175px;
+    height: 215px;
+    background-color:  rgb(246, 247, 248);
+  }
+
   @keyframes backgroundChange {
     0% {
       background-color: #2a3647;
@@ -340,4 +347,3 @@ input[type="password"]::-webkit-password-field {
     }
   }
 }
-
