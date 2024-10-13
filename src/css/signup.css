@@ -19,7 +19,7 @@ body {
 }
 
 .signup-field {
-  width: 500px;
+  width: 598px;
   height: 65vh;
   background-color: white;
   position: absolute;
@@ -28,6 +28,10 @@ body {
   padding: 48px 88px;
   gap: 16px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form {
+  width: 422px;
 }
 
 .signup-arrow {
@@ -39,6 +43,7 @@ body {
 
 .signup-input {
   padding: 12px 21px;
+  width: 422px;
 }
 
 .input-name,
@@ -48,6 +53,14 @@ body {
   position: relative;
   display: flex;
   align-items: center;
+  width: 422px;
+}
+
+.input-name input,
+.input-mail input,
+.input-password input,
+.input-confirm-password input {
+  width: 422px;
 }
 
 .signup-input input {
