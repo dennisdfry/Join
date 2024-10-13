@@ -4,6 +4,26 @@ document.addEventListener("mouseleave", handleRotateEnd);
 document.addEventListener("dragend", handleRotateEnd);
 
 let cachedElement = null;
+let currentDraggedElement;
+/**
+ * Clears and updates the HTML content of task categories on the board.
+ * The function clears the content of predefined task categories and then
+ * reloads the board data and updates the HTML content.
+ *
+ * @async
+ */
+async function updateHTML() {
+  const categories = ["todo", "progress", "feedback", "done"];
+  for (const category of categories) {
+    const container = document.getElementById(category);
+    container.innerHTML = "";
+  }
+  try {
+    await initDataBoard();
+  } catch (error) {
+    console.error("Error updating HTML content:", error);
+  }
+}
 
 
 /**
