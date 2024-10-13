@@ -14,47 +14,6 @@ async function saveToFirebase2(path = "/tasks") {
 }
 
 /**
- * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
- */
-function addSubtask2() {
-  let input = document.getElementById("subtasks-board");
-  let inputValue = input.value.trim();
-
-  if (inputValue !== "") {
-    subtasksArray.push(inputValue);
-    input.value = "";
-    subtasksStatusArray.push(false);
-    updateSubtasksList2();
-    resetSubtaskInput2();
- }
-}
-
-/**
- * Deletes a subtask and updates the UI accordingly.
- *
- * @param {number} index - The index of the subtask to delete.
- */
-function deleteSubtask2(index) {
-  let position = document.getElementById(`supplementarySubtask2${index}`);
-  position.innerHTML = "";
-  subtasksArray.splice([index], 1);
-  updateSubtasksList2();
-}
-
-/**
- * Enables editing mode for a specific subtask by updating its HTML content.
- *
- * @param {number} index - The index of the subtask to edit.
- */
-function editSubtask2(index) {
-  let position = document.getElementById(`supplementarySubtask2${index}`);
-  position.classList.remove("subtasks-edit");
-  position.classList.add("subtasks-edit-input");
-  let arrayPosition = subtasksArray[index];
-  position.innerHTML = editSubtaskHTML2(index, arrayPosition);
-}
-
-/**
  * Handles the submission of the task form, including validation and saving the task data to Firebase.
  * @param {Event} event - The form submit event.
  * @returns {Promise<void>}

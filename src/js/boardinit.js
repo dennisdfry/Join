@@ -72,25 +72,23 @@ function upstreamHTMLrender() {
     progressBar(index, subtasks, subtaskStatus);
   }
 }
-
-/**
+  /**
  * Updates the user image display on the board for a specific task based on assigned users.
  *
  * @param {number} indexHTML - The index of the task in the HTML to display user images.
  * @param {Array<number>} assignedTo - An array of indices representing users assigned to the task.
  */
-function subtasksRenderBoard(indexHtml, subtasks) {
-  let positionOfSubtasksLength = document.querySelector(`.subtasksLength${indexHtml}`);
-  if (positionOfSubtasksLength) {
-    if (Array.isArray(subtasks)) {
-      positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
-    } else {
-      positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
+  function subtasksRenderBoard(indexHtml, subtasks) {
+    let positionOfSubtasksLength = document.querySelector(`.subtasksLength${indexHtml}`);
+    if (positionOfSubtasksLength) {
+      if (Array.isArray(subtasks)) {
+        positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">${subtasks.length} Subtasks</p>`;
+      } else {
+        positionOfSubtasksLength.innerHTML = `<p class="subtasks-board-task-text">0 Subtasks</p>`;
+      }
     }
   }
-}
-
-
+  
 /**
  * Loads and updates the completion status of subtasks based on the provided status string.
  *
