@@ -387,13 +387,14 @@ body {
   .summary-tasks-up {
     height: 80px;
     margin: 5px;
+    width: 300px;
   }
 
   .summary-tasks-mid {
     height: 80px;
     margin: 5px;
     border-radius: 20px;
-    width: 340px;
+    width: 300px;
   }
 
   .summary-tasks-mid-right-date {
