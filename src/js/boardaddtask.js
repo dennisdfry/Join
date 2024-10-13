@@ -50,46 +50,6 @@ function validatePriorityAddTask2() {
 }
 
 /**
- * Opens the form to add a new task.
- *
- * Removes the hidden and non-display classes from the add-task form to make it visible.
- */
-function openAddForm(event) {
-  event.preventDefault();
-  document.getElementById("add-task-form").classList.remove("vis-hidden");
-  document.getElementById("add-task-form").classList.remove("d-none");
-  let overlay = document.getElementById("overlay-form");
-  overlay.classList.remove("d-none");
-  let formField = document.getElementById("add-task-form");
-
-  formField.classList.remove("d-none", "hidden");
-  formField.style.cssText =
-    "visibility: visible; transform: translateX(100vw); animation: moveIn 200ms ease-in forwards";
-  document.addEventListener("click", outsideClickHandler, true);
-  document.addEventListener("keydown", handleEnterKey);
-  prio2(2);
-}
-
-/**
- * Closes the form.
- * Removes the non-display class from the add-task form, making it visible.
- */
-function closeAddForm() {
-  document.getElementById("overlay-form").classList.add("d-none");
-  let formField = document.getElementById("add-task-form");
-
-  formField.classList.remove("d-none");
-  formField.style.animation = "moveOut 200ms ease-out forwards";
-  setTimeout(() => {
-    formField.classList.add("hidden", "d-none");
-    formField.style.cssText = "visibility: hidden; transform: translateX(100vw)";
-  }, 100);
-  document.removeEventListener("click", outsideClickHandler, true);
-  document.removeEventListener("keydown", handleEnterKey);
-  resetUIAddTask2(formField);
-}
-
-/**
  * Handles outside click detection.
  *
  * This function listens for clicks outside the "add-task" form. If the click occurs
@@ -188,24 +148,6 @@ async function checkboxInit2(names, imageUrls) {
     list += checkBoxRender2(index, imgSrc, element);
   }
   position.innerHTML = list;
-}
-
-/**
- * Returns a string of HTML to render a checkbox with an image and name.
- * @param {number} index - The index of the checkbox.
- * @param {string} imgSrc - The URL of the image.
- * @param {string} element - The name associated with the checkbox.
- * @returns {string} - The HTML string for the checkbox.
- */
-function checkBoxRender2(index, imgSrc, element) {
-  return `
-    <label class="checkBoxFlex" for="checkbox2-${index}" id="checkboxColor2${index}">
-        <div class="checkBoxImg">
-            <img id="assignedToUserImageBorde2${index}" src="${imgSrc}" alt="" />
-            ${element}
-        </div>
-        <input class="assignedToUserCheckbox img-24" type="checkbox" id="checkbox2-${index}" value="${element}" onclick="assignedToUser2('${index}','${element}','${imgSrc}')" />
-    </label>`;
 }
 
 /**
@@ -348,26 +290,6 @@ function pushTaskObjectsToArray2(taskTitle, taskDescription, dueDateTask, taskCa
 }
 
 /**
- * Updates the priority button styling.
- *
- * Applies and removes priority classes from buttons based on the provided ID.
- *
- * @param {string} id - The ID of the button to update.
- */
-function prio2(id) {
-  const buttons = document.querySelectorAll(".add-task-prio-button-container button");
-
-  buttons.forEach((button) => {
-    button.classList.remove("add-task-prio-button-urgent", "add-task-prio-button-medium", "add-task-prio-button-low");
-    button.classList.add("add-task-prio-button");
-  });
-
-  let position = document.getElementById(`prio2Button${id}`);
-  prioIdCheck2(id, position);
-  selectedPrio = id;
-}
-
-/**
  * Updates the priority array and button styles based on the selected priority.
  * @param {number} id - The ID of the selected priority button.
  * @param {HTMLElement} position - The HTML element of the selected button.
@@ -385,3 +307,19 @@ function prioIdCheck2(id, position) {
   }
   position.classList.remove("add-task-prio-button");
 }
+
+  /**
+   * Sets the current date as the default value for the due date input if it's empty.
+   */
+  function setTodayDateAddTaskBoard() {
+    const dateInput = document.getElementById("dueDate2");
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.setAttribute("min", today);
+    const nextYear = new Date();
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+    const maxDate = nextYear.toISOString().split("T")[0];
+    dateInput.setAttribute("max", maxDate);
+    if (!dateInput.value) {
+      dateInput.value = today;
+    }
+  }

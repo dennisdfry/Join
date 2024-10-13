@@ -1,76 +1,4 @@
-  
-  /**
-   * Displays the controls for managing subtasks, updating the input field styles and controls.
-   */
-  /**
-   * Displays the controls for managing subtasks, updating the input field styles and controls.
-   */
-  function showSubtaskControls2() {
-    document.getElementById("subtasks-board").classList.remove("add-task-input");
-    document.getElementById("subtasks-board").classList.add("subtasks-input");
-    let position = document.getElementById("subtasksControl2");
-    position.innerHTML = `<button onclick="resetSubtaskInput2()" type="button" class="subtask-button2">
-              <img class="img-24 " src="../public/img/closeAddTask.png" alt="Reset">
-          </button>
-          <div class="seperator-subtasks"></div>
-          <button onclick="addSubtask2()" type="button" class="subtask-button2">
-              <img class="img-24 " src="../public/img/checkAddTask.png" alt="Add">
-          </button>`;
-  }
-  
-  /**
-   * Resets the subtask input field and returns it to its initial state.
-   */
-  function resetSubtaskInput2() {
-    let input = document.getElementById("subtasks-board");
-    input.value = "";
-    document.getElementById("subtasks-board").classList.add("add-task-input");
-    document.getElementById("subtasks-board").classList.remove("subtasks-input");
-    let position = document.getElementById("subtasksControl2");
-    position.innerHTML = `<button onclick="showSubtaskControls2()" type="button" id="subtasksPlus2" class="subtask-button2">
-                                    +
-                                </button>`;
-  }
-  
-  /**
-   * Updates the displayed list of subtasks based on the current contents of the subtasksArray.
-   */
-  function updateSubtasksList2() {
-    let subtasksPosition = document.getElementById("subtasksPosition2");
-    if (subtasksPosition) {
-      subtasksPosition.innerHTML = "";
-      for (let index = 0; index < subtasksArray.length; index++) {
-        const element = subtasksArray[index];
-        subtasksPosition.innerHTML += `
-                 <li id="supplementarySubtask2${index}" class="d-flex-between subtasks-edit bradius8">
-            <span>${element}</span>
-            <div class="d-flex item-center">
-                <img class="pointer img-24 p-4 " onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
-                <div class="seperator-subtasks"></div>
-                <img class="pointer img-24 p-4 " onclick="editSubtask2(${index})" src="../public/img/edit.png">
-            </div>
-        </li>`;
-      }
-    }
-  }
-  
-  /**
-   * Generates and returns the HTML for the subtask editing mode.
-   *
-   * @param {number} index - The index of the subtask.
-   * @param {string} arrayPosition - The current value of the subtask.
-   * @returns {string} - The HTML string for editing the subtask.
-   */
-  function editSubtaskHTML2(index, arrayPosition) {
-    return `
-    <input class="inputAddTaskSubtasks fs-16" id="inputAddTaskSubtasks2${index}" required minlength="2" class="" value="${arrayPosition}">
-    <div class="d-flex item-center">
-        <img class="img-24 pointer p-4" onclick="deleteSubtask2(${index})" src="../public/img/delete.png">
-        <div class="seperator-subtasks"></div>
-        <img class="img-24 pointer p-4" onclick="validateAndFinish2(${index})" src="../public/img/checkAddTask.png" alt="Add">
-    </div> `;
-  }
-  
+    
   /**
    * Clears the list of displayed subtasks by resetting the innerHTML of the subtasksPosition element.
    */
@@ -102,22 +30,7 @@
     subtasksArray[index] = input.value;
     updateSubtasksList2();
   }
-  
-  /**
-   * Sets the current date as the default value for the due date input if it's empty.
-   */
-  function setTodayDateAddTaskBoard() {
-    const dateInput = document.getElementById("dueDate2");
-    const today = new Date().toISOString().split("T")[0];
-    dateInput.setAttribute("min", today);
-    const nextYear = new Date();
-    nextYear.setFullYear(nextYear.getFullYear() + 1);
-    const maxDate = nextYear.toISOString().split("T")[0];
-    dateInput.setAttribute("max", maxDate);
-    if (!dateInput.value) {
-      dateInput.value = today;
-    }
-  }
+
 
   /**
  * Adds a new subtask to the subtasks array if the input is not empty, then updates the UI.
