@@ -334,7 +334,7 @@
   }
 
   .add-task-title-inputfield {
-    width: 95%;
+    width: 100%;
     height: 5vh;
     padding-left: 1vw;
     padding-right: 1vw;
@@ -357,7 +357,7 @@
 
   .selectBox select {
     font-size: 4vw;
-    width: 95%;
+    width: 100%;
     height: 6vh;
     padding-left: 1vw;
     border-radius: 4px;
@@ -365,11 +365,11 @@
 
   #taskCategory,
   #dueDate {
-    width: 95% !important;
+    width: 100% !important;
   }
 
   .input-with-button {
-    width: 95% !important;
+    width: 100% !important;
   }
 
   label,
@@ -380,7 +380,7 @@
   }
 
   .add-task-textarea {
-    width: 95%;
+    width: 100%;
     min-height: 10vh;
     max-height: 12vh;
     padding-left: 1vw;
