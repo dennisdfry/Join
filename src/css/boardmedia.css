@@ -126,6 +126,10 @@
   .search-task-web {
     width: 100%;
   }
+
+  .dots-parent-container {
+    display: flex !important;
+  }
 }
 
 @media (max-width: 1050px) {
