@@ -72,7 +72,7 @@ function validatePassword() {
   validationMessage.classList.add('d-none');
 
   if (password.length < 6) {
-    validationMessage.textContent = "Das Passwort muss mindestens 6 Zeichen lang sein.";
+    validationMessage.textContent = "Password has to be at least 6 letters.";
     validationMessage.classList.remove('d-none');
   } else if (password !== "" && confirmPassword !== "") {
     if (password !== confirmPassword) {
