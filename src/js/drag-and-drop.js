@@ -33,6 +33,7 @@ async function updateHTML() {
  */
 function startDragging(taskkey) {
   currentDraggedElement = taskkey;
+  console.log(currentDraggedElement);
 }
 
 
