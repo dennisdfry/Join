@@ -112,7 +112,7 @@ body {
 #validation-message {
   font-family: "Inter";
   font-weight: 400;
-  color: red; 
+  color: red;
 }
 .submit-signup-btn:hover {
   background-color: #29abe2;

@@ -112,7 +112,7 @@ function passwordValidation(password, confirm, checkbox) {
   const messageElement = document.getElementById('validation-message');
   return new Promise((resolve) => {
     if (password !== confirm) {
-      messageElement.textContent = "Passwords do not match.";
+      messageElement.textContent = "Passwords do not match.Try agian.";
       messageElement.classList.remove('d-none');
       resolve(false);
     } else if (!checkbox) {
