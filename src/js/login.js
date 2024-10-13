@@ -35,10 +35,14 @@ document.getElementById("login-form").addEventListener("submit", async function 
     await firebase.auth().signInWithEmailAndPassword(email, password);
     goToSummary();
   } catch (error) {
-    toggleElement(e, ".error-message", "d-none");
-    toggleElement(e, ".input-password", "input-invalid");
-    toggleElement(e, ".input-mail", "input-invalid");
-  }
+    const errorMessageElement = document.getElementById("error-message");
+    errorMessageElement.classList.remove("d-none");
+    errorMessageElement.textContent = "Check your email and password. Please try again.";
+    let inputPassword = document.querySelector(".input-password");
+    let inputEmail = document.querySelector(".input-mail");
+    inputPassword.classList.add("input-invalid");
+    inputEmail.classList.add("input-invalid");
+}
 });
 
 /**
