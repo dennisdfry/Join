@@ -31,7 +31,8 @@ body {
 }
 
 .signup-form {
-  width: 422px;
+  width: 100%;
+  max-width: 442px;
 }
 
 .signup-arrow {
@@ -43,7 +44,8 @@ body {
 
 .signup-input {
   padding: 12px 21px;
-  width: 422px;
+  width: 100%;
+  max-width: 442px;
 }
 
 .input-name,
@@ -53,7 +55,7 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  width: 422px;
+  width: 100%;
 }
 
 .input-name input,
@@ -176,7 +178,7 @@ body {
 
 .signup-info {
   position: absolute;
-  top: 94%;
+  top: 90%;
 }
 
 .signup-info button {
@@ -278,12 +280,4 @@ input[type="password"]::-webkit-password-field {
   .signup-checkbox {
     padding: 10px 40px;
   }
-
-.input-name,
-.input-mail,
-.input-password,
-.input-confirm-password,
-form input {
-  max-width: 240px;
-}
 }
