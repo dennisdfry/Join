@@ -159,8 +159,8 @@
 
   .add-task-finish-button-container {
     background-color: #f6f7f8;
-    position: absolute;
-    bottom: -12%;
+    position: relative;
+    top: 85%;
     padding-bottom: 2px;
     transform: none;
   }
@@ -328,7 +328,7 @@
   .add-task-finish-button-container {
     background-color: #f6f7f8;
     position: relative;
-    top: 115%;
+    top: 108%;
     left: 50%;
     padding-bottom: 2px;
   }
