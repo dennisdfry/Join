@@ -65,7 +65,7 @@
     position: absolute;
     border-radius: 10px;
     z-index: 1;
-    width: 475px;
+    width: 100%;
     height: 200px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollen für den Y-Achse (vertikal) */
