@@ -16,7 +16,7 @@
 
   .add-task-finish-button-container {
     position: absolute;
-    bottom: -20%;
+    bottom: -25%;
     left: 0;
   }
 
@@ -78,7 +78,7 @@
   }
 
   .add-task-finish-button-container {
-     left: 1px !important;
+    left: 1px !important;
   }
 
   .add-task-finish-section2 {
@@ -189,7 +189,7 @@
   }
 
   #taskCategory {
-    width:  100% !important;
+    width: 100% !important;
   }
 
   .subtasksList {
@@ -224,7 +224,7 @@
   }
 
   .add-task-textarea {
-    width:  50% !important;
+    width: 50% !important;
     min-height: 80px;
     max-height: 88px;
     gap: 8px;
@@ -401,5 +401,13 @@
   .add-task-form-right-section,
   .add-task-form-left-section {
     width: 90vw;
+  }
+}
+@media (max-width: 380px) {
+  .add-task-finish-button-container {
+    top: 130%;
+  }
+  .add-task-finish-section {
+    top: 155%;
   }
 }
