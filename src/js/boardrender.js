@@ -26,16 +26,16 @@ function positionOfHTMLBlockBoard(
   ) {
     let position = document.getElementById(`${boardCategory}`);
     position.innerHTML += `
-      <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}')" onclick="openTaskToBoardRender('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}', '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
+      <div id="parentContainer${index}" draggable="true" ondragstart="startDragging('${taskkeys[index]}', '${index}')" onclick="openTaskToBoardRender('${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}', '${assignedTo}', '${subtasks}', '${subtaskStatus}')" class="board-task-container pointer bradius24 d-flex flex-d-col content-even mg-btt25"> 
         <div class="d-flex-between" style="position: relative;">
           <h1 id="categoryColor${index}" class="txt-center fs-16 mg-block-none bradius8 color-wh">${category}</h1>
           <img src="/public/img/dots.png" id="dots-parent-container${index}" class="dots-parent-container d-none" onclick="toggleElementDropDown(event, '#taskDropdown${index}', 'd-none')">
           <div id="taskDropdown${index}" class="task-dropdown d-flex-start flex-d-col p-10 d-none">
             <span>Move to:</span>
-            <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'todo')">ToDo</a>
-            <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'progress')">Progress</a>
-            <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'feedback')">Feedback</a>
-            <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'done')">Done</a>
+            <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'todo', '${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')">ToDo</a>
+            <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'progress', '${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')">Progress</a>
+            <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'feedback', '${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')">Feedback</a>
+            <a href="#" onclick="moveTaskToCategory('${taskkeys[index]}', 'done', '${index}', '${category}', '${description}', '${dueDate}', '${prio}', '${title}', '${boardCategory}' , '${assignedTo}', '${subtasks}', '${subtaskStatus}')">Done</a>
           </div>
           <img onclick="closeOpenTask(${index})" id="closeOpenTask${index}" class="d-none" src="../public/img/Close.png">
         </div>

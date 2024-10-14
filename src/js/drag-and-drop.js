@@ -5,6 +5,7 @@ document.addEventListener("dragend", handleRotateEnd);
 
 let cachedElement = null;
 let currentDraggedElement;
+let DraggingId ;
 /**
  * Clears and updates the HTML content of task categories on the board.
  * The function clears the content of predefined task categories and then
@@ -12,17 +13,10 @@ let currentDraggedElement;
  *
  * @async
  */
-async function updateHTML() {
-  const categories = ["todo", "progress", "feedback", "done"];
-  for (const category of categories) {
-    const container = document.getElementById(category);
-    container.innerHTML = "";
-  }
-  try {
-    await initDataBoard();
-  } catch (error) {
-    console.error("Error updating HTML content:", error);
-  }
+function updateHTML(newCategory, DraggIndex ) {
+    const element = taskArrayBoard[DraggIndex];  
+    taskArrayBoard[DraggIndex].boardCategory = newCategory; 
+    upstreamHTMLrender() 
 }
 
 
@@ -31,9 +25,9 @@ async function updateHTML() {
  *
  * @param {string} taskkey - The unique key of the task being dragged.
  */
-function startDragging(taskkey) {
+function startDragging(taskkey, index) {
   currentDraggedElement = taskkey;
-  console.log(currentDraggedElement);
+  DraggingId = index
 }
 
 
@@ -91,7 +85,7 @@ function onDrop(event) {
  * @param {string} category - The new category to move the task to.
  * @async
  */
-async function moveTo(category) {
+async function moveTo(category, index) {
   if (currentDraggedElement) {
     task[currentDraggedElement]["boardCategory"] = category;
 
@@ -99,8 +93,7 @@ async function moveTo(category) {
       id: currentDraggedElement,
       boardCategory: category,
     });
-
-    await updateHTML();
+    updateHTML(category, DraggingId);
 
     let dragArea = document.getElementById(category);
     dragArea.classList.remove("highlight");
@@ -169,7 +162,7 @@ function handleDragLeave(event, areaId) {
  * @param {string} taskKey - The unique key of the task being moved.
  * @param {string} newCategory - The new category to move the task to.
  */
-async function moveTaskToCategory(taskKey, newCategory) {
+async function moveTaskToCategory(taskKey, newCategory, index) {
   event.stopPropagation();
   try {
     task[taskKey]["boardCategory"] = newCategory;
@@ -177,7 +170,7 @@ async function moveTaskToCategory(taskKey, newCategory) {
       id: taskKey,
       boardCategory: newCategory,
     });
-    await updateHTML();
+    updateHTML(newCategory, index );
     updateStatusMessages();
   } catch (error) {
     console.error("Error moving task:", error);
