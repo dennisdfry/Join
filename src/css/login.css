@@ -202,6 +202,7 @@ body {
 }
 
 .error-message {
+  font-family: 'Inter';
   color: red;
   font-size: 12px;
   width: 422px;
