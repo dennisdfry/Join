@@ -88,13 +88,18 @@ document.getElementById('mail').addEventListener('blur', validateEmail);
  * Validates the email input field and displays a message if the email format is invalid.
  */
 function validateEmail() {
-  const email = document.getElementById('mail').value;
-  const validationMessage = document.getElementById('validation-email-message');
-  
+  const email = document.getElementById('mail').value.trim();
+  const validationMessage = document.getElementById('validation-email-message');  
   validationMessage.classList.add('d-none');
-
-  if (!email.includes('@')) {
-    validationMessage.textContent = "Please enter a valid format";
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (email === "") {
+    validationMessage.textContent = "Email field cannot be empty.";
+    validationMessage.classList.remove('d-none');
+  } else if (!email.includes('@')) {
+    validationMessage.textContent = "Email must contain '@'.";
+    validationMessage.classList.remove('d-none');
+  } else if (!emailPattern.test(email)) {
+    validationMessage.textContent = "Please enter a valid email address.";
     validationMessage.classList.remove('d-none');
   }
 }

@@ -201,6 +201,15 @@ body {
   border-radius: 10px;
 }
 
+#validation-pw-message,
+#validation-mail-message,
+#validation-message {
+  font-family: "Inter";
+  font-weight: 700;
+  color: red;
+  font-size: 12px;
+}
+
 .error-message {
   font-family: 'Inter';
   color: red;

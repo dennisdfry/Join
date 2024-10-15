@@ -45,6 +45,28 @@ document.getElementById("login-form").addEventListener("submit", async function 
 }
 });
 
+document.getElementById('email').addEventListener('blur', validateEmail);
+
+/**
+ * Validates the email input field and displays a message if the email format is invalid.
+ */
+function validateEmail() {
+  const email = document.getElementById('email').value.trim();
+  const validationMessage = document.getElementById('validation-mail-message');  
+  validationMessage.classList.add('d-none');
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (email === "") {
+    validationMessage.textContent = "Email field cannot be empty.";
+    validationMessage.classList.remove('d-none');
+  } else if (!email.includes('@')) {
+    validationMessage.textContent = "Email must contain '@'.";
+    validationMessage.classList.remove('d-none');
+  } else if (!emailPattern.test(email)) {
+    validationMessage.textContent = "Please enter a valid email address.";
+    validationMessage.classList.remove('d-none');
+  }
+}
+
 /**
  * Shrinks the login logo by applying a CSS class that scales it down 
  * and moves it to the top-left corner. Also makes the background transparent.
