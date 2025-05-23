@@ -304,9 +304,14 @@
 
 .edit-board-form {
   position: relative;
-  height: 80%;
+  max-height: 80vh;    
   width: 100%;
   flex-grow: 1;
+  overflow-y: auto;  
+}
+
+.edit-board-form::-webkit-scrollbar {
+  display: none;
 }
 
 .edit-board-form2 {
